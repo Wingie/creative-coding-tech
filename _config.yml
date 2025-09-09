@@ -23,6 +23,10 @@ social:
 
 author: Wingston Sharon Wilson
 
+# Exclude from processing
+exclude:
+  - ppts
+
 # Chirpy theme settings
 paginate: 10
 
