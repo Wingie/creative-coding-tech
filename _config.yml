@@ -1,4 +1,40 @@
-theme: minima
-author: Wingston Sharon
+theme: jekyll-theme-chirpy
+lang: en
+timezone: America/New_York
+
 title: Creative Coding & Technology
-description: Posting about the Intersectionality of Creative Coding and Technology
+tagline: Exploring the intersection of music, machine learning, and live coding
+
+# Site logo
+avatar: /logo.png
+description: >-
+  A blog about creative coding, live music with Sonic Pi, machine learning applications in audio,
+  and the intersectionality of technology and musical expression.
+
+url: ""
+
+github:
+  username: wingie
+
+social:
+  name: Wingston Sharon Wilson
+  email: example@domain.com
+  links:
+    - https://github.com/wingie
+
+author: Wingston Sharon Wilson
+
+# Chirpy theme settings
+paginate: 10
+
+# Jekyll Archives
+jekyll-archives:
+  enabled: 
+    - categories
+    - tags
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    category: /categories/:name/
+    tag: /tags/:name/

@@ -1,57 +1,114 @@
-<header>
+# Creative Coding & Technology Blog
 
-<!--
-  <<< Author notes: Course header >>>
-  Include a 1280×640 image, course title in sentence case, and a concise description in emphasis.
-  In your repository settings: enable template repository, add your 1280×640 social image, auto delete head branches.
-  Add your open source license, GitHub uses MIT license.
--->
+![Coding.Algo.Rhythmz](logo.png)
 
-# GitHub Pages
+A Jekyll blog exploring the intersection of music, machine learning, and live coding. This site covers topics like Sonic Pi, Ableton Live, ML applications in audio, and the intersectionality of technology and musical expression.
 
-_Create a site or blog from your GitHub repositories with GitHub Pages._
+## 🚀 Quick Start
 
-</header>
+### Prerequisites
+- Ruby 3.3.0 (managed via rbenv)
+- Bundler
+- Jekyll
 
-<!--
-  <<< Author notes: Finish >>>
-  Review what we learned, ask for feedback, provide next steps.
--->
+### Development Setup
 
-## Finish
+1. **Clone the repository**
+```bash
+git clone <repository-url>
+cd creative-coding-tech
+```
 
-_Congratulations friend, you've completed this course!_
+2. **Install dependencies**
+```bash
+bundle install
+```
 
-<img src=https://octodex.github.com/images/constructocat2.jpg alt=celebrate width=300 align=right>
+3. **Serve locally**
+```bash
+bundle exec jekyll serve --livereload
+```
 
-Your blog is now live and has been deployed!
+Visit http://127.0.0.1:4000 to view the site locally.
 
-Here's a recap of all the tasks you've accomplished in your repository:
+## 🎨 Features
 
-- You enabled GitHub Pages.
-- You selected a theme using the config file.
-- You learned about proper directory format and file naming conventions in Jekyll.
-- You created your first blog post with Jekyll!
+- **Chirpy Theme**: Professional Jekyll theme optimized for technical writing
+- **Live Coding Focus**: Specialized content about Sonic Pi and algorithmic music
+- **PPT Integration**: Symlinked presentation content from `/ppts/` directory
+- **Categories & Tags**: Organized content with music, coding, and tutorial categorization
 
-### What's next?
+## 📁 Project Structure
 
-- Keep working on your GitHub Pages site... we love seeing what you come up with!
-- We'd love to hear what you thought of this course [in our discussion board](https://github.com/orgs/skills/discussions/categories/github-pages).
-- [Take another GitHub Skills course](https://github.com/skills).
-- [Read the GitHub Getting Started docs](https://docs.github.com/en/get-started).
-- To find projects to contribute to, check out [GitHub Explore](https://github.com/explore).
+```
+.
+├── _posts/          # Blog posts (YYYY-MM-DD-title.md format)
+├── _plugins/        # Chirpy theme plugins
+├── _tabs/           # Navigation tabs (About, Archives, etc.)
+├── ppts/            # Symlink to creative-coding-ppts directory
+├── logo.png         # Site logo/avatar
+├── _config.yml      # Jekyll configuration
+└── Gemfile          # Ruby dependencies
+```
 
-<footer>
+## 📝 Content Areas
 
-<!--
-  <<< Author notes: Footer >>>
-  Add a link to get support, GitHub status page, code of conduct, license link.
--->
+### Current Topics
+- **Live Coding with Sonic Pi**: Real-time music programming
+- **Machine Learning in Audio**: ML applications for music generation
+- **Algorithmic Composition**: Code-driven music creation
+- **Creative Technology**: Intersection of art and programming
+
+### Planned Content
+- Ableton Live integration tutorials
+- Real-time audio feature analysis
+- Reinforcement learning for music
+- Interactive audio visualizations
+
+## 🛠 Development Commands
+
+```bash
+# Install dependencies
+bundle install
+
+# Serve with live reload
+bundle exec jekyll serve --livereload
+
+# Build for production
+bundle exec jekyll build
+
+# Update gems
+bundle update
+```
+
+## 🎯 Ruby Environment
+
+This project uses:
+- **Ruby**: 3.3.0 (via rbenv)
+- **Jekyll**: ~4.3
+- **Theme**: jekyll-theme-chirpy ~7.3
+
+### Fixing rbenv Issues
+If you encounter rbenv shim issues:
+```bash
+rm ~/.rbenv/shims/.rbenv-shim
+rbenv rehash
+```
+
+## 📚 External Resources
+
+- **Presentations**: Content sourced from `/Users/wingston/code/pi-jams/creative-coding-ppts`
+- **GitHub**: [github.com/wingie](https://github.com/wingie)
+- **Sonic Pi Community**: [in-thread.sonic-pi.net](https://in-thread.sonic-pi.net)
+
+## 🤝 Contributing
+
+This is a personal blog, but feedback and suggestions are welcome through issues or discussions.
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-Get help: [Post in our discussion board](https://github.com/orgs/skills/discussions/categories/github-pages) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
-
-&copy; 2023 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
-
-</footer>
+*Exploring the intersectionality of creative coding and technology* 🎵⚡💻
