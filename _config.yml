@@ -23,6 +23,8 @@ social:
 
 author: Wingston Sharon Wilson
 
+theme: jekyll-theme-chirpy
+
 # Exclude from processing
 exclude:
   - ppts
