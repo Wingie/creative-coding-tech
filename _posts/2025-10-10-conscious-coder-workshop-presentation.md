@@ -17,13 +17,65 @@ This isn't just another coding bootcamp. It's about **conscious creation over mi
 
 ---
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "The Conscious Coder: Build a Smart Greenhouse with micro:bit",
+  "description": "Learn conscious coding with our 8-week micro:bit smart greenhouse workshop. From sensors to sustainability—build tech that serves the planet through integral engineering.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Creative Coding & Technology",
+    "url": "https://creativecodingtech.com",
+    "email": "workshops@creativecodingtech.com"
+  },
+  "courseCode": "CC-001",
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "in person",
+    "courseWorkload": "PT32H",
+    "location": {
+      "@type": "Place",
+      "name": "Amsterdam",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Amsterdam",
+        "addressCountry": "NL"
+      }
+    },
+    "instructor": {
+      "@type": "Person",
+      "name": "Wingston Sharon Wilson"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "category": "Paid",
+    "priceCurrency": "USD",
+    "price": "320-640",
+    "availability": "https://schema.org/InStock",
+    "url": "https://creativecodingtech.com/workshops/presentations/2025/10/10/conscious-coder-workshop-presentation.html",
+    "validFrom": "2025-10-10"
+  },
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "mailto:workshops@creativecodingtech.com",
+    "availableLanguage": "en"
+  },
+  "keywords": ["conscious coding", "sustainable technology", "micro:bit", "smart greenhouse", "environmental programming", "IoT"],
+  "educationalLevel": "Beginner",
+  "teaches": ["micro:bit programming", "Sensor integration", "Environmental monitoring", "Sustainable engineering", "Integral theory applied to code"]
+}
+</script>
+
 <div class="presentation-container">
   <iframe
     src="/assets/workshops/conscious-coder/index.html"
     class="workshop-presentation"
     allowfullscreen
     allow="fullscreen"
-    title="The Conscious Coder Workshop Presentation">
+    title="The Conscious Coder Workshop - Interactive presentation on sustainable coding and smart greenhouse building with micro:bit"
+    aria-label="Full workshop presentation with slides on conscious coding, micro:bit hardware, and environmental programming">
   </iframe>
 </div>
 

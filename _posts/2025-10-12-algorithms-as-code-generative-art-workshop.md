@@ -5,6 +5,7 @@ date: 2025-10-12 09:00:00 -0400
 categories: [workshops, presentations]
 tags: [generative-art-workshop, creative-coding, p5js-course, algorithmic-art, visual-programming, computational-creativity, procedural-art, interactive-art]
 description: "Master generative art and creative coding with p5.js in our comprehensive workshop. Learn algorithmic techniques for visual programming—perfect for artists, programmers, and designers. No coding experience required."
+canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/12/algorithms-as-code-generative-art-workshop.html"
 pin: true
 ---
 
@@ -16,13 +17,65 @@ This isn't about writing software—it's about **reclaiming algorithms for aesth
 
 ---
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Algorithms as Code: Generative Art & Creative Coding with p5.js",
+  "description": "Master generative art and creative coding with p5.js in our comprehensive workshop. Learn algorithmic techniques for visual programming—perfect for artists, programmers, and designers. No coding experience required.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Creative Coding & Technology",
+    "url": "https://creativecodingtech.com",
+    "email": "workshops@creativecodingtech.com"
+  },
+  "courseCode": "AC-001",
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "in person",
+    "courseWorkload": "PT32H",
+    "location": {
+      "@type": "Place",
+      "name": "Amsterdam",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Amsterdam",
+        "addressCountry": "NL"
+      }
+    },
+    "instructor": {
+      "@type": "Person",
+      "name": "Wingston Sharon Wilson"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "category": "Paid",
+    "priceCurrency": "USD",
+    "price": "480-960",
+    "availability": "https://schema.org/InStock",
+    "url": "https://creativecodingtech.com/workshops/presentations/2025/10/12/algorithms-as-code-generative-art-workshop.html",
+    "validFrom": "2025-10-12"
+  },
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "mailto:workshops@creativecodingtech.com",
+    "availableLanguage": "en"
+  },
+  "keywords": ["generative art", "creative coding", "p5.js", "algorithmic art", "visual programming", "computational creativity"],
+  "educationalLevel": "Beginner",
+  "teaches": ["p5.js fundamentals", "Particle systems", "Fractals", "Cellular automata", "L-systems", "Generative typography", "Interactive art systems"]
+}
+</script>
+
 <div class="presentation-container">
   <iframe
     src="/assets/workshops/algorithms-as-code/index.html"
     class="workshop-presentation"
     allowfullscreen
     allow="fullscreen"
-    title="Algorithms as Code: Generative Art & Creative Coding Workshop Presentation">
+    title="Algorithms as Code Workshop - Interactive presentation on generative art and creative coding with p5.js, including particle systems, fractals, and algorithmic techniques"
+    aria-label="Full workshop presentation with slides on using code as a medium for visual art and computational creativity">
   </iframe>
 </div>
 

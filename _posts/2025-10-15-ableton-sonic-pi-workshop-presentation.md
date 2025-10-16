@@ -5,6 +5,7 @@ date: 2025-10-15 14:00:00 -0400
 categories: [workshops, presentations]
 tags: [ableton-live-workshop, sonic-pi-tutorial, live-coding-music, hybrid-performance, electronic-music-production, algorave, MIDI-OSC-integration, creative-coding-music]
 description: "Learn to integrate Sonic Pi live coding with Ableton Live production in this 8-session workshop. Build hybrid performance setups for clubs and algoraves."
+canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/15/ableton-sonic-pi-workshop-presentation.html"
 pin: true
 ---
 
@@ -16,13 +17,65 @@ This isn't about choosing between code and clips—it's about **mastering both p
 
 ---
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Ableton Live + Sonic Pi: Hybrid Live Performance",
+  "description": "Learn to integrate Sonic Pi live coding with Ableton Live production in this 8-session workshop. Build hybrid performance setups for clubs and algoraves combining algorithmic composition with professional production.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Creative Coding & Technology",
+    "url": "https://creativecodingtech.com",
+    "email": "workshops@creativecodingtech.com"
+  },
+  "courseCode": "AS-001",
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "in person",
+    "courseWorkload": "PT32H",
+    "location": {
+      "@type": "Place",
+      "name": "Amsterdam",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Amsterdam",
+        "addressCountry": "NL"
+      }
+    },
+    "instructor": {
+      "@type": "Person",
+      "name": "Wingston Sharon Wilson"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "category": "Paid",
+    "priceCurrency": "USD",
+    "price": "320-640",
+    "availability": "https://schema.org/InStock",
+    "url": "https://creativecodingtech.com/workshops/presentations/2025/10/15/ableton-sonic-pi-workshop-presentation.html",
+    "validFrom": "2025-10-15"
+  },
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "mailto:workshops@creativecodingtech.com",
+    "availableLanguage": "en"
+  },
+  "keywords": ["ableton live", "sonic pi", "live coding", "hybrid performance", "electronic music", "algorave", "MIDI", "OSC integration"],
+  "educationalLevel": "Intermediate",
+  "teaches": ["Sonic Pi fundamentals", "Ableton Live integration", "MIDI & OSC communication", "Live coding performance", "Hybrid setups", "Algorave techniques", "Real-time audio routing"]
+}
+</script>
+
 <div class="presentation-container">
   <iframe
     src="/assets/workshops/ableton-sonic-pi/index.html"
     class="workshop-presentation"
     allowfullscreen
     allow="fullscreen"
-    title="Ableton Live + Sonic Pi Workshop Presentation">
+    title="Ableton Live + Sonic Pi Workshop - Interactive presentation on hybrid live performance combining live coding and DAW production"
+    aria-label="Full workshop presentation with slides on integrating Sonic Pi with Ableton Live for algorave and electronic music performance">
   </iframe>
 </div>
 

@@ -5,6 +5,7 @@ date: 2025-10-14 14:00:00 -0400
 categories: [workshops, presentations]
 tags: [conscious-consumption-workshop, mindfulness-sustainability, integral-theory, spiral-dynamics, overconsumption-recovery, environmental-mindfulness, shadow-work, embodied-meditation, sustainable-living-training]
 description: "Join our 8-day conscious consumption workshop combining integral theory, embodied meditation, and practical sustainability. Break free from overconsumption patterns through mindfulness-based transformation."
+canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/14/conscious-consumption-workshop-presentation.html"
 pin: true
 ---
 
@@ -16,13 +17,65 @@ This isn't about guilt or deprivation. It's about discovering **joyful sufficien
 
 ---
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Conscious Consumption: Inner Alignment & Planetary Healing",
+  "description": "Join our 8-day conscious consumption workshop combining integral theory, embodied meditation, and practical sustainability. Break free from overconsumption patterns through mindfulness-based transformation.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Creative Coding & Technology",
+    "url": "https://creativecodingtech.com",
+    "email": "workshops@creativecodingtech.com"
+  },
+  "courseCode": "CC-002",
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "in person",
+    "courseWorkload": "PT12H",
+    "location": {
+      "@type": "Place",
+      "name": "Amsterdam",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Amsterdam",
+        "addressCountry": "NL"
+      }
+    },
+    "instructor": {
+      "@type": "Person",
+      "name": "Wingston Sharon Wilson"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "category": "Paid",
+    "priceCurrency": "USD",
+    "price": "240-480",
+    "availability": "https://schema.org/InStock",
+    "url": "https://creativecodingtech.com/workshops/presentations/2025/10/14/conscious-consumption-workshop-presentation.html",
+    "validFrom": "2025-10-14"
+  },
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "mailto:workshops@creativecodingtech.com",
+    "availableLanguage": "en"
+  },
+  "keywords": ["conscious consumption", "sustainability", "integral theory", "spiral dynamics", "embodied meditation", "environmental mindfulness"],
+  "educationalLevel": "All Levels",
+  "teaches": ["Integral Theory (AQAL)", "Shadow work for consumption patterns", "Embodied meditation practices", "Circular economy principles", "Sustainable living strategies", "Inner aliveness cultivation"]
+}
+</script>
+
 <div class="presentation-container">
   <iframe
     src="/assets/workshops/conscious-consumption/index.html"
     class="workshop-presentation"
     allowfullscreen
     allow="fullscreen"
-    title="Conscious Consumption Workshop Presentation">
+    title="Conscious Consumption Workshop - Interactive presentation on mindfulness-based sustainability, integral theory, and breaking free from overconsumption"
+    aria-label="Full workshop presentation with slides on conscious consumption, shadow work, and planetary healing">
   </iframe>
 </div>
 

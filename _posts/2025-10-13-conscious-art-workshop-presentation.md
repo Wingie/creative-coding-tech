@@ -5,6 +5,7 @@ date: 2025-10-13 14:00:00 -0400
 categories: [workshops, presentations]
 tags: [mindfulness-art-workshop, art-therapy, meditation, creative-healing, expressive-arts, embodied-practice, mindful-creativity]
 description: "Transform your relationship with creativity through our mindfulness-based art workshop. Learn expressive arts techniques combining meditation, intuitive art-making, and shadow work for healing and self-discovery."
+canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/13/conscious-art-workshop-presentation.html"
 pin: true
 ---
 
@@ -16,13 +17,65 @@ This isn't about "being good at art"—it's about reclaiming creativity as a con
 
 ---
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Conscious Art Making: Mindfulness-Based Creative Practice",
+  "description": "Transform your relationship with creativity through our mindfulness-based art workshop. Learn expressive arts techniques combining meditation, intuitive art-making, and shadow work for healing and self-discovery.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Creative Coding & Technology",
+    "url": "https://creativecodingtech.com",
+    "email": "workshops@creativecodingtech.com"
+  },
+  "courseCode": "CA-001",
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "in person",
+    "courseWorkload": "PT24H",
+    "location": {
+      "@type": "Place",
+      "name": "Amsterdam",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Amsterdam",
+        "addressCountry": "NL"
+      }
+    },
+    "instructor": {
+      "@type": "Person",
+      "name": "Wingston Sharon Wilson"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "category": "Paid",
+    "priceCurrency": "USD",
+    "price": "240-480",
+    "availability": "https://schema.org/InStock",
+    "url": "https://creativecodingtech.com/workshops/presentations/2025/10/13/conscious-art-workshop-presentation.html",
+    "validFrom": "2025-10-13"
+  },
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "mailto:workshops@creativecodingtech.com",
+    "availableLanguage": "en"
+  },
+  "keywords": ["mindfulness art", "art therapy", "meditation", "creative healing", "expressive arts", "embodied practice"],
+  "educationalLevel": "All Levels",
+  "teaches": ["Intuitive art-making", "Meditation for creativity", "Shadow work through art", "Embodied expression", "Witnessing circles", "Non-judgmental creativity"]
+}
+</script>
+
 <div class="presentation-container">
   <iframe
     src="/assets/workshops/conscious-art/index.html"
     class="workshop-presentation"
     allowfullscreen
     allow="fullscreen"
-    title="Conscious Art Making Workshop Presentation">
+    title="Conscious Art Making Workshop - Interactive presentation on mindfulness-based creative practice, meditation, and intuitive art-making for healing"
+    aria-label="Full workshop presentation with slides on expressive arts techniques and contemplative creativity">
   </iframe>
 </div>
 

@@ -5,6 +5,7 @@ date: 2025-10-11 14:00:00 -0400
 categories: [workshops, presentations]
 tags: [meditation-for-beginners, mindfulness-meditation, learn-to-meditate, meditation-workshop, vipassana-meditation, metta-lovingkindness, meditation-techniques, stress-relief, anxiety-relief, beginner-meditation-course]
 description: "Learn to meditate with our comprehensive beginner meditation workshop. Master Samadhi concentration, Vipassana insight, and Metta lovingkindness practices for lasting stress relief and emotional resilience."
+canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/11/basic-meditation-workshop-presentation.html"
 pin: true
 ---
 
@@ -16,13 +17,65 @@ In a world of constant stimulation, **learning to meditate** becomes a revolutio
 
 ---
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Basic Meditation: Foundation Practices for Mindful Living",
+  "description": "Learn to meditate with our comprehensive beginner meditation workshop. Master Samadhi concentration, Vipassana insight, and Metta lovingkindness practices for lasting stress relief and emotional resilience.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Creative Coding & Technology",
+    "url": "https://creativecodingtech.com",
+    "email": "workshops@creativecodingtech.com"
+  },
+  "courseCode": "BM-001",
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "in person",
+    "courseWorkload": "PT9H",
+    "location": {
+      "@type": "Place",
+      "name": "Amsterdam",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Amsterdam",
+        "addressCountry": "NL"
+      }
+    },
+    "instructor": {
+      "@type": "Person",
+      "name": "Wingston Sharon Wilson"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "category": "Paid",
+    "priceCurrency": "USD",
+    "price": "180-360",
+    "availability": "https://schema.org/InStock",
+    "url": "https://creativecodingtech.com/workshops/presentations/2025/10/11/basic-meditation-workshop-presentation.html",
+    "validFrom": "2025-10-11"
+  },
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "mailto:workshops@creativecodingtech.com",
+    "availableLanguage": "en"
+  },
+  "keywords": ["meditation for beginners", "mindfulness meditation", "vipassana", "metta", "lovingkindness", "stress relief"],
+  "educationalLevel": "Beginner",
+  "teaches": ["Samadhi concentration", "Vipassana insight meditation", "Metta lovingkindness", "RAIN technique", "Daily meditation practice"]
+}
+</script>
+
 <div class="presentation-container">
   <iframe
     src="/assets/workshops/basic-meditation/index.html"
     class="workshop-presentation"
     allowfullscreen
     allow="fullscreen"
-    title="Basic Meditation Workshop Presentation">
+    title="Basic Meditation Workshop - Interactive presentation on meditation for beginners, including Samadhi, Vipassana, and Metta practices"
+    aria-label="Full workshop presentation with slides on foundation meditation techniques for mindful living">
   </iframe>
 </div>
 

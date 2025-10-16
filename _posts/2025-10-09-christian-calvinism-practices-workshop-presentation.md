@@ -19,13 +19,65 @@ In an age of anxiety, control, and spiritual striving, Reformed mindfulness offe
 
 ---
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Reformed Mindfulness: Calvinism Meets Contemplative Practice",
+  "description": "Discover how Reformed theology and mindfulness practices unite in powerful spiritual disciplines. Learn Puritan meditation, sovereignty-based mindfulness, and Coram Deo awareness from the forgotten contemplative tradition of Calvinism.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Creative Coding & Technology",
+    "url": "https://creativecodingtech.com",
+    "email": "workshops@creativecodingtech.com"
+  },
+  "courseCode": "RM-001",
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "in person",
+    "courseWorkload": "PT6H",
+    "location": {
+      "@type": "Place",
+      "name": "Amsterdam",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Amsterdam",
+        "addressCountry": "NL"
+      }
+    },
+    "instructor": {
+      "@type": "Person",
+      "name": "Wingston Sharon Wilson"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "category": "Paid",
+    "priceCurrency": "USD",
+    "price": "180-360",
+    "availability": "https://schema.org/InStock",
+    "url": "https://creativecodingtech.com/workshops/presentations/2025/10/09/christian-calvinism-practices-workshop-presentation.html",
+    "validFrom": "2025-10-09"
+  },
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "mailto:workshops@creativecodingtech.com",
+    "availableLanguage": "en"
+  },
+  "keywords": ["calvinism", "reformed theology", "mindfulness", "puritan meditation", "coram deo", "contemplative prayer"],
+  "educationalLevel": "Beginner to Intermediate",
+  "teaches": ["Sovereignty-based mindfulness", "Puritan meditation methods", "TULIP as contemplative framework", "Coram Deo living", "Reformed Rule of Life"]
+}
+</script>
+
 <div class="presentation-container">
   <iframe
     src="/assets/workshops/christian-spiritual-practices/index.html"
     class="workshop-presentation"
     allowfullscreen
     allow="fullscreen"
-    title="Reformed Mindfulness Workshop Presentation">
+    title="Reformed Mindfulness Workshop - Interactive presentation on Calvinism and contemplative practice, including sovereignty meditation, Puritan traditions, and TULIP as mindfulness framework"
+    aria-label="Full workshop presentation with slides on Reformed theology and mindfulness practices">
   </iframe>
 </div>
 
