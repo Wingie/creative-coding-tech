@@ -28,6 +28,7 @@ theme: jekyll-theme-chirpy
 # Exclude from processing
 exclude:
   - ppts
+  - assets/feed.xml
 
 # Chirpy theme settings
 paginate: 10
