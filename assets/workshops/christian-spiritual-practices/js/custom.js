@@ -1,12 +1,12 @@
 /**
- * Christian Spiritual Practices Workshop
- * Candle-Like Particle Background Visualizer
+ * Reformed Mindfulness Workshop
+ * Sovereignty & Contemplation Particle Background Visualizer
  *
- * Creates a sacred, contemplative particle system that evokes:
- * - Candlelight in a chapel (warm, flickering glow)
- * - Prayer rising like incense
- * - Sacred geometry and divine light
- * - Contemplative stillness
+ * Creates a contemplative particle system that evokes:
+ * - The steady light of Reformed doctrine (warm, consistent glow)
+ * - Thoughts observed and released (gentle upward drift)
+ * - Coram Deo presence (particles moving "before the face of God")
+ * - Contemplative stillness grounded in sovereignty
  */
 
 class Particle {
@@ -21,21 +21,21 @@ class Particle {
         this.baseX = this.x;
         this.baseY = this.y;
         this.vx = (Math.random() - 0.5) * 0.2; // Slower drift than meditation
-        this.vy = -Math.random() * 0.3 - 0.1; // Gentle upward drift (like prayer/incense)
+        this.vy = -Math.random() * 0.3 - 0.1; // Gentle upward drift (like thoughts released in trust)
         this.radius = Math.random() * 2.5 + 0.5;
         this.baseOpacity = Math.random() * 0.5 + 0.3;
 
-        // Warm liturgical colors: gold, amber, soft purple
+        // Reformed theme colors: sovereignty gold, covenant blue, warm amber
         const colorChoice = Math.random();
         if (colorChoice < 0.4) {
-            this.hue = 45; // Gold
+            this.hue = 45; // Sovereignty gold
             this.saturation = 80;
         } else if (colorChoice < 0.7) {
-            this.hue = 40; // Amber/candlelight
+            this.hue = 40; // Heidelberg amber
             this.saturation = 100;
         } else {
-            this.hue = 270; // Sacred purple
-            this.saturation = 60;
+            this.hue = 210; // Covenant blue
+            this.saturation = 50;
         }
 
         this.flickerPhase = Math.random() * Math.PI * 2;
@@ -104,7 +104,7 @@ class Particle {
     }
 }
 
-class CandleParticleSystem {
+class ReformedParticleSystem {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
         if (!this.canvas) return;
@@ -224,7 +224,7 @@ class CandleParticleSystem {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    new CandleParticleSystem('particle-canvas');
+    new ReformedParticleSystem('particle-canvas');
 });
 
 // Optional: React to Reveal.js slide changes

@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Conscious Coder Workshop</title>
+
+    <!-- Reveal.js Core from CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/black.css">
+
+    <!-- Syntax highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/highlight/monokai.css">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title -->
+            <section data-background-gradient="linear-gradient(135deg, #0d1117 0%, #00ff41 100%)">
+                <h1 class="workshop-title">The Conscious Coder</h1>
+                <h3 class="subtitle">Engineering for Sustainability</h3>
+                <p class="tagline">From consuming technology to consciously creating it</p>
+                <div class="decorative-divider"></div>
+                <p class="presenter">8-Week Technical Track with micro:bit Smart Greenhouse</p>
+                <p class="presenter">Wingston Sharon Wilson | Creative Coding & Technology</p>
+            </section>
+
+            <!-- Slide 2: What We'll Build - Part 1 -->
+            <section>
+                <h2>What We'll Build Together</h2>
+                <h3 class="subtitle">The Smart Greenhouse Project</h3>
+                <div class="content-grid">
+                    <div class="grid-item fade-in-left">
+                        <div class="icon">🌱</div>
+                        <h4>Real Sensors</h4>
+                        <p>Temperature, humidity, soil moisture</p>
+                    </div>
+                    <div class="grid-item fade-in-right">
+                        <div class="icon">💧</div>
+                        <h4>Real Actuators</h4>
+                        <p>Automated watering pump, LED displays</p>
+                    </div>
+                    <div class="grid-item fade-in-left">
+                        <div class="icon">📊</div>
+                        <h4>Real Data</h4>
+                        <p>Live environmental monitoring & logging</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: What We'll Explore - Part 2 -->
+            <section data-background-color="#1a1f2e">
+                <h2>What We'll Explore</h2>
+                <h3 class="subtitle">Beyond the Code</h3>
+                <div class="content-grid">
+                    <div class="grid-item fade-in-right">
+                        <div class="icon">🔮</div>
+                        <h4>Integral Theory for Tech</h4>
+                        <p>AQAL model applied to code systems</p>
+                    </div>
+                    <div class="grid-item fade-in-left">
+                        <div class="icon">🌙</div>
+                        <h4>Shadow in Debugging</h4>
+                        <p>Unmasking assumptions & hidden biases</p>
+                    </div>
+                    <div class="grid-item fade-in-right">
+                        <div class="icon">🌍</div>
+                        <h4>Open-Source Consciousness</h4>
+                        <p>Code as planetary service</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: The Problem -->
+            <section>
+                <h2>The Crisis in Modern Tech</h2>
+                <blockquote class="large-quote">
+                    "We've become expert consumers of technology, but lost the ability to consciously create it."
+                </blockquote>
+                <div class="problem-list">
+                    <p class="fragment">📱 <strong>Black-Box Technology</strong> — No idea how it works</p>
+                    <p class="fragment">🔌 <strong>Disconnection from Impact</strong> — Hidden resource consumption</p>
+                    <p class="fragment">🤖 <strong>Code Without Consciousness</strong> — Algorithms without values</p>
+                    <p class="fragment">💻 <strong>Tech as Consumption</strong> — Always buying, never building</p>
+                </div>
+            </section>
+
+            <!-- Slide 5: Week 1 - Unveiling the Data Reality -->
+            <section data-background-color="#0d1a2d">
+                <h2>Week 1: Unveiling the Data Reality 🔬</h2>
+                <h3 class="subtitle">The Ongoing Data Stream</h3>
+                <div class="somatic-content">
+                    <p class="big-idea">From the philosophical "Ongoing Big Bang" to the tangible <strong>"Ongoing Data Stream"</strong></p>
+                    <div class="week-objectives">
+                        <div class="objective">
+                            <h4>🔧 Kit Setup</h4>
+                            <p>Assembling the micro:bit Smart Agriculture Kit</p>
+                        </div>
+                        <div class="objective">
+                            <h4>💻 Intro to MakeCode</h4>
+                            <p>Block-based or Python programming environment</p>
+                        </div>
+                        <div class="objective">
+                            <h4>📡 Sensor Basics</h4>
+                            <p>Reading temperature, humidity, soil moisture</p>
+                        </div>
+                        <div class="objective">
+                            <h4>📺 Output</h4>
+                            <p>Displaying real-time data on LED screen</p>
+                        </div>
+                    </div>
+                    <p class="emphasis fragment" style="margin-top: 40px;">
+                        Every new sensor reading: Reality "bursting into being fresh each moment"
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 6: Week 2 - Holistic View -->
+            <section>
+                <h2>Week 2: Holistic View of Tech 🧩</h2>
+                <h3 class="subtitle">AQAL Model for Code Systems</h3>
+                <div class="quadrant-grid-tech">
+                    <div class="quadrant ul">
+                        <div class="quadrant-label">UL - Interior Individual</div>
+                        <h4>I (Subjective)</h4>
+                        <ul>
+                            <li>My experience coding</li>
+                            <li>Feelings about the data</li>
+                            <li>Thoughts during debugging</li>
+                            <li>"How do I feel about this?"</li>
+                        </ul>
+                    </div>
+                    <div class="quadrant ur">
+                        <div class="quadrant-label">UR - Exterior Individual</div>
+                        <h4>It (Objective)</h4>
+                        <ul>
+                            <li>The hardware (micro:bit)</li>
+                            <li>Measurable data (19.5°C)</li>
+                            <li>Lines of code</li>
+                            <li>"What can I observe?"</li>
+                        </ul>
+                    </div>
+                    <div class="quadrant ll">
+                        <div class="quadrant-label">LL - Interior Collective</div>
+                        <h4>We (Intersubjective)</h4>
+                        <ul>
+                            <li>Cultural values in code</li>
+                            <li>Why we value automation</li>
+                            <li>What "optimal" means</li>
+                            <li>"What do we share?"</li>
+                        </ul>
+                    </div>
+                    <div class="quadrant lr">
+                        <div class="quadrant-label">LR - Exterior Collective</div>
+                        <h4>Its (Interobjective)</h4>
+                        <ul>
+                            <li>Power grid running it</li>
+                            <li>Heating system context</li>
+                            <li>Supply chains</li>
+                            <li>"What systems exist?"</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Week 3 - Evolving the Code -->
+            <section data-background-color="#1a2332">
+                <h2>Week 3: Evolving the Code 🌿</h2>
+                <h3 class="subtitle">Spiral Dynamics in System Design</h3>
+                <div class="spiral-container-tech">
+                    <div class="spiral-stage orange-stage">
+                        <div class="stage-badge">ORANGE</div>
+                        <h4>⚡ The Achiever Logic</h4>
+                        <p><strong>Goal:</strong> Maximum efficiency and productivity</p>
+                        <p><strong>Code Style:</strong> Rigid if-then rules</p>
+                        <p class="code-preview">"If moisture < X, pump ON"</p>
+                    </div>
+                    <div class="spiral-stage green-stage">
+                        <div class="stage-badge">GREEN</div>
+                        <h4>🌱 The Sensitive Logic</h4>
+                        <p><strong>Goal:</strong> Care for plant well-being & resource conservation</p>
+                        <p><strong>Code Style:</strong> Values-oriented constraints</p>
+                        <p class="code-preview">"Use minimal water, be gentle"</p>
+                    </div>
+                    <div class="spiral-stage yellow-stage">
+                        <div class="stage-badge">YELLOW</div>
+                        <h4>⚡ The Integrative Logic</h4>
+                        <p><strong>Goal:</strong> Systemic health, functional adaptability</p>
+                        <p><strong>Code Style:</strong> Multi-variable integration</p>
+                        <p class="code-preview">"Consider moisture, time, humidity"</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: Automated Watering Code Comparison -->
+            <section data-background-color="#0d1117">
+                <h2>Three Approaches to Watering</h2>
+                <h3 class="subtitle">Transcend and Include</h3>
+                <div class="code-comparison">
+                    <div class="code-block orange-code">
+                        <h4>🟠 Orange Logic</h4>
+                        <pre><code class="language-python">if moisture < 30:
+    pump.on()
+    sleep(5000)
+    pump.off()
+# Rigid, results-driven</code></pre>
+                    </div>
+                    <div class="code-block green-code">
+                        <h4>🟢 Green Logic</h4>
+                        <pre><code class="language-python">if moisture < 30:
+    pump.on()
+    sleep(2000)  # Less water
+    pump.off()
+# Values-oriented, gentle</code></pre>
+                    </div>
+                    <div class="code-block yellow-code">
+                        <h4>🟡 Yellow Logic</h4>
+                        <pre><code class="language-python">if moisture < 30 and \
+   is_daytime() and \
+   humidity < 60:
+    pump.on()
+    sleep(calculate_water())
+    pump.off()
+# Systemic, adaptive</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: Week 4 - Shadow in Tech -->
+            <section data-background-color="#1a1a2e">
+                <h2>Week 4: Unmasking Shadow 👻</h2>
+                <h3 class="subtitle">Critical Self-Reflection in Code</h3>
+                <div class="philosophy-container">
+                    <div class="phil-card shadow-card">
+                        <h4>🔍 Code Review for Shadow</h4>
+                        <p><strong>Question:</strong> What are the unintended consequences?</p>
+                        <p>Example: "This could flood the plant if sensor fails"</p>
+                    </div>
+                    <div class="phil-card shadow-card">
+                        <h4>🎭 The Societal Mask</h4>
+                        <p><strong>Question:</strong> Does code project perfect control?</p>
+                        <p>Example: "I need to appear infallible"</p>
+                    </div>
+                    <div class="phil-card shadow-card">
+                        <h4>💡 Bringing Shadow to Light</h4>
+                        <p><strong>Action:</strong> Program fail-safes & error handling</p>
+                        <p>Example: "Max 5 seconds pump time, sensor validation"</p>
+                    </div>
+                </div>
+                <blockquote class="fragment" style="margin-top: 50px;">
+                    "What unacknowledged parts of ourselves are we expressing through our technical choices?"
+                </blockquote>
+            </section>
+
+            <!-- Slide 10: Week 5 - Quantifying Consumption -->
+            <section>
+                <h2>Week 5: Quantifying Consumption 💧</h2>
+                <h3 class="subtitle">Making Invisible Costs Visible</h3>
+                <div class="two-column">
+                    <div class="column">
+                        <h4>The Problem</h4>
+                        <ul style="font-size: 1.1em;">
+                            <li>Systems perform functions</li>
+                            <li>We never see resource use</li>
+                            <li>Invisible = unconscious</li>
+                            <li>No feedback loop</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>The Solution</h4>
+                        <ul style="font-size: 1.1em;">
+                            <li>Track every drop of water</li>
+                            <li>Display running totals</li>
+                            <li>Visible = conscious</li>
+                            <li>Immediate feedback</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="code-example" style="margin-top: 50px;">
+                    <pre><code class="language-python"># Resource Use Dashboard
+total_water = 0
+flow_rate = 2.5  # ml per second
+
+def water_plant(seconds):
+    global total_water
+    pump.on()
+    sleep(seconds * 1000)
+    pump.off()
+    total_water += seconds * flow_rate
+    display.show(f"{total_water}ml")
+</code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 11: Week 6 - Coding as Caretaking -->
+            <section data-background-color="#2d3e1f">
+                <h2>Week 6: Coding as Caretaking ❤️</h2>
+                <h3 class="subtitle">From Automation to Connection</h3>
+                <div class="somatic-content">
+                    <p class="big-idea">Technology that fosters connection, not replacement</p>
+                    <div class="transformation-flow">
+                        <div class="transform-box before">
+                            <h4>❌ Before: Automation</h4>
+                            <p>System waters plant automatically</p>
+                            <p>Human is removed from process</p>
+                            <p>No connection, no care</p>
+                        </div>
+                        <div class="transform-arrow">→</div>
+                        <div class="transform-box after">
+                            <h4>✅ After: Notification</h4>
+                            <p>System tells human plant is thirsty</p>
+                            <p>Human waters with intention</p>
+                            <p>Connection maintained</p>
+                        </div>
+                    </div>
+                    <blockquote class="fragment" style="margin-top: 60px;">
+                        "The 'Plant Messenger' reclaims our instinct to care for another living thing"
+                    </blockquote>
+                </div>
+            </section>
+
+            <!-- Slide 12: Week 7 - Technology as Mirror -->
+            <section data-background-color="#0f1419">
+                <h2>Week 7: Technology as Mirror 🪞</h2>
+                <h3 class="subtitle">Shamanic Mirroring with Data</h3>
+                <div class="mirror-content">
+                    <div class="mirror-box">
+                        <h4>📊 The Data Shows</h4>
+                        <p style="font-size: 1.2em;">Room was cold and dry yesterday</p>
+                        <p style="font-size: 1.2em;">Temperature: 16°C, Humidity: 32%</p>
+                    </div>
+                    <div class="mirror-arrow">↓</div>
+                    <div class="mirror-box">
+                        <h4>🪞 The Mirror Asks</h4>
+                        <p style="font-size: 1.2em; font-style: italic;">"How was my inner state yesterday?"</p>
+                        <p style="font-size: 1.2em; font-style: italic;">"Was I feeling emotionally 'cold' or 'dry'?"</p>
+                    </div>
+                </div>
+                <p class="emphasis" style="margin-top: 60px;">
+                    The external environment as perfect reflection of inner world
+                </p>
+            </section>
+
+            <!-- Slide 13: Camel-Lion-Child for Coders -->
+            <section data-background-color="#1a2332">
+                <h2>The Metamorphosis of the Coder</h2>
+                <h3 class="subtitle">From Tutorial Follower to Creative Coder</h3>
+                <div class="metamorphosis-container">
+                    <div class="meta-stage camel">
+                        <h4>🐫 The Camel</h4>
+                        <p><strong>Following Tutorial Exactly</strong></p>
+                        <p>Bearing burden of "correct way"</p>
+                        <p>Fear of breaking things</p>
+                        <p class="wisdom">"I must do it by the book"</p>
+                    </div>
+                    <div class="meta-arrow">→</div>
+                    <div class="meta-stage lion">
+                        <h4>🦁 The Lion</h4>
+                        <p><strong>Rejecting Conventions</strong></p>
+                        <p>Saying NO to all tutorials</p>
+                        <p>Rebellious but stuck</p>
+                        <p class="wisdom">"I refuse to follow anyone!"</p>
+                    </div>
+                    <div class="meta-arrow">→</div>
+                    <div class="meta-stage child">
+                        <h4>👶 The Child</h4>
+                        <p><strong>Joyful Creation</strong></p>
+                        <p>Integrating knowledge + freedom</p>
+                        <p>Playful experimentation</p>
+                        <p class="wisdom">"I'll make it sing!"</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 14: Week 8 - Open Source Consciousness -->
+            <section data-background-gradient="linear-gradient(135deg, #0d1117 0%, #00d9ff 100%)">
+                <h2>Week 8: Open-Source Consciousness 🚀</h2>
+                <h3 class="subtitle">Code as Planetary Service</h3>
+                <div class="philosophy-container">
+                    <div class="phil-card">
+                        <h4>📝 Document Your Work</h4>
+                        <p>Clear comments, readme files</p>
+                        <p>Others can understand & build upon it</p>
+                    </div>
+                    <div class="phil-card">
+                        <h4>🌍 Share on GitHub</h4>
+                        <p>Public repository for all</p>
+                        <p>Contributing to collective knowledge</p>
+                    </div>
+                    <div class="phil-card">
+                        <h4>💚 The 10% Tipping Point</h4>
+                        <p>Your creation = planetary service</p>
+                        <p>Critical mass of conscious coders</p>
+                    </div>
+                </div>
+                <blockquote class="fragment" style="margin-top: 60px; font-size: 1.4em;">
+                    "When we share our code, we're not just sharing functions—we're sharing consciousness."
+                </blockquote>
+            </section>
+
+            <!-- Slide 15: The micro:bit Smart Agriculture Kit -->
+            <section>
+                <h2>The micro:bit Smart Agriculture Kit</h2>
+                <h3 class="subtitle">What's in the Box?</h3>
+                <div class="kit-grid">
+                    <div class="kit-item">
+                        <div class="kit-icon">🧠</div>
+                        <h4>micro:bit Board</h4>
+                        <p>Programmable microcontroller with LED display</p>
+                    </div>
+                    <div class="kit-item">
+                        <div class="kit-icon">🌡️</div>
+                        <h4>Temperature Sensor</h4>
+                        <p>Monitor ambient temperature</p>
+                    </div>
+                    <div class="kit-item">
+                        <div class="kit-icon">💧</div>
+                        <h4>Humidity Sensor</h4>
+                        <p>Track moisture in the air</p>
+                    </div>
+                    <div class="kit-item">
+                        <div class="kit-icon">🌱</div>
+                        <h4>Soil Moisture Sensor</h4>
+                        <p>Detect when plant needs water</p>
+                    </div>
+                    <div class="kit-item">
+                        <div class="kit-icon">💦</div>
+                        <h4>Water Pump</h4>
+                        <p>Automated watering actuator</p>
+                    </div>
+                    <div class="kit-item">
+                        <div class="kit-icon">💡</div>
+                        <h4>LEDs & Display</h4>
+                        <p>Visual feedback & notifications</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 16: Real Code Example - Dashboard -->
+            <section data-background-color="#0d1117">
+                <h2>Real Code Example</h2>
+                <h3 class="subtitle">Environmental Dashboard (Week 1)</h3>
+                <pre><code class="language-python"># Environmental Dashboard
+from microbit import *
+
+while True:
+    # Read sensors
+    temp = temperature()
+    humidity = pin0.read_analog()  # Humidity sensor
+    moisture = pin1.read_analog()   # Soil moisture
+
+    # Display temperature
+    display.scroll(f"T:{temp}C")
+    sleep(1000)
+
+    # Display humidity
+    humidity_pct = int((humidity / 1023) * 100)
+    display.scroll(f"H:{humidity_pct}%")
+    sleep(1000)
+
+    # Display soil moisture
+    moisture_pct = int((moisture / 1023) * 100)
+    display.scroll(f"M:{moisture_pct}%")
+    sleep(1000)
+
+    # Show happy face if all good
+    if temp > 18 and moisture_pct > 40:
+        display.show(Image.HAPPY)
+    else:
+        display.show(Image.SAD)
+
+    sleep(2000)
+</code></pre>
+            </section>
+
+            <!-- Slide 17: Real Code Example - Fail-Safe -->
+            <section data-background-color="#1a1a2e">
+                <h2>Real Code Example</h2>
+                <h3 class="subtitle">Fail-Safe Watering System (Week 4)</h3>
+                <pre><code class="language-python"># Fail-Safe Watering with Shadow Work
+from microbit import *
+
+MAX_PUMP_TIME = 5000  # Max 5 seconds
+MOISTURE_THRESHOLD = 30  # %
+SENSOR_MIN = 0
+SENSOR_MAX = 1023
+
+def is_sensor_valid(reading):
+    """Check if sensor reading is possible"""
+    return SENSOR_MIN <= reading <= SENSOR_MAX
+
+def water_plant_safely(duration_ms):
+    """Water with fail-safe limits"""
+    # Limit pump time (shadow: fear of flooding)
+    safe_duration = min(duration_ms, MAX_PUMP_TIME)
+
+    pin2.write_digital(1)  # Pump ON
+    sleep(safe_duration)
+    pin2.write_digital(0)  # Pump OFF
+
+    # Visual confirmation
+    display.show(Image.HAPPY)
+
+# Main loop
+while True:
+    moisture = pin1.read_analog()
+
+    # Shadow work: validate sensor
+    if not is_sensor_valid(moisture):
+        display.show(Image.SAD)
+        display.scroll("SENSOR ERROR")
+        sleep(5000)
+        continue
+
+    moisture_pct = int((moisture / 1023) * 100)
+
+    if moisture_pct < MOISTURE_THRESHOLD:
+        water_plant_safely(3000)
+
+    sleep(60000)  # Check every minute
+</code></pre>
+            </section>
+
+            <!-- Slide 18: Real Code Example - Plant Messenger -->
+            <section data-background-color="#2d3e1f">
+                <h2>Real Code Example</h2>
+                <h3 class="subtitle">Plant Messenger (Week 6)</h3>
+                <pre><code class="language-python"># Plant Messenger - Caretaking over Automation
+from microbit import *
+
+THIRSTY_THRESHOLD = 35
+plant_watered = False
+
+def show_thirsty():
+    """Plant asks for water"""
+    display.show(Image.SAD)
+    sleep(500)
+    display.show("💧")  # Water drop icon
+    sleep(500)
+
+def show_happy():
+    """Plant is content"""
+    display.show(Image.HAPPY)
+
+# Main loop
+while True:
+    moisture = pin1.read_analog()
+    moisture_pct = int((moisture / 1023) * 100)
+
+    if moisture_pct < THIRSTY_THRESHOLD:
+        # Don't automate - ask human for help
+        show_thirsty()
+        plant_watered = False
+    else:
+        if not plant_watered:
+            # Thank the human for caring
+            show_happy()
+            display.scroll("Thank you!")
+            plant_watered = True
+        else:
+            show_happy()
+
+    # Button A = human watered the plant
+    if button_a.was_pressed():
+        display.show(Image.HEART)
+        sleep(2000)
+
+    sleep(5000)
+</code></pre>
+            </section>
+
+            <!-- Slide 19: Embodied Practice for Coders -->
+            <section data-background-color="#16213e">
+                <h2>Embodied Practice for Coders</h2>
+                <h3 class="subtitle">Beyond Sitting at Computer</h3>
+                <div class="practice-grid-tech">
+                    <div class="practice-card">
+                        <h4>🤝 Code Review Circles</h4>
+                        <p>Partner reviews for shadow work</p>
+                        <p>Compassionate feedback</p>
+                        <p>Collective learning</p>
+                    </div>
+                    <div class="practice-card">
+                        <h4>📝 Reflective Journaling</h4>
+                        <p>Data as mirror for inner state</p>
+                        <p>What is environment telling me?</p>
+                        <p>Shamanic interpretation</p>
+                    </div>
+                    <div class="practice-card">
+                        <h4>🐛 Shadow Debugging Sessions</h4>
+                        <p>What assumptions did I make?</p>
+                        <p>Where is my ego showing?</p>
+                        <p>Bringing unconscious to light</p>
+                    </div>
+                    <div class="practice-card">
+                        <h4>🎨 Creative Coding Challenges</h4>
+                        <p>The "Child's" playful experimentation</p>
+                        <p>Make the plant sing!</p>
+                        <p>Joyful sufficiency in code</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 20: From Black Box to Conscious Creation -->
+            <section>
+                <h2>From Black Box to Conscious Creation</h2>
+                <h3 class="subtitle">Understanding Every Layer</h3>
+                <div class="two-column">
+                    <div class="column old-way">
+                        <h4>❌ Black-Box Technology</h4>
+                        <ul>
+                            <li>No idea how sensors work</li>
+                            <li>Can't modify or repair</li>
+                            <li>Completely dependent</li>
+                            <li>Disconnected from process</li>
+                            <li>No sense of impact</li>
+                        </ul>
+                    </div>
+                    <div class="column new-way">
+                        <h4>✅ Conscious Creation</h4>
+                        <ul>
+                            <li>Understand every sensor</li>
+                            <li>Can modify & customize</li>
+                            <li>Empowered & capable</li>
+                            <li>Connected to environment</li>
+                            <li>Aware of resource use</li>
+                        </ul>
+                    </div>
+                </div>
+                <blockquote class="fragment" style="margin-top: 60px; font-size: 1.4em;">
+                    "When you write every line intentionally, you build connection to your environment."
+                </blockquote>
+            </section>
+
+            <!-- Slide 21: Who This Is For - Part 1 -->
+            <section data-background-color="#0d1a2d">
+                <h2>Is This Workshop For You?</h2>
+                <h3 class="subtitle">Welcome If You're...</h3>
+                <div class="audience-grid">
+                    <div class="audience-card tech-card">
+                        <h4>💻 Developer Seeking Meaning</h4>
+                        <p>Write code every day but wonder about its impact</p>
+                    </div>
+                    <div class="audience-card tech-card">
+                        <h4>🌍 Environmental Technologist</h4>
+                        <p>Want to build tech that serves the planet</p>
+                    </div>
+                    <div class="audience-card tech-card">
+                        <h4>👨‍🏫 Educator</h4>
+                        <p>Teaching STEM + sustainability together</p>
+                    </div>
+                    <div class="audience-card tech-card">
+                        <h4>🔧 Maker & Hobbyist</h4>
+                        <p>Love building things with electronics</p>
+                    </div>
+                    <div class="audience-card tech-card">
+                        <h4>👨‍👩‍👧 Parent Coding with Kids</h4>
+                        <p>Want to teach conscious tech creation</p>
+                    </div>
+                    <div class="audience-card tech-card">
+                        <h4>🌱 Beginner to Intermediate</h4>
+                        <p>No prior experience required—just curiosity</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 22: What You'll Gain -->
+            <section data-background-color="#1a2332">
+                <h2>What You'll Take Away</h2>
+                <h3 class="subtitle">Skills, Systems & Consciousness</h3>
+                <div class="outcomes-container-tech">
+                    <div class="outcome-item">
+                        <div class="outcome-number">01</div>
+                        <div>
+                            <h4>Functional Smart Greenhouse</h4>
+                            <p>Complete working system you built from scratch</p>
+                        </div>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">02</div>
+                        <div>
+                            <h4>Integral Approach to Coding</h4>
+                            <p>AQAL lens, Spiral Dynamics, shadow work in tech</p>
+                        </div>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">03</div>
+                        <div>
+                            <h4>Portfolio-Worthy Project</h4>
+                            <p>Showcase for GitHub, job applications, teaching</p>
+                        </div>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">04</div>
+                        <div>
+                            <h4>Sensor & Actuator Skills</h4>
+                            <p>Foundation for any IoT or hardware project</p>
+                        </div>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">05</div>
+                        <div>
+                            <h4>Open-Source Contribution</h4>
+                            <p>Your code shared for planetary service</p>
+                        </div>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">06</div>
+                        <div>
+                            <h4>Community of Conscious Coders</h4>
+                            <p>Ongoing support from fellow creators</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 23: Session Offerings & Pricing -->
+            <section data-background-gradient="linear-gradient(135deg, #0d1117 0%, #4caf50 100%)">
+                <h2>How to Participate</h2>
+                <h3 class="subtitle">Build Your Smart Greenhouse</h3>
+                <div class="offerings-grid-tech">
+                    <div class="offering-card featured">
+                        <div class="offering-badge">RECOMMENDED</div>
+                        <h3>Complete 8-Week Series</h3>
+                        <p class="duration">8 sessions × 2.5 hours = 20 hours</p>
+                        <ul>
+                            <li>✨ micro:bit Smart Agriculture Kit provided*</li>
+                            <li>💻 Code repository access</li>
+                            <li>🤝 Weekly office hours</li>
+                            <li>💬 Private community forum</li>
+                            <li>📚 All learning materials</li>
+                        </ul>
+                        <p class="pricing">Sliding scale: $640-$1,280</p>
+                        <p class="kit-note">*Or bring your own kit (~$60-80 value)</p>
+                    </div>
+                    <div class="offering-card">
+                        <h3>Individual Workshops</h3>
+                        <p class="duration">2.5-hour focused sessions</p>
+                        <ul>
+                            <li>Data Reality & Sensors</li>
+                            <li>AQAL for Tech Systems</li>
+                            <li>Shadow Work in Debugging</li>
+                            <li>Caretaking Code Design</li>
+                        </ul>
+                        <p class="pricing">$100-$180/session</p>
+                    </div>
+                    <div class="offering-card">
+                        <h3>Private/Corporate</h3>
+                        <p class="duration">Custom design</p>
+                        <ul>
+                            <li>Team sustainability training</li>
+                            <li>Corporate green tech workshops</li>
+                            <li>Educational institution programs</li>
+                        </ul>
+                        <p class="pricing">Contact us</p>
+                    </div>
+                </div>
+                <p class="emphasis" style="margin-top: 50px;">All workshops on sliding scale for accessibility ✨</p>
+            </section>
+
+            <!-- Slide 24: Core Values & Final Message -->
+            <section data-background-gradient="linear-gradient(135deg, #0d1117 0%, #00ff41 100%)">
+                <h1 style="font-size: 2.8em; margin-bottom: 60px;">Conscious Creation over Mindless Consumption</h1>
+                <h1 style="font-size: 2.8em; margin-bottom: 60px;">Open Source over Proprietary</h1>
+                <h1 style="font-size: 2.8em; margin-bottom: 60px;">Caretaking over Automation</h1>
+                <h1 class="emphasis" style="font-size: 3.2em; margin-top: 80px; color: #00ff41;">Connection over Convenience</h1>
+                <div class="decorative-divider" style="margin: 80px auto;"></div>
+                <p style="font-size: 1.3em; line-height: 1.8;">
+                    <strong style="font-size: 1.4em;">The Conscious Coder</strong><br><br>
+                    Code that cares • Tech that connects<br>
+                    From coder to caretaker • Your creation = planetary service<br><br>
+                    Wingston Sharon Wilson | Creative Coding & Technology<br>
+                    <a href="mailto:workshops@creativecodingtech.com" style="color: #00ff41; font-size: 1.2em;">workshops@creativecodingtech.com</a>
+                </p>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Particle background canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Reveal.js Core from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/highlight/highlight.js"></script>
+
+    <!-- Custom visualizer -->
+    <script src="js/custom.js"></script>
+
+    <!-- Initialize Reveal.js -->
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            transition: 'fade',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+            width: 1920,
+            height: 1080,
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 2.0
+        });
+    </script>
+</body>
+</html>

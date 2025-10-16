@@ -5,7 +5,6 @@ gem "jekyll-theme-chirpy", "~> 7.0"
 gem "html-proofer", "~> 5.0", group: :test
 
 group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.12"
   gem "jekyll-sitemap"
   gem "jekyll-paginate"
   gem "jekyll-seo-tag"

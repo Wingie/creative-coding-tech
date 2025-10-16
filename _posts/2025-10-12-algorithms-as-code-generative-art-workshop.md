@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Learn Generative Art with Code: p5.js Workshop for Creative Coding & Algorithmic Art"
-date: 2025-10-16 09:00:00 -0400
+date: 2025-10-12 09:00:00 -0400
 categories: [workshops, presentations]
 tags: [generative-art-workshop, creative-coding, p5js-course, algorithmic-art, visual-programming, computational-creativity, procedural-art, interactive-art]
 description: "Master generative art and creative coding with p5.js in our comprehensive workshop. Learn algorithmic techniques for visual programming—perfect for artists, programmers, and designers. No coding experience required."
