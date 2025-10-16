@@ -9,6 +9,16 @@ canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/0
 pin: true
 ---
 
+<nav aria-label="breadcrumb" style="margin-bottom: 2rem;">
+  <ol style="list-style: none; padding: 0; display: flex; gap: 0.5rem; font-size: 0.9rem; color: #666;">
+    <li><a href="/" style="text-decoration: none; color: #3457D5;">Home</a></li>
+    <li>→</li>
+    <li><a href="/workshops/offerings/2025/10/16/workshops.html" style="text-decoration: none; color: #3457D5;">Workshops</a></li>
+    <li>→</li>
+    <li style="color: #999;">Reformed Mindfulness</li>
+  </ol>
+</nav>
+
 # Reformed Mindfulness: Calvinism Meets Contemplative Practice
 
 What if the most freeing theology in Christianity held the key to the deepest mindfulness practice? Discover how **Reformed theology** and **contemplative awareness** converge in this workshop exploring **Puritan meditation**, **sovereignty-based mindfulness**, and **Coram Deo living** (practicing the presence of God).
@@ -411,6 +421,21 @@ Everything taught is grounded in Reformed confessions (Westminster, Heidelberg, 
 
 **Do you offer spiritual direction?**
 Yes—we can connect you with Reformed spiritual directors trained in this approach. Week 4 introduces discernment practices to help you determine if direction is your next step.
+
+---
+
+## 🎯 Related Workshops You Might Enjoy
+
+**If Reformed Mindfulness resonates with you, consider these complementary workshops:**
+
+### 🧘 [Basic Meditation: Foundation Practices](/workshops/presentations/2025/10/11/basic-meditation-workshop-presentation.html)
+Learn the universal meditation techniques that undergird all contemplative traditions—Samadhi concentration, Vipassana insight, and Metta lovingkindness. Perfect for building the foundational skills that make Puritan meditation more accessible.
+
+### 🖌️ [Conscious Art Making: Mindfulness-Based Creative Practice](/workshops/presentations/2025/10/13/conscious-art-workshop-presentation.html)
+Combine Reformed contemplation with embodied creative expression. Use intuitive art-making as a form of prayer and self-discovery—no artistic skill required, just presence and willingness to play.
+
+### 🌍 [Conscious Consumption: Inner Alignment & Planetary Healing](/workshops/presentations/2025/10/14/conscious-consumption-workshop-presentation.html)
+Apply mindfulness principles to your relationship with consumption and sustainability. Uses integral theory and shadow work similar to Reformed self-examination, but focused on planetary stewardship.
 
 ---
 

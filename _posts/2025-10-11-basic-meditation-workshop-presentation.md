@@ -9,6 +9,16 @@ canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/1
 pin: true
 ---
 
+<nav aria-label="breadcrumb">
+  <ol style="list-style: none; padding: 0; display: flex; gap: 0.5rem; font-size: 0.9em; color: #666; margin-bottom: 2rem;">
+    <li><a href="/" style="color: #8b7bff; text-decoration: none;">Home</a></li>
+    <li>→</li>
+    <li><a href="/workshops/offerings/2025/10/16/workshops.html" style="color: #8b7bff; text-decoration: none;">Workshops</a></li>
+    <li>→</li>
+    <li style="color: #999;">Basic Meditation</li>
+  </ol>
+</nav>
+
 # Basic Meditation: Foundation Practices for Mindful Living
 
 Discover how **meditation for beginners** can transform your relationship with stress, anxiety, and present-moment awareness. Our Basic Meditation workshop teaches three essential meditation streams—**Samadhi (concentration)**, **Vipassana (insight)**, and **Metta (lovingkindness)**—plus practical techniques like RAIN for working with difficult emotions.
@@ -264,6 +274,19 @@ The techniques taught have roots in Buddhist meditation but are presented in a s
 
 **What if I've tried before and couldn't stick with it?**
 That's exactly why we focus on building a *sustainable* practice. Week 6 is entirely devoted to designing a practice structure that fits your life, not someone else's ideal.
+
+---
+
+## 🎯 Related Workshops You Might Enjoy
+
+### ⚡ [Reformed Mindfulness: Calvinism Meets Contemplative Practice](/workshops/presentations/2025/10/09/christian-calvinism-practices-workshop-presentation.html)
+Apply the meditation foundations you learn here within a Reformed Christian framework. Explore how Puritan contemplative practices and sovereign presence meditation can deepen both your spiritual and meditative life.
+
+### 🖌️ [Conscious Art Making: Mindfulness-Based Creative Practice](/workshops/presentations/2025/10/13/conscious-art-workshop-presentation.html)
+Bring the meditation skills you develop here into visual creative expression. Discover how present-moment awareness transforms art-making from product-focused to process-focused contemplative practice.
+
+### 🌍 [Conscious Consumption: Inner Alignment & Planetary Healing](/workshops/presentations/2025/10/14/conscious-consumption-workshop-presentation.html)
+Use meditation practice as foundation for transforming consumption patterns. Learn how the Void Pause practice creates space between impulse and choice—applying mindfulness directly to sustainability.
 
 ---
 

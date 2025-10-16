@@ -9,6 +9,16 @@ canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/1
 pin: true
 ---
 
+<nav aria-label="breadcrumb">
+  <ol style="list-style: none; padding: 0; display: flex; gap: 0.5rem; font-size: 0.9em; color: #666; margin-bottom: 2rem;">
+    <li><a href="/" style="color: #00ff41; text-decoration: none;">Home</a></li>
+    <li>→</li>
+    <li><a href="/workshops/offerings/2025/10/16/workshops.html" style="color: #00ff41; text-decoration: none;">Workshops</a></li>
+    <li>→</li>
+    <li style="color: #999;">The Conscious Coder</li>
+  </ol>
+</nav>
+
 # The Conscious Coder: Where Engineering Meets Sustainability
 
 Transform your relationship with technology through our **8-week conscious coding workshop** that combines hands-on micro:bit hardware programming with integral theory, shadow work, and open-source consciousness. Build a complete smart greenhouse system while learning to code as planetary service—not mindless consumption.
@@ -585,6 +595,19 @@ We provide completion certificates. Many participants have used this for high sc
 **Blocks:** Visual, drag-and-drop—great for beginners
 **Python:** Text-based, more powerful—for those wanting challenge
 You can switch anytime, or use both!
+
+---
+
+## 🎯 Related Workshops You Might Enjoy
+
+### 🧘 [Basic Meditation: Foundation Practices for Mindful Living](/workshops/presentations/2025/10/11/basic-meditation-workshop-presentation.html)
+Build the foundational mindfulness practices that support conscious coding. Learn meditation techniques that cultivate the awareness and presence needed for intentional, sustainable technology creation.
+
+### 🌀 [Algorithms as Code: Generative Art & Creative Coding](/workshops/presentations/2025/10/12/algorithms-as-code-generative-art-workshop.html)
+Apply your coding skills to visual creativity with p5.js. Perfect complement for conscious coders wanting to explore algorithms as aesthetic medium rather than pure utility—code as art, not just engineering.
+
+### 🌍 [Conscious Consumption: Inner Alignment & Planetary Healing](/workshops/presentations/2025/10/14/conscious-consumption-workshop-presentation.html)
+Address the root causes of overconsumption through integral theory and shadow work. Natural extension of conscious coding philosophy—understanding how our inner relationship with consumption shapes our outer technological choices.
 
 ---
 

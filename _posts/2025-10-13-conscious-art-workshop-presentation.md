@@ -9,6 +9,16 @@ canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/1
 pin: true
 ---
 
+<nav aria-label="breadcrumb">
+  <ol style="list-style: none; padding: 0; display: flex; gap: 0.5rem; font-size: 0.9em; color: #666; margin-bottom: 2rem;">
+    <li><a href="/" style="color: #d946ef; text-decoration: none;">Home</a></li>
+    <li>→</li>
+    <li><a href="/workshops/offerings/2025/10/16/workshops.html" style="color: #d946ef; text-decoration: none;">Workshops</a></li>
+    <li>→</li>
+    <li style="color: #999;">Conscious Art Making</li>
+  </ol>
+</nav>
+
 # Conscious Art Making: Where Presence Meets Process
 
 Discover how **mindfulness-based art-making** can unlock creative freedom and emotional healing. Our Conscious Art Making workshop combines meditation practice, intuitive creative expression, and witnessing circles to help you reconnect with your innate creativity—no art experience required.
@@ -208,6 +218,19 @@ We'll send you:
 - Upcoming dates and times
 - Sliding scale pricing details
 - Registration information
+
+---
+
+## 🎯 Related Workshops You Might Enjoy
+
+### 🧘 [Basic Meditation: Foundation Practices for Mindful Living](/workshops/presentations/2025/10/11/basic-meditation-workshop-presentation.html)
+Build the meditation foundation that supports conscious art-making. Learn Samadhi, Vipassana, and Metta practices that cultivate the present-moment awareness essential for process-focused creativity.
+
+### 🌀 [Algorithms as Code: Generative Art & Creative Coding](/workshops/presentations/2025/10/12/algorithms-as-code-generative-art-workshop.html)
+Explore creative expression through computational means with p5.js. Perfect complement to analog art-making—discover how algorithmic thinking and intuitive expression can inform each other across mediums.
+
+### 🌍 [Conscious Consumption: Inner Alignment & Planetary Healing](/workshops/presentations/2025/10/14/conscious-consumption-workshop-presentation.html)
+Apply the shadow work and embodied practices from art-making to consumption patterns. Discover how creative expression serves as antidote to compulsive consumption—generating inner aliveness rather than seeking it externally.
 
 ---
 

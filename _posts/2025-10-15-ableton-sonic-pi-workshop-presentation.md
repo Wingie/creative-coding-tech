@@ -9,6 +9,16 @@ canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/1
 pin: true
 ---
 
+<nav aria-label="breadcrumb">
+  <ol style="list-style: none; padding: 0; display: flex; gap: 0.5rem; font-size: 0.9em; color: #666; margin-bottom: 2rem;">
+    <li><a href="/" style="color: #00d9ff; text-decoration: none;">Home</a></li>
+    <li>→</li>
+    <li><a href="/workshops/offerings/2025/10/16/workshops.html" style="color: #00d9ff; text-decoration: none;">Workshops</a></li>
+    <li>→</li>
+    <li style="color: #999;">Ableton + Sonic Pi</li>
+  </ol>
+</nav>
+
 # Ableton Live + Sonic Pi: Hybrid Live Performance Workshop
 
 Discover how **live coding and DAW production** can converge in a unified performance workflow. Our Ableton Live + Sonic Pi workshop teaches you to harness both algorithmic composition and hands-on production in real-time—creating performances impossible with either tool alone.
@@ -242,6 +252,19 @@ We'll send you:
 - Rehearse and refine performance flow
 - Live performances with peer feedback
 - Iteration and optimization
+
+---
+
+## 🎯 Related Workshops You Might Enjoy
+
+### 🌀 [Algorithms as Code: Generative Art & Creative Coding](/workshops/presentations/2025/10/12/algorithms-as-code-generative-art-workshop.html)
+Apply algorithmic thinking to visual creativity with p5.js. Perfect complement to algorithmic music—explore how generative patterns translate across mediums, from sonic to visual algorithmic composition.
+
+### 💻 [The Conscious Coder: Engineering for Sustainability](/workshops/presentations/2025/10/10/conscious-coder-workshop-presentation.html)
+Build coding fundamentals with micro:bit hardware and environmental monitoring. Great foundation if you're new to programming—learn code basics before diving into Sonic Pi's musical applications.
+
+### 🧘 [Basic Meditation: Foundation Practices for Mindful Living](/workshops/presentations/2025/10/11/basic-meditation-workshop-presentation.html)
+Develop the present-moment awareness that supports live performance. Learn meditation techniques that reduce performance anxiety, improve focus, and cultivate the flow state essential for improvisation.
 
 ---
 

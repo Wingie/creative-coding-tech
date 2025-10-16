@@ -9,6 +9,16 @@ canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/1
 pin: true
 ---
 
+<nav aria-label="breadcrumb">
+  <ol style="list-style: none; padding: 0; display: flex; gap: 0.5rem; font-size: 0.9em; color: #666; margin-bottom: 2rem;">
+    <li><a href="/" style="color: #10b981; text-decoration: none;">Home</a></li>
+    <li>→</li>
+    <li><a href="/workshops/offerings/2025/10/16/workshops.html" style="color: #10b981; text-decoration: none;">Workshops</a></li>
+    <li>→</li>
+    <li style="color: #999;">Conscious Consumption</li>
+  </ol>
+</nav>
+
 # Conscious Consumption: Where Inner Work Becomes Planetary Service
 
 Transform your relationship with consumption through our **8-day mindfulness-based sustainability workshop** that addresses the root causes of overconsumption. Combining integral theory, shadow work, and embodied meditation practices, this conscious consumption workshop offers a complete framework for lasting change—from the inside out.
@@ -412,6 +422,19 @@ Choose your rate on the sliding scale based on your financial situation. We beli
 - Movement practice (20-30 min)
 - Review waste streams and action plan
 - Connect with accountability partner
+
+---
+
+## 🎯 Related Workshops You Might Enjoy
+
+### 🧘 [Basic Meditation: Foundation Practices for Mindful Living](/workshops/presentations/2025/10/11/basic-meditation-workshop-presentation.html)
+Build the meditation foundation that supports the Void Pause practice central to conscious consumption. Learn Samadhi, Vipassana, and Metta techniques that create space between impulse and choice.
+
+### 💻 [The Conscious Coder: Engineering for Sustainability](/workshops/presentations/2025/10/10/conscious-coder-workshop-presentation.html)
+Apply integral theory and shadow work to technology creation. Perfect complement—while this workshop addresses conscious consumption, Conscious Coder explores conscious creation with micro:bit environmental projects.
+
+### 🖌️ [Conscious Art Making: Mindfulness-Based Creative Practice](/workshops/presentations/2025/10/13/conscious-art-workshop-presentation.html)
+Discover how creative expression generates inner aliveness—the antidote to seeking fulfillment through consumption. Use art-making as embodied practice for cultivating joyful sufficiency from within.
 
 ---
 

@@ -9,6 +9,16 @@ canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/1
 pin: true
 ---
 
+<nav aria-label="breadcrumb">
+  <ol style="list-style: none; padding: 0; display: flex; gap: 0.5rem; font-size: 0.9em; color: #666; margin-bottom: 2rem;">
+    <li><a href="/" style="color: #8b5cf6; text-decoration: none;">Home</a></li>
+    <li>→</li>
+    <li><a href="/workshops/offerings/2025/10/16/workshops.html" style="color: #8b5cf6; text-decoration: none;">Workshops</a></li>
+    <li>→</li>
+    <li style="color: #999;">Algorithms as Code</li>
+  </ol>
+</nav>
+
 # Algorithms as Code: Where Mathematics Becomes Visual Poetry
 
 Discover how **generative art and creative coding** can transform your artistic practice. Our "Algorithms as Code" workshop teaches you to use **p5.js for algorithmic art**—turning code into your creative canvas. Learn to generate infinite visual variations through computational techniques like noise functions, particle systems, fractals, and emergent patterns.
@@ -367,6 +377,19 @@ We'll send you:
 - Sliding scale pricing details
 - Access instructions for Discord community
 - Sample p5.js sketches to preview the medium
+
+---
+
+## 🎯 Related Workshops You Might Enjoy
+
+### 💻 [The Conscious Coder: Engineering for Sustainability](/workshops/presentations/2025/10/10/conscious-coder-workshop-presentation.html)
+Apply your coding skills to environmental technology with micro:bit hardware. Build a smart greenhouse system while learning to code as planetary service—complementing the aesthetic focus of generative art with purpose-driven engineering.
+
+### 🖌️ [Conscious Art Making: Mindfulness-Based Creative Practice](/workshops/presentations/2025/10/13/conscious-art-workshop-presentation.html)
+Explore creativity without code through intuitive art-making and meditation. Perfect balance to algorithmic art—discover how analog creative practices can inform and enrich your computational aesthetic explorations.
+
+### 🎵 [Ableton Live + Sonic Pi: Hybrid Live Performance](/workshops/presentations/2025/10/15/ableton-sonic-pi-workshop-presentation.html)
+Take your coding creativity into the audio realm. Learn to live code music with Sonic Pi integrated with Ableton Live—algorithmic composition for sound rather than visuals, using similar generative thinking.
 
 ---
 
