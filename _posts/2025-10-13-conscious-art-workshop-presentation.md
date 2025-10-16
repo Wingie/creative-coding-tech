@@ -164,16 +164,16 @@ We'll send you:
 
 ### Explore Our Full Workshop Catalog:
 
-- 🧘 [Basic Meditation: Foundation Practices](/workshops)
-- 🎵 [Ableton Live + Sonic Pi: Hybrid Live Performance](/workshops)
-- 🎨 [TouchDesigner: Visual Programming for Interactive Art](/workshops)
-- 🌀 [Algorithms as Code: Generative Art & Creative Coding](/workshops)
+- 🧘 [Basic Meditation: Foundation Practices](/workshops/offerings/2025/10/16/workshops.html)
+- 🎵 [Ableton Live + Sonic Pi: Hybrid Live Performance](/workshops/offerings/2025/10/16/workshops.html)
+- 🎨 [TouchDesigner: Visual Programming for Interactive Art](/workshops/offerings/2025/10/16/workshops.html)
+- 🌀 [Algorithms as Code: Generative Art & Creative Coding](/workshops/offerings/2025/10/16/workshops.html)
 - 🖌️ **Conscious Art Making** (you are here)
-- 🌍 [Conscious Consumerism: Inner Alignment & Planetary Healing](/workshops)
-- 💻 [The Conscious Coder: Engineering for Sustainability](/workshops)
-- 📅 [Conscious Planning: Integral Approaches to Time & Life Design](/workshops)
+- 🌍 [Conscious Consumerism: Inner Alignment & Planetary Healing](/workshops/offerings/2025/10/16/workshops.html)
+- 💻 [The Conscious Coder: Engineering for Sustainability](/workshops/offerings/2025/10/16/workshops.html)
+- 📅 [Conscious Planning: Integral Approaches to Time & Life Design](/workshops/offerings/2025/10/16/workshops.html)
 
-[View All Workshop Offerings →](/posts/workshops/)
+[View All Workshop Offerings →](/workshops/offerings/2025/10/16/workshops.html)
 
 ---
 
