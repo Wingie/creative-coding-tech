@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Workshops: Where Code Meets Consciousness"
+title: "Workshops: Where Technology Meets Mindfulness"
 date: 2025-10-16 10:00:00 -0400
 categories: [workshops, offerings]
 tags: [workshops, meditation, live-coding, sonic-pi, ableton, touchdesigner, generative-art, conscious-living]
 pin: true
 ---
 
-# Transformative Workshops at the Intersection of Technology & Consciousness
+# Transformative Workshops at the Intersection of Technology & Mindfulness
 
 What if learning to code could also be a contemplative practice? What if meditation could enhance your creative performances? What if the way you relate to technology could shift from consumption to conscious creation?
 
