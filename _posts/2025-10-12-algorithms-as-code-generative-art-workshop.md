@@ -323,14 +323,13 @@ We'll send you:
 
 ### Explore Our Full Workshop Catalog:
 
-- 🧘 [Basic Meditation: Foundation Practices](/workshops/offerings/2025/10/16/workshops.html)
-- 🎵 [Ableton Live + Sonic Pi: Hybrid Live Performance](/workshops/offerings/2025/10/16/workshops.html)
-- 🎨 [TouchDesigner: Visual Programming for Interactive Art](/workshops/offerings/2025/10/16/workshops.html)
+- ⚡ [Reformed Mindfulness: Calvinism Meets Contemplative Practice](/workshops/presentations/2025/10/09/christian-calvinism-practices-workshop-presentation.html)
+- 💻 [The Conscious Coder: Engineering for Sustainability](/workshops/presentations/2025/10/10/conscious-coder-workshop-presentation.html)
+- 🧘 [Basic Meditation: Foundation Practices for Mindful Living](/workshops/presentations/2025/10/11/basic-meditation-workshop-presentation.html)
 - 🌀 **Algorithms as Code: Generative Art & Creative Coding** (you are here)
-- 🖌️ [Conscious Art Making: Mindfulness-Based Creative Practice](/workshops/offerings/2025/10/16/workshops.html)
-- 🌍 [Conscious Consumerism: Inner Alignment & Planetary Healing](/workshops/offerings/2025/10/16/workshops.html)
-- 💻 [The Conscious Coder: Engineering for Sustainability](/workshops/offerings/2025/10/16/workshops.html)
-- 📅 [Conscious Planning: Integral Approaches to Time & Life Design](/workshops/offerings/2025/10/16/workshops.html)
+- 🖌️ [Conscious Art Making: Mindfulness-Based Creative Practice](/workshops/presentations/2025/10/13/conscious-art-workshop-presentation.html)
+- 🌍 [Conscious Consumerism: Inner Alignment & Planetary Healing](/workshops/presentations/2025/10/14/conscious-consumption-workshop-presentation.html)
+- 🎵 [Ableton Live + Sonic Pi: Hybrid Live Performance](/workshops/presentations/2025/10/15/ableton-sonic-pi-workshop-presentation.html)
 
 [View All Workshop Offerings →](/workshops/offerings/2025/10/16/workshops.html)
 
