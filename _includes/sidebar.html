@@ -25,6 +25,13 @@
           <span>{{ site.data.locales[include.lang].tabs.home | upcase }}</span>
         </a>
       </li>
+      <!-- workshops -->
+      <li class="nav-item{% if page.categories contains 'workshops' %}{{ " active" }}{% endif %}">
+        <a href="{{ '/categories/workshops/' | relative_url }}" class="nav-link">
+          <i class="fa-fw fas fa-chalkboard-teacher"></i>
+          <span>WORKSHOPS</span>
+        </a>
+      </li>
       <!-- the real tabs -->
       {% for tab in site.tabs %}
         <li class="nav-item{% if tab.url == page.url %}{{ " active" }}{% endif %}">

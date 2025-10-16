@@ -368,13 +368,12 @@ Yes—we can connect you with Reformed spiritual directors trained in this appro
 ### Explore Our Full Workshop Catalog:
 
 - ⚡ **Reformed Mindfulness: Calvinism Meets Contemplative Practice** (you are here)
-- 🙏 [Christian Spiritual Practices: Ecumenical Foundations](/workshops/presentations/2025/10/09/christian-calvinism-practices-workshop-presentation.html)
 - 🧘 [Basic Meditation: Foundation Practices for Mindful Living](/workshops/presentations/2025/10/11/basic-meditation-workshop-presentation.html)
-- 🎵 [Ableton Live + Sonic Pi: Hybrid Live Performance](/workshops/offerings/2025/10/16/workshops.html)
-- 🎨 [TouchDesigner: Visual Programming for Interactive Art](/workshops/offerings/2025/10/16/workshops.html)
+- 💻 [The Conscious Coder: Engineering for Sustainability](/workshops/presentations/2025/10/10/conscious-coder-workshop-presentation.html)
+- 🌀 [Algorithms as Code: Generative Art & Creative Coding](/workshops/presentations/2025/10/12/algorithms-as-code-generative-art-workshop.html)
 - 🖌️ [Conscious Art Making: Mindfulness-Based Creative Practice](/workshops/presentations/2025/10/13/conscious-art-workshop-presentation.html)
-- 🌍 [Conscious Consumerism: Inner Alignment & Planetary Healing](/workshops/offerings/2025/10/16/workshops.html)
-- 💻 [The Conscious Coder: Engineering for Sustainability](/workshops/offerings/2025/10/16/workshops.html)
+- 🌍 [Conscious Consumerism: Inner Alignment & Planetary Healing](/workshops/presentations/2025/10/14/conscious-consumption-workshop-presentation.html)
+- 🎵 [Ableton Live + Sonic Pi: Hybrid Live Performance](/workshops/presentations/2025/10/15/ableton-sonic-pi-workshop-presentation.html)
 
 [View All Workshop Offerings →](/workshops/offerings/2025/10/16/workshops.html)
 
