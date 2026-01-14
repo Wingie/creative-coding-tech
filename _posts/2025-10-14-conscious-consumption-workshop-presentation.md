@@ -6,7 +6,6 @@ categories: [workshops, presentations]
 tags: [conscious-consumption-workshop, mindfulness-sustainability, integral-theory, spiral-dynamics, overconsumption-recovery, environmental-mindfulness, shadow-work, embodied-meditation, sustainable-living-training]
 description: "Join our 8-day conscious consumption workshop combining integral theory, embodied meditation, and practical sustainability. Break free from overconsumption patterns through mindfulness-based transformation."
 canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/14/conscious-consumption-workshop-presentation.html"
-pin: true
 ---
 
 <nav aria-label="breadcrumb">

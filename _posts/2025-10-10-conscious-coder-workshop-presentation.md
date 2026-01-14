@@ -6,7 +6,6 @@ categories: [workshops, presentations]
 tags: [conscious-coding-workshop, sustainable-technology-course, microbit-smart-greenhouse, environmental-programming, green-coding, sustainable-engineering, IoT-workshop, integral-theory-developers, shadow-work-debugging, open-source-consciousness]
 description: "Learn conscious coding with our 8-week micro:bit smart greenhouse workshop. From sensors to sustainability—build tech that serves the planet through integral engineering."
 canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/10/conscious-coder-workshop-presentation.html"
-pin: true
 ---
 
 <nav aria-label="breadcrumb">

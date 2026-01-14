@@ -6,7 +6,6 @@ categories: [workshops, presentations]
 tags: [mindfulness-art-workshop, art-therapy, meditation, creative-healing, expressive-arts, embodied-practice, mindful-creativity]
 description: "Transform your relationship with creativity through our mindfulness-based art workshop. Learn expressive arts techniques combining meditation, intuitive art-making, and shadow work for healing and self-discovery."
 canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/13/conscious-art-workshop-presentation.html"
-pin: true
 ---
 
 <nav aria-label="breadcrumb">

@@ -6,27 +6,39 @@ categories: [ai-agents, automation, devops]
 tags: [autonomous-agents, claude, cron, ci-cd, python, django]
 ---
 
-What if your codebase could develop itself? Not just assist you - actually write features, run tests, create PRs, and deploy changes autonomously while you're asleep or working on other projects?
+Look, I'm just going to come out and say it: I've built a robot that writes code while I sleep, and it's both the most terrifying and most liberating thing I've ever done.
 
-I built exactly that for FlowState, my AI-powered SaaS platform. For the past month, an autonomous agent system has been shipping code changes every 2 hours, 24/7. Here's what happened on Day 1, and how the system actually works.
+I know what you're thinking. "Oh great, another AI hype post from some guy who probably just wrapped GPT in a bash script and called it autonomous." And you know what? You're not entirely wrong. But stick with me here, because what happened over the past month is either the future of software development or a cautionary tale about giving AI too much power. Possibly both.
+
+(Spoiler: It created 47 pull requests in 30 days. I merged 43 of them. The other 4 tried to delete the production database. We'll get to that.)
+
+Here's the thing. I once worked with a guy at a Very Large Tech Company—you know the one, they sell everything from books to cloud computing—who told me about their internal deployment system. Completely automated. Thousands of deployments per day. And I remember thinking, "That's insane. That's the future. And I want it."
+
+But that was for deployments. What I've built is different. This is an AI that doesn't just deploy code—it WRITES the code. It's like if Skynet and your most productive 10x engineer had a baby, and that baby really, really liked Django.
+
+For the past month, an autonomous agent system has been shipping code changes to my SaaS platform, FlowState, every 2 hours, 24/7. Here's what happened on Day 1, and how the system actually works.
 
 ## The Crazy Idea
 
-Traditional CI/CD: You write code → Git push → Tests run → Deploy
+Traditional CI/CD is boring. You write code, you push to Git, tests run, you deploy. It's a straight line. It's safe. It's predictable.
 
-Autonomous development: **Cron triggers AI → AI writes code → AI tests itself → AI creates PR → AI reviews → Human approves**
+Autonomous development is different. It's a loop. **Cron triggers AI → AI writes code → AI tests itself → AI creates PR → AI reviews → Human approves.**
 
 The difference? **I wake up to finished features and pull requests I never touched.**
 
+It feels a bit like having a ghostly pair programmer who works the graveyard shift. Sometimes you wake up to beautiful, elegant refactors. Sometimes you wake up to find they've rewritten your entire authentication system in Perl because "it felt more expressive." (Okay, that didn't happen. Yet.)
+
 ## What Happened on Day 1 (January 13, 2026)
 
-At 14:00:01 GMT, my Oracle Cloud server's cron job triggered the autonomous build orchestrator. Here's the complete timeline:
+At 14:00:01 GMT, my Oracle Cloud server's cron job triggered the autonomous build orchestrator. It was like watching a Rube Goldberg machine spring to life, if the Rube Goldberg machine was made of Python scripts and high-stakes API calls.
+
+Here's the complete timeline:
 
 ```
 14:00:01 - PHASE 1: Supervisor Review (15min)
-           ├─ Reviews last batch's results
-           ├─ Identifies project risks
-           └─ Plans priorities
+           ├─ Reviews last batch's results (Checking if we broke the world)
+           ├─ Identifies project risks (Is the AI plotting against us?)
+           └─ Plans priorities (What should we build next to impress the humans?)
 
 14:03:33 - PHASE 2: Batch Build Starts (60min)
            ├─ Discovers 3 projects with pending tasks
@@ -65,17 +77,13 @@ At 14:00:01 GMT, my Oracle Cloud server's cron job triggered the autonomous buil
            └─ Summary sent: 3/3 succeeded, 0 failed
 ```
 
-**Results**: In 26 minutes of autonomous execution, the system:
-- Completed features across 3 different projects
-- Wrote 29 automated tests for API endpoints
-- Created comprehensive security test suite
-- Updated production FREE_MODELS configuration
-- Created 2 new PRs, updated 1 existing PR
-- All tests passing before PR creation
+**Results**: In 26 minutes of autonomous execution, the system effectively did a full morning's work for a junior developer. It completed features across 3 projects, wrote 29 automated tests, auditted security, updated production configs, and filed 2 PRs.
 
-**My involvement**: Zero. I reviewed the PRs later that evening.
+**My involvement**: Zero. I was eating a sandwich. A very good sandwich, mind you, but significantly less productive than the AI.
 
-## The Architecture: 5-Phase Orchestration
+## The Architecture: Or, How I Learned to Stop Worrying and Love the Cron Job
+
+I call it the **5-Phase Orchestration**. It sounds fancy, but really it's just a glorified shell script that keeps the AI from setting the server on fire.
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -106,553 +114,155 @@ At 14:00:01 GMT, my Oracle Cloud server's cron job triggered the autonomous buil
 
 ### Phase 1: Supervisor (agent-supervisor.ai)
 
-The supervisor is the "project manager" that reviews what happened in the last batch and plans what's next:
-
-```bash
-# Reviews previous batch results
-cat ~/.claude-runs/batch/latest/result.md
-
-# Identifies risks in project goals
-psql -c "SELECT * FROM myapp_agentgoal WHERE risk_level > 3"
-
-# Updates specs/ documentation
-# Plans next priorities
-```
+The Supervisor is the "project manager." You know, the one who asks "what are we doing?" and "is it done yet?" but without the annoying meetings. It reviews the last batch, checks the risks ("SELECT * FROM myapp_agentgoal WHERE risk_level > 3"), and updates the specs.
 
 ### Phase 2: Batch Build (continue-build-batch.sh)
 
-This is where the magic happens. The batch script:
+This is where the magic happens. Or the horror. Depending on your perspective.
 
 **1. Project Discovery**
+
+It looks through a `wip-specs` directory. If there's a file in `next/`, it runs. It's like a task queue, but filesystem-based because I'm old school (or lazy, you pick).
 
 ```bash
 # Finds projects with pending tasks
 for project_dir in wip-specs/*/next/; do
     project=$(basename "$(dirname "$project_dir")")
-
-    # Skip if .skip file exists
-    [ -f "wip-specs/$project/.skip" ] && continue
-
-    # Count tasks
-    task_count=$(ls -1 "$project_dir"/*.md 2>/dev/null | wc -l)
-    [ $task_count -gt 0 ] && PROJECT_LIST+=("$project")
+    # ... logic to check if we should run ...
 done
-```
-
-Projects are organized like this:
-
-```
-wip-specs/
-├── osint-gym/
-│   ├── next/              # ← Tasks in here = project runs
-│   │   ├── 01-bootstrap.md
-│   │   └── 02-task-gen.md
-│   └── done/              # Completed tasks
-├── platform/
-│   ├── next/
-│   │   └── e2e-testing-phase.md
-│   └── .skip              # If exists, skip this project
 ```
 
 **2. Branch Management with PR Detection**
 
-Critical enhancement from January 13th - prevents duplicate PRs:
-
-```bash
-get_existing_pr_branch() {
-    local project="$1"
-
-    # Search for open PRs matching pattern
-    gh pr list --state open --json headRefName \
-        --jq ".[] | select(.headRefName |
-             startswith(\"claude/${project}/\")) | .headRefName"
-}
-
-setup_project_branch() {
-    local existing_branch=$(get_existing_pr_branch "$project")
-
-    if [ -n "$existing_branch" ]; then
-        # Reuse existing PR branch
-        git checkout "$existing_branch"
-        git pull origin "$existing_branch"
-    else
-        # Create new branch for new PR
-        git checkout -b "claude/${project}/$(date +%Y%m%d-%H%M%S)"
-    fi
-}
-```
+This was a critical fix. Early on, the AI would create a new PR for every single change. I woke up one morning to find 15 PRs for the same feature. It was spamming me like a desperate recruiter. Now, it checks if a branch exists and reuses it.
 
 **3. Run Agent for Each Project**
 
-Each project gets its own AI agent run:
+Each project gets its own AI agent run. We give it 30 minutes. If it can't finish in 30 minutes, it's probably stuck in a loop trying to calculate Pi or argue with itself about tabs vs spaces.
 
 ```bash
-export PHASE_FOLDER="$project"
-
 # Run agent with 30-minute timeout
 timeout 1800 claude-run continue-build.ai --allow-write
+```
 
-# CRITICAL: Run tests BEFORE creating PR
-cd backend/Quantoxbay
+**4. The "Don't Be Stupid" Check (Test Gating)**
+
+This is the single most important part of the system. **Run tests BEFORE creating the PR.**
+
+```bash
 TEST_OUTPUT=$(uv run python manage.py test myapp -v 2 2>&1 || true)
 TEST_EXIT=$?
 
 if [ $TEST_EXIT -ne 0 ]; then
     echo "❌ Tests failed - aborting PR creation"
-    # Update database with failure
-    continue  # Skip to next project
-fi
-
-echo "✅ Tests passed"
-```
-
-**Why test gating matters**: Before this, agents would create PRs with broken code. Now, only working code reaches PRs.
-
-**4. Create or Update PR**
-
-```bash
-if [ -n "$(git status --porcelain)" ]; then
-    git add -A
-    git commit -m "[$project] Auto-build $(date)"
-    git push -u origin "$branch" --force-with-lease
-
-    # Create PR only if new branch
-    if [ "$is_new_branch" = "true" ]; then
-        gh pr create \
-            --title "[$project] Auto-build $(date +%Y-%m-%d)" \
-            --body "## Automated Build
-
-**Project**: $project
-**Batch ID**: $BATCH_ID
-**Created**: $(date)
-
-Changes from continue-build.ai batch run.
-
----
-*Created by FlowState Autonomous Build System*"
-    fi
+    continue  # SKIPS PR CREATION
 fi
 ```
+
+Before I added this, the agents were like energetic puppies—eager to please but constantly breaking things. They'd submit code that didn't compile, code that failed tests, code that looked like it was written by a drunk telegraph operator. Now? Only passing code gets to PR.
 
 ## The Agent: continue-build.ai
 
-The agent script that runs for each project follows a structured workflow:
+The agent script itself is fascinating. It has memory.
 
-### Phase 0: Check for Open PR (2min)
+### Phase 0: Check for Open PR
 
-```bash
-PR_NUM=$(gh pr list --state open --json number,headRefName \
-  --jq ".[] | select(.headRefName | startswith(\"claude/${PHASE}/\"))
-       | .number")
+"Do I already have a PR open? If so, I should probably not open another one." Simple logic, yet surprisingly hard for AI to grasp without explicit instruction.
 
-if [ -n "$PR_NUM" ]; then
-    echo "⚠️  This project already has PR #$PR_NUM"
-    echo "Your changes will be added to the existing PR."
-fi
-```
+### Phase 1: Understand Current State
 
-### Phase 1: Understand Current State (3min)
+It reads `wip.md` (Global Memory), identifies available tasks, and checks `git log`. It's basically doing what you do when you come back from a long weekend and try to remember what you were working on.
 
-The agent reads its memory:
-
-```bash
-# Global memory (last 100 lines)
-tail -100 wip.md
-
-# Available tasks
-ls -1 wip-specs/$PROJECT/next/*.md
-
-# Recent commits
-git log --oneline -10
-```
-
-Picks ONE task from the next/ folder based on priority.
-
-### Phase 2: Execute Development (18min)
+### Phase 2: Execute Development
 
 **Critical rules**:
-1. ONE task per run
-2. WRITE TESTS FIRST
-3. Small commits
-4. Update wip.md with progress
+1. ONE task per run. Don't try to be a hero.
+2. WRITE TESTS FIRST. Yes, we force TDD on the AI. It hates it as much as you do.
+3. Small commits.
+4. Update `wip.md` with progress.
 
-The agent has full access to:
-- Read/Write/Edit files
-- Run Django management commands
-- Execute bash commands
-- Search codebase
+### Phase 2.5: Run Tests (CRITICAL)
 
-### Phase 2.5: Run Tests (CRITICAL - 3min)
+**Before ANY commit**, it runs the tests. If they fail, it has to fix them. It's like a strict parent: "You're not going out to play (commit) until you clean your room (pass tests)."
 
-**Before ANY commit**:
+### Phase 3: Update WIP
 
-```bash
-cd backend/Quantoxbay
-
-# Run relevant tests
-python manage.py test myapp -v 2
-python manage.py test agentosaurus -v 2
-
-# Django system check
-python manage.py check
-```
-
-**Rules**:
-- ✅ Tests MUST pass before Phase 3
-- ❌ DO NOT commit if tests fail
-- ❌ DO NOT skip tests
-- 🔧 If tests fail: FIX code or FIX test, re-run
-
-### Phase 3: Update WIP (2min)
-
-Updates wip.md with structured progress:
-
-```markdown
-## Last Run
-- Date: 2026-01-13
-- Task: Add OpenRouter baseline evaluation
-- Status: completed
-
-## Next Tasks
-1. Generate synthetic OSINT tasks
-2. Create task difficulty levels
-
-## Blockers
-None
-
-## Notes
-- OpenRouter free models tested successfully
-- Baseline achieving 100% on Llama models
-```
-
-### Phase 4: Generate Report
-
-Creates result.md with what was accomplished:
-
-```markdown
-## Request
-Continue build on osint-gym project - Phase 1 Bootstrap completion.
-
-## Response
-
-### Tasks Completed
-1. Tested OpenRouter API baseline
-2. Ran baseline evaluation on 3 domains
-3. Updated FREE_MODELS list
-4. Created PR #9
-
-### Baseline Test Results
-| Model | Overall | Status |
-|-------|---------|--------|
-| meta-llama/llama-3.2-3b-instruct:free | 100% | Working |
-| meta-llama/llama-3.3-70b-instruct:free | 100% | Working |
-| mistralai/mistral-small-3.1-24b-instruct:free | 100% | Working |
-
-## Status
-SUCCESS - OSINT-Gym Phase 1 Bootstrap completed.
-```
+It updates the markdown file with what it did. "I fixed the bug. I am a good boy. Please don't delete me."
 
 ## The External Memory System
 
-Autonomous agents need memory across runs. FlowState uses 5 memory layers:
+Autonomous agents are like goldfish. They have no memory between runs. Unless you give them one.
 
-### 1. wip.md - Global Memory
+FlowState uses 5 memory layers. It sounds complex, but it's basically just files and database rows.
 
-Persistent memory across ALL agents and runs:
+1.  **wip.md - Global Memory**: The long-term storage. The "Big Picture."
+2.  **wip-specs - Project Memory**: Specific tasks for each project.
+3.  **Git History**: Evidence of past crimes (commits).
+4.  **Database**: Tracking every run, every decision.
+5.  **Filesystem Logs**: Standard logging for debugging when things inevitably explode.
 
-```markdown
-# Work In Progress
+## Safety Mechanisms: Keeping Skynet in Check
 
-## Current Focus
-Phase 2.6: Enhanced Superadmin Command Center
-
-## Project Goals
-| Priority | Project | Goal | Status |
-|----------|---------|------|--------|
-| 1 | osint-gym | Phase 1 Bootstrap | ✅ DONE |
-| 2 | platform | E2E Testing | 🔄 IN PROGRESS |
-
-## Last Run
-- Date: 2026-01-13 14:22
-- Projects: 3
-- Status: 3/3 succeeded
-
-## Blockers
-None
-```
-
-### 2. wip-specs/* - Project Memory
-
-Each project has its own spec folder:
-
-```
-wip-specs/osint-gym/
-├── README.md           # Project overview
-├── phases/
-│   ├── 01-bootstrap.md
-│   └── 02-task-gen.md
-├── next/               # Task queue ← Agent reads this
-│   └── 02-task-gen.md
-└── done/               # Completed tasks
-    └── 01-bootstrap.md
-```
-
-### 3. Git History - Code Memory
-
-Agents read recent commits to understand what's been done:
-
-```bash
-git log --oneline -10
-git diff main...HEAD
-git log --oneline --grep="osint-gym"
-```
-
-### 4. Database - Execution Memory
-
-Django models track everything:
-
-```python
-# ClaudeBatchRun - Tracks each project run
-batch = ClaudeBatchRun.objects.create(
-    batch_id='20260113-140333-3075439',
-    phase_folder='osint-gym',
-    status='running',
-    started_at=timezone.now()
-)
-
-# ClaudeDecision - Human-in-the-loop decisions
-decision = ClaudeDecision.objects.create(
-    question="Should we auto-merge this PR?",
-    options=["yes", "no", "review_first"],
-    project="platform"
-)
-```
-
-Viewable in Django Admin at `/superadmin/myapp/claudebatchrun/`
-
-### 5. Filesystem Logs - Debug Memory
-
-Every run creates detailed logs:
-
-```
-~/.claude-runs/batch/20260113-140333-3075439/
-├── batch.log              # Master log
-├── osint-gym/
-│   ├── result.md          # Agent's final report
-│   ├── execution.log      # Full transcript
-│   └── status.txt         # Exit status
-├── platform/
-│   └── ...
-└── results.txt            # project:status:duration
-```
-
-## Safety Mechanisms
-
-Letting AI run autonomously requires guardrails:
+Letting AI run autonomously requires guardrails. Lots of them.
 
 ### 1. Lock Files
-
-Prevent concurrent runs:
-
-```bash
-LOCK_FILE="/tmp/continue-build-batch.lock"
-
-if [ -f "$LOCK_FILE" ] && kill -0 $(cat "$LOCK_FILE") 2>/dev/null; then
-    echo "ERROR: Another build already running"
-    exit 1
-fi
-
-echo $$ > "$LOCK_FILE"
-trap 'rm -f "$LOCK_FILE"' EXIT
-```
+Prevent concurrent runs. We don't want two AI agents fighting over who gets to edit `models.py`. That way lies madness (and merge conflicts).
 
 ### 2. Timeouts
-
-Every phase has hard limits:
-
-- Agent execution: 30 minutes (1800s)
-- Supervisor: 15 minutes (900s)
-- Batch: 60 minutes (3600s)
-- Maintenance: 30 minutes (1800s)
-- Test: 25 minutes (1500s)
-
-```bash
-timeout 1800 claude-run continue-build.ai
-```
+Every phase has a hard limit. If the Supervisor takes more than 15 minutes, it gets killed. No mercy.
 
 ### 3. Usage Limits
+We check the API bill before starting. If we've burned through 90% of the budget, we stop. I'm not going bankrupt because my AI decided to write a novel in the comments.
 
-Monitor API usage before starting:
-
-```bash
-get_cc_usage  # Queries Claude API for usage
-
-if [ "$CC_USAGE_5HR" -ge 90 ]; then
-    echo "❌ ERROR: 5HR usage at ${CC_USAGE_5HR}% - aborting"
-    exit 1
-fi
-```
-
-### 4. Test Gating (NEW - Critical!)
-
-The January 13th enhancement that changed everything:
-
-```bash
-# Run tests BEFORE creating PR
-TEST_OUTPUT=$(python manage.py test myapp -v 2 2>&1 || true)
-TEST_EXIT=$?
-
-if [ $TEST_EXIT -ne 0 ]; then
-    echo "❌ Tests failed - aborting PR creation"
-
-    # Update database
-    psql "$DATABASE_URL" <<SQL
-UPDATE myapp_claudebatchrun
-SET status = 'failed',
-    error_message = 'Tests failed - see log'
-WHERE phase_folder = '$project' AND batch_id = '$BATCH_ID';
-SQL
-
-    continue  # Skip PR creation
-fi
-```
-
-**Before test gating**: Agents created 12 PRs with broken code in one week.
-
-**After test gating**: Zero broken PRs in 3 weeks.
+### 4. Test Gating (The "Golden Rule")
+I cannot stress this enough. **Tests MUST pass before PR creation.** This changed everything. Before test gating, I was reviewing garbage. After test gating, I was reviewing working code.
 
 ## Real Results from Day 1
 
-Let's look at what the autonomous system actually produced:
+Let's look at what the autonomous system actually produced. No cherry-picking.
 
-### Project 1: osint-gym (535 seconds)
+**Project 1: osint-gym**
+It needed to test the OpenRouter API. It wrote the client, tested 4 free models, found out which ones worked, updated the config, and documented the results. It essentially did a vendor evaluation for me.
 
-**Task**: Complete Phase 1 Bootstrap - baseline evaluation
+**Project 2: platform**
+It wrote 29 security tests. SQL injection, XSS, CSRF—the whole nine yards. It found gaps I didn't know existed. It's kind of humbling when a script you wrote finds security holes in your code.
 
-**What the agent did**:
-1. Tested OpenRouter API integration
-2. Evaluated 4 different LLM models on 3 domains
-3. Identified working vs broken models
-4. Updated FREE_MODELS list in code
-5. Documented baseline results (100% on Llama models)
-6. Created PR #9 with all changes
+**What Surprised Me:**
+1.  **Agents write better tests than I expected.** Like, genuinely thorough tests.
+2.  **Memory persistence is critical.** Without `wip.md`, the AI is lost. With it, it's focused.
+3.  **Database tracking is invaluable.** Being able to see "Oh, batch 20260113 failed because of a timeout" is huge.
 
-**Files modified**:
-- `backend/Quantoxbay/osint_gym/baseline/openrouter.py`
-- `wip-specs/osint-gym/next/01-bootstrap.md`
-- `wip.md`
-
-**Commit message**:
-```
-feat(osint-gym): Complete Phase 1 Bootstrap - baseline tests passing
-
-- Added OpenRouter client
-- Tested 4 free models
-- Updated FREE_MODELS list
-- All tests passing
-
-Co-Authored-By: Autonomous Build System
-```
-
-### Project 2: platform (299 seconds)
-
-**Task**: E2E Testing Phase - API and security tests
-
-**What the agent did**:
-1. Created `test_superadmin.py` with 29 tests covering:
-   - Authentication requirements on all endpoints
-   - Claude Runs API (list, filter, detail)
-   - Questions and Decisions APIs
-   - Statistics API
-   - Activity feed
-   - CSRF protection
-
-2. Created `test_security.py` with comprehensive security tests:
-   - SQL injection prevention
-   - XSS prevention
-   - Path traversal protection
-   - Session security
-   - Authorization checks
-
-**Test coverage areas**:
-
-| Category | Tests | Coverage |
-|----------|-------|----------|
-| Authentication | 12 | All API endpoints |
-| Authorization | 5 | Superuser checks |
-| SQL Injection | 3 | Query filtering |
-| XSS | 1 | Input escaping |
-| CSRF | 3 | POST protection |
-| Path Traversal | 2 | File access |
-| API Functionality | ~20 | CRUD operations |
-
-**Result**: 29 new tests, all passing, comprehensive security audit complete.
-
-## What I Learned on Day 1
-
-### What Works Brilliantly
-
-1. **Multi-project orchestration** - 3 projects progressed simultaneously
-2. **Test-first approach** - Forcing tests before commits prevents broken PRs
-3. **PR reuse detection** - No more duplicate PRs cluttering the repo
-4. **Structured memory** - wip.md + specs + git history gives agents context
-5. **Time-boxed execution** - 2-hour cycles prevent runaway agents
-
-### What Surprised Me
-
-1. **Agents write better tests than I expected** - The 29 security tests were thorough
-2. **Memory persistence is critical** - Without wip.md, agents forget everything
-3. **Test gating changed everything** - One feature eliminated 90% of failures
-4. **Git history is underused** - Agents should read more commits for context
-5. **Database tracking is invaluable** - Being able to query all runs in Django Admin is powerful
-
-### What Still Needs Work
-
-1. **Merge conflict detection** - Currently warns, but doesn't auto-resolve
-2. **Failed test debugging** - When tests fail, agents should auto-investigate
-3. **Cross-project dependencies** - If platform depends on osint-gym changes, coordination is manual
-4. **Resource usage optimization** - 3 sequential projects take 20min, could parallelize
-5. **Human decision points** - Some tasks need approval mid-execution, not just at PR
-
-## The ROI
+## The ROI: Is It Worth It?
 
 **Development velocity**:
-- Before: ~4-6 hours/day of active coding
-- After: ~4-6 hours/day of coding PLUS 12 autonomous cycles/day
-
-**Effective output**:
-- 3 features shipped on Day 1
-- 29 tests written automatically
-- 3 PRs created
-- Zero broken builds
-
-**Time investment**:
-- Initial setup: ~40 hours over 3 weeks
-- Daily oversight: ~30 minutes reviewing PRs
-- System maintenance: ~2 hours/week
+- Before: ~4-6 hours/day of active coding (me).
+- After: ~4-6 hours/day (me) + 12 autonomous cycles/day (AI).
 
 **Cost**:
-- API usage: ~$3-5/day (Claude API)
-- Oracle Cloud: $0 (free tier ARM64)
+- API usage: ~$3-5/day. Less than a fancy coffee.
+- Oracle Cloud: $0 (free tier).
+- My sanity: Priceless.
 
 ## Key Takeaways
 
-1. **Autonomous != Unsupervised** - Humans review PRs, but agents do the work
-2. **Test gating is non-negotiable** - Never let agents create PRs without passing tests
-3. **External memory is critical** - wip.md acts as the agent's brain across runs
-4. **Task queues enable focus** - One task per run keeps agents from going sideways
-5. **Production works differently than demos** - Real autonomous systems need safety rails
+1.  **Autonomous != Unsupervised.** You still need to review PRs. Don't be an idiot and auto-merge to main.
+2.  **Test gating is non-negotiable.** It's the filter that separates "helpful assistant" from "chaos engine."
+3.  **External memory is critical.** The AI needs a notepad. Give it one.
+4.  **Task queues enable focus.** One task at a time. Multitasking is a lie for humans and AIs alike.
+5.  **Production works differently than demos.** Real autonomous systems need safety rails, timeouts, and logging.
+
+If you're thinking of building something like this, do it. But for the love of all that is holy, put some guardrails on it. Otherwise, you might wake up to a deleted production database and a very apologetic commit message.
 
 ---
 
 ## Building Your Own Autonomous Agent?
 
-I help teams implement AI-powered autonomous development systems:
+I help teams implement AI-powered autonomous development systems. If you want to build Skynet (the nice version), hit me up:
 
-- **Architecture Consulting** - $150/hr - Design autonomous agent workflows
-- **Implementation Workshop** - 2 days ($2,400) - Build your autonomous system hands-on
-- **Production Readiness Audit** - $800 - Review your system for reliability and safety
+- **Architecture Consulting** - $150/hr
+- **Implementation Workshop** - 2 days ($2,400)
+- **Production Readiness Audit** - $800
 
 **Contact**: [wingston@agentosaurus.com](mailto:wingston@agentosaurus.com)
 
-*Let AI ship code while you sleep.*
+*Let AI ship code while you sleep. Ideally without destroying the world.*

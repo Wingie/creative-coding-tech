@@ -6,7 +6,6 @@ categories: [workshops, presentations]
 tags: [generative-art-workshop, creative-coding, p5js-course, algorithmic-art, visual-programming, computational-creativity, procedural-art, interactive-art]
 description: "Master generative art and creative coding with p5.js in our comprehensive workshop. Learn algorithmic techniques for visual programming—perfect for artists, programmers, and designers. No coding experience required."
 canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/12/algorithms-as-code-generative-art-workshop.html"
-pin: true
 ---
 
 <nav aria-label="breadcrumb">

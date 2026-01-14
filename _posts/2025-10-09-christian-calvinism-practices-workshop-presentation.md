@@ -6,7 +6,6 @@ categories: [workshops, presentations]
 tags: [calvinism, reformed-theology, mindfulness, puritan-meditation, coram-deo, sovereignty, contemplative-prayer, reformed-spirituality, christian-mindfulness, puritan-practices]
 description: "Discover how Reformed theology and mindfulness practices unite in powerful spiritual disciplines. Learn Puritan meditation, sovereignty-based mindfulness, and Coram Deo awareness from the forgotten contemplative tradition of Calvinism."
 canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/09/christian-calvinism-practices-workshop-presentation.html"
-pin: true
 ---
 
 <nav aria-label="breadcrumb" style="margin-bottom: 2rem;">

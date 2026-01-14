@@ -5,7 +5,6 @@ date: 2025-10-07 14:00:00 -0400
 categories: [workshops, presentations]
 tags: [conscious-planning-workshop, integral-time-management, mindful-productivity, shadow-work-busyness, AQAL-project-planning, overwhelm-recovery, perfectionism-workshop, values-based-planning, energetic-time-management]
 description: "Move from productivity anxiety to purposeful presence with our 8-session conscious planning workshop. Integrate AQAL, shadow work, and meditation for sustainable life design."
-pin: true
 ---
 
 # Conscious Planning: From Frantic Doing to Mindful Being

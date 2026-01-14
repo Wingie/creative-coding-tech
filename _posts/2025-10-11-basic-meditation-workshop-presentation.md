@@ -6,7 +6,6 @@ categories: [workshops, presentations]
 tags: [meditation-for-beginners, mindfulness-meditation, learn-to-meditate, meditation-workshop, vipassana-meditation, metta-lovingkindness, meditation-techniques, stress-relief, anxiety-relief, beginner-meditation-course]
 description: "Learn to meditate with our comprehensive beginner meditation workshop. Master Samadhi concentration, Vipassana insight, and Metta lovingkindness practices for lasting stress relief and emotional resilience."
 canonical_url: "https://creativecodingtech.com/workshops/presentations/2025/10/11/basic-meditation-workshop-presentation.html"
-pin: true
 ---
 
 <nav aria-label="breadcrumb">
