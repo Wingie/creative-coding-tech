@@ -1,28 +1,35 @@
 lang: en
-timezone: America/New_York
+timezone: Europe/Amsterdam
 future: true
 
-title: Creative Coding & Technology
-tagline: Exploring the intersection of music, machine learning, and live coding
+title: Creative Coding Tech
+tagline: Code as contemplation. Technology as transformation.
 
 # Site logo
 avatar: /logo.png
 description: >-
-  A blog about creative coding, live music with Sonic Pi, machine learning applications in audio,
-  and the intersectionality of technology and musical expression.
+  Code as contemplation. Vision quest facilitation, lucid dream training,
+  shadow work, and creative coding as ritual practice.
 
 url: "https://creativecodingtech.com"
 
 github:
   username: wingie
 
+twitter:
+  username: creativecodingtech
+
 social:
   name: Wingston Sharon Wilson
   email: example@domain.com
   links:
     - https://github.com/wingie
+    - https://linkedin.com/in/wingstonwilson
 
 author: Wingston Sharon Wilson
+
+# Google Search Console verification (replace with actual code)
+# google_site_verification: "your-verification-code"
 
 theme: jekyll-theme-chirpy
 

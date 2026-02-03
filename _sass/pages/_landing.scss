@@ -1,0 +1,81 @@
+/* Landing Page Styles */
+
+.landing-page {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing {
+  max-width: 700px;
+  text-align: center;
+  padding: 2rem 1rem;
+
+  .landing-headline {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    color: var(--heading-color);
+
+    @media (min-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  .lead {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+    color: var(--text-muted-color);
+    margin-bottom: 3rem;
+  }
+
+  .offerings-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+
+    .offering-link {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: var(--link-color);
+        color: var(--link-color);
+        text-decoration: none;
+      }
+    }
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background-color: var(--link-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--link-hover-color);
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
