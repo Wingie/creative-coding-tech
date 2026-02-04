@@ -23,7 +23,10 @@ No commitment. No sales pitch. Just clarity.
 
 ## Ask Your Question
 
-<form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="oracle-form">
+<form action="https://formsubmit.co/creativecodingtech@proton.me" method="POST" class="oracle-form">
+  <input type="hidden" name="_subject" value="New Oracle Inquiry">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_next" value="https://creativecodingtech.com/oracle/?submitted=true">
   <div class="form-group">
     <label for="name">Your Name</label>
     <input type="text" id="name" name="name" required>
