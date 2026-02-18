@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ableton Live + Sonic Pi: Hybrid Live Performance Workshop</title>
+
+    <!-- Reveal.js Core from CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/black.css">
+
+    <!-- Syntax highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/highlight/monokai.css">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title -->
+            <section data-background-gradient="linear-gradient(135deg, #00D9FF 0%, #6B2D5C 50%, #FF6B35 100%)">
+                <h1 class="workshop-title">Ableton Live + Sonic Pi</h1>
+                <h3 class="subtitle">Hybrid Live Performance Workshop</h3>
+                <p class="tagline">Where algorithmic composition meets hands-on production</p>
+                <div class="decorative-divider"></div>
+                <p class="presenter">Wingston Sharon Wilson | Creative Coding & Technology</p>
+            </section>
+
+            <!-- Slide 2: What We'll Explore Today -->
+            <section>
+                <h2>What We'll Explore Today</h2>
+                <div class="content-grid">
+                    <div class="grid-item fade-in-left">
+                        <div class="icon">💻</div>
+                        <h4>The Convergence</h4>
+                        <p>Live coding + DAW production in one unified workflow</p>
+                    </div>
+                    <div class="grid-item fade-in-right">
+                        <div class="icon">🎹</div>
+                        <h4>The Tools</h4>
+                        <p>MIDI, OSC, Link—the bridges between worlds</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: What We'll Explore - Part 2 -->
+            <section>
+                <div class="content-grid">
+                    <div class="grid-item fade-in-left">
+                        <div class="icon">🎵</div>
+                        <h4>The Practice</h4>
+                        <p>8 sessions building hybrid performance mastery</p>
+                    </div>
+                    <div class="grid-item fade-in-right">
+                        <div class="icon">🚀</div>
+                        <h4>The Performance</h4>
+                        <p>Your unique synthesis, ready for clubs & algoraves</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: Two Worlds -->
+            <section>
+                <h2>Two Worlds of Electronic Music</h2>
+                <div class="two-paradigms">
+                    <div class="paradigm live-coding">
+                        <h3>💻 Live Coding</h3>
+                        <ul>
+                            <li>Algorithmic thinking</li>
+                            <li>Real-time code manipulation</li>
+                            <li>Generative patterns</li>
+                            <li>Text-based performance</li>
+                        </ul>
+                    </div>
+                    <div class="paradigm daw">
+                        <h3>🎹 Digital Audio Workstation</h3>
+                        <ul>
+                            <li>Visual workflow</li>
+                            <li>Track-based production</li>
+                            <li>Clip launching</li>
+                            <li>Effects processing</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: The Problem -->
+            <section>
+                <h2>The Limitation of Single Paradigms</h2>
+                <blockquote class="large-quote">
+                    "Why choose between algorithmic freedom and production power when you can have both?"
+                </blockquote>
+                <div class="problem-list">
+                    <p class="fragment">🎹 <strong>DAW-only</strong> — Trapped in pre-arranged clips and linear sequences</p>
+                    <p class="fragment">💻 <strong>Code-only</strong> — Limited by audio processing capabilities</p>
+                    <p class="fragment">🔌 <strong>Disconnected workflows</strong> — Switching between tools breaks creative flow</p>
+                    <p class="fragment">🎭 <strong>Performance constraints</strong> — Can't improvise at multiple levels simultaneously</p>
+                </div>
+            </section>
+
+            <!-- Slide 6: The Solution -->
+            <section data-background-color="#1a202c">
+                <h2>The Hybrid Approach</h2>
+                <h3 class="subtitle">Unified Performance Workflow</h3>
+                <div class="solution-grid">
+                    <div class="solution-card">
+                        <h4>✨ Best of Both Worlds</h4>
+                        <p>Sonic Pi's expressive live coding + Ableton's production power</p>
+                    </div>
+                    <div class="solution-card">
+                        <h4>🔄 Real-Time Communication</h4>
+                        <p>MIDI, OSC, Link protocols working in harmony</p>
+                    </div>
+                    <div class="solution-card">
+                        <h4>🎪 Multi-Level Improvisation</h4>
+                        <p>Code generates patterns while you launch clips and tweak effects</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Foundations Part 1 - MIDI, OSC, Link -->
+            <section>
+                <h2>🔌 Communication Protocols</h2>
+                <h3 class="subtitle">The Bridges Between Tools</h3>
+                <div class="protocols-grid">
+                    <div class="protocol-card">
+                        <h4>MIDI</h4>
+                        <p>Send notes, control changes, program changes from Sonic Pi to Ableton instruments</p>
+                        <div class="code-example">
+                            <code>midi :C4, sustain: 1<br>midi_cc 74, 64</code>
+                        </div>
+                    </div>
+                    <div class="protocol-card">
+                        <h4>OSC (Open Sound Control)</h4>
+                        <p>Bi-directional communication—trigger clips, control parameters, send feedback</p>
+                        <div class="code-example">
+                            <code>osc "/live/play", 1, 0</code>
+                        </div>
+                    </div>
+                    <div class="protocol-card">
+                        <h4>Ableton Link</h4>
+                        <p>Wireless tempo & beat synchronization across devices</p>
+                        <div class="code-example">
+                            <code>use_bpm 120</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: Foundations Part 2 - Sonic Pi Basics -->
+            <section data-background-color="#0A0E27">
+                <h2>💎 Sonic Pi Fundamentals</h2>
+                <h3 class="subtitle">Ruby-Based Live Coding</h3>
+                <div class="sonic-pi-demo">
+                    <pre><code class="language-ruby">live_loop :beats do
+  sample :bd_haus
+  sleep 1
+end
+
+live_loop :melody do
+  use_synth :prophet
+  play scale(:e3, :minor_pentatonic).choose,
+    release: 0.3, cutoff: rrand(60, 120)
+  sleep 0.25
+end</code></pre>
+                    <p class="demo-description">Independent loops running concurrently—algorithmic rhythm and generative melodies</p>
+                </div>
+            </section>
+
+            <!-- Slide 9: Foundations Part 3 - Ableton Integration Points -->
+            <section>
+                <h2>🎛️ Ableton Live Integration Points</h2>
+                <h3 class="subtitle">What Sonic Pi Can Control</h3>
+                <div class="integration-grid">
+                    <div class="integration-card">
+                        <div class="icon">🎹</div>
+                        <h4>Instruments</h4>
+                        <p>Sequence any Ableton synth, sampler, or plugin via MIDI</p>
+                    </div>
+                    <div class="integration-card">
+                        <div class="icon">🎚️</div>
+                        <h4>Effects Parameters</h4>
+                        <p>Modulate filters, reverbs, delays algorithmically</p>
+                    </div>
+                    <div class="integration-card">
+                        <div class="icon">▶️</div>
+                        <h4>Clip Launching</h4>
+                        <p>Trigger scenes and clips from code via OSC</p>
+                    </div>
+                    <div class="integration-card">
+                        <div class="icon">🔊</div>
+                        <h4>Mixer Control</h4>
+                        <p>Automate volume, pan, sends dynamically</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: The Magic -->
+            <section data-background-gradient="linear-gradient(135deg, #6B2D5C 0%, #00D9FF 100%)">
+                <h2>The Magic of Integration</h2>
+                <h3 class="subtitle">What Becomes Possible</h3>
+                <div class="magic-list">
+                    <div class="magic-item fragment">
+                        <span class="magic-icon">🎲</span>
+                        <div>
+                            <h4>Algorithmic Sequencing of Hardware-Quality Sounds</h4>
+                            <p>Generate complex MIDI patterns in code, played through Ableton's rich instrument library</p>
+                        </div>
+                    </div>
+                    <div class="magic-item fragment">
+                        <span class="magic-icon">🌊</span>
+                        <div>
+                            <h4>Effects as Compositional Elements</h4>
+                            <p>Code controls Ableton effects parameters—filters sweep, delays feedback—as musical material</p>
+                        </div>
+                    </div>
+                    <div class="magic-item fragment">
+                        <span class="magic-icon">🎭</span>
+                        <div>
+                            <h4>Hybrid Improvisation</h4>
+                            <p>Live code the structure while manually tweaking clips, effects, and arrangement in real-time</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 11: Code → DAW -->
+            <section>
+                <h2>Sonic Pi Sequencing Ableton</h2>
+                <h3 class="subtitle">Code as the Compositional Brain</h3>
+                <pre><code class="language-ruby">use_midi_defaults port: "ableton_port"
+
+live_loop :bass_pattern do
+  midi_note_on [:e2, :g2, :a2, :d3].tick, sustain: 0.5
+  sleep [0.5, 0.5, 0.25, 0.25].look
+end
+
+live_loop :filter_sweep do
+  midi_cc 74, (line 0, 127, steps: 16).tick
+  sleep 0.25
+end</code></pre>
+                <p class="emphasis">Sonic Pi generates the notes and parameters; Ableton provides the sound engine and effects</p>
+            </section>
+
+            <!-- Slide 12: DAW → Code -->
+            <section data-background-color="#2d3748">
+                <h2>Ableton Processing Live-Coded Audio</h2>
+                <h3 class="subtitle">DAW as the Effects Powerhouse</h3>
+                <div class="workflow-diagram">
+                    <div class="workflow-step">
+                        <h4>1. Sonic Pi Generates</h4>
+                        <p>Raw synthesized audio from code</p>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <h4>2. Route to Ableton</h4>
+                        <p>Via audio interface or virtual cables</p>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <h4>3. Ableton Processes</h4>
+                        <p>Through effects chains, racks, plugins</p>
+                    </div>
+                </div>
+                <p class="emphasis" style="margin-top: 50px;">Best of both: algorithmic generation + studio-quality processing</p>
+            </section>
+
+            <!-- Slide 13: Hybrid Improvisation -->
+            <section>
+                <h2>🎭 Multi-Level Performance</h2>
+                <h3 class="subtitle">Improvising Simultaneously in Code and Clips</h3>
+                <div class="performance-layers">
+                    <div class="layer">
+                        <h4>Layer 1: Algorithmic Foundation</h4>
+                        <p>Live code evolving patterns, generative rhythms, probabilistic melodies</p>
+                    </div>
+                    <div class="layer">
+                        <h4>Layer 2: Clip Arrangement</h4>
+                        <p>Launch pre-arranged clips, trigger scenes, build and release tension</p>
+                    </div>
+                    <div class="layer">
+                        <h4>Layer 3: Effects Sculpting</h4>
+                        <p>Tweak filters, modulate delays, ride reverb sends in real-time</p>
+                    </div>
+                </div>
+                <blockquote class="fragment" style="margin-top: 50px;">
+                    "Three dimensions of improvisation happening at once—this is where hybrid performance shines."
+                </blockquote>
+            </section>
+
+            <!-- Slide 14: Performance Skills -->
+            <section data-background-color="#16213e">
+                <h2>🎪 Managing Complexity</h2>
+                <h3 class="subtitle">Essential Performance Techniques</h3>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h4>🧠 Cognitive Load Management</h4>
+                        <p>Structure your setup to minimize decision fatigue during performance</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>🔧 Error Recovery</h4>
+                        <p>Graceful fallbacks when code breaks or timing drifts</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>💧 Creative Flow</h4>
+                        <p>Maintain improvisation while managing two interfaces</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>🎚️ Template Design</h4>
+                        <p>Build Ableton templates optimized for code-driven performance</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 15: Aesthetic Questions -->
+            <section>
+                <h2>When to Use What?</h2>
+                <h3 class="subtitle">Aesthetic Decision-Making</h3>
+                <div class="two-column" style="margin-top: 50px;">
+                    <div class="column">
+                        <h4>💻 When Code Serves the Music</h4>
+                        <ul>
+                            <li>Complex polyrhythms</li>
+                            <li>Generative/probabilistic elements</li>
+                            <li>Evolving pattern structures</li>
+                            <li>Mathematical relationships</li>
+                            <li>Rapid iteration</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>🎹 When Direct Control Feels Right</h4>
+                        <ul>
+                            <li>Emotional dynamics</li>
+                            <li>Dramatic builds/drops</li>
+                            <li>Curated sample selection</li>
+                            <li>Specific sound design</li>
+                            <li>Tactile expression</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="emphasis fragment" style="margin-top: 50px;">
+                    The hybrid approach means you never have to choose—use the right tool for each musical moment
+                </p>
+            </section>
+
+            <!-- Slide 16: Creative Constraints -->
+            <section data-background-gradient="linear-gradient(135deg, #FF6B35 0%, #6B2D5C 100%)">
+                <h2>💡 Algorithmic Possibilities</h2>
+                <h3 class="subtitle">What Code-Based Composition Unlocks</h3>
+                <div class="possibilities-list">
+                    <div class="possibility fragment">
+                        <h4>🎲 Controlled Randomness</h4>
+                        <p>Variations that would take hours to program manually—seconds in code</p>
+                    </div>
+                    <div class="possibility fragment">
+                        <h4>🔄 Self-Modifying Systems</h4>
+                        <p>Music that evolves based on its own history and internal logic</p>
+                    </div>
+                    <div class="possibility fragment">
+                        <h4>🌀 Polymetric Complexity</h4>
+                        <p>Multiple time signatures and meters running simultaneously</p>
+                    </div>
+                    <div class="possibility fragment">
+                        <h4>🎯 Constraint-Based Creativity</h4>
+                        <p>Defining rules that generate endless variations within coherent systems</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 17: Who This Is For - Part 1 -->
+            <section data-background-color="#1a202c">
+                <h2>Is This Workshop For You?</h2>
+                <h3 class="subtitle">Perfect If You're...</h3>
+                <div class="audience-grid">
+                    <div class="audience-card">
+                        <h4>🎹 Electronic Musicians & Producers</h4>
+                        <p>Ableton users wanting to add algorithmic composition to their toolkit</p>
+                    </div>
+                    <div class="audience-card">
+                        <h4>💻 Live Coders</h4>
+                        <p>Sonic Pi practitioners seeking studio-quality sounds and effects</p>
+                    </div>
+                    <div class="audience-card">
+                        <h4>🎧 DJs</h4>
+                        <p>Expanding performance vocabulary beyond beatmatching and mixing</p>
+                    </div>
+                    <div class="audience-card">
+                        <h4>🎓 Creative Coders</h4>
+                        <p>Programmers curious about music production</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 18: Who This Is For - Part 2 -->
+            <section data-background-color="#0f3460">
+                <h2>Is This Workshop For You?</h2>
+                <h3 class="subtitle">Also Great For...</h3>
+                <div class="audience-grid" style="grid-template-columns: 1fr 1fr; max-width: 1000px; margin: 60px auto;">
+                    <div class="audience-card">
+                        <h4>🎪 Algorave Performers</h4>
+                        <p>Building unique hybrid setups for the live coding scene</p>
+                    </div>
+                    <div class="audience-card">
+                        <h4>🔬 Experimental Musicians</h4>
+                        <p>Drawn to the intersection of algorithmic and hands-on approaches</p>
+                    </div>
+                </div>
+                <blockquote style="margin-top: 80px; font-size: 1.3em;">
+                    "Experience with either Ableton OR programming helps—but you don't need to be expert in both."
+                </blockquote>
+            </section>
+
+            <!-- Slide 19: What You'll Gain - Part 1 -->
+            <section>
+                <h2>What You'll Master</h2>
+                <h3 class="subtitle">Technical Outcomes</h3>
+                <div class="outcomes-container">
+                    <div class="outcome-item">
+                        <div class="outcome-number">01</div>
+                        <h4>Sonic Pi Live Coding Mastery</h4>
+                        <p>From fundamentals to advanced generative techniques</p>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">02</div>
+                        <h4>MIDI/OSC/Link Integration</h4>
+                        <p>Connect and control Sonic Pi and Ableton seamlessly</p>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">03</div>
+                        <h4>Hybrid Performance Setup</h4>
+                        <p>Design your custom workflow balancing code and clips</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 20: What You'll Gain - Part 2 -->
+            <section data-background-color="#2d3748">
+                <h2>What You'll Master</h2>
+                <h3 class="subtitle">Creative & Performance Outcomes</h3>
+                <div class="outcomes-container">
+                    <div class="outcome-item">
+                        <div class="outcome-number">04</div>
+                        <h4>Error Recovery Strategies</h4>
+                        <p>Maintain performance flow when things go wrong</p>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">05</div>
+                        <h4>Personal Performance Workflow</h4>
+                        <p>Your unique synthesis of algorithmic and hands-on practice</p>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">06</div>
+                        <h4>Complete Live Set</h4>
+                        <p>20-30 minute performance ready for clubs and algoraves</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 21: Testimonials -->
+            <section data-background-color="#0f3460">
+                <h2>What Participants Say</h2>
+                <div class="testimonials">
+                    <div class="testimonial">
+                        <p class="quote">"I've been producing in Ableton for years, but adding Sonic Pi opened up an entirely new dimension. The algorithmic patterns I can generate now would take me hours to program manually."</p>
+                        <p class="attribution">— Sam R., Electronic Producer</p>
+                    </div>
+                    <div class="testimonial">
+                        <p class="quote">"Coming from a live coding background, I was intimidated by DAWs. This workshop showed me how to keep the code-based improvisation I love while gaining access to professional sound design."</p>
+                        <p class="attribution">— Alex K., Live Coder & Algorave Performer</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 22: Session Format -->
+            <section>
+                <h2>Workshop Format</h2>
+                <h3 class="subtitle">8 Sessions × 4 Hours</h3>
+                <div class="session-breakdown">
+                    <div class="session-card">
+                        <h4>Sessions 1-2: Foundations</h4>
+                        <p>Sonic Pi basics, MIDI/OSC/Link setup, first integrations</p>
+                    </div>
+                    <div class="session-card">
+                        <h4>Sessions 3-4: Integration</h4>
+                        <p>Sequencing Ableton from code, routing audio, building templates</p>
+                    </div>
+                    <div class="session-card">
+                        <h4>Sessions 5-6: Performance</h4>
+                        <p>Hybrid improvisation techniques, error recovery, flow management</p>
+                    </div>
+                    <div class="session-card">
+                        <h4>Sessions 7-8: Synthesis</h4>
+                        <p>Develop your live set, perform, receive feedback, iterate</p>
+                    </div>
+                </div>
+                <p class="emphasis" style="margin-top: 50px;">Sessions can be taken individually or as complete series</p>
+            </section>
+
+            <!-- Slide 23: Pricing -->
+            <section data-background-gradient="linear-gradient(135deg, #00D9FF 0%, #6B2D5C 100%)">
+                <h2>Workshop Investment</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card featured">
+                        <div class="pricing-badge">BEST VALUE</div>
+                        <h3>Complete Series</h3>
+                        <p class="duration">8 sessions × 4 hours</p>
+                        <ul>
+                            <li>Progressive curriculum</li>
+                            <li>Build complete live set</li>
+                            <li>Ongoing support</li>
+                            <li>Community access</li>
+                        </ul>
+                        <p class="price">$640-$960</p>
+                        <p class="price-note">sliding scale</p>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>Individual Sessions</h3>
+                        <p class="duration">4-hour workshops</p>
+                        <ul>
+                            <li>Focus on specific topics</li>
+                            <li>Flexible scheduling</li>
+                            <li>Session materials included</li>
+                        </ul>
+                        <p class="price">$80-$120</p>
+                        <p class="price-note">per session, sliding scale</p>
+                    </div>
+                </div>
+                <p class="emphasis" style="margin-top: 50px;">Early bird discount: 15% off full series</p>
+            </section>
+
+            <!-- Slide 24: How to Register -->
+            <section>
+                <h2>Ready to Begin?</h2>
+                <h3 class="subtitle">Three Simple Steps</h3>
+                <div class="registration-steps">
+                    <div class="reg-step">
+                        <div class="step-number">1</div>
+                        <h4>Send Inquiry</h4>
+                        <p><a href="mailto:workshops@creativecodingtech.com?subject=Ableton%20Sonic%20Pi%20Workshop" class="cta-link">workshops@creativecodingtech.com</a></p>
+                        <p class="small">Include: your experience level (Ableton/coding), questions, scheduling preferences</p>
+                    </div>
+                    <div class="reg-step">
+                        <div class="step-number">2</div>
+                        <h4>Receive Details</h4>
+                        <p>Session breakdown, upcoming dates, technical requirements, sliding scale options</p>
+                    </div>
+                    <div class="reg-step">
+                        <div class="step-number">3</div>
+                        <h4>Register & Prepare</h4>
+                        <p>Choose your rate, secure your spot, install required software (Sonic Pi + Ableton)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 25: Core Values -->
+            <section data-background-color="#1a1a2e">
+                <h1 style="font-size: 3em; margin-bottom: 60px;">Algorithmic Freedom</h1>
+                <h1 style="font-size: 3em; margin-bottom: 60px;">Production Power</h1>
+                <h1 class="emphasis" style="font-size: 3.5em; margin-top: 80px; color: #00D9FF;">Unified Performance</h1>
+            </section>
+
+            <!-- Slide 26: Final Message -->
+            <section data-background-gradient="linear-gradient(135deg, #1a1a2e 0%, #0A0E27 100%)">
+                <div class="closing-content">
+                    <blockquote style="font-size: 1.8em; line-height: 1.6; margin-bottom: 80px;">
+                        "This is the future of electronic music performance—where the computational and the creative converge in real-time."
+                    </blockquote>
+                </div>
+                <div class="decorative-divider"></div>
+                <p style="margin-top: 60px; font-size: 1.1em; line-height: 1.8;">
+                    <strong style="font-size: 1.3em;">Ableton Live + Sonic Pi: Hybrid Live Performance</strong><br><br>
+                    Wingston Sharon Wilson | Creative Coding & Technology<br>
+                    <a href="mailto:workshops@creativecodingtech.com" style="color: #00D9FF; font-size: 1.2em;">workshops@creativecodingtech.com</a>
+                </p>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Particle background canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Reveal.js Core from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/highlight/highlight.js"></script>
+
+    <!-- Custom visualizer -->
+    <script src="js/custom.js"></script>
+
+    <!-- Initialize Reveal.js -->
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+            width: 1920,
+            height: 1080,
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 2.0
+        });
+    </script>
+</body>
+</html>

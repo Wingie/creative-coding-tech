@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+{% include lang.html %}
+
+<style>
+  /* Override Chirpy body/main padding for full-bleed landing */
+  #main-wrapper {
+    background: #0a0a0f !important;
+  }
+
+  main {
+    background: transparent !important;
+  }
+
+  /* Ensure sidebar and topbar still visible */
+  body {
+    background: #0a0a0f !important;
+  }
+</style>
+
+{{ content }}

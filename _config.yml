@@ -1,0 +1,71 @@
+lang: en
+timezone: Europe/Amsterdam
+future: true
+
+title: Creative Coding Tech
+tagline: "Engineering Leader. Creative Technologist. AI/ML Architect."
+
+# Site logo
+avatar: /logo.png
+description: >-
+  Wingston Sharon Wilson — Engineering Manager @ Booking.com. 15+ years
+  building AI/ML systems, distributed platforms, and creative technology.
+  Amsterdam-based founder and live coding artist.
+
+url: "https://creativecodingtech.com"
+
+github:
+  username: wingie
+
+twitter:
+  username: creativecodingtech
+
+linkedin:
+  username: wingstonsharon
+
+social:
+  name: Wingston Sharon Wilson
+  email: creativecodingtech@proton.me
+  links:
+    - https://github.com/wingie
+    - https://linkedin.com/in/wingstonsharon
+
+author: Wingston Sharon Wilson
+
+# Google Search Console verification (replace with actual code)
+# google_site_verification: "your-verification-code"
+
+theme: jekyll-theme-chirpy
+
+# Exclude from processing
+exclude:
+  - ppts
+
+# Chirpy theme settings
+paginate: 10
+
+# Collections — required for _tabs/ to output pages
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+defaults:
+  - scope:
+      path: ""
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+
+# Jekyll Archives
+jekyll-archives:
+  enabled: 
+    - categories
+    - tags
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    category: /categories/:name/
+    tag: /tags/:name/

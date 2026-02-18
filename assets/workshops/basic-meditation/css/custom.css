@@ -1,0 +1,800 @@
+/* Basic Meditation Workshop - Custom Styles */
+
+:root {
+    --deep-blue: #2C3E7A;
+    --soft-violet: #9B7EBD;
+    --warm-gold: #D4AF37;
+    --sage-green: #A8B89F;
+    --soft-cream: #F5F1E8;
+    --midnight: #1a1a3e;
+    --breath-blue: #4A90E2;
+    --twilight: #4A5B92;
+    --lavender: #C7B8EA;
+}
+
+/* Particle canvas background */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.25;
+}
+
+/* Global typography adjustments */
+.reveal {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #E8E8E8;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+    font-weight: 300;
+    letter-spacing: 0.05em;
+}
+
+/* Title Slide */
+.workshop-title {
+    font-size: 4em;
+    font-weight: 200;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #fff 0%, var(--soft-cream) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    font-size: 1.8em;
+    color: var(--soft-cream);
+    font-weight: 300;
+    margin: 20px 0;
+    opacity: 0.9;
+}
+
+.tagline {
+    font-style: italic;
+    font-size: 1.2em;
+    color: rgba(255,255,255,0.7);
+    margin: 30px 0;
+}
+
+.decorative-divider {
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--warm-gold), transparent);
+    margin: 40px auto;
+}
+
+.presenter {
+    font-size: 1em;
+    color: rgba(255,255,255,0.6);
+    margin-top: 60px;
+}
+
+/* Content Grid (What We'll Explore) */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.grid-item {
+    background: rgba(255,255,255,0.05);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+.grid-item:hover {
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.grid-item .icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.grid-item h4 {
+    color: var(--breath-blue);
+    margin: 15px 0;
+    font-size: 1.4em;
+}
+
+.grid-item p {
+    font-size: 0.95em;
+    opacity: 0.85;
+    line-height: 1.6;
+}
+
+/* Large quotes */
+.large-quote {
+    font-size: 1.6em;
+    font-style: italic;
+    color: var(--soft-cream);
+    border-left: 4px solid var(--warm-gold);
+    padding-left: 30px;
+    margin: 40px auto;
+    max-width: 900px;
+    line-height: 1.6;
+}
+
+/* Problem list */
+.problem-list p {
+    text-align: left;
+    font-size: 1.2em;
+    margin: 25px 0;
+    padding-left: 20px;
+    line-height: 1.8;
+}
+
+.problem-list strong {
+    color: var(--breath-blue);
+}
+
+/* Meditation streams */
+.meditation-streams {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.stream-card {
+    background: rgba(255,255,255,0.05);
+    padding: 40px;
+    border-radius: 15px;
+    border: 2px solid rgba(155, 126, 189, 0.3);
+    transition: all 0.3s ease;
+}
+
+.stream-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--soft-violet);
+    box-shadow: 0 10px 30px rgba(155, 126, 189, 0.2);
+}
+
+.stream-icon {
+    font-size: 3.5em;
+    margin-bottom: 20px;
+}
+
+.stream-card h4 {
+    color: var(--warm-gold);
+    font-size: 2em;
+    margin: 15px 0;
+}
+
+.stream-subtitle {
+    color: var(--soft-violet);
+    font-size: 1.2em;
+    font-style: italic;
+    margin: 10px 0 20px;
+}
+
+.stream-card p {
+    font-size: 1.05em;
+    line-height: 1.7;
+    opacity: 0.9;
+}
+
+/* Complementary practices */
+.complementary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 35px;
+    margin-top: 50px;
+}
+
+.complement-item {
+    background: rgba(255,255,255,0.04);
+    padding: 35px;
+    border-radius: 12px;
+    border-left: 4px solid var(--breath-blue);
+}
+
+.complement-item h4 {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.complement-item .highlight {
+    color: var(--warm-gold);
+    font-weight: 500;
+}
+
+.complement-item p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+/* Technique details */
+.technique-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.technique-section {
+    background: rgba(255,255,255,0.04);
+    padding: 40px;
+    border-radius: 12px;
+}
+
+.technique-section h4 {
+    color: var(--warm-gold);
+    font-size: 1.5em;
+    margin-bottom: 25px;
+}
+
+.technique-list {
+    list-style: none;
+    text-align: left;
+}
+
+.technique-list li {
+    font-size: 1.05em;
+    margin: 20px 0;
+    padding-left: 30px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.technique-list li::before {
+    content: "→";
+    color: var(--breath-blue);
+    position: absolute;
+    left: 0;
+    font-size: 1.3em;
+}
+
+.big-idea {
+    font-size: 1.3em;
+    color: var(--soft-cream);
+    line-height: 1.7;
+    opacity: 0.95;
+}
+
+/* RAIN technique */
+.rain-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.rain-step {
+    background: rgba(255,255,255,0.04);
+    padding: 40px;
+    border-radius: 15px;
+    border: 2px solid rgba(74, 144, 226, 0.3);
+    text-align: center;
+}
+
+.rain-letter {
+    width: 80px;
+    height: 80px;
+    background: var(--breath-blue);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 0 auto 25px;
+}
+
+.rain-step h4 {
+    color: var(--warm-gold);
+    font-size: 1.6em;
+    margin: 20px 0;
+}
+
+.rain-step p {
+    font-size: 1.05em;
+    line-height: 1.6;
+    margin: 15px 0;
+}
+
+.rain-step .example {
+    font-style: italic;
+    color: var(--lavender);
+    margin-top: 25px;
+    font-size: 1.1em;
+}
+
+.emphasis {
+    font-size: 1.4em;
+    color: var(--warm-gold);
+    margin-top: 40px;
+}
+
+/* Daily practices */
+.daily-practices {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.daily-card {
+    background: rgba(255,255,255,0.04);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.daily-card:hover {
+    background: rgba(255,255,255,0.07);
+    transform: translateY(-5px);
+    border-color: var(--sage-green);
+}
+
+.daily-icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.daily-card h4 {
+    color: var(--sage-green);
+    font-size: 1.2em;
+    margin: 15px 0;
+}
+
+.daily-card p {
+    font-size: 0.9em;
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+/* Session timeline */
+.session-timeline {
+    margin-top: 50px;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: flex-start;
+    margin: 30px 0;
+    padding: 25px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    border-left: 4px solid var(--breath-blue);
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover {
+    background: rgba(255,255,255,0.06);
+    border-left-color: var(--warm-gold);
+}
+
+.timeline-item .time {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: var(--breath-blue);
+    min-width: 120px;
+    margin-right: 30px;
+}
+
+.timeline-item .activity h4 {
+    color: var(--warm-gold);
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.timeline-item .activity p {
+    font-size: 0.95em;
+    opacity: 0.85;
+    line-height: 1.5;
+}
+
+/* Intensive offerings */
+.intensive-offerings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.intensive-card {
+    background: rgba(255,255,255,0.05);
+    padding: 40px;
+    border-radius: 15px;
+    border: 2px solid rgba(155, 126, 189, 0.2);
+    transition: all 0.3s ease;
+}
+
+.intensive-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--soft-violet);
+    box-shadow: 0 10px 30px rgba(155, 126, 189, 0.2);
+}
+
+.intensive-card h4 {
+    color: var(--soft-violet);
+    font-size: 1.4em;
+    margin-bottom: 20px;
+}
+
+.intensive-card p {
+    font-size: 1.05em;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Practice guide */
+.practice-guide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.guide-section {
+    background: rgba(255,255,255,0.04);
+    padding: 40px;
+    border-radius: 12px;
+}
+
+.guide-section h4 {
+    color: var(--warm-gold);
+    font-size: 1.5em;
+    margin-bottom: 25px;
+}
+
+.practice-list {
+    list-style: none;
+    text-align: left;
+}
+
+.practice-list li {
+    font-size: 1.05em;
+    margin: 20px 0;
+    padding-left: 30px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.practice-list li::before {
+    content: "•";
+    color: var(--sage-green);
+    position: absolute;
+    left: 0;
+    font-size: 1.5em;
+}
+
+/* Audience grid */
+.audience-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+    margin-top: 50px;
+}
+
+.audience-card {
+    background: rgba(255,255,255,0.05);
+    padding: 35px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+.audience-card:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--breath-blue);
+    transform: translateY(-5px);
+}
+
+.audience-card h4 {
+    color: var(--breath-blue);
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.audience-card p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+/* Outcomes */
+.outcomes-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 35px;
+    margin-top: 50px;
+}
+
+.outcome-item {
+    background: rgba(255,255,255,0.04);
+    padding: 30px;
+    border-radius: 12px;
+    border-left: 4px solid var(--warm-gold);
+    position: relative;
+    padding-left: 90px;
+}
+
+.outcome-number {
+    position: absolute;
+    left: 20px;
+    top: 25px;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: rgba(212, 175, 55, 0.3);
+}
+
+.outcome-item h4 {
+    color: var(--warm-gold);
+    margin-bottom: 12px;
+    font-size: 1.2em;
+}
+
+.outcome-item p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+/* Testimonials */
+.testimonials {
+    margin-top: 50px;
+}
+
+.testimonial {
+    background: rgba(255,255,255,0.05);
+    padding: 35px;
+    border-radius: 12px;
+    margin: 25px auto;
+    max-width: 900px;
+    border-left: 4px solid var(--soft-violet);
+}
+
+.testimonial .quote {
+    font-size: 1.2em;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: rgba(255,255,255,0.95);
+}
+
+.testimonial .attribution {
+    text-align: right;
+    color: var(--breath-blue);
+    font-size: 1em;
+    margin-top: 15px;
+}
+
+/* Offerings */
+.offerings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+    margin-top: 50px;
+}
+
+.offering-card {
+    background: rgba(255,255,255,0.05);
+    padding: 35px;
+    border-radius: 15px;
+    border: 2px solid rgba(255,255,255,0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.offering-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.offering-card.featured {
+    border-color: var(--warm-gold);
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.offering-badge {
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    background: var(--warm-gold);
+    color: #1a1a1a;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+
+.offering-card h3 {
+    color: var(--soft-cream);
+    margin-bottom: 15px;
+    font-size: 1.4em;
+}
+
+.offering-card .duration {
+    color: var(--breath-blue);
+    font-size: 1.1em;
+    margin: 10px 0;
+}
+
+.offering-card .description {
+    font-size: 0.95em;
+    margin: 20px 0;
+    opacity: 0.85;
+}
+
+.offering-card ul {
+    list-style: none;
+    text-align: left;
+    margin: 20px 0;
+}
+
+.offering-card li {
+    font-size: 0.9em;
+    margin: 10px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.offering-card li::before {
+    content: "✓";
+    color: var(--sage-green);
+    position: absolute;
+    left: 0;
+}
+
+.offering-card .pricing {
+    font-size: 1.2em;
+    color: var(--warm-gold);
+    font-weight: bold;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Next steps */
+.next-steps-content {
+    display: flex;
+    justify-content: space-around;
+    gap: 50px;
+    margin-top: 60px;
+}
+
+.step {
+    flex: 1;
+    text-align: center;
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: var(--warm-gold);
+    color: #1a1a1a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin: 0 auto 25px;
+}
+
+.step h4 {
+    color: var(--soft-cream);
+    margin: 20px 0;
+    font-size: 1.3em;
+}
+
+.step p {
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+.step .small {
+    font-size: 0.85em;
+    opacity: 0.7;
+}
+
+.cta-link {
+    color: var(--warm-gold) !important;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    border-bottom: 2px solid var(--warm-gold);
+    transition: all 0.3s ease;
+}
+
+.cta-link:hover {
+    color: var(--soft-cream) !important;
+    border-bottom-color: var(--soft-cream);
+}
+
+.contact-info {
+    margin-top: 60px;
+    padding: 30px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+}
+
+.contact-info p {
+    font-size: 1.05em;
+    margin: 15px 0;
+}
+
+/* Closing slide */
+.closing-quote {
+    max-width: 1000px;
+    margin: 60px auto;
+}
+
+.closing-quote blockquote {
+    font-size: 1.4em;
+    font-style: italic;
+    color: var(--soft-cream);
+    line-height: 1.7;
+    border-left: 4px solid var(--warm-gold);
+    padding-left: 30px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .content-grid,
+    .meditation-streams,
+    .complementary-grid,
+    .technique-details,
+    .rain-steps,
+    .daily-practices,
+    .intensive-offerings,
+    .practice-guide,
+    .audience-grid,
+    .outcomes-container,
+    .offerings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .next-steps-content {
+        flex-direction: column;
+    }
+}
+
+/* Animation classes */
+.fade-in-left {
+    animation: fadeInLeft 0.6s ease-out;
+}
+
+.fade-in-right {
+    animation: fadeInRight 0.6s ease-out;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

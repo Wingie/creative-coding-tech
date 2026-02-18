@@ -1,0 +1,41 @@
+---
+layout: default
+refactor: true
+---
+
+{% include lang.html %}
+
+<article class="px-1 offering-page">
+  {% if page.title %}
+    <h1 class="dynamic-title">{{ page.title }}</h1>
+  {% endif %}
+
+  <div class="content offering-content">
+    {{ content }}
+  </div>
+
+  {% if page.schema %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "{{ page.title }}",
+    "provider": {
+      "@type": "Person",
+      "name": "Wingston Sharon Wilson",
+      "url": "https://creativecodingtech.com/about/"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "{{ page.schema.area | default: 'Europe' }}"
+    },
+    "description": "{{ page.description }}",
+    "offers": {
+      "@type": "Offer",
+      "price": "{{ page.schema.price | default: '0' }}",
+      "priceCurrency": "{{ page.schema.currency | default: 'EUR' }}"
+    }
+  }
+  </script>
+  {% endif %}
+</article>

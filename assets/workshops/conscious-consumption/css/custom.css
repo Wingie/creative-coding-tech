@@ -1,0 +1,995 @@
+/* ========================================
+   CONSCIOUS CONSUMPTION WORKSHOP STYLES
+   Earth-Consciousness Aesthetic
+   ======================================== */
+
+:root {
+    /* Earth-consciousness color palette */
+    --earth-green: #2d5016;
+    --sacred-purple: #6b46c1;
+    --warm-brown: #8b4513;
+    --sky-blue: #4a90e2;
+    --golden-yellow: #f5a623;
+    --muted-sage: #9caf88;
+    --deep-forest: #1a3a0f;
+    --soft-cream: #f5f5dc;
+
+    /* Gradients */
+    --gradient-earth: linear-gradient(135deg, #2d5016 0%, #6b46c1 100%);
+    --gradient-sky: linear-gradient(135deg, #4a90e2 0%, #9caf88 100%);
+    --gradient-awakening: linear-gradient(135deg, #6b46c1 0%, #f5a623 100%);
+}
+
+/* ========================================
+   CANVAS BACKGROUND
+   ======================================== */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(180deg, #0a0e0d 0%, #1a1a2e 100%);
+}
+
+/* ========================================
+   BASE REVEAL.JS OVERRIDES
+   ======================================== */
+.reveal {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 38px;
+    font-weight: 300;
+    color: #e8e8e8;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+}
+
+.reveal h1 {
+    font-size: 3.5em;
+    line-height: 1.2;
+    margin-bottom: 0.3em;
+}
+
+.reveal h2 {
+    font-size: 2.5em;
+    color: var(--muted-sage);
+    margin-bottom: 0.5em;
+}
+
+.reveal h3 {
+    font-size: 1.8em;
+    color: #b8b8b8;
+}
+
+.reveal h4 {
+    font-size: 1.4em;
+    color: var(--golden-yellow);
+}
+
+/* ========================================
+   TITLE SLIDE
+   ======================================== */
+.workshop-title {
+    font-size: 4.5em;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--muted-sage) 0%, var(--golden-yellow) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    margin-bottom: 0.2em;
+}
+
+.subtitle {
+    font-size: 1.6em;
+    color: var(--soft-cream);
+    font-weight: 300;
+    margin-bottom: 1em;
+    opacity: 0.9;
+}
+
+.tagline {
+    font-size: 1.4em;
+    color: var(--muted-sage);
+    font-style: italic;
+    margin: 1.5em 0;
+    opacity: 0.85;
+}
+
+.presenter {
+    font-size: 1.1em;
+    color: #999;
+    margin-top: 1em;
+}
+
+.decorative-divider {
+    width: 200px;
+    height: 3px;
+    background: var(--gradient-earth);
+    margin: 40px auto;
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(156, 175, 136, 0.4);
+}
+
+/* ========================================
+   CONTENT LAYOUTS
+   ======================================== */
+
+/* Content Grid (2x2 or 3 column) */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 50px;
+    margin-top: 80px;
+    padding: 0 60px;
+}
+
+.grid-item {
+    background: rgba(45, 80, 22, 0.2);
+    border: 2px solid var(--earth-green);
+    border-radius: 15px;
+    padding: 50px 40px;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.grid-item:hover {
+    background: rgba(45, 80, 22, 0.35);
+    border-color: var(--muted-sage);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(156, 175, 136, 0.2);
+}
+
+.grid-item .icon {
+    font-size: 3.5em;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 15px rgba(245, 166, 35, 0.3));
+}
+
+.grid-item h4 {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+    color: var(--golden-yellow);
+}
+
+.grid-item p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #d0d0d0;
+}
+
+/* Fade-in animations */
+.fade-in-left {
+    animation: fadeInLeft 0.8s ease-out;
+}
+
+.fade-in-right {
+    animation: fadeInRight 0.8s ease-out;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Two Column Layout */
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 60px;
+}
+
+.column {
+    padding: 40px;
+    background: rgba(26, 58, 15, 0.3);
+    border-radius: 12px;
+    border-left: 4px solid var(--earth-green);
+}
+
+.column h4 {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    color: var(--muted-sage);
+}
+
+.column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.column ul li {
+    padding: 12px 0;
+    font-size: 1.1em;
+    line-height: 1.6;
+    border-bottom: 1px solid rgba(156, 175, 136, 0.2);
+}
+
+.column ul li:last-child {
+    border-bottom: none;
+}
+
+.old-way {
+    border-left-color: #8b4513;
+}
+
+.new-way {
+    border-left-color: var(--muted-sage);
+}
+
+/* ========================================
+   PROBLEM LIST
+   ======================================== */
+.problem-list {
+    margin-top: 80px;
+    padding: 0 80px;
+}
+
+.problem-list p {
+    font-size: 1.4em;
+    padding: 30px;
+    margin: 25px 0;
+    background: rgba(107, 70, 193, 0.15);
+    border-left: 5px solid var(--sacred-purple);
+    border-radius: 8px;
+    text-align: left;
+}
+
+/* ========================================
+   QUOTES & EMPHASIS
+   ======================================== */
+.large-quote {
+    font-size: 1.8em;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--soft-cream);
+    border-left: 5px solid var(--golden-yellow);
+    padding-left: 50px;
+    margin: 60px 80px;
+    text-align: left;
+}
+
+blockquote {
+    font-size: 1.5em;
+    font-style: italic;
+    color: var(--muted-sage);
+    border-left: 4px solid var(--muted-sage);
+    padding-left: 40px;
+    margin: 40px 60px;
+    line-height: 1.7;
+}
+
+.emphasis {
+    font-size: 1.3em;
+    color: var(--golden-yellow);
+    font-weight: 400;
+}
+
+.big-idea {
+    font-size: 1.6em;
+    line-height: 1.7;
+    color: var(--soft-cream);
+    margin: 40px 60px;
+    text-align: center;
+}
+
+/* ========================================
+   PHILOSOPHY CARDS
+   ======================================== */
+.philosophy-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+    padding: 0 40px;
+}
+
+.phil-card {
+    background: rgba(45, 80, 22, 0.25);
+    border: 2px solid var(--earth-green);
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.phil-card:hover {
+    background: rgba(45, 80, 22, 0.4);
+    border-color: var(--golden-yellow);
+    box-shadow: 0 10px 30px rgba(245, 166, 35, 0.15);
+}
+
+.phil-card h4 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: var(--golden-yellow);
+}
+
+.phil-card p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #d0d0d0;
+}
+
+/* ========================================
+   SOMATIC/EMBODIED CONTENT
+   ======================================== */
+.somatic-content {
+    padding: 0 60px;
+}
+
+.body-wisdom {
+    list-style: none;
+    padding: 0;
+}
+
+.body-wisdom li {
+    padding: 20px 30px;
+    margin: 15px 0;
+    font-size: 1.2em;
+    background: rgba(107, 70, 193, 0.12);
+    border-left: 4px solid var(--sacred-purple);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.body-wisdom li:hover {
+    background: rgba(107, 70, 193, 0.2);
+    transform: translateX(10px);
+}
+
+/* ========================================
+   QUADRANT GRID (AQAL)
+   ======================================== */
+.quadrant-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 30px;
+    margin: 60px 80px;
+    height: 700px;
+}
+
+.quadrant {
+    padding: 40px;
+    border-radius: 12px;
+    border: 3px solid;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.quadrant:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.quadrant.ul {
+    background: rgba(107, 70, 193, 0.2);
+    border-color: var(--sacred-purple);
+}
+
+.quadrant.ur {
+    background: rgba(74, 144, 226, 0.2);
+    border-color: var(--sky-blue);
+}
+
+.quadrant.ll {
+    background: rgba(45, 80, 22, 0.2);
+    border-color: var(--earth-green);
+}
+
+.quadrant.lr {
+    background: rgba(139, 69, 19, 0.2);
+    border-color: var(--warm-brown);
+}
+
+.quadrant-label {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 0.9em;
+    opacity: 0.6;
+    font-weight: 600;
+}
+
+.quadrant h4 {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+}
+
+.quadrant ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quadrant ul li {
+    padding: 12px 0;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+/* ========================================
+   SPIRAL DYNAMICS STAGES
+   ======================================== */
+.spiral-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin: 60px 80px;
+}
+
+.spiral-stage {
+    padding: 40px 50px;
+    border-radius: 15px;
+    border: 3px solid;
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.spiral-stage:hover {
+    transform: translateX(20px);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+}
+
+.spiral-stage.orange-stage {
+    background: rgba(245, 166, 35, 0.15);
+    border-color: var(--golden-yellow);
+}
+
+.spiral-stage.green-stage {
+    background: rgba(45, 80, 22, 0.25);
+    border-color: var(--earth-green);
+}
+
+.spiral-stage.yellow-stage {
+    background: rgba(156, 175, 136, 0.2);
+    border-color: var(--muted-sage);
+}
+
+.stage-badge {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 1.1em;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.4);
+}
+
+.spiral-stage h4 {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+}
+
+.spiral-stage p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin: 12px 0;
+}
+
+/* ========================================
+   TOOLS GRID
+   ======================================== */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin: 60px 60px;
+}
+
+.tool-card {
+    background: rgba(107, 70, 193, 0.15);
+    border: 2px solid var(--sacred-purple);
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.tool-card:hover {
+    background: rgba(107, 70, 193, 0.25);
+    border-color: var(--golden-yellow);
+    transform: translateY(-10px);
+}
+
+.tool-icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.tool-card h4 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+}
+
+.tool-card p {
+    font-size: 1em;
+    color: #c0c0c0;
+}
+
+/* ========================================
+   METAMORPHOSIS (Camel-Lion-Child)
+   ======================================== */
+.metamorphosis-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin: 60px 40px;
+}
+
+.meta-stage {
+    flex: 1;
+    padding: 40px 30px;
+    border-radius: 12px;
+    border: 3px solid;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.meta-stage:hover {
+    transform: scale(1.08);
+}
+
+.meta-stage.camel {
+    background: rgba(139, 69, 19, 0.2);
+    border-color: var(--warm-brown);
+}
+
+.meta-stage.lion {
+    background: rgba(245, 166, 35, 0.2);
+    border-color: var(--golden-yellow);
+}
+
+.meta-stage.child {
+    background: rgba(156, 175, 136, 0.25);
+    border-color: var(--muted-sage);
+}
+
+.meta-stage h4 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.meta-stage p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 12px 0;
+}
+
+.meta-stage .wisdom {
+    font-style: italic;
+    color: var(--golden-yellow);
+    margin-top: 25px;
+    font-size: 1.2em;
+}
+
+.meta-arrow {
+    font-size: 3em;
+    color: var(--muted-sage);
+}
+
+/* ========================================
+   PRACTICE & STRATEGY CARDS
+   ======================================== */
+.practice-grid,
+.strategies-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin: 60px 60px;
+}
+
+.practice-card,
+.strategy-card {
+    background: rgba(45, 80, 22, 0.2);
+    border: 2px solid var(--earth-green);
+    border-radius: 12px;
+    padding: 40px 35px;
+    transition: all 0.3s ease;
+}
+
+.practice-card:hover,
+.strategy-card:hover {
+    background: rgba(45, 80, 22, 0.35);
+    border-color: var(--muted-sage);
+    box-shadow: 0 10px 30px rgba(156, 175, 136, 0.2);
+}
+
+.practice-card h4,
+.strategy-card h4 {
+    font-size: 1.6em;
+    margin-bottom: 25px;
+}
+
+.practice-card p,
+.strategy-card p,
+.strategy-card ul li {
+    font-size: 1.05em;
+    line-height: 1.6;
+    margin: 10px 0;
+    color: #d0d0d0;
+}
+
+.strategy-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.strategy-card ul li {
+    padding: 8px 0;
+}
+
+/* ========================================
+   AUDIENCE & OUTCOMES
+   ======================================== */
+.audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin: 60px 60px;
+}
+
+.audience-card {
+    background: rgba(107, 70, 193, 0.15);
+    border: 2px solid var(--sacred-purple);
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.audience-card:hover {
+    background: rgba(107, 70, 193, 0.25);
+    transform: translateY(-10px);
+    box-shadow: 0 12px 35px rgba(107, 70, 193, 0.25);
+}
+
+.audience-card h4 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+}
+
+.audience-card p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #d0d0d0;
+}
+
+.outcomes-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+    margin: 60px 80px;
+}
+
+.outcome-item {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+    padding: 30px;
+    background: rgba(45, 80, 22, 0.15);
+    border-radius: 10px;
+    border-left: 5px solid var(--muted-sage);
+    transition: all 0.3s ease;
+}
+
+.outcome-item:hover {
+    background: rgba(45, 80, 22, 0.25);
+    transform: translateX(10px);
+}
+
+.outcome-number {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--golden-yellow);
+    opacity: 0.7;
+    min-width: 80px;
+}
+
+.outcome-item h4 {
+    font-size: 1.5em;
+    margin-bottom: 12px;
+}
+
+.outcome-item p {
+    font-size: 1.05em;
+    line-height: 1.6;
+    color: #c8c8c8;
+}
+
+/* ========================================
+   JOURNEY TIMELINE
+   ======================================== */
+.journey-timeline {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin: 60px 60px;
+}
+
+.journey-day {
+    position: relative;
+    padding: 35px 35px 35px 100px;
+    background: rgba(107, 70, 193, 0.12);
+    border-left: 5px solid var(--sacred-purple);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.journey-day:hover {
+    background: rgba(107, 70, 193, 0.2);
+    border-left-color: var(--golden-yellow);
+    transform: translateX(10px);
+}
+
+.day-number {
+    position: absolute;
+    left: 25px;
+    top: 35px;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--golden-yellow);
+}
+
+.journey-day h4 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: var(--muted-sage);
+}
+
+.journey-day p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #b8b8b8;
+}
+
+/* ========================================
+   OFFERINGS & PRICING
+   ======================================== */
+.offerings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    margin: 60px 50px;
+}
+
+.offering-card {
+    background: rgba(45, 80, 22, 0.2);
+    border: 3px solid var(--earth-green);
+    border-radius: 15px;
+    padding: 50px 40px;
+    text-align: center;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.offering-card:hover {
+    background: rgba(45, 80, 22, 0.35);
+    border-color: var(--muted-sage);
+    transform: translateY(-15px);
+    box-shadow: 0 20px 50px rgba(156, 175, 136, 0.25);
+}
+
+.offering-card.featured {
+    border-color: var(--golden-yellow);
+    border-width: 4px;
+    background: rgba(245, 166, 35, 0.15);
+}
+
+.offering-card.featured:hover {
+    border-color: var(--golden-yellow);
+    box-shadow: 0 20px 60px rgba(245, 166, 35, 0.3);
+}
+
+.offering-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gradient-awakening);
+    color: #fff;
+    padding: 8px 25px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 700;
+    box-shadow: 0 5px 20px rgba(245, 166, 35, 0.4);
+}
+
+.offering-card h3 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: var(--golden-yellow);
+}
+
+.offering-card .duration {
+    font-size: 1.1em;
+    color: var(--muted-sage);
+    margin-bottom: 20px;
+}
+
+.offering-card .description {
+    font-size: 1.05em;
+    margin: 25px 0;
+    color: #c0c0c0;
+}
+
+.offering-card ul {
+    text-align: left;
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+}
+
+.offering-card ul li {
+    padding: 10px 0;
+    font-size: 1em;
+    line-height: 1.5;
+    color: #d0d0d0;
+}
+
+.offering-card .pricing {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--golden-yellow);
+    margin-top: 30px;
+}
+
+/* ========================================
+   TIPPING POINT
+   ======================================== */
+.tipping-point-content {
+    padding: 0 80px;
+}
+
+.big-stat {
+    text-align: center;
+    margin: 60px 0;
+}
+
+.stat-number {
+    font-size: 8em;
+    font-weight: 700;
+    color: var(--golden-yellow);
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(245, 166, 35, 0.5);
+}
+
+.stat-label {
+    font-size: 1.5em;
+    color: var(--soft-cream);
+    margin: 20px 0;
+}
+
+.stat-equals {
+    font-size: 4em;
+    color: var(--muted-sage);
+    margin: 30px 0;
+}
+
+.stat-result {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--muted-sage);
+    text-transform: uppercase;
+}
+
+/* ========================================
+   CONSEQUENCE ITEMS
+   ======================================== */
+.consequence-item {
+    padding: 30px 40px;
+    margin: 20px 0;
+    background: rgba(139, 69, 19, 0.2);
+    border-left: 5px solid var(--warm-brown);
+    border-radius: 8px;
+}
+
+.consequence-item h4 {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+    color: var(--golden-yellow);
+}
+
+.consequence-item p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #d0d0d0;
+}
+
+/* ========================================
+   CLOSING METTA
+   ======================================== */
+.closing-metta {
+    text-align: center;
+    padding: 60px;
+}
+
+.closing-metta p {
+    font-size: 1.6em;
+    line-height: 2.2;
+    color: var(--soft-cream);
+    margin: 30px 0;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 1400px) {
+    .content-grid,
+    .tools-grid,
+    .audience-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .offerings-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .two-column,
+    .quadrant-grid,
+    .outcomes-container,
+    .journey-timeline,
+    .practice-grid,
+    .strategies-container {
+        grid-template-columns: 1fr;
+    }
+
+    .metamorphosis-container {
+        flex-direction: column;
+    }
+
+    .meta-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+.reveal a {
+    color: var(--muted-sage);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.reveal a:hover {
+    color: var(--golden-yellow);
+    border-bottom-color: var(--golden-yellow);
+}
+
+/* Focus states */
+.reveal button:focus,
+.reveal a:focus {
+    outline: 3px solid var(--golden-yellow);
+    outline-offset: 4px;
+}

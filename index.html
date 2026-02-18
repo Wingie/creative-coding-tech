@@ -1,0 +1,141 @@
+---
+layout: landing
+title: Wingston Sharon Wilson — Engineering Leader & Creative Technologist
+description: Engineering Manager @ Booking.com. 15+ years AI/ML, distributed systems, and creative technology. Amsterdam-based founder and live coding artist.
+---
+
+<!-- Import Three.js via CDN importmap -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+  }
+}
+</script>
+
+<!-- Neural Network Canvas (fixed background) -->
+<canvas id="neural-canvas" aria-hidden="true"></canvas>
+
+<div class="landing-page-wrapper">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-name">Wingston Sharon Wilson</h1>
+      <p class="hero-role">Engineering Leader &middot; Creative Technologist &middot; AI Architect</p>
+      <p class="hero-subline">
+        15 years building systems that serve millions &mdash; from Booking.com&rsquo;s Flights platform
+        to live-coded sound at algorave. Amsterdam-based. Always shipping.
+      </p>
+      <div class="hero-ctas">
+        <a href="/projects/" class="hero-cta-primary">View Projects</a>
+        <a href="/consulting/" class="hero-cta-secondary">Work With Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERTISE STRIP ============ -->
+  <section class="expertise-strip">
+    <div class="expertise-grid">
+      <div class="expertise-item">
+        <i class="fas fa-brain"></i>
+        <h3>AI / ML</h3>
+      </div>
+      <div class="expertise-item">
+        <i class="fas fa-users-cog"></i>
+        <h3>Engineering Leadership</h3>
+      </div>
+      <div class="expertise-item">
+        <i class="fas fa-music"></i>
+        <h3>Creative Technology</h3>
+      </div>
+      <div class="expertise-item">
+        <i class="fas fa-network-wired"></i>
+        <h3>Systems Design</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED PROJECTS ============ -->
+  <section class="featured-section">
+    <p class="section-heading">Selected Work</p>
+    <h2 class="section-title">Featured Projects</h2>
+
+    <div class="featured-grid">
+
+      <a href="https://github.com/wingie/FlowState" target="_blank" rel="noopener" class="featured-card">
+        <p class="card-name">FlowState</p>
+        <p class="card-desc">Distributed task orchestration with ML-powered scheduling and GPU worker management. Production AI workload engine.</p>
+        <p class="card-tech">Python &middot; Celery &middot; ML &middot; Distributed Systems</p>
+      </a>
+
+      <a href="https://github.com/wingie/ableton-mcp" target="_blank" rel="noopener" class="featured-card">
+        <p class="card-name">Ableton MCP</p>
+        <p class="card-desc">One of the first Model Context Protocol integrations for Ableton Live — AI assistants that control your DAW directly.</p>
+        <p class="card-tech">MCP &middot; Ableton Live &middot; Python &middot; AI</p>
+      </a>
+
+      <a href="https://github.com/wingie/llm-pokemon-red" target="_blank" rel="noopener" class="featured-card">
+        <p class="card-name">LLM-Pokemon-Red</p>
+        <p class="card-desc">Autonomous LLM agent playing Pokémon Red from scratch. Vision-language model reads the screen; agent plans and acts.</p>
+        <p class="card-tech">LLMs &middot; Vision &middot; AI Agents &middot; Python</p>
+      </a>
+
+    </div>
+
+    <div style="text-align:center; margin-top: 2.5rem;">
+      <a href="/projects/" class="hero-cta-secondary">View all projects →</a>
+    </div>
+  </section>
+
+  <!-- ============ BY THE NUMBERS ============ -->
+  <section class="numbers-section">
+    <div class="numbers-grid">
+      <div class="number-item">
+        <div class="num">15+</div>
+        <div class="num-label">Years Engineering</div>
+      </div>
+      <div class="number-item">
+        <div class="num">70+</div>
+        <div class="num-label">Countries Visited</div>
+      </div>
+      <div class="number-item">
+        <div class="num">12+</div>
+        <div class="num-label">Engineers Led</div>
+      </div>
+      <div class="number-item">
+        <div class="num">100+</div>
+        <div class="num-label">OSS Repos</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CURRENT ROLE ============ -->
+  <section class="current-section">
+    <span class="current-badge">Currently</span>
+    <h2 class="current-title">Engineering Manager, Flights &mdash; Booking.com</h2>
+    <p class="current-desc">
+      Leading a cross-functional team of 12+ engineers building the search and pricing
+      infrastructure that powers hundreds of millions of flight searches annually.
+      Previously CTO at Workshop India. Formerly a software engineer in Dubai.
+    </p>
+    <a href="/about/" class="hero-cta-secondary">Full story →</a>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="landing-cta-section">
+    <h2>Building something ambitious?</h2>
+    <p>I take on selective consulting engagements in AI/ML, engineering leadership, and creative technology.</p>
+    <a href="/contact/" class="cta-btn">Start a Conversation →</a>
+  </section>
+
+</div>
+
+<!-- Load Three.js neural network -->
+<script type="module">
+  import { initNeuralNetwork } from '/assets/js/neural-network.js';
+  const canvas = document.getElementById('neural-canvas');
+  if (canvas) {
+    initNeuralNetwork(canvas);
+  }
+</script>

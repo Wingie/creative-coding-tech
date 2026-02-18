@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithms as Code: Generative Art & Creative Coding Workshop</title>
+
+    <!-- Reveal.js Core from CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/black.css">
+
+    <!-- Syntax highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/highlight/monokai.css">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title -->
+            <section data-background-gradient="linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)">
+                <h1 class="workshop-title">Algorithms as Code</h1>
+                <h3 class="subtitle">Generative Art & Creative Coding</h3>
+                <p class="tagline">Where mathematics becomes visual poetry</p>
+                <div class="decorative-divider"></div>
+                <p class="presenter">Wingston Sharon Wilson | Creative Coding & Technology</p>
+            </section>
+
+            <!-- Slide 2: What We'll Explore Today - Part 1 -->
+            <section>
+                <h2>What We'll Explore Today</h2>
+                <div class="content-grid">
+                    <div class="grid-item fade-in-left">
+                        <div class="icon">🎨</div>
+                        <h4>The Shift</h4>
+                        <p>From algorithms as tools → algorithms as instruments of aesthetic exploration</p>
+                    </div>
+                    <div class="grid-item fade-in-right">
+                        <div class="icon">💻</div>
+                        <h4>The Medium</h4>
+                        <p>Code as creative canvas—loops, noise, recursion as artistic materials</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: What We'll Explore Today - Part 2 -->
+            <section>
+                <div class="content-grid">
+                    <div class="grid-item fade-in-left">
+                        <div class="icon">🌀</div>
+                        <h4>The Journey</h4>
+                        <p>Eight sessions from fundamentals to sophisticated generative systems</p>
+                    </div>
+                    <div class="grid-item fade-in-right">
+                        <div class="icon">✨</div>
+                        <h4>The Outcome</h4>
+                        <p>Your own algorithmic aesthetic and portfolio of generative works</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: The Problem -->
+            <section data-background-color="#1a202c">
+                <h2>The Computational Colonization</h2>
+                <blockquote class="large-quote">
+                    "Code has been colonized by efficiency, optimization, and utility—what if we reclaimed it for pure aesthetic exploration?"
+                </blockquote>
+                <div class="problem-list">
+                    <p class="fragment">⚡ <strong>Efficiency over expression</strong> — Code judged only by performance</p>
+                    <p class="fragment">📊 <strong>Utility over beauty</strong> — Algorithms serving only practical ends</p>
+                    <p class="fragment">🎯 <strong>Solutions over questions</strong> — Missing the poetic potential of computation</p>
+                    <p class="fragment">🚫 <strong>"I'm not technical"</strong> — Code gatekept from creative practitioners</p>
+                </div>
+            </section>
+
+            <!-- Slide 5: What is Generative Art? -->
+            <section>
+                <h2>What is Generative Art?</h2>
+                <h3 class="subtitle">Algorithmic Aesthetics Defined</h3>
+                <div class="concept-container">
+                    <div class="concept-card">
+                        <h4>🤖 Algorithmic Authorship</h4>
+                        <p>Artist writes rules; computer generates endless variations</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>🎲 Controlled Randomness</h4>
+                        <p>Balancing intention with surprise through probability</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>🌊 Emergent Beauty</h4>
+                        <p>Complex patterns arising from simple rules</p>
+                    </div>
+                </div>
+                <p class="emphasis" style="margin-top: 60px;">
+                    Computation as creative medium—not just tool, but artistic partner
+                </p>
+            </section>
+
+            <!-- Slide 6: Historical Context -->
+            <section data-background-color="#16213e">
+                <h2>Pioneers of Computational Art</h2>
+                <h3 class="subtitle">Standing on the Shoulders of Algorithmic Giants</h3>
+                <div class="artists-grid">
+                    <div class="artist-card">
+                        <div style="font-size: 3em; margin-bottom: 15px;">🖼️</div>
+                        <h4>Vera Molnár</h4>
+                        <p>1960s plotter drawings—first algorithmic artist, exploring systematic chance</p>
+                    </div>
+                    <div class="artist-card">
+                        <div style="font-size: 3em; margin-bottom: 15px;">🎨</div>
+                        <h4>Casey Reas</h4>
+                        <p>Co-creator of Processing, exploring emergent software structures</p>
+                    </div>
+                    <div class="artist-card">
+                        <div style="font-size: 3em; margin-bottom: 15px;">💫</div>
+                        <h4>Manfred Mohr</h4>
+                        <p>Algorithmic geometry since 1969—hypercubes & n-dimensional art</p>
+                    </div>
+                </div>
+                <blockquote class="fragment" style="margin-top: 50px; font-size: 1.3em;">
+                    "The computer is not a tool, it is a medium." — Casey Reas
+                </blockquote>
+            </section>
+
+            <!-- Slide 7: p5.js: Your Creative Canvas -->
+            <section>
+                <h2>p5.js: Your Creative Canvas</h2>
+                <h3 class="subtitle">Why This Tool for Generative Art?</h3>
+                <div class="two-column" style="max-width: 1100px; margin: 50px auto;">
+                    <div class="column">
+                        <h4>✨ Beginner-Friendly</h4>
+                        <ul>
+                            <li>No installation—runs in browser</li>
+                            <li>Immediate visual feedback</li>
+                            <li>Gentle learning curve</li>
+                            <li>Forgiving syntax</li>
+                            <li>Built for artists, not engineers</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>🚀 Powerfully Expressive</h4>
+                        <ul>
+                            <li>Full JavaScript ecosystem</li>
+                            <li>Rich drawing API</li>
+                            <li>WebGL for 3D and shaders</li>
+                            <li>Easy export (web, print, video)</li>
+                            <li>Vibrant creative community</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="emphasis" style="margin-top: 50px;">
+                    Designed to make coding accessible for visual artists
+                </p>
+            </section>
+
+            <!-- Slide 8: Core Building Blocks - Part 1 -->
+            <section data-background-color="#0f172a" class="matrix-bg">
+                <h2>Core Building Blocks of Generative Art</h2>
+                <h3 class="subtitle">Your Algorithmic Palette — Part 1</h3>
+                <div class="concept-container">
+                    <div class="concept-card">
+                        <h4>🔁 Loops (Rhythm)</h4>
+                        <p>Repetition creates pattern, structure, visual rhythm</p>
+                        <div class="code-example" style="font-size: 0.8em; margin-top: 15px;">
+<pre>for (let i = 0; i < 10; i++) {
+  circle(i * 50, 200, 40);
+}</pre>
+                        </div>
+                    </div>
+                    <div class="concept-card">
+                        <h4>🎲 Randomness (Surprise)</h4>
+                        <p>Controlled chaos—probability as creative decision</p>
+                        <div class="code-example" style="font-size: 0.8em; margin-top: 15px;">
+<pre>let x = random(0, width);
+let y = random(0, height);</pre>
+                        </div>
+                    </div>
+                    <div class="concept-card">
+                        <h4>🌊 Noise (Organic)</h4>
+                        <p>Natural-feeling variation—smoother than random</p>
+                        <div class="code-example" style="font-size: 0.8em; margin-top: 15px;">
+<pre>let n = noise(x * 0.01);
+let y = n * height;</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: Core Building Blocks - Part 2 -->
+            <section data-background-color="#1a202c" class="matrix-bg">
+                <h2>Core Building Blocks of Generative Art</h2>
+                <h3 class="subtitle">Your Algorithmic Palette — Part 2</h3>
+                <div class="concept-container">
+                    <div class="concept-card">
+                        <h4>🌀 Recursion (Self-Similarity)</h4>
+                        <p>Functions calling themselves—fractals and trees</p>
+                        <div class="code-example" style="font-size: 0.75em; margin-top: 15px;">
+<pre>function branch(len) {
+  if (len > 4) {
+    branch(len * 0.7);
+  }
+}</pre>
+                        </div>
+                    </div>
+                    <div class="concept-card">
+                        <h4>📐 Math Functions</h4>
+                        <p>sin, cos, tan—mathematics as visual generator</p>
+                        <div class="code-example" style="font-size: 0.75em; margin-top: 15px;">
+<pre>let x = cos(angle) * radius;
+let y = sin(angle) * radius;</pre>
+                        </div>
+                    </div>
+                    <div class="concept-card">
+                        <h4>🔄 Transformations</h4>
+                        <p>Translate, rotate, scale—coordinate magic</p>
+                        <div class="code-example" style="font-size: 0.75em; margin-top: 15px;">
+<pre>translate(x, y);
+rotate(angle);
+scale(2.0);</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: The Generative Process -->
+            <section>
+                <h2>The Generative Creative Process</h2>
+                <h3 class="subtitle">How We Actually Make Art with Code</h3>
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="process-icon">✍️</div>
+                        <h4>Write Code</h4>
+                        <p>Express an idea algorithmically</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-icon">▶️</div>
+                        <h4>Run</h4>
+                        <p>Execute and observe output</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-icon">👁️</div>
+                        <h4>Observe</h4>
+                        <p>What surprised you? What's beautiful?</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-icon">🔧</div>
+                        <h4>Adjust</h4>
+                        <p>Tweak parameters, refine rules</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-icon">🔁</div>
+                        <h4>Repeat</h4>
+                        <p>Iterative creative feedback loop</p>
+                    </div>
+                </div>
+                <blockquote class="fragment" style="margin-top: 80px; font-size: 1.4em;">
+                    "We don't always know what we're making until we see it run."
+                </blockquote>
+            </section>
+
+            <!-- Slide 11: Session Progression Overview -->
+            <section data-background-color="#16213e">
+                <h2>8-Session Journey</h2>
+                <h3 class="subtitle">From First Loop to Sophisticated Systems</h3>
+                <div class="session-grid">
+                    <div class="session-card">
+                        <span class="session-number">Sessions 1-3</span>
+                        <h4>Foundations</h4>
+                        <p>Loops, randomness, noise, color theory, basic patterns</p>
+                    </div>
+                    <div class="session-card">
+                        <span class="session-number">Sessions 4-5</span>
+                        <h4>Dynamics</h4>
+                        <p>Physics, particles, flocking, emergence, autonomous agents</p>
+                    </div>
+                    <div class="session-card">
+                        <span class="session-number">Sessions 6-7</span>
+                        <h4>Complexity</h4>
+                        <p>Cellular automata, L-systems, fractals, generative typography</p>
+                    </div>
+                    <div class="session-card">
+                        <span class="session-number">Session 8</span>
+                        <h4>Integration</h4>
+                        <p>Interactivity, user input, portfolio preparation, export techniques</p>
+                    </div>
+                </div>
+                <p class="emphasis" style="margin-top: 50px;">
+                    Progressive curriculum—each session builds on previous concepts
+                </p>
+            </section>
+
+            <!-- Slide 12: Early Sessions (1-3) -->
+            <section>
+                <h2>Sessions 1-3: Foundations</h2>
+                <h3 class="subtitle">Building Your Generative Vocabulary</h3>
+                <div class="technique-block">
+                    <h4>🔄 For-Loops Create Patterns</h4>
+                    <ul class="technique-list">
+                        <li>Nested loops for grids and tessellations</li>
+                        <li>Loop variables as design parameters</li>
+                        <li>Breaking regularity with modulo operations</li>
+                    </ul>
+                </div>
+                <div class="technique-block">
+                    <h4>🌈 Color Spaces & Palettes</h4>
+                    <ul class="technique-list">
+                        <li>HSB vs RGB—choosing the right color model</li>
+                        <li>Algorithmic palette generation</li>
+                        <li>Color interpolation and gradients</li>
+                    </ul>
+                </div>
+                <div class="technique-block">
+                    <h4>🌊 Noise Functions Create Texture</h4>
+                    <ul class="technique-list">
+                        <li>Perlin noise for organic movement</li>
+                        <li>Flow fields—noise as directional force</li>
+                        <li>Mapping noise to visual properties</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 13: Mid Sessions (4-5) -->
+            <section data-background-color="#0f3460">
+                <h2>Sessions 4-5: Dynamics & Emergence</h2>
+                <h3 class="subtitle">When Algorithms Come Alive</h3>
+                <div class="technique-block">
+                    <h4>⚛️ Physics Simulations</h4>
+                    <ul class="technique-list">
+                        <li>Velocity, acceleration, forces</li>
+                        <li>Gravity, friction, springs</li>
+                        <li>Collision detection and response</li>
+                    </ul>
+                </div>
+                <div class="technique-block">
+                    <h4>✨ Particle Systems</h4>
+                    <ul class="technique-list">
+                        <li>Arrays of autonomous agents</li>
+                        <li>Lifespan and regeneration</li>
+                        <li>Visual effects—trails, explosions, organic growth</li>
+                    </ul>
+                </div>
+                <div class="technique-block">
+                    <h4>🐦 Flocking Behavior</h4>
+                    <ul class="technique-list">
+                        <li>Three simple rules create complex movement</li>
+                        <li>Separation, alignment, cohesion</li>
+                        <li>Emergence—the whole exceeds the parts</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 14: Advanced Sessions (6-7) -->
+            <section data-background-color="#1a1a2e">
+                <h2>Sessions 6-7: Advanced Techniques</h2>
+                <h3 class="subtitle">Sophisticated Generative Systems</h3>
+                <div class="technique-block">
+                    <h4>🧬 Cellular Automata</h4>
+                    <ul class="technique-list">
+                        <li>Conway's Game of Life and beyond</li>
+                        <li>Rule-based evolution of grid states</li>
+                        <li>Designing custom automata rulesets</li>
+                    </ul>
+                </div>
+                <div class="technique-block">
+                    <h4>🌿 L-Systems & Fractal Growth</h4>
+                    <ul class="technique-list">
+                        <li>Lindenmayer systems—plant-like growth</li>
+                        <li>Grammar-based generation</li>
+                        <li>Recursive structures—trees, ferns, coastlines</li>
+                    </ul>
+                </div>
+                <div class="technique-block">
+                    <h4>🔤 Generative Typography</h4>
+                    <ul class="technique-list">
+                        <li>Text as visual element—deformation, animation</li>
+                        <li>Algorithmic lettering and custom fonts</li>
+                        <li>Data-driven text composition</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 15: Final Session (8) -->
+            <section>
+                <h2>Session 8: Interactive Systems & Portfolio</h2>
+                <h3 class="subtitle">Bringing It All Together</h3>
+                <div class="two-column" style="max-width: 1100px; margin: 50px auto;">
+                    <div class="column">
+                        <h4>🖱️ Interactivity</h4>
+                        <ul>
+                            <li>Mouse and keyboard input</li>
+                            <li>Touch and gesture</li>
+                            <li>Webcam and microphone</li>
+                            <li>Responding to user in real-time</li>
+                            <li>Designing intuitive interfaces</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>📦 Export & Portfolio</h4>
+                        <ul>
+                            <li>High-res image export for print</li>
+                            <li>Video and GIF creation</li>
+                            <li>Web deployment (GitHub Pages)</li>
+                            <li>Portfolio best practices</li>
+                            <li>Presenting your algorithmic aesthetic</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="emphasis" style="margin-top: 50px;">
+                    Leave with a complete portfolio of generative artworks and the skills to keep creating
+                </p>
+            </section>
+
+            <!-- Slide 16: Who This Is For - Part 1 -->
+            <section data-background-color="#16213e">
+                <h2>Is This Workshop For You?</h2>
+                <h3 class="subtitle">Welcome If You're...</h3>
+                <div class="audience-grid" style="max-width: 1100px; margin: 60px auto;">
+                    <div class="audience-card">
+                        <h4>🎨 Visual Artists Curious About Code</h4>
+                        <p>You make art with traditional media but wonder what computational tools could unlock</p>
+                    </div>
+                    <div class="audience-card">
+                        <h4>💻 Programmers Seeking Creative Outlets</h4>
+                        <p>You code for work; now you want to code for pure aesthetic joy</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 17: Who This Is For - Part 2 -->
+            <section data-background-color="#1a202c">
+                <h2>Is This Workshop For You?</h2>
+                <h3 class="subtitle">Also Perfect For...</h3>
+                <div class="audience-grid" style="max-width: 1100px; margin: 60px auto;">
+                    <div class="audience-card">
+                        <h4>🖌️ Designers Adding Generative Tools</h4>
+                        <p>Expand your practice with algorithmic design, procedural assets, dynamic branding</p>
+                    </div>
+                    <div class="audience-card">
+                        <h4>📐 Math/Algorithm Enthusiasts</h4>
+                        <p>Fascinated by the intersection of mathematics, algorithms, and visual beauty</p>
+                    </div>
+                </div>
+                <blockquote style="margin-top: 80px; font-size: 1.4em;">
+                    "No prior programming experience required—just curiosity and willingness to experiment."
+                </blockquote>
+            </section>
+
+            <!-- Slide 18: What You'll Gain - Part 1 -->
+            <section>
+                <h2>Transformations & Outcomes</h2>
+                <h3 class="subtitle">Skills & Sensibilities You'll Develop</h3>
+                <div class="outcomes-container">
+                    <div class="outcome-item">
+                        <div class="outcome-number">01</div>
+                        <h4>Write JavaScript for Visual Compositions</h4>
+                        <p>Fluency in p5.js—turn ideas into running code that generates beauty</p>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">02</div>
+                        <h4>Implement Generative Techniques</h4>
+                        <p>Noise, randomness, recursion, emergence—your algorithmic toolkit</p>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">03</div>
+                        <h4>Develop Personal Algorithmic Aesthetic</h4>
+                        <p>Discover your unique computational style through experimentation</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 19: What You'll Gain - Part 2 -->
+            <section data-background-color="#2d3748">
+                <h2>Transformations & Outcomes</h2>
+                <h3 class="subtitle">Knowledge & Community</h3>
+                <div class="outcomes-container">
+                    <div class="outcome-item">
+                        <div class="outcome-number">04</div>
+                        <h4>Understand Computational Art History</h4>
+                        <p>Context from 1960s pioneers to contemporary generative artists</p>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">05</div>
+                        <h4>Create Interactive & Animated Systems</h4>
+                        <p>Real-time, responsive works that live on the web</p>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-number">06</div>
+                        <h4>Export Work Professionally</h4>
+                        <p>High-res prints, web galleries, video documentation, installations</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 20: What Participants Say -->
+            <section data-background-color="#0f3460">
+                <h2>What Participants Say</h2>
+                <div class="testimonials">
+                    <div class="testimonial">
+                        <p class="quote">"I thought code was intimidating, but p5.js became my favorite creative medium. I'm now making visual work I never could have imagined by hand."</p>
+                        <p class="attribution">— Elena R., Visual Artist</p>
+                    </div>
+                    <div class="testimonial">
+                        <p class="quote">"As a software engineer, I finally found a way to use my programming skills for pure artistic expression. This workshop gave me permission to create without utility."</p>
+                        <p class="attribution">— Marcus T., Software Developer</p>
+                    </div>
+                    <div class="testimonial">
+                        <p class="quote">"These generative techniques completely transformed how I approach layout, color, and composition in my design work. My clients are amazed by the dynamic systems I can now create."</p>
+                        <p class="attribution">— Priya K., UX/UI Designer</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 21: Workshop Offerings - Complete Series -->
+            <section>
+                <h2>How to Participate</h2>
+                <h3 class="subtitle">Complete 8-Session Series (Recommended)</h3>
+                <div class="offerings-grid">
+                    <div class="offering-card featured">
+                        <div class="offering-badge">RECOMMENDED</div>
+                        <h3>8 sessions × 4 hours</h3>
+                        <p class="description">Progressive curriculum from fundamentals to sophisticated systems. Build a complete portfolio of generative artworks.</p>
+                        <ul>
+                            <li>All materials and resources provided</li>
+                            <li>Access to p5.js web editor</li>
+                            <li>Private Discord community</li>
+                            <li>Code library and templates</li>
+                            <li>Portfolio showcase opportunity</li>
+                            <li>Ongoing facilitator support</li>
+                        </ul>
+                        <p class="pricing">Sliding scale: $480-$960</p>
+                    </div>
+                </div>
+                <p class="emphasis" style="margin-top: 50px;">Best for those seeking deep skill-building and portfolio development</p>
+            </section>
+
+            <!-- Slide 22: Workshop Offerings - Flexible Options -->
+            <section data-background-color="#2d3748">
+                <h2>How to Participate</h2>
+                <h3 class="subtitle">Flexible Options</h3>
+                <div class="session-grid" style="max-width: 1100px; margin: 50px auto;">
+                    <div class="offering-card">
+                        <h3>Individual Sessions</h3>
+                        <p class="duration">4-hour deep dive</p>
+                        <p class="description">Explore specific techniques:</p>
+                        <ul style="font-size: 0.9em;">
+                            <li>Particle Systems & Physics</li>
+                            <li>Cellular Automata</li>
+                            <li>L-Systems & Fractals</li>
+                            <li>Generative Typography</li>
+                        </ul>
+                        <p class="pricing">$80-$150/session</p>
+                    </div>
+                    <div class="offering-card">
+                        <h3>Private Workshops</h3>
+                        <p class="duration">Custom design</p>
+                        <p class="description">For your context:</p>
+                        <ul style="font-size: 0.9em;">
+                            <li>School/university courses</li>
+                            <li>Design team training</li>
+                            <li>Maker space workshops</li>
+                            <li>Artist residency programs</li>
+                        </ul>
+                        <p class="pricing">Contact us</p>
+                    </div>
+                </div>
+                <p class="emphasis" style="margin-top: 50px;">All workshops on sliding scale for accessibility ✨</p>
+            </section>
+
+            <!-- Slide 23: Next Steps -->
+            <section data-background-gradient="linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)">
+                <h2>Ready to Begin Your Generative Journey?</h2>
+                <h3 class="subtitle">Three Simple Steps to Register</h3>
+                <div class="next-steps-content" style="max-width: 1200px; margin: 60px auto;">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Send an Inquiry</h4>
+                        <p><a href="mailto:workshops@creativecodingtech.com?subject=Algorithms%20as%20Code%20Workshop" class="cta-link">workshops@creativecodingtech.com</a></p>
+                        <p class="small">Include: your background, interests, any questions</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Receive Details</h4>
+                        <p>Session-by-session breakdown, upcoming dates, sliding scale pricing, access details</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Register & Create</h4>
+                        <p>Choose your rate, secure your spot, and start your algorithmic art practice</p>
+                    </div>
+                </div>
+                <p class="emphasis" style="margin-top: 60px; font-size: 1.3em;">
+                    Questions? We're here to help you discern if generative coding is right for you.
+                </p>
+            </section>
+
+            <!-- Slide 24: Closing - Core Values -->
+            <section data-background-color="#1a1a2e">
+                <h1 style="font-size: 3em; margin-bottom: 60px; color: #8B5CF6;">Algorithms as Aesthetic</h1>
+                <h1 style="font-size: 3em; margin-bottom: 60px; color: #06B6D4;">Code as Canvas</h1>
+                <h1 class="emphasis" style="font-size: 3.5em; margin-top: 80px; color: #EC4899;">Mathematics as Medium</h1>
+            </section>
+
+            <!-- Slide 25: Final Message -->
+            <section data-background-gradient="linear-gradient(135deg, #0F172A 0%, #16213e 100%)">
+                <div class="closing-quote" style="max-width: 1200px; margin: 0 auto 80px;">
+                    <blockquote style="font-size: 1.8em; line-height: 1.6; color: #06B6D4;">
+                        "This is computation reclaimed for beauty, algorithms in service of aesthetic exploration, code as medium for visual poetry."
+                    </blockquote>
+                </div>
+                <div class="decorative-divider"></div>
+                <p style="margin-top: 60px; font-size: 1.1em; line-height: 1.8;">
+                    <strong style="font-size: 1.4em; color: #8B5CF6;">Algorithms as Code</strong><br>
+                    <span style="color: #EC4899; font-size: 1.1em;">Generative Art & Creative Coding</span><br><br>
+                    Wingston Sharon Wilson | Creative Coding & Technology<br>
+                    <a href="mailto:workshops@creativecodingtech.com" style="color: #06B6D4; font-size: 1.2em;">workshops@creativecodingtech.com</a>
+                </p>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Particle background canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Reveal.js Core from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/highlight/highlight.js"></script>
+
+    <!-- Custom visualizer -->
+    <script src="js/custom.js"></script>
+
+    <!-- Initialize Reveal.js -->
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+            width: 1920,
+            height: 1080,
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 2.0
+        });
+    </script>
+</body>
+</html>

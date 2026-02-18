@@ -1,0 +1,1097 @@
+/* ========================================
+   THE CONSCIOUS CODER WORKSHOP STYLES
+   Tech-Consciousness Fusion Aesthetic
+   ======================================== */
+
+:root {
+    /* Tech-consciousness color palette */
+    --circuit-green: #00ff41;
+    --deep-code-blue: #0d1117;
+    --electric-cyan: #00d9ff;
+    --warm-brown: #8b6914;
+    --growth-green: #4caf50;
+    --warning-amber: #ffb300;
+    --pure-white: #ffffff;
+    --matrix-bg: #0a0e0d;
+    --terminal-gray: #c9d1d9;
+
+    /* Code font */
+    --code-font: 'Menlo', 'Monaco', 'Courier New', monospace;
+}
+
+/* ========================================
+   CANVAS BACKGROUND
+   ======================================== */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(180deg, #0a0e0d 0%, #0d1117 100%);
+}
+
+/* ========================================
+   BASE REVEAL.JS OVERRIDES
+   ======================================== */
+.reveal {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 38px;
+    font-weight: 300;
+    color: var(--terminal-gray);
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+}
+
+.reveal h1 {
+    font-size: 3.5em;
+    line-height: 1.2;
+    margin-bottom: 0.3em;
+}
+
+.reveal h2 {
+    font-size: 2.5em;
+    color: var(--circuit-green);
+    margin-bottom: 0.5em;
+    text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+}
+
+.reveal h3 {
+    font-size: 1.8em;
+    color: var(--electric-cyan);
+}
+
+.reveal h4 {
+    font-size: 1.4em;
+    color: var(--warning-amber);
+}
+
+/* ========================================
+   TITLE SLIDE
+   ======================================== */
+.workshop-title {
+    font-size: 4.5em;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--circuit-green) 0%, var(--electric-cyan) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    margin-bottom: 0.2em;
+    font-family: var(--code-font);
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    font-size: 1.6em;
+    color: var(--terminal-gray);
+    font-weight: 300;
+    margin-bottom: 1em;
+    opacity: 0.9;
+}
+
+.tagline {
+    font-size: 1.4em;
+    color: var(--growth-green);
+    font-style: italic;
+    margin: 1.5em 0;
+    opacity: 0.85;
+}
+
+.presenter {
+    font-size: 1.1em;
+    color: #8b949e;
+    margin-top: 1em;
+}
+
+.decorative-divider {
+    width: 200px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--circuit-green), var(--electric-cyan));
+    margin: 40px auto;
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+}
+
+/* ========================================
+   CONTENT LAYOUTS
+   ======================================== */
+
+/* Content Grid */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 50px;
+    margin-top: 80px;
+    padding: 0 60px;
+}
+
+.grid-item {
+    background: rgba(0, 255, 65, 0.05);
+    border: 2px solid var(--circuit-green);
+    border-radius: 15px;
+    padding: 50px 40px;
+    text-align: center;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.grid-item::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--circuit-green), var(--electric-cyan));
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.4s ease;
+    border-radius: 15px;
+}
+
+.grid-item:hover::before {
+    opacity: 0.2;
+}
+
+.grid-item:hover {
+    border-color: var(--electric-cyan);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 217, 255, 0.3);
+}
+
+.grid-item .icon {
+    font-size: 3.5em;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 65, 0.5));
+}
+
+.grid-item h4 {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+    color: var(--circuit-green);
+}
+
+.grid-item p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--terminal-gray);
+}
+
+/* Two Column Layout */
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 60px;
+}
+
+.column {
+    padding: 40px;
+    background: rgba(13, 17, 23, 0.6);
+    border-radius: 12px;
+    border-left: 4px solid var(--circuit-green);
+}
+
+.column h4 {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    color: var(--electric-cyan);
+}
+
+.column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.column ul li {
+    padding: 12px 0;
+    font-size: 1.1em;
+    line-height: 1.6;
+    border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+}
+
+.old-way {
+    border-left-color: #e74c3c;
+}
+
+.new-way {
+    border-left-color: var(--growth-green);
+}
+
+/* ========================================
+   PROBLEM LIST
+   ======================================== */
+.problem-list {
+    margin-top: 80px;
+    padding: 0 80px;
+}
+
+.problem-list p {
+    font-size: 1.4em;
+    padding: 30px;
+    margin: 25px 0;
+    background: rgba(0, 217, 255, 0.08);
+    border-left: 5px solid var(--electric-cyan);
+    border-radius: 8px;
+    text-align: left;
+}
+
+/* ========================================
+   QUOTES & EMPHASIS
+   ======================================== */
+.large-quote {
+    font-size: 1.8em;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--terminal-gray);
+    border-left: 5px solid var(--circuit-green);
+    padding-left: 50px;
+    margin: 60px 80px;
+    text-align: left;
+}
+
+blockquote {
+    font-size: 1.5em;
+    font-style: italic;
+    color: var(--electric-cyan);
+    border-left: 4px solid var(--electric-cyan);
+    padding-left: 40px;
+    margin: 40px 60px;
+    line-height: 1.7;
+}
+
+.emphasis {
+    font-size: 1.3em;
+    color: var(--circuit-green);
+    font-weight: 400;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.big-idea {
+    font-size: 1.6em;
+    line-height: 1.7;
+    color: var(--terminal-gray);
+    margin: 40px 60px;
+    text-align: center;
+}
+
+/* ========================================
+   WEEK OBJECTIVES & CARDS
+   ======================================== */
+.week-objectives {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin: 60px 80px;
+}
+
+.objective {
+    background: rgba(0, 255, 65, 0.08);
+    border: 2px solid var(--circuit-green);
+    border-radius: 12px;
+    padding: 30px;
+    transition: all 0.3s ease;
+}
+
+.objective:hover {
+    background: rgba(0, 255, 65, 0.15);
+    border-color: var(--electric-cyan);
+    transform: translateX(10px);
+}
+
+.objective h4 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: var(--circuit-green);
+}
+
+.objective p {
+    font-size: 1.1em;
+    color: var(--terminal-gray);
+    line-height: 1.6;
+}
+
+/* ========================================
+   PHILOSOPHY CARDS
+   ======================================== */
+.philosophy-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+    padding: 0 40px;
+}
+
+.phil-card {
+    background: rgba(13, 17, 23, 0.6);
+    border: 2px solid var(--circuit-green);
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.phil-card:hover {
+    background: rgba(0, 255, 65, 0.1);
+    border-color: var(--electric-cyan);
+    box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
+}
+
+.phil-card h4 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: var(--warning-amber);
+}
+
+.phil-card p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--terminal-gray);
+}
+
+.shadow-card {
+    border-color: #8b4789;
+    background: rgba(139, 71, 137, 0.1);
+}
+
+.shadow-card:hover {
+    border-color: #a855f7;
+}
+
+/* ========================================
+   QUADRANT GRID (AQAL) FOR TECH
+   ======================================== */
+.quadrant-grid-tech {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 30px;
+    margin: 60px 80px;
+    height: 700px;
+}
+
+.quadrant {
+    padding: 40px;
+    border-radius: 12px;
+    border: 3px solid;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.quadrant:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 255, 65, 0.3);
+}
+
+.quadrant.ul {
+    background: rgba(0, 217, 255, 0.1);
+    border-color: var(--electric-cyan);
+}
+
+.quadrant.ur {
+    background: rgba(0, 255, 65, 0.1);
+    border-color: var(--circuit-green);
+}
+
+.quadrant.ll {
+    background: rgba(76, 175, 80, 0.1);
+    border-color: var(--growth-green);
+}
+
+.quadrant.lr {
+    background: rgba(255, 179, 0, 0.1);
+    border-color: var(--warning-amber);
+}
+
+.quadrant-label {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 0.9em;
+    opacity: 0.6;
+    font-weight: 600;
+    font-family: var(--code-font);
+}
+
+.quadrant h4 {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+}
+
+.quadrant ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quadrant ul li {
+    padding: 12px 0;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+/* ========================================
+   SPIRAL DYNAMICS FOR TECH
+   ======================================== */
+.spiral-container-tech {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin: 60px 80px;
+}
+
+.spiral-stage {
+    padding: 40px 50px;
+    border-radius: 15px;
+    border: 3px solid;
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.spiral-stage:hover {
+    transform: translateX(20px);
+    box-shadow: 0 15px 50px rgba(0, 255, 65, 0.2);
+}
+
+.spiral-stage.orange-stage {
+    background: rgba(255, 179, 0, 0.15);
+    border-color: var(--warning-amber);
+}
+
+.spiral-stage.green-stage {
+    background: rgba(76, 175, 80, 0.15);
+    border-color: var(--growth-green);
+}
+
+.spiral-stage.yellow-stage {
+    background: rgba(0, 255, 65, 0.15);
+    border-color: var(--circuit-green);
+}
+
+.stage-badge {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 1.1em;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    font-family: var(--code-font);
+}
+
+.spiral-stage h4 {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+}
+
+.spiral-stage p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin: 12px 0;
+}
+
+.code-preview {
+    font-family: var(--code-font);
+    font-size: 1em;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px 15px;
+    border-radius: 6px;
+    color: var(--circuit-green);
+    margin-top: 15px;
+}
+
+/* ========================================
+   CODE BLOCKS & COMPARISON
+   ======================================== */
+.code-comparison {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin: 60px 40px;
+}
+
+.code-block {
+    border-radius: 12px;
+    border: 3px solid;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.code-block:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.code-block.orange-code {
+    border-color: var(--warning-amber);
+    background: rgba(255, 179, 0, 0.08);
+}
+
+.code-block.green-code {
+    border-color: var(--growth-green);
+    background: rgba(76, 175, 80, 0.08);
+}
+
+.code-block.yellow-code {
+    border-color: var(--circuit-green);
+    background: rgba(0, 255, 65, 0.08);
+}
+
+.code-block h4 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    font-family: var(--code-font);
+}
+
+.code-block pre {
+    margin: 0;
+    font-size: 0.8em;
+}
+
+.code-example {
+    padding: 0 80px;
+}
+
+.code-example pre {
+    background: rgba(13, 17, 23, 0.9);
+    border: 2px solid var(--circuit-green);
+    border-radius: 8px;
+    padding: 30px;
+    font-size: 0.85em;
+}
+
+.reveal pre code {
+    font-family: var(--code-font);
+    max-height: 700px;
+    overflow: auto;
+    background: rgba(13, 17, 23, 0.95);
+    padding: 25px;
+    border-radius: 8px;
+}
+
+/* ========================================
+   TRANSFORMATION FLOW
+   ======================================== */
+.transformation-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin: 60px 40px;
+}
+
+.transform-box {
+    flex: 1;
+    padding: 40px;
+    border-radius: 12px;
+    border: 3px solid;
+    text-align: center;
+}
+
+.transform-box.before {
+    background: rgba(231, 76, 60, 0.1);
+    border-color: #e74c3c;
+}
+
+.transform-box.after {
+    background: rgba(76, 175, 80, 0.15);
+    border-color: var(--growth-green);
+}
+
+.transform-box h4 {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+}
+
+.transform-box p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    margin: 10px 0;
+}
+
+.transform-arrow {
+    font-size: 4em;
+    color: var(--circuit-green);
+}
+
+/* ========================================
+   MIRROR CONTENT
+   ======================================== */
+.mirror-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 60px 80px;
+}
+
+.mirror-box {
+    width: 100%;
+    max-width: 900px;
+    padding: 40px;
+    border-radius: 12px;
+    border: 3px solid var(--electric-cyan);
+    background: rgba(0, 217, 255, 0.08);
+    text-align: center;
+    margin: 20px 0;
+}
+
+.mirror-box h4 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: var(--electric-cyan);
+}
+
+.mirror-arrow {
+    font-size: 4em;
+    color: var(--circuit-green);
+    margin: 20px 0;
+}
+
+/* ========================================
+   METAMORPHOSIS (Camel-Lion-Child)
+   ======================================== */
+.metamorphosis-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin: 60px 40px;
+}
+
+.meta-stage {
+    flex: 1;
+    padding: 40px 30px;
+    border-radius: 12px;
+    border: 3px solid;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.meta-stage:hover {
+    transform: scale(1.08);
+}
+
+.meta-stage.camel {
+    background: rgba(139, 105, 20, 0.15);
+    border-color: var(--warm-brown);
+}
+
+.meta-stage.lion {
+    background: rgba(255, 179, 0, 0.15);
+    border-color: var(--warning-amber);
+}
+
+.meta-stage.child {
+    background: rgba(0, 255, 65, 0.15);
+    border-color: var(--circuit-green);
+}
+
+.meta-stage h4 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.meta-stage p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 12px 0;
+}
+
+.meta-stage .wisdom {
+    font-style: italic;
+    color: var(--circuit-green);
+    margin-top: 25px;
+    font-size: 1.2em;
+}
+
+.meta-arrow {
+    font-size: 3em;
+    color: var(--circuit-green);
+}
+
+/* ========================================
+   KIT GRID
+   ======================================== */
+.kit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin: 60px 60px;
+}
+
+.kit-item {
+    background: rgba(0, 255, 65, 0.05);
+    border: 2px solid var(--circuit-green);
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.kit-item:hover {
+    background: rgba(0, 255, 65, 0.12);
+    border-color: var(--electric-cyan);
+    transform: translateY(-10px);
+}
+
+.kit-icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.kit-item h4 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+}
+
+.kit-item p {
+    font-size: 1em;
+    color: var(--terminal-gray);
+}
+
+/* ========================================
+   PRACTICE GRID FOR TECH
+   ======================================== */
+.practice-grid-tech {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin: 60px 60px;
+}
+
+.practice-card {
+    background: rgba(13, 17, 23, 0.6);
+    border: 2px solid var(--circuit-green);
+    border-radius: 12px;
+    padding: 40px 35px;
+    transition: all 0.3s ease;
+}
+
+.practice-card:hover {
+    background: rgba(0, 255, 65, 0.1);
+    border-color: var(--electric-cyan);
+    box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
+}
+
+.practice-card h4 {
+    font-size: 1.6em;
+    margin-bottom: 25px;
+}
+
+.practice-card p {
+    font-size: 1.05em;
+    line-height: 1.6;
+    margin: 10px 0;
+    color: var(--terminal-gray);
+}
+
+/* ========================================
+   AUDIENCE & OUTCOMES
+   ======================================== */
+.audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin: 60px 60px;
+}
+
+.audience-card {
+    background: rgba(0, 217, 255, 0.08);
+    border: 2px solid var(--electric-cyan);
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.audience-card:hover {
+    background: rgba(0, 217, 255, 0.15);
+    transform: translateY(-10px);
+    box-shadow: 0 12px 35px rgba(0, 217, 255, 0.25);
+}
+
+.tech-card {
+    border-color: var(--circuit-green);
+    background: rgba(0, 255, 65, 0.05);
+}
+
+.tech-card:hover {
+    background: rgba(0, 255, 65, 0.12);
+    border-color: var(--electric-cyan);
+}
+
+.audience-card h4 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+}
+
+.audience-card p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: var(--terminal-gray);
+}
+
+.outcomes-container-tech {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+    margin: 60px 80px;
+}
+
+.outcome-item {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+    padding: 30px;
+    background: rgba(0, 255, 65, 0.08);
+    border-radius: 10px;
+    border-left: 5px solid var(--circuit-green);
+    transition: all 0.3s ease;
+}
+
+.outcome-item:hover {
+    background: rgba(0, 255, 65, 0.15);
+    transform: translateX(10px);
+}
+
+.outcome-number {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--electric-cyan);
+    opacity: 0.8;
+    min-width: 80px;
+    font-family: var(--code-font);
+}
+
+.outcome-item h4 {
+    font-size: 1.5em;
+    margin-bottom: 12px;
+}
+
+.outcome-item p {
+    font-size: 1.05em;
+    line-height: 1.6;
+    color: var(--terminal-gray);
+}
+
+/* ========================================
+   OFFERINGS & PRICING FOR TECH
+   ======================================== */
+.offerings-grid-tech {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    margin: 60px 50px;
+}
+
+.offering-card {
+    background: rgba(13, 17, 23, 0.8);
+    border: 3px solid var(--circuit-green);
+    border-radius: 15px;
+    padding: 50px 40px;
+    text-align: center;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.offering-card:hover {
+    background: rgba(0, 255, 65, 0.1);
+    border-color: var(--electric-cyan);
+    transform: translateY(-15px);
+    box-shadow: 0 20px 50px rgba(0, 255, 65, 0.25);
+}
+
+.offering-card.featured {
+    border-color: var(--electric-cyan);
+    border-width: 4px;
+    background: rgba(0, 217, 255, 0.1);
+}
+
+.offering-card.featured:hover {
+    box-shadow: 0 20px 60px rgba(0, 217, 255, 0.3);
+}
+
+.offering-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, var(--circuit-green), var(--electric-cyan));
+    color: #000;
+    padding: 8px 25px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 700;
+    box-shadow: 0 5px 20px rgba(0, 255, 65, 0.4);
+}
+
+.offering-card h3 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: var(--circuit-green);
+}
+
+.offering-card .duration {
+    font-size: 1.1em;
+    color: var(--electric-cyan);
+    margin-bottom: 20px;
+}
+
+.offering-card ul {
+    text-align: left;
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+}
+
+.offering-card ul li {
+    padding: 10px 0;
+    font-size: 1em;
+    line-height: 1.5;
+    color: var(--terminal-gray);
+}
+
+.offering-card .pricing {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--circuit-green);
+    margin-top: 30px;
+    font-family: var(--code-font);
+}
+
+.kit-note {
+    font-size: 0.9em;
+    color: var(--warning-amber);
+    margin-top: 15px;
+    font-style: italic;
+}
+
+/* ========================================
+   SOMATIC CONTENT
+   ======================================== */
+.somatic-content {
+    padding: 0 60px;
+}
+
+/* ========================================
+   FADE-IN ANIMATIONS
+   ======================================== */
+.fade-in-left {
+    animation: fadeInLeft 0.8s ease-out;
+}
+
+.fade-in-right {
+    animation: fadeInRight 0.8s ease-out;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 1400px) {
+    .content-grid,
+    .kit-grid,
+    .audience-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .offerings-grid-tech,
+    .code-comparison {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .two-column,
+    .quadrant-grid-tech,
+    .outcomes-container-tech,
+    .practice-grid-tech,
+    .week-objectives {
+        grid-template-columns: 1fr;
+    }
+
+    .metamorphosis-container,
+    .transformation-flow {
+        flex-direction: column;
+    }
+
+    .meta-arrow,
+    .transform-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+.reveal a {
+    color: var(--circuit-green);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.reveal a:hover {
+    color: var(--electric-cyan);
+    border-bottom-color: var(--electric-cyan);
+}
+
+.reveal button:focus,
+.reveal a:focus {
+    outline: 3px solid var(--circuit-green);
+    outline-offset: 4px;
+}
+
+/* Code highlighting tweaks */
+.hljs {
+    background: rgba(13, 17, 23, 0.95) !important;
+}
+
+.hljs-keyword,
+.hljs-built_in {
+    color: var(--circuit-green) !important;
+}
+
+.hljs-string {
+    color: var(--electric-cyan) !important;
+}
+
+.hljs-number {
+    color: var(--warning-amber) !important;
+}
+
+.hljs-comment {
+    color: #6e7681 !important;
+    font-style: italic;
+}

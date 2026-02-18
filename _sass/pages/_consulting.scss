@@ -1,0 +1,268 @@
+/* Consulting Page Styles */
+
+.consulting-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.consulting-header {
+  text-align: center;
+  padding: 3rem 0 2.5rem;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.12);
+  margin-bottom: 3rem;
+
+  .consulting-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--heading-color);
+    margin-bottom: 1rem;
+  }
+
+  .consulting-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted-color);
+    max-width: 620px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+}
+
+.service-section {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--border-color, rgba(255,255,255,0.08));
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  &--alt {
+    .service-icon {
+      color: #a855f7;
+    }
+  }
+}
+
+.service-icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.4rem;
+  color: #00d4ff;
+  font-size: 2rem;
+
+  @media (max-width: 640px) {
+    justify-content: flex-start;
+    font-size: 1.75rem;
+  }
+}
+
+.service-content {
+  .service-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--heading-color);
+    margin-bottom: 0.3rem;
+  }
+
+  .service-tagline {
+    font-size: 0.95rem;
+    color: #00d4ff;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .service-section--alt & .service-tagline {
+    color: #a855f7;
+  }
+
+  .service-desc {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+
+  .service-outcomes {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+
+    li {
+      padding: 0.35rem 0 0.35rem 1.5rem;
+      position: relative;
+      font-size: 0.9rem;
+      color: var(--text-color);
+      line-height: 1.6;
+
+      &::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: #00d4ff;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .service-section--alt & .service-outcomes li::before {
+    color: #a855f7;
+  }
+}
+
+.service-cta {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 6px;
+  color: #00d4ff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+
+  &:hover {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: #00d4ff;
+    text-decoration: none;
+  }
+
+  .service-section--alt & {
+    border-color: rgba(168, 85, 247, 0.4);
+    color: #a855f7;
+
+    &:hover {
+      background: rgba(168, 85, 247, 0.1);
+      border-color: #a855f7;
+    }
+  }
+}
+
+/* How I Work */
+.how-i-work {
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--border-color, rgba(255,255,255,0.08));
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--heading-color);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.how-item {
+  .how-num {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #00d4ff;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--heading-color);
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 0.88rem;
+    color: var(--text-muted-color);
+    line-height: 1.7;
+  }
+}
+
+/* CTA Section */
+.consulting-cta-section {
+  text-align: center;
+  padding: 3.5rem 0 1rem;
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--heading-color);
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    color: var(--text-muted-color);
+    margin-bottom: 2rem;
+  }
+}
+
+/* Contact page additions */
+.consulting-contact {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem;
+
+  .contact-link-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+
+    i {
+      width: 20px;
+      color: #00d4ff;
+      text-align: center;
+    }
+
+    &:hover {
+      color: #00d4ff;
+      text-decoration: none;
+    }
+  }
+}
+
+/* CTA Buttons */
+.cta-btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: linear-gradient(135deg, #00d4ff, #0099cc);
+  color: #000;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: opacity 0.2s, transform 0.1s;
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    text-decoration: none;
+    color: #000;
+  }
+
+  &--large {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+  }
+}
