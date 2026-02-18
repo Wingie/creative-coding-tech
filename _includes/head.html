@@ -121,4 +121,35 @@
   {% endif %}
 
   {% include metadata-hook.html %}
+
+  {% if page.layout != 'project-detail' %}
+  <!-- Person schema (site-wide) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Wingston Sharon Wilson",
+    "jobTitle": "Engineering Manager",
+    "worksFor": { "@type": "Organization", "name": "Booking.com" },
+    "url": "https://creativecodingtech.com",
+    "sameAs": [
+      "https://github.com/wingie",
+      "https://linkedin.com/in/wingstonsharon"
+    ]
+  }
+  </script>
+  {% endif %}
+
+  {% if page.layout == 'project-detail' %}
+  <title>{{ page.title }} — {{ page.tagline }} | Wingston Sharon Wilson</title>
+  <meta name="description" content="{{ page.description }}">
+  <meta property="og:type" content="article">
+  {% if page.og_image %}
+  <meta property="og:image" content="{{ page.og_image }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content="{{ page.og_image }}">
+  {% endif %}
+  <meta property="og:title" content="{{ page.title }} — {{ page.tagline }}">
+  <meta property="og:description" content="{{ page.description }}">
+  {% endif %}
 </head>

@@ -1,0 +1,161 @@
+---
+layout: default
+refactor: true
+---
+
+{% include lang.html %}
+
+<article class="project-detail-page">
+
+  <!-- Hero -->
+  <div class="project-hero" data-project="{{ page.slug }}">
+    <div class="project-hero__inner">
+      <div class="project-hero__meta">
+        <span class="project-hero__badge">{{ page.language }}</span>
+        <span class="project-hero__badge project-hero__badge--role">{{ page.role }}</span>
+        <span class="project-hero__badge project-hero__badge--year">{{ page.year }}</span>
+      </div>
+      <h1 class="project-hero__title">{{ page.title }}</h1>
+      <p class="project-hero__tagline">{{ page.tagline }}</p>
+      <div class="project-hero__actions">
+        {% if page.github_url %}
+        <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="btn-hero btn-hero--primary">
+          <i class="fab fa-github"></i> View Code
+        </a>
+        {% endif %}
+        <a href="/projects/" class="btn-hero btn-hero--secondary">
+          ← All Projects
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content + sidebar -->
+  <div class="project-layout">
+    <div class="project-main">
+      {{ content }}
+    </div>
+
+    <aside class="project-sidebar">
+      {% if page.og_image %}
+      <div class="project-sidebar__image">
+        <img src="{{ page.og_image }}" alt="{{ page.title }} screenshot" loading="lazy" onerror="this.style.display='none'">
+      </div>
+      {% endif %}
+
+      {% if page.screenshot %}
+      <div class="project-sidebar__image project-sidebar__image--screenshot">
+        <img src="{{ page.screenshot | relative_url }}" alt="{{ page.title }} screenshot" loading="lazy">
+      </div>
+      {% endif %}
+
+      <div class="project-sidebar__section">
+        <h4 class="project-sidebar__heading">Tech Stack</h4>
+        <div class="project-sidebar__chips">
+          {% for tech in page.tech %}
+          <span class="tech-chip">{{ tech }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="project-sidebar__section">
+        <h4 class="project-sidebar__heading">Role</h4>
+        <p class="project-sidebar__value">{{ page.role }}</p>
+      </div>
+
+      <div class="project-sidebar__section">
+        <h4 class="project-sidebar__heading">Year</h4>
+        <p class="project-sidebar__value">{{ page.year }}</p>
+      </div>
+
+      {% if page.client %}
+      <div class="project-sidebar__section">
+        <h4 class="project-sidebar__heading">Context</h4>
+        <p class="project-sidebar__value">{{ page.client }}</p>
+      </div>
+      {% endif %}
+
+      {% if page.github_url %}
+      <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="project-sidebar__github">
+        <i class="fab fa-github"></i> View on GitHub
+      </a>
+      {% endif %}
+    </aside>
+  </div>
+
+  <!-- Pagination nav -->
+  <nav class="project-pagination">
+    {% assign all_projects = site.projects | sort: 'order' %}
+    {% assign current_index = nil %}
+    {% for proj in all_projects %}
+      {% if proj.slug == page.slug %}
+        {% assign current_index = forloop.index0 %}
+      {% endif %}
+    {% endfor %}
+
+    {% if current_index and current_index > 0 %}
+      {% assign prev_index = current_index | minus: 1 %}
+      {% assign prev_proj = all_projects[prev_index] %}
+      <a href="{{ prev_proj.url | relative_url }}" class="project-pagination__prev">
+        ← {{ prev_proj.title }}
+      </a>
+    {% else %}
+      <span></span>
+    {% endif %}
+
+    {% assign next_index = current_index | plus: 1 %}
+    {% assign next_proj = all_projects[next_index] %}
+    {% if next_proj %}
+      <a href="{{ next_proj.url | relative_url }}" class="project-pagination__next">
+        {{ next_proj.title }} →
+      </a>
+    {% else %}
+      <span></span>
+    {% endif %}
+  </nav>
+
+</article>
+
+<!-- SEO JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "{{ page.title | escape }}",
+  "description": "{{ page.description | escape }}",
+  "author": {
+    "@type": "Person",
+    "name": "Wingston Sharon Wilson",
+    "url": "https://creativecodingtech.com"
+  },
+  "programmingLanguage": "{{ page.language | escape }}",
+  "url": "{{ page.github_url | escape }}",
+  "applicationCategory": "DeveloperApplication"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://creativecodingtech.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Projects",
+      "item": "https://creativecodingtech.com/projects/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ page.title | escape }}",
+      "item": "https://creativecodingtech.com{{ page.url }}"
+    }
+  ]
+}
+</script>

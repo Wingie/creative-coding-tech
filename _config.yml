@@ -19,6 +19,7 @@ github:
 
 twitter:
   username: creativecodingtech
+  card: summary_large_image
 
 linkedin:
   username: wingstonsharon
@@ -49,6 +50,9 @@ collections:
   tabs:
     output: true
     sort_by: order
+  projects:
+    output: true
+    sort_by: order
 
 defaults:
   - scope:
@@ -57,6 +61,12 @@ defaults:
     values:
       layout: page
       permalink: /:title/
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project-detail
+      permalink: /projects/:name/
 
 # Jekyll Archives
 jekyll-archives:
