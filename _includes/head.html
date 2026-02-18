@@ -6,16 +6,29 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta
     name="viewport"
-    content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
   >
 
   {%- capture seo_tags -%}
     {% seo title=false %}
   {%- endcapture -%}
 
-  <!-- Setup Open Graph image -->
+  <!-- Override OG image / twitter card depending on page type -->
+  {% if page.layout == 'project-detail' and page.og_image %}
+    {%- capture project_og_inject -%}
+<meta property="og:image" content="{{ page.og_image }}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="{{ page.og_image }}" />
+    {%- endcapture -%}
+    {%- capture project_og_title -%}
+<meta property="og:title" content="{{ page.title }} — {{ page.tagline }}" />
+    {%- endcapture -%}
+    {%- capture old_twitter_card -%}<meta name="twitter:card" content="summary" />{%- endcapture -%}
+    {%- capture old_og_title -%}<meta property="og:title" content="{{ page.title }}" />{%- endcapture -%}
+    {% assign seo_tags = seo_tags | replace: old_twitter_card, project_og_inject %}
+    {% assign seo_tags = seo_tags | replace: old_og_title, project_og_title %}
 
-  {% if page.image %}
+  {% elsif page.image %}
     {% assign src = page.image.path | default: page.image %}
 
     {% unless src contains '://' %}
@@ -50,11 +63,17 @@
 
   {{ seo_tags }}
 
+  <!-- Single canonical title per page type -->
   <title>
-    {%- unless page.layout == 'home' -%}
-      {{ page.title | append: ' | ' }}
-    {%- endunless -%}
-    {{ site.title }}
+    {%- if page.layout == 'project-detail' -%}
+      {{ page.title }} — {{ page.tagline }} | Wingston Sharon Wilson
+    {%- elsif page.layout == 'home' -%}
+      {{ site.title }}
+    {%- elsif page.title -%}
+      {{ page.title }} | {{ site.title }}
+    {%- else -%}
+      {{ site.title }}
+    {%- endif -%}
   </title>
 
   {% include_cached favicons.html %}
@@ -122,8 +141,8 @@
 
   {% include metadata-hook.html %}
 
-  {% if page.layout != 'project-detail' %}
-  <!-- Person schema (site-wide) -->
+  <!-- Person schema (site-wide, excluding project detail which has its own) -->
+  {% unless page.layout == 'project-detail' %}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -138,18 +157,5 @@
     ]
   }
   </script>
-  {% endif %}
-
-  {% if page.layout == 'project-detail' %}
-  <title>{{ page.title }} — {{ page.tagline }} | Wingston Sharon Wilson</title>
-  <meta name="description" content="{{ page.description }}">
-  <meta property="og:type" content="article">
-  {% if page.og_image %}
-  <meta property="og:image" content="{{ page.og_image }}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta property="twitter:image" content="{{ page.og_image }}">
-  {% endif %}
-  <meta property="og:title" content="{{ page.title }} — {{ page.tagline }}">
-  <meta property="og:description" content="{{ page.description }}">
-  {% endif %}
+  {% endunless %}
 </head>
