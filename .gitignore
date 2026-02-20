@@ -50,3 +50,6 @@ node_modules
 
 internal_docs/
 ppts/
+
+# R2 Worker
+r2-worker/node_modules/

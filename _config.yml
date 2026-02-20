@@ -14,6 +14,10 @@ description: >-
 
 url: "https://creativecodingtech.com"
 
+# Cloudflare R2 CDN for media assets (images, videos, audio)
+# All media referenced via Chirpy's media-url.html will be served from R2
+cdn: "https://media.creativecodingtech.com"
+
 github:
   username: wingie
 
@@ -41,6 +45,7 @@ theme: jekyll-theme-chirpy
 # Exclude from processing
 exclude:
   - ppts
+  - r2-worker
 
 # Chirpy theme settings
 paginate: 10
