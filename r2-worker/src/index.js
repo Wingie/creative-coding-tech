@@ -2,7 +2,7 @@
  * Cloudflare Worker for serving media from R2 bucket
  * Handles: images, videos, audio files with proper CORS, caching, and content types
  *
- * Bucket: creative-coding-media
+ * Bucket: media
  * Domain: media.creativecodingtech.com
  */
 
@@ -99,12 +99,12 @@ export default {
     }
 
     try {
-      // Support range requests for video/audio streaming
-      const range = request.headers.get("Range");
+      // Support range requests (video/audio streaming) and conditional requests (304)
       const object = await env.MEDIA_BUCKET.get(key, {
-        range: range ? { suffix: undefined } : undefined,
+        range: request.headers,
         onlyIf: request.headers,
       });
+      const range = request.headers.get("Range");
 
       if (!object) {
         return new Response("Not Found", { status: 404, headers: corsHeaders });

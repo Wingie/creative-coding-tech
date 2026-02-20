@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Upload media files to Cloudflare R2 bucket: creative-coding-media
+# Upload media files to Cloudflare R2 bucket: media
 # Usage: ./upload.sh <local-file-or-dir> <r2-destination-path>
 #
 # Examples:
@@ -12,7 +12,7 @@
 #   - Install wrangler: npm install -g wrangler
 #   - Login: wrangler login
 
-BUCKET="creative-coding-media"
+BUCKET="media"
 
 if [ $# -lt 2 ]; then
   echo "Usage: $0 <local-file-or-dir> <r2-destination-path>"

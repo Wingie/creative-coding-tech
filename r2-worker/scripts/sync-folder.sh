@@ -7,7 +7,7 @@
 #   ./sync-folder.sh ~/portfolio/videos videos/
 #   ./sync-folder.sh ~/portfolio/audio audio/
 
-BUCKET="creative-coding-media"
+BUCKET="media"
 
 if [ $# -lt 2 ]; then
   echo "Usage: $0 <local-directory> <r2-prefix>"
