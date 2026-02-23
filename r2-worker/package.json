@@ -1,0 +1,15 @@
+{
+  "name": "creative-coding-media-worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Worker for serving media from R2 bucket media",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy --env production",
+    "upload": "./scripts/upload.sh",
+    "sync": "./scripts/sync-folder.sh"
+  },
+  "devDependencies": {
+    "wrangler": "^3.99.0"
+  }
+}

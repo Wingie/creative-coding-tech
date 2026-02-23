@@ -1,0 +1,25 @@
+name = "creative-coding-media"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+
+# Custom domain: media.creativecodingtech.com
+# This is configured via Cloudflare Dashboard > R2 > Bucket Settings > Custom Domains
+# OR via this worker's routes below
+
+# R2 bucket binding
+[[r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "media"
+
+# Route: serve media from custom subdomain
+[env.production]
+routes = [
+  { pattern = "media.creativecodingtech.com/*", zone_name = "creativecodingtech.com" }
+]
+
+[env.production.vars]
+ALLOWED_ORIGINS = "https://creativecodingtech.com,https://www.creativecodingtech.com"
+
+[[env.production.r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "media"
