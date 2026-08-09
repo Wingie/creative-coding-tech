@@ -4,6 +4,8 @@ title: "I Automate Myself Out of a Job (And You Should Too)"
 date: 2025-12-15 11:00:00 +0100
 categories: [ai-agents, automation, python]
 tags: [celery, claude, autonomous-agents, django, python, devops]
+description: >-
+  Celery workers that read a Sentry error, ask a model for a fix, run the tests and open a pull request. What it gets right and what it invents.
 ---
 
 There is an old saying in engineering: "If you have to do it twice, automate it."
@@ -39,3 +41,9 @@ But 60% is better than 0%.
 The core is **Django + Celery + redis**. Because everything in Python eventually becomes Django + Celery + redis. 
 
 If you want to see how I built this Rube Goldberg machine of self-replication, read on.
+
+**Measured later.** These were my impressions at the time. In August 2026 I pulled
+the numbers out of 105 days of run logs: 3,416 agent runs, 79% marked success.
+Except the last three months read 100%, which was false. Sessions were dying on a
+rate limit after four seconds and being logged as successes. Real figure unknown for
+that window. See [Agentosaurus](/projects/agentosaurus/).

@@ -4,11 +4,13 @@ title: "ARM64 is the Future (And the Future is Broken)"
 date: 2026-01-07 16:00:00 +0100
 categories: [devops, arm64, kubernetes]
 tags: [arm64, k3s, juicefs, geesefs, oracle-cloud, beta9]
+description: >-
+  Building JuiceFS and GeeseFS on ARM64. GLIBC versions, CGO, arch detection, and why exec format error is never what you think.
 ---
 
 They told us ARM64 was the promised land.
 
-"It's cheaper!" they said. "It's more power-efficient!" they said. "Amazon Graviton is 40% faster for 20% less cost!"
+"It's cheaper!" they said. "It's more power-efficient!" they said. "Graviton gives you up to 40% better price-performance!"
 
 What they didn't mention is that **you will spend the rest of your natural life recompiling C libraries.**
 

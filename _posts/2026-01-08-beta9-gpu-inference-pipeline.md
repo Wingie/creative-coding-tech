@@ -4,6 +4,8 @@ title: "How I Accidentally Built My Own Cloud GPU Cloud (And Why You Shouldn't)"
 date: 2026-01-08 14:00:00 +0100
 categories: [ai-infrastructure, gpu, devops]
 tags: [beta9, ollama, gpu, inference, oracle-cloud, kubernetes, machine-learning]
+description: >-
+  Running my own GPU inference on rented hardware instead of an API. Cold starts, cost per hour, and whether it was worth it.
 ---
 
 There is a fundamental law of software engineering that states: **"Every sufficiently complex distributed system contains an ad-hoc, informally-specified, bug-ridden implementation of half of AWS."**
@@ -50,7 +52,7 @@ So I decided to glue together **Beta9** (serverless runtime), **Ollama** (model 
 
 The concept is simple: The Control Plane (which is free) tells the Worker Pool (which costs money) to do math. When there is no math to do, the Worker Pool shuts down.
 
-It sounds elegant. In practice, it's like trying to herd cats that charge you by the hour.
+In practice the machines charge you by the hour whether or not they are doing anything.
 
 ## Beta9: The Glue
 
@@ -112,12 +114,6 @@ So, I am saving $210/month.
 However, I spent approximately 40 hours building this system. If I value my time at anything above minimum wage, I am deeply in the red.
 
 But that's not the point. The point is that *I own the means of production*. I can run unrestricted Llama 3 anytime I want. I can fine-tune on my own data. I am the captain of my own ship, even if that ship is held together by Python scripts and bash hacks.
-
-## Lessons Learned
-
-1.  **VRAM is the new Gold.** Managing 24GB of VRAM is an art form. You have to unload models aggressively.
-2.  **Network Latency Matters.** My control plane is in Ashburn. My GPUs are... somewhere else. The latency is real.
-3.  **Health Checks Save Lives.** If a GPU falls over in the woods and nobody logs it, does it still cost $0.75/hr? Yes. Yes it does.
 
 ## Should You Do This?
 

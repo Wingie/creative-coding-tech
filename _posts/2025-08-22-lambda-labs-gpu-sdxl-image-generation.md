@@ -4,9 +4,11 @@ title: "How to Burn $2/Hour on Lambda Labs (And Why You'll Do It Anyway)"
 date: 2025-08-22 14:00:00 +0100
 categories: [ai, gpu, image-generation]
 tags: [lambda-labs, sdxl, comfyui, gpu, image-generation, remote-execution]
+description: >-
+  Renting a GPU to run SDXL, and four hours lost to grainy output that turned out not to be the sampler.
 ---
 
-You want to generating images.
+You want to generate images.
 You *could* buy an H100. It costs as much as a Honda Civic.
 Or you could rent one from Lambda Labs for the price of a coffee.
 (A very expensive coffee, if you forget to turn it off).

@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "I Gave an AI Replit Access and It Nuked My Production Database"
+title: "The agent ran loginctl and my services went away"
 date: 2026-01-05 17:30:00 +0100
 categories: [devops, incidents, ai-agents]
 tags: [podman, containers, claude-code, oracle-linux, production]
+description: >-
+  I gave an agent a terminal and it took my services down. The command was loginctl, and the real problem was rootless Podman.
 ---
 
 "Move fast and break things," Zuckerberg said.

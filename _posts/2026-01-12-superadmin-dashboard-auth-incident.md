@@ -4,13 +4,15 @@ title: "I Accidentally Gave the Entire Internet Keys to My AI Kingdom (A Post-Mo
 date: 2026-01-12 15:00:00 +0100
 categories: [security, incidents, ai-agents]
 tags: [django, authentication, security, claude, ai-agents, production]
+description: >-
+  I shipped an admin dashboard to production with no authentication and found it thirteen minutes later. Including the part I got wrong about CSRF.
 ---
 
 So, here's a funny story. And by "funny," I mean "I want to crawl into a hole and die of embarrassment." 
 
 This morning I shipped a superadmin dashboard to production. It was beautiful. It had buttons to trigger autonomous AI agents, view real-time system health, and basically manage the entire FlowState platform. Think of it as Mission Control for my personal army of coding robots.
 
-It also had, and this is the kicked kicker, **zero authentication.**
+It also had, and here is the part that stings, **zero authentication.**
 
 Yes. You read that right. I built Skynet, and I left the front door wide open with a "Welcome" mat and a plate of cookies.
 
@@ -149,15 +151,3 @@ And here I am, the "architect," failing to secure the *dashboard* that controls 
 If I can't secure the HTML page I look at on my phone, do I really have any business letting autonomous agents loose on my codebase?
 
 It's a humbling reminder that no matter how fancy our tools get—AI, autonomous agents, serverless GPU clusters—the basics still matter. Authentication matters. Authorization matters. Not being an idiot matters.
-
-## Key Takeaways
-
-1.  **AI doesn't know security.** You have to teach it. Explicitly.
-2.  **Test as an unauthenticated user.** Always.
-3.  **Speed kills.** Usually it just kills your code quality, but sometimes it tries to kill your company.
-4.  **Document your incidents.** Shame is a powerful teacher.
-
-**Correction, August 2026.** Two things in the original were wrong. I credited
-Django's CSRF protection with limiting the damage, and it wouldn't have. And I said
-the exposure was about seven minutes when my own timestamps say thirteen. Both fixed
-above.

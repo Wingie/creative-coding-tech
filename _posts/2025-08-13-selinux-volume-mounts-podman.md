@@ -4,6 +4,8 @@ title: "SELinux is Why Your Container is Broken (And Why You Should Keep It On)"
 date: 2025-08-13 10:00:00 +0100
 categories: [devops, containers, security]
 tags: [selinux, podman, docker, oracle-linux, containers]
+description: >-
+  Your container can see the file and still can't read it. chmod and chown look fine. It's SELinux, and the fix is one character.
 ---
 
 You have a container. It runs fine on your laptop.

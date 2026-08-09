@@ -4,6 +4,8 @@ title: "The Inception Architecture: Running AI Agents Inside Celery Workers Insi
 date: 2026-01-10 10:00:00 +0100
 categories: [ai-agents, devops, automation]
 tags: [claude, celery, docker, python, autonomous-agents, django]
+description: >-
+  Spawning an AI agent from a Celery worker inside Docker. Node in a Python image, timeouts that don't fire, and a serialisation bug.
 ---
 
 You know that scene in *The Matrix Reloaded* where Agent Smith copies himself a thousand times and creates a small army of suited men to fight Neo? 
@@ -12,7 +14,7 @@ Well, I built that. Except instead of fighting Keanu Reeves, my army of agents i
 
 I call it the **Task Queue Singularity**. What if your background workers didn't just resize images or send emails? What if they could *think*? What if your task queue was actually a hive mind of AI developers, waiting for a signal to swarm your repository and fix typos?
 
-It sounds cool. It also sounds overly complicated. And honestly, it is. But it works, and it's running in production right now. Here is how (and why) I shoved Claude CLI into a Celery worker.
+It is more complicated than it needs to be. It has been running in production for weeks. Here is how (and why) I shoved Claude CLI into a Celery worker.
 
 ## The Problem: Dumb Workers
 
@@ -167,3 +169,9 @@ Well, yesterday I was sleeping, and an error triggered an agent. The agent inves
 I woke up, merged the PR, and felt like a god.
 
 So yes. It's worth it. Even if I did have to install Node.js in my Python container.
+
+**Measured later.** These were my impressions at the time. In August 2026 I pulled
+the numbers out of 105 days of run logs: 3,416 agent runs, 79% marked success.
+Except the last three months read 100%, which was false. Sessions were dying on a
+rate limit after four seconds and being logged as successes. Real figure unknown for
+that window. See [Agentosaurus](/projects/agentosaurus/).

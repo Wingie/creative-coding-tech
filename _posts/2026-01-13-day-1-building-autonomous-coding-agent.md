@@ -4,6 +4,8 @@ title: "Day 1 of Building an Autonomous Coding Agent: AI That Ships While You Sl
 date: 2026-01-13 16:00:00 +0100
 categories: [ai-agents, automation, devops]
 tags: [autonomous-agents, claude, cron, ci-cd, python, django]
+description: >-
+  Cron-driven agents that plan, write, test and open pull requests without me. Including the test gate that never actually ran.
 ---
 
 Look, I'm just going to come out and say it: I've built a robot that writes code while I sleep, and it's both the most terrifying and most liberating thing I've ever done.
@@ -77,7 +79,7 @@ Here's the complete timeline:
            └─ Summary sent: 3/3 succeeded, 0 failed
 ```
 
-**Results**: In 26 minutes of autonomous execution, the system effectively did a full morning's work for a junior developer. It completed features across 3 projects, wrote 29 automated tests, auditted security, updated production configs, and filed 2 PRs.
+**Results**: In 26 minutes of autonomous execution, the system effectively did a full morning's work for a junior developer. It completed features across 3 projects, wrote 29 automated tests, audited security, updated production configs, and filed 2 PRs.
 
 **My involvement**: Zero. I was eating a sandwich. A very good sandwich, mind you, but significantly less productive than the AI.
 
@@ -243,19 +245,8 @@ It wrote 29 security tests. SQL injection, XSS, CSRF—the whole nine yards. It 
 - Oracle Cloud: $0 (free tier).
 - My sanity: Priceless.
 
-## Key Takeaways
-
-1.  **Autonomous != Unsupervised.** You still need to review PRs. Don't be an idiot and auto-merge to main.
-2.  **Test gating is non-negotiable.** It's the filter that separates "helpful assistant" from "chaos engine."
-3.  **External memory is critical.** The AI needs a notepad. Give it one.
-4.  **Task queues enable focus.** One task at a time. Multitasking is a lie for humans and AIs alike.
-5.  **Production works differently than demos.** Real autonomous systems need safety rails, timeouts, and logging.
-
-**Correction, August 2026.** The test gate shown above didn't work when this was
-published. The original had `|| true` inside the command substitution, which forces
-an exit status of 0 no matter what the tests did. `TEST_EXIT` was always 0, so the
-check never fired once. I wrote that this part "changed everything" while shipping
-code that couldn't gate anything. Fixed above.
-
-If you build something like this, put the guardrails in first, then check the
-guardrails actually run. Mine didn't for weeks and the logs looked fine the whole time.
+**Measured later.** These were my impressions at the time. In August 2026 I pulled
+the numbers out of 105 days of run logs: 3,416 agent runs, 79% marked success.
+Except the last three months read 100%, which was false. Sessions were dying on a
+rate limit after four seconds and being logged as successes. Real figure unknown for
+that window. See [Agentosaurus](/projects/agentosaurus/).

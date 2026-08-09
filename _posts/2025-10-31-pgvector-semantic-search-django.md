@@ -4,6 +4,8 @@ title: "SQL Was Hard, So We Invented Vectors (Now It's Impossible)"
 date: 2025-10-31 14:00:00 +0100
 categories: [ai, databases, django]
 tags: [pgvector, embeddings, semantic-search, postgresql, django]
+description: >-
+  Adding vector search to a Django app with pgvector and an HNSW index, including what it costs in memory and build time.
 ---
 
 I had a simple problem. I wanted to search for "mental health" and find "psychological support."
@@ -28,7 +30,7 @@ Postgres said: "LOL."
 Then you have to migrate your database.
 You aren't just adding a column. You are adding `vector(384)`.
 And you need an index. not a B-Tree. An **HNSW** index (Hierarchical Navigable Small World).
-It sounds like a theme park ride. It acts like a memory hog.
+It builds a graph you can walk quickly. It costs memory to do it.
 
 ## The 40-Minute Miracle
 
