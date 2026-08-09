@@ -126,17 +126,3 @@ But that's not the point. The point is that *I own the means of production*. I c
 If you just want to summarize text, use an API. It's cheaper, faster, and you won't have to debug container networking at 3 AM.
 
 But if you want to understand how the sausage is made—or if you simply enjoy the sweet, sweet suffering of distributed systems engineering—then godspeed.
-
----
-
-## Need Help Burning Money on GPUs?
-
-I offer consulting for people who hate money and love Kubernetes:
-
-- **Architecture Design** - $150/hr
-- **Implementation Sprint** - 1 week ($4,000)
-- **GPU Cost Optimization** - $500 audit
-
-**Contact**: [wingston@agentosaurus.com](mailto:wingston@agentosaurus.com)
-
-*Come for the AI, stay for the CUDA errors.*

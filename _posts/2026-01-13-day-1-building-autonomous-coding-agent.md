@@ -252,17 +252,3 @@ It wrote 29 security tests. SQL injection, XSS, CSRF—the whole nine yards. It 
 5.  **Production works differently than demos.** Real autonomous systems need safety rails, timeouts, and logging.
 
 If you're thinking of building something like this, do it. But for the love of all that is holy, put some guardrails on it. Otherwise, you might wake up to a deleted production database and a very apologetic commit message.
-
----
-
-## Building Your Own Autonomous Agent?
-
-I help teams implement AI-powered autonomous development systems. If you want to build Skynet (the nice version), hit me up:
-
-- **Architecture Consulting** - $150/hr
-- **Implementation Workshop** - 2 days ($2,400)
-- **Production Readiness Audit** - $800
-
-**Contact**: [wingston@agentosaurus.com](mailto:wingston@agentosaurus.com)
-
-*Let AI ship code while you sleep. Ideally without destroying the world.*

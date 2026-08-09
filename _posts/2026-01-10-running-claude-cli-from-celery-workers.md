@@ -167,17 +167,3 @@ Well, yesterday I was sleeping, and an error triggered an agent. The agent inves
 I woke up, merged the PR, and felt like a god.
 
 So yes. It's worth it. Even if I did have to install Node.js in my Python container.
-
----
-
-## Want to Build the Borg?
-
-I help teams integrate AI agents into their infrastructure. If you want to create your own army of autonomous workers:
-
-- **Architecture Consulting** - $150/hr
-- **Implementation Workshop** - Full day ($1,400)
-- **Production Audit** - $500
-
-**Contact**: [wingston@agentosaurus.com](mailto:wingston@agentosaurus.com)
-
-*We are the Borg. Your bugs will be assimilated.*

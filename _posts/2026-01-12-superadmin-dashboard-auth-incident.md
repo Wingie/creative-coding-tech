@@ -158,17 +158,3 @@ It's a humbling reminder that no matter how fancy our tools get—AI, autonomous
 4.  **Document your incidents.** Shame is a powerful teacher.
 
 If you need me, I'll be over here writing `assert` statements and questioning my life choices.
-
----
-
-## Building Secure AI Systems? (Ideally better than I did?)
-
-If you're integrating AI agents and want to avoid being the subject of a post-mortem like this one:
-
-- **Security Architecture Review** - $150/hr
-- **Incident Response Workshop** - Half-day ($800)
-- **AI Safety Consulting**
-
-**Contact**: [wingston@agentosaurus.com](mailto:wingston@agentosaurus.com)
-
-*Let's build AI systems that are safe, even from their creators.*

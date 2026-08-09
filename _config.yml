@@ -42,6 +42,8 @@ theme: jekyll-theme-chirpy
 # Exclude from processing
 exclude:
   - ppts
+  - handoff.md
+  - scratchpad
 
 # Chirpy theme settings
 # NOTE: `paginate` is intentionally unset. jekyll-paginate only paginates the
