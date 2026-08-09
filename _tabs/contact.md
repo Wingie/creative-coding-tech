@@ -2,7 +2,7 @@
 layout: page
 title: Contact
 icon: fas fa-envelope
-order: 5
+order: 6
 ---
 
 <div class="consulting-contact">

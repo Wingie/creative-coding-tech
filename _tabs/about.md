@@ -29,9 +29,13 @@ The through-line: I've always been more interested in what technology *can becom
 
 **Dubai** — First industry years. Learned that production systems are humbling. Learned that good engineering is mostly good thinking, not good typing.
 
-**Workshop India (CTO)** — Led the technical vision for an education startup. Built teams, made architectural calls, shipped products used by thousands. The crucible.
+**Workshop India** — my first go at founding something, early enough that I mostly learned what I didn't know. It's where the habit started of building the thing rather than waiting to be handed it.
 
-**Amsterdam → Booking.com** — Joined as a senior engineer, grew into Engineering Manager for Flights. Now responsible for a platform that handles hundreds of millions of searches annually, leading a team of 12+ engineers across multiple time zones.
+**Bangalore & Dubai** — Premiere Digital Services, running an onsite-LA / offshore-Bangalore delivery model at studio-master scale, then Industry Networks in Dubai building NLP applications for the construction industry. Learned to ship across a thirteen-and-a-half-hour time difference.
+
+**Amsterdam → Booking.com** — Nine years, five roles: joined as a software engineer, became a team lead, then senior engineer and lead, then Engineering Manager in Accommodations — where I grew from one team to three, covering Cancellations, Modifications and Platform Modernization — and now Engineering Manager for Flights, running a multi-disciplinary team spanning engineering, design and ML.
+
+I moved a lot, on purpose. Each move was toward a problem I hadn't solved before. That's also why I'm looking for the next one.
 
 ---
 
@@ -54,7 +58,9 @@ This is the part that surprises people.
 
 I started live-coding music with **Sonic Pi** as a side project. That led to **SuperCollider**, then **MaxMSP**, then building audio-reactive visuals in **TouchDesigner** and **Unreal Engine 5**.
 
-The project I'm most proud of in this space: **Ableton MCP** — I built one of the first MCP (Model Context Protocol) integrations for Ableton Live, letting AI assistants directly control music production software. That repo now has hundreds of stars and spawned a whole ecosystem of MCP music tools.
+Most of my rig is glue: an Ableton and TouchDesigner integration I use constantly, and a rewrite of an MCP server so an AI assistant can drive the DAW directly.
+
+Lately it's been depth sensing and projection: getting Kinect v2 working on macOS where no vendor driver exists, structured-light calibration between camera and projector, and a point-cloud instrument driven live from a MIDI controller. Some of that did go back upstream — live segmentation and zone tracking into a projection-mapping pipeline, and a hand-tracking fix that took a WebGL particle system from a 16% frame-rate cost to roughly nothing.
 
 The creative coding thread isn't separate from the engineering work. It's where I experiment without constraints, develop taste for system design, and stay curious about what computation *feels like*.
 
