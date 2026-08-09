@@ -4,83 +4,93 @@ title: Research
 icon: fas fa-flask
 order: 2
 description: >-
-  Independent research on measuring what AI systems actually do — a canary-gated
-  evaluation harness, a three-year programme on forecasting collective dynamics
-  with a published dual-use policy, and work on evaluation integrity.
+  Unpaid research on AI systems. Proving what data a model was trained on,
+  training small models on one GPU, and asking whether crowd behaviour can be
+  forecast.
 ---
 
-Three years of unpaid work on testing AI systems. Some of it worked. A fair amount didn't, and that's written down too.
+Three years of unpaid work. Some of it worked. A fair amount didn't, and that's written down too.
 
-Everything below is unfunded and unreviewed. Where a claim hasn't been tested, it says so — that's the point, not a disclaimer. Things this site has gotten wrong live on the [corrections page](/corrections/).
+Things this site has got wrong are on the [corrections page](/corrections/).
 
 ---
 
-## Canary-gated evaluation
+## Proving what a model was trained on
 
-A benchmark can only tell you something if a model can't fake its way through it. The usual failure is quiet: the model produces a confident, well-formatted answer without ever looking at the data, and the scorer rewards it.
+Someone fine-tunes a model on your data. Can you prove it afterwards?
 
-So the tasks are **filesystem-gated** and each run plants a fresh random token in the data:
+You can, if you plan ahead. I put keyed markers in the training data. The markers come from a secret key, so I can work out later what the answer should be for any given prompt. Then I ask a suspect model those prompts and see what comes back.
 
-```
-CANARY_56eab21d1c9581f
-```
+- It knows the public markers but not the private ones: it saw the public dataset, not mine.
+- It knows the private ones too: it trained on my data, or on weights that did.
+- It knows neither: it never saw any of this.
 
-The only way to emit that token is to have actually run `Read`, `Grep` or `Bash` against the files. No canary in the output means the model didn't look — which makes a hallucinated answer structurally unscoreable rather than merely wrong. Scoring weights process alongside output: tool use 25%, grounding 25%, task completion 25%, efficiency 15%, verbosity 10%.
+The markers look like random strings, so nothing downstream needs changing to handle them, and nobody reading the training data can pick them out without the key.
 
-**The harness scores the agent, not just the model.** Seven pluggable executors run the same 44 tasks against the same weights, and the results are not the same. One run of a single fine-tuned model across three harnesses scored 47.8%, 46.6% and 44.2% — and the third scored **0 out of 3 canaries**, because the model had been trained on `read_file.path` while that harness passes `Read.file_path`. Same weights, same GPU, different agent. That's a result about evaluation methodology, not about the model.
+This gets more useful as models get passed around and fine-tuned by people you'll never meet. Right now, if someone trains on a dataset they shouldn't have, there's usually no way to show it.
 
-**It found bugs in itself, which is the part I'd point at.** An adversarial audit of my own scorer turned up two that mattered: it was scoring a competing executor 0.0 on real shell calls because its tool vocabulary differed from the one the rubric was written in; and it was *rewarding zero-work runs* — one-turn timeouts with no tool calls at all were scoring 0.95 on efficiency, inflating every failure by roughly 14% of the weighted total. Both are fixed. Both had been silently flattering the results.
+---
 
-An extension turns the canaries into a **provenance oracle**. HMAC-keyed canaries share the wire format of the plain ones, so the scorer needs no changes, but they can be re-derived from a key and a probe id. Held-back probes then answer a question you otherwise can't ask a set of weights:
+## A test suite for agents
 
-| Observation | Conclusion |
-|---|---|
-| High match on public ids | Model has seen the public dataset |
-| ~0% on held-back ids | Model was **not** trained on our private canaries |
-| High match on held-back ids | Model was trained on our weights or data |
+Different work, same repository.
 
-Built inside [Agentosaurus](/projects/agentosaurus/), where it's used to benchmark models and to steer fine-tuning. Twenty-two models have been through it.
+Most benchmarks score the answer. This one scores the working: did the agent pick the right tools, are its claims backed by what those tools returned, did it finish the job. Marks split across tool use, grounding, completion, efficiency and how much it waffles.
 
-*Caveat worth stating: these numbers are reproducible in my harness, scored by my scorer. They are not authoritative, and one widely-quoted leaderboard placement was provisional on a partial run.*
+Twenty-two models have been through it on 44 tasks.
+
+The useful finding was about the test, not the models. I ran one fine-tuned model through three different agent frameworks. Same weights, same GPU. It scored 47.8%, 46.6% and 44.2%. The third failed a check the other two passed, because the model had been trained to call `read_file.path` and that framework passes `Read.file_path`. Change the wrapper, get a different agent.
+
+It also found two bugs in itself. It was scoring a rival framework zero on real shell commands, because that framework names its tools differently and my scorer only knew mine. And it was rewarding runs that did nothing: a one-turn timeout with no tool calls scored 0.95 for efficiency, which quietly inflated every failure. Both fixed.
+
+*These numbers come from my suite, scored by my scorer. Nobody else has checked them.*
+
+---
+
+## LOGOS: making a small model better at agent work
+
+I'm running continued pretraining on one RTX 3090, with a new mixture-of-towers architecture.
+
+**Where it stands: training on agentic trajectories does increase capability.** Recordings of agents doing real work, fed back in as training data, make the model better at that work. The multi-tower training improves it further.
+
+I want to take this to Chinchilla scale, which means training on about twenty tokens for every parameter in the model. That's the ratio where the compute is spent well. One consumer GPU won't get near it.
+
+**If you have compute sitting idle and this sounds interesting, [email me](/contact/).**
+
+The harness is built so somebody else can check the method. Most of it runs without a GPU: 533 tests you can run on a laptop. It locks the scoring rules before a run, so I can't move the goalposts afterwards. It filters held-out data, so a leak can't be mistaken for a result. When earlier findings turned out to be an artefact of a small sample, I retracted them in the README and left the retraction there.
+
+The repository is private for now.
 
 ---
 
 ## Psychohistory
 
-A three-year programme asking whether collective human behaviour can be forecast the way weather is — and, more usefully, marking exactly where it can't.
+Three years asking whether you can forecast crowd behaviour the way you forecast weather.
 
-The paper argues that social systems hold *partial, conditional* analogues of the three properties that make numerical weather prediction work, and assembles them into a regime-aware specification with a stated boundary of failure. It is v0.5, in review, and the README leads with what has **not** been shown.
+The short answer is sometimes, in narrow conditions. The paper spends most of its length on where it fails.
 
-- One prediction has a **sealed pre-registered pass**: dynamic N_eff collapse, 9 of 12 cascades beating their own block-label shuffle, binomial *p* = 1.7×10⁻⁷, threshold frozen before the data was harvested.
-- The bifurcation-mix conjecture is **refuted**. Conservation at basket scale is **contradicted**. Early warning is a *partial* positive that can't separate endogenous from exogenous. Those are in the README, not a footnote.
-- Four forecasting falsifiers remain **pending a compute run** — blocked on hardware, not data.
+- One prediction passed a **sealed test**. I wrote the threshold down before collecting the data and never moved it. Nine of twelve cases passed, at odds of roughly one in six million against chance.
+- One idea was **refuted**. Another was **contradicted** by the data. Both are near the top of the README.
+- Four bigger claims are **untested**. They need a training run I can't afford.
 
-The module I care most about is the **steering envelope**: a hazard law treating control-loss risk as deployment velocity over steering capacity, validated out-of-sample on road safety, aviation and a macrohistory panel — with AI as an explicit domain, using frontier-compute growth as velocity and policy plus **evaluation-institution counts** as capacity. It refuses to fit an outcome model, because no AI outcome data exists yet.
+The part I find most useful is a model of how fast you can deploy something before you lose control of it: risk as speed divided by your capacity to steer. I tested it against road safety, aviation and two centuries of financial crises, and it holds up out of sample. Pointed at AI, the speed is compute growth and the steering capacity counts things like how many institutions exist to evaluate models. It refuses to predict an outcome, because there isn't any outcome data yet.
 
-`ETHICS.md` publishes the dual-use split rather than gesturing at it: the monitor and early-warning components are released; the optimal-intervention solver, the susceptible-block targeting objective and per-individual targeting artifacts are **withheld and named as withheld**. It sets four binding conditions for any control use — an externally-authored, revisable objective; contemporaneously-disclosed intervention logs; mandatory separation of monitor from controller; and a human chooser outside the machine. It also notes that an objective "laundered through pretrained model weights" still counts as part of the auditable objective.
+`ETHICS.md` says what I'm releasing and what I'm keeping back. The monitoring parts are public. The parts that would help someone target and manipulate a group are not, and I list those by name so you know what's missing.
 
-The packaged tool enforces that policy: it declines control-synthesis and manipulation requests. Policy in an artifact, not just in prose.
+It sets four conditions for anyone using this to steer anything. Someone outside writes the goal and can change it. Every intervention gets logged as it happens. Whoever watches is not whoever acts. A person makes the final call.
 
-**[Read the paper and the test results →](https://wingie.github.io/psychohistory/)** · [source](https://github.com/Wingie/psychohistory)
+The tool that ships with it turns down requests to design manipulation campaigns.
 
----
-
-## Evaluation integrity
-
-A separate harness, currently private, built to test architectural claims about mixture-of-experts models — and built specifically because an independent build-readiness audit of its own specification came back negative.
-
-Its useful half needs no GPU. Pre-registration that **refuses post-hoc sealing**, deriving run ordering from git ancestry rather than trusting the seal document. A lock file that stops the evaluation bar moving between the run and the report. Held-out leak filters that ban substring and hand-rolled-regex detection as unsound. Named falsifiers for corpus overlap. A capability gate scoring agentic tool selection against recorded ground truth. 533 tests, all runnable on any machine, so a referee can check the correctness layer without renting hardware.
-
-The headline GPU run is reported as a **null result**: the router's gradient measured exactly `0.000e+00`, meaning the experiment ran the dense baseline twice. Earlier routing-entropy figures are retracted in the README as a four-sample artifact, and a throughput claim is corrected to a gradient-checkpointing effect. Work in progress — the multi-tower track is still iterating.
+**[Read the paper and the test results](https://wingie.github.io/psychohistory/)** · [source](https://github.com/Wingie/psychohistory)
 
 ---
 
-## Writing
+## A book on AI security
 
-**AI Security Risks: A Comprehensive Guide for LLM Systems** — 34 chapters on prompt injection, data poisoning, invisible data leaks, multi-agent vulnerabilities, supply-chain compromise, trust verification, immutable training and regulatory compliance. Self-published and unreviewed.
+34 chapters on how AI systems get attacked. Prompt injection, poisoned training data, leaking things it shouldn't know, multi-agent systems turning on each other, supply chain, and what regulators are going to want. Self-published, not peer reviewed.
 
-[Read it →](https://github.com/Wingie/risk_using_llms)
+[Read it](https://github.com/Wingie/risk_using_llms)
 
 ---
 
-Currently studying toward the IAPP AI Governance Professional certification.
+Studying for the IAPP AI governance certificate. Haven't sat the exam yet.
