@@ -25,7 +25,7 @@ def process_order(order_id):
     order.ship_it() # Does exactly one thing
 ```
 
-This is fine for sending password reset emails. But frankly, it's boring. I wanted a worker that could look at a stack trace and say, "Huh, that looks like a NullPointerException in the formatting library," and then *go fix it*.
+This is fine for sending password reset emails. But frankly, it's boring. I wanted a worker that could look at a stack trace and say, "Huh, that looks like a AttributeError: 'NoneType' object has no attribute in the formatting library," and then *go fix it*.
 
 To do that, you need an Agent. And to run an Agent, you need an environment. And because we live in the timeline where JavaScript won the CLI wars, the tool I need (`claude-run`) is a Node.js application.
 
@@ -35,7 +35,7 @@ It's effectively a turducken of programming languages.
 
 ## The Architecture: Or, "Yo Dawg, I Heard You Like Containers"
 
-A friend of mine who works at AWS (let's call him "Bezos's Ghost") once told me that Lambda functions are just Docker containers that start really fast. He said, "Eventually, everything will just be a container inside a container inside a container, all the way down to the metal."
+Serverless platforms do a version of this already, running your code inside a sandbox they manage. Mine is the same shape with worse ergonomics and a machine I own.
 
 I took that personally.
 

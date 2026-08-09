@@ -46,7 +46,7 @@ def superadmin_dashboard(request):
 
 Notice anything missing? 
 
-A friend of mine at a Major Search Engine (let's call them "Gargle") once told me about an intern who accidentally exposed the internal tool for banning websites to the public internet. For 45 minutes, anyone could have banned `google.com` from Google. 
+Everyone who has shipped an internal tool has a version of this story. Mine is that I shipped the whole admin panel. 
 
 I laughed at that story. "How could you be so stupid?" I thought. "How could you forget basic access control?"
 
@@ -70,14 +70,14 @@ And then, slowly, the blood drained from my face. **"I'm in an incognito tab,"**
 - Everything. Literally everything.
 - List of all agent runs.
 - System metrics.
-- Buttons to trigger things (thank god for CSRF protection, which Django enables by default, otherwise I'd be dead).
+- Buttons to trigger things. I told myself Django's CSRF protection covered me here. It doesn't. CSRF stops another site posting on your behalf. It does nothing about a stranger who can load the page, collect a valid token and post it themselves.
 
 **What could have happened:**
 - Mass information disclosure.
 - Someone could have enumerated my entire infrastructure.
 - Someone could have laughed at my variable naming conventions.
 
-**Time exposed**: ~7 minutes.
+**Time exposed**: 13 minutes. Deployed 13:45, spotted 13:52, fixed 13:58.
 **Traffic**: Zero (except me).
 
 I got lucky. Incredibly, stupidly lucky.
@@ -96,7 +96,7 @@ def superadmin_dashboard(request):
     # ... rest of the view ...
 ```
 
-I deployed the fix at 13:58. Total panic time: 6 minutes.
+I deployed the fix at 13:58. Six minutes from spotting it to closing it, thirteen from opening the hole.
 
 ## Root Cause Analysis: Or, Why AI is Like a Toddler with a Chainsaw
 
@@ -157,4 +157,7 @@ It's a humbling reminder that no matter how fancy our tools get—AI, autonomous
 3.  **Speed kills.** Usually it just kills your code quality, but sometimes it tries to kill your company.
 4.  **Document your incidents.** Shame is a powerful teacher.
 
-If you need me, I'll be over here writing `assert` statements and questioning my life choices.
+**Correction, August 2026.** Two things in the original were wrong. I credited
+Django's CSRF protection with limiting the damage, and it wouldn't have. And I said
+the exposure was about seven minutes when my own timestamps say thirteen. Both fixed
+above.

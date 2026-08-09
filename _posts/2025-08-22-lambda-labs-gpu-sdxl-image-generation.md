@@ -27,5 +27,3 @@ My images looked like they were printed on sandpaper.
 Why? **VAE Precision**.
 The default VAE runs in `fp16`. It saves memory. It also makes your art look like garbage.
 I spent 4 hours debugging "The Graininnies" so you don't have to.
-
-**[Read the Full Debugging Log](/ai/gpu/image-generation/2025/08/22/lambda-labs-gpu-sdxl-image-generation.html)**

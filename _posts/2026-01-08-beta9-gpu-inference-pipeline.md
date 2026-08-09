@@ -16,9 +16,9 @@ But no. I decided to build my own distributed GPU inference pipeline. Because ap
 
 ## The "Why" (Or, The Justification for Madness)
 
-A friend at a Huge Social Network (let's call them "BookFace") once told me, "At our scale, electricity is cheaper than API calls."
 
-Now, I am not at BookFace scale. I am at "running a blog from my basement" scale. But the principle stuck with me.
+
+I run a blog and a few side projects. At that size the maths is different, but it is still maths I wanted to do myself.
 
 1.  **APIs are expensive.** If you're running autonomous agents 24/7, paying per token is a delightful way to bankrupt yourself.
 2.  **Latency sucks.** Round-tripping to San Francisco for every thought adds up.
@@ -87,7 +87,7 @@ And a shell script that talks to the TUI (Text User Interface) because I am a hi
 
 Here is something the "Serverless AI" marketing brochures don't tell you: **Loading models takes time.**
 
-You can't just beam 15GB of floats into VRAM instantly. The speed of light (and PCIe bandwidth) is a harsh mistress.
+You can't just beam 15GB of floats into VRAM instantly. Disk read speed and PCIe bandwidth set the floor here.
 
 When a fresh worker starts up:
 1.  Boot container: 5s

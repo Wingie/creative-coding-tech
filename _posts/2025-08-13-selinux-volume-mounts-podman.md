@@ -23,6 +23,4 @@ The difference between a working database and a 3am outage was one character:
 - `:z` (Little z): "We can share."
 
 If you mount the same volume into two containers with `:Z`, SELinux will shoot the second container in the head.
-It won't tell you why. It will just kill it.
-
-**[Learn the Difference](/devops/containers/security/2025/08/13/selinux-volume-mounts-podman.html)**
+It won't tell you why. The process just gets permission denied on files it can plainly see.

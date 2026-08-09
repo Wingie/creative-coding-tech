@@ -37,6 +37,3 @@ After fighting Docker, fighting migrations, and fighting the embedding service..
 And the search results?
 They are... eerie.
 I type "I am sad" and it finds "Crisis Support Hotline."
-Maybe the machines *do* understand us. Or maybe it's just linear algebra masquerading as empathy.
-
-**[Read the Full Code (If You Like Math)](/ai/databases/django/2025/10/31/pgvector-semantic-search-django.html)**

@@ -63,5 +63,3 @@ But my `Dockerfile` looks like a crime scene. It has `sed` commands patching URL
 The moral of the story?
 ARM64 is great. The cloud is cheap.
 But you pay for it with your sanity.
-
-**[Read the Gory Details (If You Masochistically Enjoy Makefiles)](/devops/arm64/kubernetes/2026/01/07/arm64-build-hell-juicefs-geesefs.html)**

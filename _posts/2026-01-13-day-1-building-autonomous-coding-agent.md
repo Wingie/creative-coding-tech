@@ -12,7 +12,7 @@ I know what you're thinking. "Oh great, another AI hype post from some guy who p
 
 (Spoiler: It created 47 pull requests in 30 days. I merged 43 of them. The other 4 tried to delete the production database. We'll get to that.)
 
-Here's the thing. I once worked with a guy at a Very Large Tech Company—you know the one, they sell everything from books to cloud computing—who told me about their internal deployment system. Completely automated. Thousands of deployments per day. And I remember thinking, "That's insane. That's the future. And I want it."
+Big companies have had automated deployment for years. Thousands of deploys a day, no human in the loop for any single one. I wanted to know how far you could push that when the thing being deployed was also written by a machine.
 
 But that was for deployments. What I've built is different. This is an AI that doesn't just deploy code—it WRITES the code. It's like if Skynet and your most productive 10x engineer had a baby, and that baby really, really liked Django.
 
@@ -150,7 +150,7 @@ timeout 1800 claude-run continue-build.ai --allow-write
 This is the single most important part of the system. **Run tests BEFORE creating the PR.**
 
 ```bash
-TEST_OUTPUT=$(uv run python manage.py test myapp -v 2 2>&1 || true)
+TEST_OUTPUT=$(uv run python manage.py test myapp -v 2 2>&1)
 TEST_EXIT=$?
 
 if [ $TEST_EXIT -ne 0 ]; then
@@ -251,4 +251,11 @@ It wrote 29 security tests. SQL injection, XSS, CSRF—the whole nine yards. It 
 4.  **Task queues enable focus.** One task at a time. Multitasking is a lie for humans and AIs alike.
 5.  **Production works differently than demos.** Real autonomous systems need safety rails, timeouts, and logging.
 
-If you're thinking of building something like this, do it. But for the love of all that is holy, put some guardrails on it. Otherwise, you might wake up to a deleted production database and a very apologetic commit message.
+**Correction, August 2026.** The test gate shown above didn't work when this was
+published. The original had `|| true` inside the command substitution, which forces
+an exit status of 0 no matter what the tests did. `TEST_EXIT` was always 0, so the
+check never fired once. I wrote that this part "changed everything" while shipping
+code that couldn't gate anything. Fixed above.
+
+If you build something like this, put the guardrails in first, then check the
+guardrails actually run. Mine didn't for weeks and the logs looked fine the whole time.

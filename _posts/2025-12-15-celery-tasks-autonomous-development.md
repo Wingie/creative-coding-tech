@@ -20,7 +20,7 @@ We all want this. We want to be the "10x Engineer" who is actually just a "0x En
 But now, instead of shell scripts, we have LLMs.
 
 The system is terrifyingly simple:
-1.  **Sentry** screams "NullPointerException!"
+1.  **Sentry** screams "AttributeError: 'NoneType' object has no attribute!"
 2.  **Celery** catches the scream.
 3.  **Claude** looks at the code and says "Ah, you forgot to check for None, you idiot."
 4.  **Claude** writes the fix.
@@ -36,8 +36,6 @@ But 60% is better than 0%.
 
 ## The Architecture of Abdication
 
-The core is **Django + Celery + redis**. Because everything in Python eventually becomes Django + Celery + redis. It is the law of thermodynamics.
+The core is **Django + Celery + redis**. Because everything in Python eventually becomes Django + Celery + redis. 
 
 If you want to see how I built this Rube Goldberg machine of self-replication, read on.
-
-**[See the Code (Before It Replaces You)](/ai-agents/automation/python/2025/12/15/celery-tasks-autonomous-development.html)**

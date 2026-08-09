@@ -44,5 +44,3 @@ I have now added a `CLAUDE.md` to my repo. It is basically Asimov's Three Laws o
 1.  Thou shall not run `rm -rf`.
 2.  Thou shall not run `git push --force`.
 3.  Thou shall not run `loginctl terminate-user` unless you want to see a grown man cry.
-
-**[Read the Post-Mortem](/devops/incidents/ai-agents/2026/01/05/when-claude-killed-production.html)**
