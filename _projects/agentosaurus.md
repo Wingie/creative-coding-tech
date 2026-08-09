@@ -1,9 +1,11 @@
 ---
-title: FlowState
-slug: flowstate
-tagline: Multi-agent presentation system that writes and updates its own slides in real time
+title: Agentosaurus
+slug: agentosaurus
+redirect_from:
+  - /projects/flowstate/
+tagline: An autonomous AI build system, self-hosted end to end
 description: >-
-  FlowState is a distributed multi-agent orchestration system where a Manager, Updater, and Research agent collaborate in real time — one presenting, one rewriting slides on the fly, one gathering live data. Built for a European media production company that needed interactive, self-updating presentations.
+  FlowState / Agentosaurus is an independent research project: a multi-agent orchestration system and a self-hosted GPU stack that runs training and 30B-class inference on my own hardware. It is the practical arm of the same question psychohistory asks in theory — what concentrating AI capability costs, and what it takes to not depend on it.
 language: Python
 role: Built
 year: 2024
@@ -15,18 +17,29 @@ tech:
   - Redis
   - OpenAI API
   - WebSocket
-client: European media production company (NDA)
+client: Independent research — autonomous build systems and AI power concentration
 repo_private: true
 live_url: https://agentosaurus.com
 ---
 
-## The Problem
 
-A European media production company was producing live broadcast events where presenters needed to respond to breaking developments mid-show. Their existing workflow required a separate slide operator, a researcher, and a presenter — three people in constant radio contact, prone to miscommunication under pressure.
+## Why
 
-They needed a single system where the presenter could talk, and the slides would update themselves based on what was being said.
+I wanted to find out how agentic software-build flows actually work in practice, so
+I built some and ran them. Not a thesis — a workshop. FlowState was the first
+attempt; it has since grown into several projects under
+[agentosaurus.com](https://agentosaurus.com), each one a different way of asking the
+same question: how much of building software can a system do on its own, and where
+does it break?
 
-## What We Built
+Running it myself, on my own hardware, turned out to answer a second question I had
+been treating separately. [Psychohistory](https://wingie.github.io/psychohistory/)
+argues in theory about what concentrating AI capability in a handful of providers
+costs. Agentosaurus is where that stops being an argument and becomes a bill — own
+GPUs, own orchestration, own weights, and a very clear view of exactly which parts I
+still can't do without someone else's API.
+
+## What It Does
 
 FlowState is a three-agent loop built on Microsoft's AutoGen framework:
 
@@ -69,23 +82,13 @@ def patch_slide(slide_index: int, section: str, new_content: str) -> str:
     return f"Slide {slide_index} [{section}] updated."
 ```
 
-## The Outcome
+## Status
 
-<div class="metric-row">
-  <div class="metric">
-    <span class="metric__value">80%</span>
-    <span class="metric__label">less prep time</span>
-  </div>
-  <div class="metric">
-    <span class="metric__value">3→1</span>
-    <span class="metric__label">operators needed</span>
-  </div>
-  <div class="metric">
-    <span class="metric__value">&lt;2s</span>
-    <span class="metric__label">slide update latency</span>
-  </div>
-</div>
+Independent research, ongoing. The stack currently runs multi-agent orchestration
+over a self-hosted Beta9 gateway, with GPU workers joined over a private Tailscale
+network and inference served locally from llama.cpp. Fine-tuned adapters trained on
+this rig are published on Hugging Face.
 
-Deployed at two live broadcast events. The presenting team went from three-person radio coordination to a single operator managing the entire flow. Live demos became genuinely interactive — the system responded to audience questions mid-session and updated context slides on the fly.
-
-The client subsequently used the agent loop pattern for automated post-production summaries, feeding recorded session transcripts through the same pipeline to generate structured recap decks without human involvement.
+Honest limit: the default inference path still falls back to hosted APIs
+(Fireworks, OpenRouter) and embeddings are not yet local. Sovereignty here is a
+capability I can switch on for a workload, not a property of the whole system.

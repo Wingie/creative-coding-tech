@@ -66,7 +66,7 @@ The creative coding thread isn't separate from the engineering work. It's where 
 
 **Mine:**
 
-- **[FlowState / Agentosaurus](/projects/flowstate/)** — multi-agent orchestration and a self-hosted GPU stack, live at [agentosaurus.com](https://agentosaurus.com). Private repository.
+- **[Agentosaurus](/projects/agentosaurus/)** — multi-agent orchestration and a self-hosted GPU stack, live at [agentosaurus.com](https://agentosaurus.com). Private repository.
 - **[claude-plays-pokemon](https://github.com/wingie/claude-plays-pokemon)** — LLM agent playing Pokémon Red autonomously ([case study](/projects/pokemon-ai/))
 - **[psychohistory](https://github.com/Wingie/psychohistory)** — a bounded, falsifiable specification for forecasting collective dynamics, with a published dual-use ethics policy
 - **[risk_using_llms](https://github.com/Wingie/risk_using_llms)** — a 34-chapter book on LLM security
