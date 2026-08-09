@@ -1,7 +1,7 @@
 ---
 title: Hybrid DJ Set
 slug: hybrid-dj
-tagline: A DJ set that generates its own accompaniment, in key, in sync, without a second performer
+tagline: A second performer that doesn't need feeding, paying, or persuading
 description: >-
   Hybrid DJ Set is a live performance system where Mixxx MIDI clock drives Pure Data patches — a three-band crossover feeds FM synthesis, Karplus-Strong physical modelling, and a generative drum sequencer. Performed live at 4 events; audiences consistently couldn't distinguish generated from sampled.
 language: Pure Data / Max/MSP
@@ -23,70 +23,22 @@ upstream_repo: Hybrid-DJ-Set
 og_image: https://opengraph.githubassets.com/1/MikeMorenoDSP/Hybrid-DJ-Set
 ---
 
-## The Problem
+A DJ set is selection and mixing. You pick from records that exist, and the craft is in sequencing, transitions and where you take the energy.
 
-Standard DJ sets are selection and mixing. The DJ chooses from a pre-existing library; the creativity is in sequencing, transition, and energy management. Adding live synthesis usually means a second performer — a keyboardist, a live drummer, an Ableton operator — which adds logistics, ego management, and technical complexity.
+Adding live playing on top usually means adding a person. A keyboardist, a drummer, someone on Ableton. That means rehearsal, splitting the fee, and one more thing to go wrong on stage.
 
-The question was whether a solo DJ could have *generated* accompaniment that sounds like a second performer — responsive to tempo and key changes in the DJ set, but running autonomously once started.
+I wanted to know whether the accompaniment could generate itself: in time, in key, and left alone once it starts.
 
-## What We Built
+This is built on [MikeMorenoDSP's Hybrid DJ Set](https://github.com/MikeMorenoDSP/Hybrid-DJ-Set), a Pure Data patch collection driven by MIDI clock.
 
-A Pure Data patch ecosystem with 16 sub-patches, driven by MIDI clock from Mixxx. The signal flow:
+Mixxx sends clock and beat markers. Pure Data works out tempo, beat position and bar count from that, so everything downstream stays locked to the record that's actually playing.
 
-1. **Mixxx** sends MIDI clock and beat markers via MIDI Out
-2. **PD clock receiver** derives tempo, beat position, and bar count
-3. **Three-band crossover** analyses the incoming DJ mix audio:
-   - Sub-bass energy → feeds kick drum pattern intensity
-   - Mid energy → feeds melodic synthesis activity level
-   - High energy → feeds generative percussion complexity
-4. **Key detector** (phase vocoder-based) estimates the current key of the playing track
-5. **Synthesis engines** receive tempo + key + energy envelope and generate accordingly
+Then it listens to the mix itself, split into three bands. Sub-bass energy drives how busy the kick pattern is. Mids drive the melodic parts. Highs drive the generative percussion. So when a track drops, the generated material drops with it, without me touching anything.
 
-## How It Works
+The part that makes it usable live is the key detection. A phase vocoder estimates the key of whatever is playing, and everything generated gets quantised into that scale. Random note choice stays consonant with the record. Get this wrong and it's immediately, obviously wrong to everyone in the room.
 
-The Karplus-Strong string synthesis patch is the melodic backbone. It generates plucked string textures that stay in the detected key of the DJ track:
+Rhythms come from a Euclidean sequencer, which spreads a number of hits as evenly as possible across a bar. Mathematically regular, and it doesn't sound like a metronome.
 
-```puredata
-#N canvas;
-# Karplus-Strong string synthesis — simplified representation
+Timing is the whole game here. At 140 BPM, ten milliseconds of drift is audible.
 
-# Delay line length = sample rate / fundamental frequency
-[/ 44100]          ; divide sample rate by target freq
-[round~]           ; round to nearest sample
-[delwrite~ string-buf 2048]
-
-# Excitation: short noise burst on each trigger
-[noise~]
-[*~ 0]             ; gain controlled by envelope
-[line~]            ; smooth envelope
-
-# Feedback with low-pass filtering (string damping model)
-[delread~ string-buf]
-[lop~ 3000]        ; low pass for high-freq damping
-[*~ 0.995]         ; feedback coefficient (just below 1)
-```
-
-The key detection feeds a scale quantiser — every generated note is snapped to the current detected scale before being sent to synthesis. This means even random melodic generation stays consonant with whatever the DJ is playing.
-
-The generative drum sequencer uses a Euclidean rhythm algorithm: for a given `n` beats across `k` steps, it distributes them maximally evenly. This creates rhythmic patterns that are mathematically regular but perceptually interesting.
-
-## The Outcome
-
-<div class="metric-row">
-  <div class="metric">
-    <span class="metric__value">4</span>
-    <span class="metric__label">live events</span>
-  </div>
-  <div class="metric">
-    <span class="metric__value">1</span>
-    <span class="metric__label">performer required</span>
-  </div>
-  <div class="metric">
-    <span class="metric__value">0</span>
-    <span class="metric__label">audience members who guessed it was generated</span>
-  </div>
-</div>
-
-Performed at four events ranging from 80 to 400 people. Post-show conversations revealed that audiences consistently assumed there was a live synth player offstage. The three-band reactivity — the generated elements responding dynamically to the energy of the DJ mix — was the key to making it sound organic rather than looped.
-
-The system is deliberately not Ableton-based. Pure Data runs headlessly, costs nothing, and has essentially zero latency on the MIDI clock sync. This matters in a live context where a 10ms drift becomes audible at 140 BPM.
+Played four events, from about 80 people to about 400.
