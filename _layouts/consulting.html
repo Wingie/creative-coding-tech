@@ -8,141 +8,172 @@ refactor: true
 <div class="consulting-page">
 
   <header class="consulting-header">
-    <h1 class="consulting-title">Consulting</h1>
+    <h1 class="consulting-title">Work with me</h1>
     <p class="consulting-subtitle">
-      15 years of building production systems. Engineering leadership at scale.
-      Selective engagements for teams ready to move fast with quality.
+      Nine years shipping machine learning in production, and three years of independent
+      research into whether we can tell what these systems are actually doing. Five things
+      I'm glad to be called about &mdash; and I'm also looking for a role.
     </p>
-    <a href="/contact/" class="cta-btn">Book a Conversation →</a>
+    <a href="/contact/" class="cta-btn">Start a Conversation →</a>
   </header>
 
-  <!-- Service 1: AI/ML -->
+  <!-- Service 1: AI/ML Engineering -->
   <section class="service-section" id="ai-ml">
     <div class="service-icon">
       <i class="fas fa-brain"></i>
     </div>
     <div class="service-content">
-      <h2 class="service-title">AI/ML Integration</h2>
-      <p class="service-tagline">I've built ML systems before ChatGPT was a word.</p>
+      <h2 class="service-title">AI/ML Engineering</h2>
+      <p class="service-tagline">The part after the prototype works.</p>
       <p class="service-desc">
-        From RAG pipelines and LLM product development to custom model training and GenAI at scale —
-        I help teams move from prototype to production without the typical false starts.
-        I've shipped ML features to hundreds of millions of users at Booking.com.
+        Most AI projects don't fail at the demo. They fail in the year afterwards, when the
+        thing has to run every day, cost a predictable amount, and be debuggable at 2am by
+        someone who didn't build it. That gap is where I've spent nine years.
       </p>
       <ul class="service-outcomes">
-        <li>RAG system design and implementation (vector stores, chunking strategies, retrieval optimization)</li>
-        <li>LLM product architecture — from prompt engineering to fine-tuning to evals</li>
-        <li>GenAI infrastructure at scale — batch processing, streaming, cost optimization</li>
-        <li>ML feature pipelines, model serving, A/B testing frameworks</li>
-        <li>AI strategy — where to use ML, where not to, and how to measure success</li>
+        <li>RAG systems that survive real corpora &mdash; chunking, retrieval quality, and knowing when retrieval is the wrong tool</li>
+        <li>LLM product architecture, from prompt design through fine-tuning to evaluation</li>
+        <li>Agent systems: orchestration, isolation, failure handling, and stopping them lying about success</li>
+        <li>ML pipelines, model serving, experimentation frameworks</li>
+        <li>Where <em>not</em> to use a model &mdash; usually the highest-value conversation</li>
       </ul>
-      <a href="/contact/?service=ai-ml" class="service-cta">Discuss your AI project →</a>
+      <a href="/contact/?service=ai-ml" class="service-cta">Discuss an AI project →</a>
     </div>
   </section>
 
-  <!-- Service 2: Engineering Leadership -->
-  <section class="service-section service-section--alt" id="leadership">
+  <!-- Service 2: Sovereign AI -->
+  <section class="service-section service-section--alt" id="sovereign-ai">
     <div class="service-icon">
-      <i class="fas fa-users-cog"></i>
+      <i class="fas fa-server"></i>
     </div>
     <div class="service-content">
-      <h2 class="service-title">Engineering Leadership</h2>
-      <p class="service-tagline">Fractional CTO. Team building. Culture. Hiring.</p>
+      <h2 class="service-title">Sovereign AI Infrastructure</h2>
+      <p class="service-tagline">Your models, your hardware, your jurisdiction.</p>
       <p class="service-desc">
-        I've built teams from 0 to 12+ engineers, established engineering culture across time zones,
-        and navigated the transition from hands-on contributor to engineering leader.
-        Available for fractional CTO engagements and leadership coaching.
+        I run training and 30B-class inference on my own machines: a k3s control plane, GPU
+        workers joined over a private network, models served locally, retrieval in my own
+        database. I've also fixed the auth and SSRF holes in the gateway I use to do it. So
+        I can tell you which workloads genuinely move off hosted APIs, what each costs to
+        move, and which ones aren't worth it &mdash; which is a different answer from most
+        people selling sovereignty.
       </p>
       <ul class="service-outcomes">
-        <li>Fractional CTO — technical direction, team structure, stakeholder alignment</li>
-        <li>Engineering team building: hiring criteria, process design, onboarding</li>
-        <li>Engineering culture: psychological safety, ownership, delivery rhythm</li>
-        <li>Technical roadmap creation aligned to business objectives</li>
-        <li>Manager coaching and IC-to-manager transition support</li>
+        <li>On-premise and self-hosted LLM serving &mdash; sizing, quantisation, and what fits on hardware you already own</li>
+        <li>Private GPU orchestration across mixed hardware and locations</li>
+        <li>Fine-tuning small models to do a specific job a large hosted one is overqualified for</li>
+        <li>EU AI Act, GDPR and data-residency constraints as architecture, not paperwork</li>
+        <li>Honest cost modelling against the hosted alternative, including when hosted wins</li>
       </ul>
-      <a href="/contact/?service=engineering-leadership" class="service-cta">Talk leadership →</a>
+      <a href="/contact/?service=sovereign-ai" class="service-cta">Talk sovereign infrastructure →</a>
     </div>
   </section>
 
-  <!-- Service 3: Creative Technology -->
-  <section class="service-section" id="creative-tech">
+  <!-- Service 3: Evaluation & Governance -->
+  <section class="service-section" id="governance">
     <div class="service-icon">
-      <i class="fas fa-music"></i>
+      <i class="fas fa-flask"></i>
     </div>
     <div class="service-content">
-      <h2 class="service-title">Creative Technology</h2>
-      <p class="service-tagline">Ableton MCP. Audio-reactive visuals. Live performance systems.</p>
+      <h2 class="service-title">AI Evaluation &amp; Governance</h2>
+      <p class="service-tagline">Knowing whether it works, and being able to show your working.</p>
       <p class="service-desc">
-        Technical consulting at the intersection of music, computation, and real-time systems.
-        I pioneered AI-DAW integration with Ableton MCP and build custom tools for artists,
-        performers, and organisations working at this boundary.
+        I build evaluation harnesses designed so a model can't fake its way through &mdash;
+        tasks gated behind the filesystem, tokens that only surface if the model actually
+        read the data. The harness I run found two bugs that were flattering its own results.
+        That's the job: making a benchmark that can embarrass you.
       </p>
       <ul class="service-outcomes">
-        <li>AI + music production tooling (MCP integrations, custom plugins, generative systems)</li>
-        <li>Audio-reactive visual systems (TouchDesigner, UE5, Three.js)</li>
-        <li>Live performance infrastructure — resilient, low-latency, recoverable</li>
-        <li>Workshop design and facilitation (creative coding, live coding)</li>
-        <li>Installation art technical direction</li>
+        <li>Task-based evaluation harnesses for agents and tool-use, not just output scoring</li>
+        <li>Contamination and provenance checks &mdash; did this model see your held-out set?</li>
+        <li>Pre-registration and sealing, so the bar can't move between the run and the report</li>
+        <li>Dual-use assessment: what to publish, what to withhold, and writing the reasoning down</li>
+        <li>Reading an existing eval suite and telling you where it's lying to you</li>
+      </ul>
+      <p class="service-desc"><em>Currently studying toward the IAPP AI Governance Professional certification.</em></p>
+      <a href="/contact/?service=governance" class="service-cta">Discuss evaluation →</a>
+    </div>
+  </section>
+
+  <!-- Service 4: Creative Installations -->
+  <section class="service-section service-section--alt" id="creative-tech">
+    <div class="service-icon">
+      <i class="fas fa-lightbulb"></i>
+    </div>
+    <div class="service-content">
+      <h2 class="service-title">Creative Installations &amp; Live AV</h2>
+      <p class="service-tagline">Sensors, projectors, sound, and things that have to work in front of people.</p>
+      <p class="service-desc">
+        Audiovisual work for festivals, events and installations. I build the layer
+        underneath: depth sensing, camera-projector calibration, live segmentation, biosignal
+        input, and performance systems that recover instead of stopping.
+      </p>
+      <ul class="service-outcomes">
+        <li>Projection mapping and structured-light calibration, including Kinect on platforms with no vendor driver</li>
+        <li>Audio-reactive and sensor-driven visuals &mdash; TouchDesigner, Unreal Engine, Three.js</li>
+        <li>Biosignal and gesture input driving sound and image in real time</li>
+        <li>Live performance rigs: MIDI/OSC clocking, low latency, and a recovery path when something dies mid-set</li>
+        <li>Technical direction for installation work</li>
       </ul>
       <a href="/contact/?service=creative-tech" class="service-cta">Start a creative project →</a>
     </div>
   </section>
 
-  <!-- Service 4: System Architecture -->
-  <section class="service-section service-section--alt" id="architecture">
+  <!-- Service 5: Workshops -->
+  <section class="service-section" id="workshops">
     <div class="service-icon">
-      <i class="fas fa-network-wired"></i>
+      <i class="fas fa-chalkboard-teacher"></i>
     </div>
     <div class="service-content">
-      <h2 class="service-title">System Architecture</h2>
-      <p class="service-tagline">Distributed systems. Platform modernisation. Cloud-native design.</p>
+      <h2 class="service-title">Workshops &amp; Facilitation</h2>
+      <p class="service-tagline">Fifteen decks, a written curriculum, and no prior code required.</p>
       <p class="service-desc">
-        I design systems that survive contact with reality — high-traffic, fault-tolerant,
-        maintainable by the teams who inherit them. Hands-on experience migrating monoliths,
-        designing event-driven architectures, and building platforms at Booking.com scale.
+        I teach creative coding as a route into programming for people who arrived through
+        music or art rather than computer science &mdash; and as a way back to it for people
+        who arrived through work and lost the thread. The material is built as a graded path,
+        not a single-shot talk.
       </p>
       <ul class="service-outcomes">
-        <li>Distributed system design — consensus, consistency, partitioning, failure modes</li>
-        <li>Monolith-to-microservices migration with minimal disruption</li>
-        <li>Event-driven architectures (Kafka, event sourcing, CQRS)</li>
-        <li>Cloud-native design (AWS/GCP/Azure), infrastructure as code</li>
-        <li>Technical debt assessment and remediation roadmaps</li>
+        <li>Live coding with Sonic Pi &mdash; melody, rhythm, then structure, across progressive sessions</li>
+        <li>Ableton and Sonic Pi together: MIDI, OSC and clock sync, ending with participants performing</li>
+        <li>Generative art and algorithmic thinking for non-programmers</li>
+        <li>TouchDesigner and visual programming</li>
+        <li>Attention and improvisation as craft &mdash; the discipline underneath performing without a script</li>
       </ul>
-      <a href="/contact/?service=architecture" class="service-cta">Review your architecture →</a>
+      <a href="/contact/?service=workshops" class="service-cta">Book a workshop →</a>
     </div>
   </section>
 
   <!-- How I Work -->
   <section class="how-i-work">
-    <h2>How I Work</h2>
+    <h2>How I work</h2>
     <div class="how-grid">
       <div class="how-item">
         <span class="how-num">01</span>
-        <h3>Conversation First</h3>
-        <p>We start with a 30-min call to understand the problem, the context, and whether there's a fit. No pitch, no pressure.</p>
+        <h3>A call first</h3>
+        <p>Thirty minutes to understand the problem and whether I'm the right person. Sometimes the answer is no, and that's a useful outcome too.</p>
       </div>
       <div class="how-item">
         <span class="how-num">02</span>
-        <h3>Clear Scope</h3>
-        <p>Engagements are time-boxed and outcome-focused. I don't do ambiguous open-ended retainers. You know what you're getting.</p>
+        <h3>Scoped and time-boxed</h3>
+        <p>Engagements have an end date and a stated outcome. I don't do open-ended retainers &mdash; they're bad for you and they make me worse at the work.</p>
       </div>
       <div class="how-item">
         <span class="how-num">03</span>
-        <h3>Hands-On</h3>
-        <p>I write code, review architecture, join planning sessions. I work alongside your team, not above them.</p>
+        <h3>Hands on the keyboard</h3>
+        <p>I write code, review architecture and sit in planning. Alongside your team, not above it.</p>
       </div>
       <div class="how-item">
         <span class="how-num">04</span>
-        <h3>Transfer</h3>
-        <p>The goal is always for your team to own what we build. I document decisions, train engineers, and step back cleanly.</p>
+        <h3>Handover, then out</h3>
+        <p>Your team owns what we build. I document decisions, teach the parts that need teaching, and leave cleanly.</p>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
   <section class="consulting-cta-section">
-    <h2>Ready to work together?</h2>
-    <p>I'm selective about engagements — that means the ones I take, I take seriously.</p>
+    <h2>Ready to talk?</h2>
+    <p>Tell me what you're building and what's in the way.</p>
     <a href="/contact/" class="cta-btn cta-btn--large">Start a Conversation →</a>
   </section>
 

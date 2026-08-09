@@ -57,11 +57,14 @@ I take on selective consulting engagements. If you're building something ambitio
   <div class="form-group">
     <label for="service">What are you looking for?</label>
     <select id="service" name="service">
-      <option value="">— Select a service —</option>
-      <option value="ai-ml">AI/ML Integration & Strategy</option>
-      <option value="engineering-leadership">Engineering Leadership / Fractional CTO</option>
-      <option value="creative-tech">Creative Technology</option>
-      <option value="architecture">System Architecture</option>
+      <option value="">— Select one —</option>
+      <option value="ai-ml">AI/ML engineering</option>
+      <option value="sovereign-ai">Sovereign AI infrastructure</option>
+      <option value="governance">AI evaluation &amp; governance</option>
+      <option value="creative-tech">Creative installations &amp; live AV</option>
+      <option value="workshops">Workshops &amp; facilitation</option>
+      <option value="compute">Contributing compute to the climate work</option>
+      <option value="role">A role</option>
       <option value="other">Something else</option>
     </select>
   </div>

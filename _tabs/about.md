@@ -7,7 +7,7 @@ order: 1
 
 # Wingston Sharon Wilson
 
-**Engineering Manager · Creative Technologist · AI/ML Architect**
+**Mathematician · creative coder · AI specialist**
 
 Amsterdam, Netherlands · [creativecodingtech@proton.me](mailto:creativecodingtech@proton.me) · [GitHub](https://github.com/wingie) · [LinkedIn](https://linkedin.com/in/wingstonsharon)
 
@@ -15,11 +15,11 @@ Amsterdam, Netherlands · [creativecodingtech@proton.me](mailto:creativecodingte
 
 ## What I Do
 
-I build systems that serve millions of people — and then I go home and live-code music at midnight.
+I spend my working hours shipping machine learning at Booking.com, and most of the rest asking a question that turns out to be the same one from a different angle: **can we measure what these systems actually do?**
 
-Currently I lead the Flights engineering team at **Booking.com**, one of the world's largest travel platforms. Before that I was CTO of a startup in India, a software engineer in Dubai, and a computer science student in Vellore who couldn't stop writing code even when the assignment was done.
+That question has three arms. A [research programme](/research/) on whether collective behaviour can be forecast, and where it can't. An [evaluation harness](/research/) built so a model can't fake its way through a benchmark. And [a platform](/projects/agentosaurus/) that writes most of its own code, which is where the theory meets a hardware bill.
 
-The through-line: I've always been more interested in what technology *can become* than what it already is.
+I'm looking for a role where that's the job rather than the evenings.
 
 ---
 
@@ -41,14 +41,14 @@ I moved a lot, on purpose. Each move was toward a problem I hadn't solved before
 
 ## Engineering Philosophy
 
-**Fifteen years** of building production systems has given me strong opinions:
+Fourteen years of building production systems, and a few opinions that have survived contact with all of them:
 
 - Distributed systems fail in creative ways — design for it
 - The best architecture is the one your team can actually maintain
 - AI/ML is most powerful when it's invisible to the user
 - You don't understand a system until you've debugged it at 2am
 
-I've built ML pipelines before "LLM" was a household word, designed RAG systems before the acronym existed, and migrated monoliths to microservices more times than I can count.
+I was building ML pipelines before it was the whole industry, and I've migrated more monoliths to microservices than I'd choose to repeat.
 
 ---
 
@@ -85,16 +85,16 @@ The creative coding thread isn't separate from the engineering work. It's where 
 
 ## Beyond Work
 
-**Chairman, Taste Before You Waste** — Amsterdam-based nonprofit reducing food waste through community redistribution.
+**Chair, Stichting Taste Before You Waste** — a Dutch food-waste foundation in Amsterdam, since February 2022; I took on the treasury in 2026. The work I'm proudest of there isn't the food: it's winning a formal appeal against a €2,625 food-safety penalty, clearing a legacy COVID wage-subsidy debt, and building the pipeline that generates the foundation's statutory filing and public annual report straight from the bank ledger — with the external reviewer's workbook produced by the same code. We moved from €20,334 of negative equity to a €106,573 continuity reserve, its first positive position in years.
 
 **Live Coding** — I perform at local events on the algorave circuit. Code that makes sound, in real time, in public.
 
-**70+ countries visited** — The world is a remarkable system. I try to study it directly.
+**Travel** — I've spent a lot of my life in other countries, on the theory that the world is a system best studied directly.
 
 ---
 
 ## Working Together
 
-I take on selective consulting engagements for AI/ML strategy, engineering leadership, system architecture, and creative technology prototyping.
+I'm open to conversations about sovereign AI and self-hosted infrastructure, AI evaluation and governance, creative installations, and creative-coding workshops — and I'm looking for my next role.
 
 [→ See consulting services](/consulting/) · [→ Start a conversation](/contact/) · [→ Corrections](/corrections/)

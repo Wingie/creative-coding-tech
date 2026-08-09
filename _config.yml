@@ -3,14 +3,15 @@ timezone: Europe/Amsterdam
 future: true
 
 title: Creative Coding Tech
-tagline: "Engineering Leader. Creative Technologist. AI/ML Architect."
+tagline: "Can we measure what these systems actually do?"
 
 # Site logo
 avatar: /logo.png
 description: >-
-  Wingston Sharon Wilson — Engineering Manager @ Booking.com. 15+ years
-  building AI/ML systems, distributed platforms, and creative technology.
-  Amsterdam-based founder and live coding artist.
+  Wingston Sharon Wilson — independent research on measuring what AI systems
+  actually do: a canary-gated evaluation harness, a three-year programme on
+  forecasting collective dynamics, and a self-hosted agent platform pointed at
+  climate work. Amsterdam.
 
 url: "https://creativecodingtech.com"
 
