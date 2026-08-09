@@ -275,3 +275,28 @@ and welding. "A's dad." If you change one thing, add the two weird true facts.
 **About and hire-me are separate pages.** About stays short because the commercial
 pressure lives at /consulting/. Their hire-me pages run 5-20x longer than their bios,
 and they lead with what they will NOT do.
+
+---
+
+## Done, 9 August 2026
+
+| | Before | After |
+|---|---|---|
+| Blog posts | 42 | 11 |
+| Practice pages | 9 | 1 (`/facilitation/`) |
+| About page | 1,111 words | ~180 |
+| Em-dashes across the site | ~120 | 1 (in a page title) |
+| Case study template | 14 identical | 0 |
+| Metric strips with 0/$0/100% | 10 | 0 |
+| Contact addresses | 3 domains | 1 |
+| Build conflicts | 5 | 0 |
+| Dead github links | 14 | 0 |
+
+Source of the drift is off: the devlog generator on the server now has
+BLOG_ENABLED false, and both rant generators are deleted from the repo.
+
+Still open:
+- The festival name, so /facilitation/ can cite real work.
+- Whether to publish anything from the 105 devlogs beyond the numbers already
+  used on the Agentosaurus page.
+- Nothing is pushed. All of this is on `refresh/positioning`.

@@ -3,7 +3,8 @@ title: Blender MCP
 slug: blender
 tagline: Six artists waiting two weeks for placeholder models from one person
 description: >-
-  blender-mcp is a Model Context Protocol bridge for Blender — text descriptions become 3D scenes via Claude → FastMCP → TCP socket → bpy API. Extended for an indie game studio with six artists and one 3D generalist who was a constant bottleneck.
+  An indie game studio had six artists and one person who could model. Extending
+  Blender MCP let the artists make their own placeholders.
 language: Python
 role: Extended
 year: 2024

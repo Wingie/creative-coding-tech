@@ -3,7 +3,9 @@ title: BookLore
 slug: booklore
 tagline: Three people knew the catalogue. One of them left.
 description: >-
-  BookLore is a full-stack book management and discovery platform with AI-powered recommendations, EPUB auto-indexing, and Google Books API integration. Extended for an independent bookshop chain migrating 12,000 books from scattered drives to a unified catalogue — staff adoption hit 100% in a week.
+  A four-shop bookshop chain had 12,000 books spread across a legacy database, a
+  Google Sheet, staff laptops and three people's memories. Extending BookLore gave
+  them one catalogue running on their own hardware.
 language: Kotlin / TypeScript
 role: Extended
 year: 2024

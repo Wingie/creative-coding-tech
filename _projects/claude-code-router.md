@@ -3,7 +3,9 @@ title: Claude Code Router
 slug: router
 tagline: A $40k monthly bill, and nobody wanted to change how they worked
 description: >-
-  Claude Code Router is a Fastify proxy on port 3456 that intercepts all Claude Code requests and routes them to the optimal model — background tasks to local Ollama, reasoning to DeepSeek-R1, long context to Gemini 2.5 Pro. Extended for an AI dev tools startup running $40k/month in Claude Code spend.
+  Fifteen engineers, $40k a month on one model for everything from autocomplete to
+  architecture. A proxy routes each request to the cheapest model that can handle
+  it, with no change to how anyone works.
 language: TypeScript
 role: Extended
 year: 2025

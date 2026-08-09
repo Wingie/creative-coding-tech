@@ -3,7 +3,8 @@ title: BriefGPT
 slug: briefgpt
 tagline: 500-page patent reviews, on a machine with no internet
 description: >-
-  BriefGPT is a document intelligence platform with K-means clustering on embeddings, local LLM support via LlamaCpp, and structured brief extraction. Deployed for an IP law firm in Europe where client documents couldn't touch external APIs — analyst review time cut from 4 hours to 45 minutes per document.
+  An IP law firm can't send client documents to any cloud service. So the model runs
+  on a machine with no internet, and clusters each patent before summarising it.
 language: Python
 role: Extended
 year: 2023

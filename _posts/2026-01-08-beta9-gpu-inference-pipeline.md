@@ -62,7 +62,7 @@ Think of it as Kubernetes for people who have friends and want to keep them.
 
 ## The Code: Duct Tape and Dreams
 
-The hardest part isn't running the model. Ollama makes that trivial (`ollama run llama3`). The hard part is **orchestration**.
+Running the model is easy. `ollama run` and you're done. The hard part is deciding which machine runs it, keeping that machine alive, and not paying for it while it sits idle.
 
 I wrote a Django view that acts as the traffic cop:
 

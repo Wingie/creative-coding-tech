@@ -3,7 +3,8 @@ title: Hybrid DJ Set
 slug: hybrid-dj
 tagline: A second performer that doesn't need feeding, paying, or persuading
 description: >-
-  Hybrid DJ Set is a live performance system where Mixxx MIDI clock drives Pure Data patches — a three-band crossover feeds FM synthesis, Karplus-Strong physical modelling, and a generative drum sequencer. Performed live at 4 events; audiences consistently couldn't distinguish generated from sampled.
+  A DJ set that generates its own accompaniment, in time and in key, without a
+  second person on stage.
 language: Pure Data / Max/MSP
 role: Built
 year: 2023

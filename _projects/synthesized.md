@@ -3,7 +3,9 @@ title: SYNTHesized
 slug: synthesized
 tagline: Thirty-five kick drums, none of them a sample
 description: >-
-  SYNTHesized is a complete synthwave album where every sound is synthesised from first principles in SuperCollider — no samples, no loops. 35+ kick variations at synthesis level, Karplus-Strong string modelling, FM bass, and a mix_master.scd orchestrating the full song form. Submitted as academic project.
+  A complete album where every sound is generated in SuperCollider. No samples,
+  no loops. Thirty-five different kick drums, built four different ways, because
+  you cannot get that much variety out of one.
 language: SuperCollider
 role: Extended
 year: 2023
