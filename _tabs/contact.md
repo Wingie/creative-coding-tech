@@ -7,11 +7,10 @@ order: 6
 
 <div class="consulting-contact">
 
-# Let's Work Together
+# Get in touch
 
-I take on selective consulting engagements. If you're building something ambitious with AI/ML, need engineering leadership, or want to explore creative technology — let's talk.
+Tell me what you're working on and what's in the way. If I'm not the right person I'll say so, and I'll usually know someone who is.
 
-**Response time:** Within 48 hours on weekdays.
 
 ---
 
@@ -63,7 +62,7 @@ I take on selective consulting engagements. If you're building something ambitio
       <option value="governance">AI evaluation &amp; governance</option>
       <option value="creative-tech">Creative installations &amp; live AV</option>
       <option value="workshops">Workshops &amp; facilitation</option>
-      <option value="compute">Contributing compute to the climate work</option>
+      <option value="compute">Lending GPUs to the climate work</option>
       <option value="role">A role</option>
       <option value="other">Something else</option>
     </select>
@@ -71,7 +70,7 @@ I take on selective consulting engagements. If you're building something ambitio
 
   <div class="form-group">
     <label for="context">Tell me about your project</label>
-    <textarea id="context" name="context" rows="5" required placeholder="What are you building? What's the challenge? What would success look like?"></textarea>
+    <textarea id="context" name="context" rows="5" required placeholder="What are you building, and what's stuck?"></textarea>
   </div>
 
   <div class="form-group">

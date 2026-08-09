@@ -10,9 +10,7 @@ refactor: true
   <header class="consulting-header">
     <h1 class="consulting-title">Work with me</h1>
     <p class="consulting-subtitle">
-      Nine years shipping machine learning in production, and three years of independent
-      research into whether we can tell what these systems are actually doing. Five things
-      I'm glad to be called about &mdash; and I'm also looking for a role.
+      Nine years shipping machine learning at Booking.com, and three years of my own research on top. Five things I'm glad to be called about. I'm also looking for a role.
     </p>
     <a href="/contact/" class="cta-btn">Start a Conversation →</a>
   </header>
@@ -24,20 +22,20 @@ refactor: true
     </div>
     <div class="service-content">
       <h2 class="service-title">AI/ML Engineering</h2>
-      <p class="service-tagline">The part after the prototype works.</p>
+      <p class="service-tagline">Getting it to run every day, not just once</p>
       <p class="service-desc">
-        Most AI projects don't fail at the demo. They fail in the year afterwards, when the
-        thing has to run every day, cost a predictable amount, and be debuggable at 2am by
-        someone who didn't build it. That gap is where I've spent nine years.
+        The demo is the easy part. The hard part is the year after, when it has to run
+        every day, cost roughly what you expected, and be fixable at 2am by someone who
+        didn't build it. That's most of what I've done for nine years.
       </p>
       <ul class="service-outcomes">
-        <li>RAG systems that survive real corpora &mdash; chunking, retrieval quality, and knowing when retrieval is the wrong tool</li>
+        <li>RAG that holds up on a real corpus: chunking, retrieval quality, and knowing when to stop retrieving</li>
         <li>LLM product architecture, from prompt design through fine-tuning to evaluation</li>
-        <li>Agent systems: orchestration, isolation, failure handling, and stopping them lying about success</li>
+        <li>Agent systems: running lots of them, keeping them apart, and stopping them reporting success when nothing happened</li>
         <li>ML pipelines, model serving, experimentation frameworks</li>
-        <li>Where <em>not</em> to use a model &mdash; usually the highest-value conversation</li>
+        <li>Working out where a model is the wrong tool, which is usually the most useful conversation</li>
       </ul>
-      <a href="/contact/?service=ai-ml" class="service-cta">Discuss an AI project →</a>
+      <a href="/contact/" class="service-cta">Discuss an AI project →</a>
     </div>
   </section>
 
@@ -48,23 +46,22 @@ refactor: true
     </div>
     <div class="service-content">
       <h2 class="service-title">Sovereign AI Infrastructure</h2>
-      <p class="service-tagline">Your models, your hardware, your jurisdiction.</p>
+      <p class="service-tagline">Running models on hardware you own</p>
       <p class="service-desc">
-        I run training and 30B-class inference on my own machines: a k3s control plane, GPU
-        workers joined over a private network, models served locally, retrieval in my own
-        database. I've also fixed the auth and SSRF holes in the gateway I use to do it. So
-        I can tell you which workloads genuinely move off hosted APIs, what each costs to
-        move, and which ones aren't worth it &mdash; which is a different answer from most
-        people selling sovereignty.
+        I train models and serve 30B-class inference on my own machines. Control plane,
+        GPU workers on a private network, models served locally, search in my own database.
+        I also found and fixed the auth and SSRF holes in the gateway I use for it. So I can
+        tell you which of your workloads will actually move off a hosted API, what each one
+        costs to move, and which ones you should leave where they are.
       </p>
       <ul class="service-outcomes">
-        <li>On-premise and self-hosted LLM serving &mdash; sizing, quantisation, and what fits on hardware you already own</li>
-        <li>Private GPU orchestration across mixed hardware and locations</li>
+        <li>Self-hosted model serving: sizing, quantisation, and what fits on hardware you already have</li>
+        <li>Running GPUs in different places as one pool</li>
         <li>Fine-tuning small models to do a specific job a large hosted one is overqualified for</li>
-        <li>EU AI Act, GDPR and data-residency constraints as architecture, not paperwork</li>
-        <li>Honest cost modelling against the hosted alternative, including when hosted wins</li>
+        <li>Building for the EU AI Act and GDPR up front, so it isn't paperwork later</li>
+        <li>Real cost comparison against staying hosted, including when staying hosted is right</li>
       </ul>
-      <a href="/contact/?service=sovereign-ai" class="service-cta">Talk sovereign infrastructure →</a>
+      <a href="/contact/" class="service-cta">Talk sovereign infrastructure →</a>
     </div>
   </section>
 
@@ -75,22 +72,22 @@ refactor: true
     </div>
     <div class="service-content">
       <h2 class="service-title">AI Evaluation &amp; Governance</h2>
-      <p class="service-tagline">Knowing whether it works, and being able to show your working.</p>
+      <p class="service-tagline">Tests a model can't talk its way through</p>
       <p class="service-desc">
-        I build evaluation harnesses designed so a model can't fake its way through &mdash;
-        tasks gated behind the filesystem, tokens that only surface if the model actually
-        read the data. The harness I run found two bugs that were flattering its own results.
-        That's the job: making a benchmark that can embarrass you.
+        A model can hand you a clean, confident answer without doing any of the work, and
+        most scorers will mark it correct. I build tests where that isn't possible. Mine
+        found two bugs that had been quietly inflating its own scores. A test you can't
+        fail is not a test.
       </p>
       <ul class="service-outcomes">
         <li>Task-based evaluation harnesses for agents and tool-use, not just output scoring</li>
-        <li>Contamination and provenance checks &mdash; did this model see your held-out set?</li>
-        <li>Pre-registration and sealing, so the bar can't move between the run and the report</li>
-        <li>Dual-use assessment: what to publish, what to withhold, and writing the reasoning down</li>
-        <li>Reading an existing eval suite and telling you where it's lying to you</li>
+        <li>Working out what a model was trained on, including whether it saw your held-out data</li>
+        <li>Locking the scoring rules before a run, so nobody moves them afterwards</li>
+        <li>Deciding what to publish and what to hold back, and writing down why</li>
+        <li>Reading a test suite you already have and finding where it flatters itself</li>
       </ul>
-      <p class="service-desc"><em>Currently studying toward the IAPP AI Governance Professional certification.</em></p>
-      <a href="/contact/?service=governance" class="service-cta">Discuss evaluation →</a>
+      <p class="service-desc"><em>Studying for the IAPP AI governance certificate. Haven't sat the exam yet.</em></p>
+      <a href="/contact/" class="service-cta">Discuss evaluation →</a>
     </div>
   </section>
 
@@ -101,20 +98,20 @@ refactor: true
     </div>
     <div class="service-content">
       <h2 class="service-title">Creative Installations &amp; Live AV</h2>
-      <p class="service-tagline">Sensors, projectors, sound, and things that have to work in front of people.</p>
+      <p class="service-tagline">Things that have to work in front of an audience</p>
       <p class="service-desc">
         Audiovisual work for festivals, events and installations. I build the layer
-        underneath: depth sensing, camera-projector calibration, live segmentation, biosignal
-        input, and performance systems that recover instead of stopping.
+        underneath. Depth cameras, lining a projector up with a camera, live segmentation,
+        biosignal input, and rigs that recover when something dies mid-set.
       </p>
       <ul class="service-outcomes">
         <li>Projection mapping and structured-light calibration, including Kinect on platforms with no vendor driver</li>
-        <li>Audio-reactive and sensor-driven visuals &mdash; TouchDesigner, Unreal Engine, Three.js</li>
+        <li>Audio-reactive and sensor-driven visuals in TouchDesigner, Unreal Engine and Three.js</li>
         <li>Biosignal and gesture input driving sound and image in real time</li>
-        <li>Live performance rigs: MIDI/OSC clocking, low latency, and a recovery path when something dies mid-set</li>
+        <li>Live rigs: MIDI and OSC clocking, low latency, and a way back when something fails</li>
         <li>Technical direction for installation work</li>
       </ul>
-      <a href="/contact/?service=creative-tech" class="service-cta">Start a creative project →</a>
+      <a href="/contact/" class="service-cta">Start a creative project →</a>
     </div>
   </section>
 
@@ -125,21 +122,20 @@ refactor: true
     </div>
     <div class="service-content">
       <h2 class="service-title">Workshops &amp; Facilitation</h2>
-      <p class="service-tagline">Fifteen decks, a written curriculum, and no prior code required.</p>
+      <p class="service-tagline">Fifteen decks and a written curriculum. No prior code needed.</p>
       <p class="service-desc">
-        I teach creative coding as a route into programming for people who arrived through
-        music or art rather than computer science &mdash; and as a way back to it for people
-        who arrived through work and lost the thread. The material is built as a graded path,
-        not a single-shot talk.
+        I teach creative coding to people who came to it through music or art, and to
+        people who write software for a living and stopped enjoying it. The material is a
+        graded path. You start by making a sound and go from there.
       </p>
       <ul class="service-outcomes">
-        <li>Live coding with Sonic Pi &mdash; melody, rhythm, then structure, across progressive sessions</li>
+        <li>Live coding with Sonic Pi: melody first, then rhythm, then structure</li>
         <li>Ableton and Sonic Pi together: MIDI, OSC and clock sync, ending with participants performing</li>
         <li>Generative art and algorithmic thinking for non-programmers</li>
         <li>TouchDesigner and visual programming</li>
-        <li>Attention and improvisation as craft &mdash; the discipline underneath performing without a script</li>
+        <li>Attention and improvisation, which is the work underneath performing without a script</li>
       </ul>
-      <a href="/contact/?service=workshops" class="service-cta">Book a workshop →</a>
+      <a href="/contact/" class="service-cta">Book a workshop →</a>
     </div>
   </section>
 
@@ -150,22 +146,22 @@ refactor: true
       <div class="how-item">
         <span class="how-num">01</span>
         <h3>A call first</h3>
-        <p>Thirty minutes to understand the problem and whether I'm the right person. Sometimes the answer is no, and that's a useful outcome too.</p>
+        <p>Thirty minutes to work out the problem and whether I'm the right person. Sometimes I'm not, and it's better to find that out on a call.</p>
       </div>
       <div class="how-item">
         <span class="how-num">02</span>
         <h3>Scoped and time-boxed</h3>
-        <p>Engagements have an end date and a stated outcome. I don't do open-ended retainers &mdash; they're bad for you and they make me worse at the work.</p>
+        <p>Every job has an end date and something it's meant to produce. I don't do open-ended retainers. They're bad for you and they make me lazy.</p>
       </div>
       <div class="how-item">
         <span class="how-num">03</span>
         <h3>Hands on the keyboard</h3>
-        <p>I write code, review architecture and sit in planning. Alongside your team, not above it.</p>
+        <p>I write code, review designs and sit in planning with your team.</p>
       </div>
       <div class="how-item">
         <span class="how-num">04</span>
         <h3>Handover, then out</h3>
-        <p>Your team owns what we build. I document decisions, teach the parts that need teaching, and leave cleanly.</p>
+        <p>Your team owns what we build. I write down why we made each decision, teach whatever needs teaching, and leave.</p>
       </div>
     </div>
   </section>
