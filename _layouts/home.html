@@ -10,6 +10,17 @@ refactor: true
 
 {% assign posts = '' | split: '' %}
 
+{% comment %}
+  `paginator` is only populated by jekyll-paginate on the site-root index.html.
+  This site's root is the landing page, so /blog/ never receives a paginator and
+  the post list rendered empty. Fall back to listing every post.
+{% endcomment %}
+{% unless paginator %}
+  {% assign posts = all_pinned | concat: all_normal %}
+{% endunless %}
+
+{% if paginator %}
+
 <!-- Get pinned posts on current page -->
 
 {% assign visible_start = paginator.page | minus: 1 | times: paginator.per_page %}
@@ -46,6 +57,9 @@ refactor: true
     {% assign posts = posts | push: all_normal[i] %}
   {% endfor %}
 {% endif %}
+
+{% endif %}
+<!-- /paginator branch -->
 
 <div id="post-list" class="flex-grow-1 px-xl-1">
   {% for post in posts %}

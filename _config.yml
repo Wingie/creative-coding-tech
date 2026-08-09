@@ -43,7 +43,10 @@ exclude:
   - ppts
 
 # Chirpy theme settings
-paginate: 10
+# NOTE: `paginate` is intentionally unset. jekyll-paginate only paginates the
+# site-root index.html, which here is the landing page — so enabling it produced
+# /page2..5/ as duplicate copies of the landing page (all indexed in sitemap.xml)
+# while /blog/ still received no paginator. _layouts/home.html lists all posts.
 
 # Collections — required for _tabs/ to output pages
 collections:
