@@ -2,79 +2,72 @@
 layout: page
 title: Corrections
 description: >-
-  A standing record of things this site got wrong — including a period when most
-  of it was written by an automated system with no human in the loop, and what
-  that produced.
+  Things this site got wrong, and what caused them. For a while most of it was
+  written by an automated system that nobody was reading.
 permalink: /corrections/
 ---
 
-This page exists because I run research on whether we can measure what AI systems actually do, and in 2026 I found out the hard way that I wasn't measuring my own.
+I build test harnesses for AI systems. In 2026 I found out I had never pointed one at my own website.
 
-Everything below stays up. Dated, specific, and named by the kind of mistake rather than the surface error.
-
----
-
-## The site wrote itself, and drifted
-
-**Found: 9 August 2026. Cause introduced: around January 2026.**
-
-I built an autonomous build system for [Agentosaurus](/projects/agentosaurus/). One of its conveniences was a devlog: after every successful run, it wrote a post about the work into this site's `_posts/` directory. To keep a consistent voice, each new post sampled the most recent existing post as a style reference.
-
-That last detail is the whole failure. Each post imitated the one before it, with nobody reading the output. It's a feedback loop with no measurement in it — the exact failure mode I write about in evaluation harnesses, running unnoticed in my own repository for months.
-
-**What it produced,** all of which was live on this site:
-
-- **Borrowed authorship.** Posts describing open-source projects belonging to other people in the first person — "my own security scanner project", linking to the real author's repository in the same sentence. One went further and announced governance decisions about a repo I have no rights to.
-- **Invented employment history.** A post claimed I worked at Amazon in 2002 and implied a stint at Google. Neither is true. My actual history is on the [about page](/about/) and has never included either.
-- **A borrowed persona.** Several posts were written in an imitation of another well-known engineering writer, to the point that his name leaked into the text — "But Steve (or Wingston), you ask…" — and the imitation was named in the post metadata.
-- **A hiring manager I am not.** The worst one was written in the voice of someone who screens candidates, keeps a blacklist, and discards résumés that match a job description too well. It criticised a named individual's public repository by name. I have never held that role and don't hold those views.
-- **Fabricated citations.** A specific statistic attributed to Gartner and an article attributed to Wired, neither of which I can source.
-- **Invented metrics.** Success rates, cost savings and throughput figures presented as measurements, generated rather than recorded.
-
-**What I changed.** The four worst posts are unpublished. The devlog generator is disabled at the source. If I bring it back it will write to a drafts directory that a human promotes from, because the mechanism was never the problem — publishing without review was.
-
-**The type of mistake:** building a generation loop with no verification step, and then not checking it because it was producing plausible-looking output. Plausibility was doing the work that verification should have been doing. That's the same error I built canary tokens to catch in other people's models.
+Everything below stays up.
 
 ---
 
-## Project pages misattributed the work
+## The site wrote itself
 
-**Found: 9 August 2026.**
+**Found 9 August 2026. Started around January 2026.**
 
-Fourteen of fifteen project pages linked to GitHub repositories under my account that do not exist. The pages had recorded the correct upstream author in their metadata, and a templating step overwrote it with my username. So the pages simultaneously knew and hid whose work it was.
+I built an autonomous build system for [Agentosaurus](/projects/agentosaurus/). After every successful run it wrote a post about the work into this site. To keep the voice consistent, each new post read the most recent existing post as a style sample.
 
-Several described real client engagements where I extended someone else's open-source project — which is what open source is for — but the broken links made it look like authorship. One page claimed a repository had "hundreds of stars"; the real upstream has 2,890, and it isn't mine.
+So each post copied the one before it, and nobody read any of them. That ran for months.
 
-**What I changed.** Every link now points at the real upstream, verified resolving. Each page carries a visible credit naming the original author and stating plainly that I extended their work. The structured data no longer lists me as author of projects I contributed to.
+Here is what it published:
 
-**The type of mistake:** letting a template write a field that carried a factual claim, and not checking the output because the input had been right.
+- **Someone else's projects, described as mine.** One post called a security scanner "my own project" and linked to the real author's repository in the same sentence. Another announced decisions about a repository I have no rights to.
+- **Jobs I never had.** One post said I worked at Amazon in 2002 and implied I'd been at Google. Neither is true. My actual history is on the [about page](/about/).
+- **Another writer's voice.** Several posts imitated a well-known engineering blogger closely enough that his name leaked into the text: "But Steve (or Wingston), you ask…". The imitation was named in the post's own metadata.
+- **A hiring manager who isn't me.** The worst one was written as someone who screens candidates, keeps a blacklist, and bins any CV that matches the job description too well. It attacked a named person's public repository. I have never had that job and don't think that way.
+- **Made-up sources.** A statistic credited to Gartner and an article credited to Wired. I can't find either.
+- **Made-up numbers.** Success rates, cost savings and throughput figures written as if they'd been measured.
 
----
+**What I did.** Deleted the posts. Turned the generator off on the server, which took longer than it should have because my first fix only changed the copy on my laptop. If it comes back it will write to a drafts folder that a person has to promote from.
 
-## Numbers that were never counted
-
-**Found: 9 August 2026.**
-
-The site claimed "100+ open source repositories". The real figure is 169 public, of which 37 are my own work rather than forks. It also carried a countries-visited figure and an uptime percentage I can't source, and a team headcount that I can't publish anyway.
-
-**What I changed.** 37 original repositories, which is the number I can defend. The others are gone rather than adjusted.
-
-**The type of mistake:** round numbers that sound right and were never derived from anything.
+The loop had no check in it. I didn't notice for months because the output looked fine. Looking fine was doing the job that checking should have been doing, which is the exact thing I write test harnesses to catch.
 
 ---
 
-## Standing caveats
+## Project pages credited the wrong people
 
-Not errors — limits I'd rather state than have you discover.
+**Found 9 August 2026.**
 
-**Benchmark results on this site are reproducible in my harness, scored by my scorer.** They aren't externally validated and shouldn't be treated as authoritative. One leaderboard placement I've quoted elsewhere was based on a partial run; the 44-task figures are the complete ones.
+Fourteen of fifteen project pages linked to GitHub repositories under my account that don't exist. The pages had the correct original author stored in their metadata. A template overwrote it with my username. So each page knew whose work it was and hid it anyway.
 
-**The psychohistory paper is v0.5 and in review.** One prediction has a sealed pre-registered pass. Several sub-claims are refuted or contradicted, and that's in the repository README, not buried. The forecasting claims remain conjecture pending a compute run.
+Most of those pages describe real client jobs where I extended someone else's open-source project. That's what open source is for. The broken links made it look like I was claiming to have written them. One page said a repository had "hundreds of stars". The real one has 2,890 and belongs to someone else.
 
-**Client outcome figures on project pages come from the engagements themselves** and are mostly under NDA, so you're taking my word for them. Where I could publish a verifiable artifact instead, I have.
-
-**Booking.com business metrics and team sizes are confidential.** Where a page describes scope without numbers, that's why.
+**What I did.** Every link now points at the real project, and I checked each one loads. Each page names the original author and says plainly that I extended their work. The page data no longer lists me as the author of things I only contributed to.
 
 ---
 
-*Last updated 9 August 2026. If you find something wrong here, [tell me](/contact/) and it goes on this page.*
+## Numbers nobody counted
+
+**Found 9 August 2026.**
+
+The site said "100+ open source repositories". I have 169 public, of which 37 are mine and the rest are forks. It also gave a countries-visited figure and an uptime percentage I can't source, and a team size I'm not allowed to publish.
+
+**What I did.** It says 37 now. The other numbers are gone.
+
+---
+
+## Things you should know
+
+**The benchmark numbers on this site come from my own test suite, scored by my own scorer.** Nobody else has checked them. One leaderboard position I quoted elsewhere came from a partial run; the 44-task figures are the complete ones.
+
+**The psychohistory paper is version 0.5 and still in review.** One prediction passed a sealed test. Several other claims were refuted or contradicted, and that's in the repository README.
+
+**Client results on project pages come from the clients.** Most are under NDA, so you're taking my word for them.
+
+**Booking.com business figures and team sizes are confidential.** That's why some pages describe what I did without saying how big it was.
+
+---
+
+*Last updated 9 August 2026. Find something wrong, [tell me](/contact/), and it goes on this page.*

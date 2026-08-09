@@ -9,7 +9,7 @@ description: >-
   with a published dual-use policy, and work on evaluation integrity.
 ---
 
-Three years of independent work, all circling the same question: **can we measure what these systems actually do?**
+Three years of unpaid work on testing AI systems. Some of it worked. A fair amount didn't, and that's written down too.
 
 Everything below is unfunded and unreviewed. Where a claim hasn't been tested, it says so — that's the point, not a disclaimer. Things this site has gotten wrong live on the [corrections page](/corrections/).
 

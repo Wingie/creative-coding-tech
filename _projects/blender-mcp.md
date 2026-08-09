@@ -1,7 +1,7 @@
 ---
 title: Blender MCP
 slug: blender
-tagline: Concept to placeholder 3D asset in 20 minutes. Artists unblocked.
+tagline: Six artists waiting two weeks for placeholder models from one person
 description: >-
   blender-mcp is a Model Context Protocol bridge for Blender — text descriptions become 3D scenes via Claude → FastMCP → TCP socket → bpy API. Extended for an indie game studio with six artists and one 3D generalist who was a constant bottleneck.
 language: Python
@@ -22,80 +22,16 @@ upstream_repo: blender-mcp
 og_image: https://opengraph.githubassets.com/1/ahujasid/blender-mcp
 ---
 
-## The Problem
+An indie game studio making a 3D action RPG had six artists and one 3D generalist. Every placeholder model went through him. His queue was two weeks long.
 
-An indie game studio making a 3D action RPG had six artists and one 3D generalist. The generalist was the bottleneck. When a concept artist needed a placeholder character model — "a dwarf warrior with heavy plate armour, stocky proportions, carrying a two-handed axe" — they had to wait for the generalist's queue to clear. That queue was two weeks long.
+So a concept artist who needed a dwarf warrior in heavy plate carrying a two-handed axe waited two weeks to see it in the engine. Environment work waited on geometry. Animation waited on meshes. A second generalist wasn't in the budget.
 
-Concept art was piling up. Environmental designs were blocked waiting for geometry. Animation couldn't start without meshes. The studio didn't have the budget to hire a second generalist.
+[Blender MCP](https://github.com/ahujasid/blender-mcp) is Siddharth Ahuja's project. It lets an AI assistant drive Blender. I added two things this studio needed.
 
-## What We Built
+**Mesh search from a description.** The text is embedded and matched against CSM.ai's asset library, and the closest mesh comes into Blender as a starting point. Not a final asset. Something to block a scene out with.
 
-Blender MCP extended with two additions specific to the studio's pipeline:
+**Rigging in one call.** A single tool call rigs the mesh, sends it to Mixamo, pulls an animation back and applies it in the scene.
 
-1. **CSM.ai mesh retrieval** — text descriptions are vectorised and searched against CSM.ai's 3D asset library; the closest-matching mesh is imported into Blender as a starting point
-2. **Mixamo animation retargeting** — once a character mesh is in Blender, a single tool call rigs it, uploads to Mixamo, retrieves an animation, and applies it back to the scene
+The addon runs a TCP server inside Blender and executes JSON commands against the `bpy` API. That means the artist keeps talking to it: make the armour more ornate, he's too tall. Each turn is a material tweak or a bone scale.
 
-The pipeline: `Claude describes scene → FastMCP server → TCP socket → Blender addon → bpy API`.
-
-## How It Works
-
-The Blender addon runs a persistent TCP socket server inside the application. Commands arrive as JSON and execute against the `bpy` API — Blender's Python scripting interface:
-
-```python
-# Blender addon: command handler
-def execute_command(cmd: dict) -> dict:
-    action = cmd["action"]
-
-    if action == "import_csm_mesh":
-        # Query CSM.ai for closest mesh to text description
-        mesh_url = csm_search(cmd["description"])
-        bpy.ops.import_scene.gltf(filepath=download_temp(mesh_url))
-        obj = bpy.context.selected_objects[0]
-        return {"status": "ok", "object_name": obj.name}
-
-    elif action == "apply_mixamo_rig":
-        obj_name = cmd["object_name"]
-        obj = bpy.data.objects[obj_name]
-
-        # Export, rig via Mixamo API, reimport
-        export_path = export_for_mixamo(obj)
-        rigged_path = mixamo_auto_rig(export_path)
-        bpy.ops.import_scene.fbx(filepath=rigged_path)
-
-        return {"status": "ok", "rigged_object": rigged_path}
-
-    elif action == "set_material":
-        obj = bpy.data.objects[cmd["object_name"]]
-        mat = bpy.data.materials.new(name=cmd["material_name"])
-        mat.use_nodes = True
-
-        # Set base colour from hex
-        colour = hex_to_rgba(cmd["colour"])
-        mat.node_tree.nodes["Principled BSDF"].inputs[0].default_value = colour
-        obj.data.materials.append(mat)
-
-        return {"status": "ok"}
-```
-
-The conversation loop lets Claude iterate: "make the armour more ornate" → material parameter adjustments; "he's too tall" → scale transform on specific bones.
-
-## The Outcome
-
-<div class="metric-row">
-  <div class="metric">
-    <span class="metric__value">20 min</span>
-    <span class="metric__label">concept to placeholder (was 2 days)</span>
-  </div>
-  <div class="metric">
-    <span class="metric__value">6</span>
-    <span class="metric__label">artists now self-sufficient for placeholders</span>
-  </div>
-  <div class="metric">
-    <span class="metric__value">2 wks</span>
-    <span class="metric__label">generalist queue cleared</span>
-  </div>
-</div>
-
-Concept artists describe what they need in plain language. Twenty minutes later they have an animated placeholder in their scene. The generalist's queue cleared within two weeks as the high-volume, low-complexity requests moved to the AI pipeline.
-
-The generalist now focuses exclusively on hero assets — characters and objects that need custom topology, hand-painted textures, and technical artistry. Quality improved while throughput increased.
+Placeholders went from a two-week wait to about twenty minutes, made by the artist who wanted them. The generalist went back to the models that ship.

@@ -3,9 +3,11 @@ title: Agentosaurus
 slug: agentosaurus
 redirect_from:
   - /projects/flowstate/
-tagline: Multi-agent orchestration where the pull request is the message bus — pointed at climate and ESG work
+tagline: AI agents write most of this platform. Here is everything that went wrong.
 description: >-
-  Agentosaurus is a sustainability organisation discovery and ESG due-diligence platform that builds itself. Claude Code agents coordinate through pull requests rather than shared memory — a supervisor reviews PRs and files tasks, builders work them in isolated worktrees, and the review is the channel. Over 1,000 PRs merged in 2026, running on self-hosted GPUs. Looking for compute contributions.
+  A climate research platform where AI agents write most of the code and hand work
+  to each other through pull requests. Over a thousand merged in 2026. This page is
+  about the failures, because those are the useful part.
 language: Python
 role: Built
 year: 2024
@@ -14,80 +16,72 @@ tech:
   - Python
   - Django
   - Claude Code
-  - Celery
   - systemd
   - k3s
-  - Beta9
-  - Tailscale
   - llama.cpp
-  - Unsloth
-  - pgvector
-client: Independent research — agentic build systems, ESG intelligence, sovereign compute
+client: Independent research into agentic build systems
 repo_private: true
 live_url: https://agentosaurus.com
 ---
 
-[Agentosaurus](https://agentosaurus.com) writes most of its own code. Over a thousand pull requests merged in 2026, opened by agents that coordinate with each other exclusively through code review. What they're building is a search engine for organisations working on climate.
+For three days in August, my build system ran 64 jobs and reported every one as a success.
 
-The product side finds and analyses organisations working on the UN Sustainable Development Goals and runs ESG due diligence on them — crawling sources, checking claims across them, keeping every per-source result so a conclusion can be traced back to what produced it. It's built as an EU-sovereign OSINT pipeline, which mostly means the audit trail is the feature and the report is the by-product.
+None of them did anything. They were hitting a weekly rate limit and dying after four seconds. The log said `COMPLETED: success` each time, because the process exited cleanly. It exited cleanly because it never started.
 
-The build side is the experiment: I wanted to know how agentic build flows behave when you stop supervising each step, so I stopped.
+I only found it because the queue wasn't shrinking.
 
-## Pull requests as the message bus
+## What this is
 
-The interesting architectural decision is how the agents talk to each other. They don't share memory, and they don't message each other directly. **They communicate through pull requests.**
+[Agentosaurus](https://agentosaurus.com) finds and checks organisations working on climate. It crawls their sources, compares what they claim against what it can verify, and keeps every raw result so you can trace a conclusion back to where it came from.
 
-A supervisor agent reads the PRs from the previous run — the diffs, the review comments, what passed and what didn't — and files one issue per problem it finds. Builder agents pick up whatever is ready, work a single task scoped to a few minutes in an isolated git worktree, and open a PR. That PR becomes the next supervisor's input.
+AI agents write most of its code. They merged over a thousand pull requests in 2026. It still runs, six times a day on weekdays.
 
-```
-supervisor reads PR reviews  →  files one task per issue
-builder claims a ready task  →  isolated worktree  →  gates  →  opens PR
-                            ↑                                     │
-                            └─────────────────────────────────────┘
-```
+I built it to find out how agents behave when you stop watching each step. Then I stopped watching.
 
-This falls out of a constraint rather than a whiteboard. The earlier design had long-running agents holding context and timing out at twelve minutes; the notes on the migration list the reasons plainly — granular tasks, tasks that survive a crash, priority ordering, and progress you can actually count. Making the PR the channel gets you all four for free, because the PR is already durable, already reviewable, already ordered, and already the thing a human would look at.
+## Agents that talk through pull requests
 
-It also means the system is legible. Every decision an agent made is sitting in a diff with a review attached. When it goes wrong you read it the same way you'd read a colleague's work.
+My agents never message each other. One agent reads the pull requests from the last run, looks at the reviews and the failures, and files a ticket for each problem it finds. Another agent picks up a ticket, works it in its own copy of the repo, and opens a pull request. That pull request is what the first agent reads next time.
 
-The runner is unsentimental about what counts as done:
+The pull request is the message.
 
-```python
-# No PR found — DO NOT mark as completed
-```
+I didn't design it this way. My first version had three agents passing turns to each other, holding context the whole time. They kept hitting a twelve minute timeout. Breaking the work into three-minute tasks fixed the timeouts, and it turned out to fix four other things I hadn't been trying to fix. Tasks survive a crash. They can be ordered by priority. You can count how many are done. And every decision an agent made is sitting in a diff that someone can read.
 
-Nothing merges without passing Django system checks, the test suite, a merge-conflict check, lint, a performance check and a security check. Runs fire six times a day on weekday systemd timers, deliberately scheduled around working hours — the timer file still carries the comment from the morning deploy that took production down.
+## What went wrong, and what I did about it
 
-**Over 1,000 pull requests merged in 2026**, most machine-authored on branches, and it's still running — the most recent landed today.
+This is the part worth your time.
 
-Most of the code is not the clever part. It's the lock file, the quota check, the disk guard, the rate-limit preflight, the signal handlers that stop agents becoming zombies, and the collector for worktrees left behind by crashed runs. Agent prompts are executable files via a small `claude-run` interpreter that is read-only unless a run explicitly opts into writes.
+**The success signal was really a "didn't crash" signal.** See the top of this page. Now the runner decides pass or fail from machine-set fields only, never from the model's own words, and it exits with a specific code when it hits a rate limit.
 
-## Compute, and why I self-host it
+**`set -e` without `set -o pipefail` deleted my error handling.** I piped the agent through `tee` to save a log. `tee` succeeds even when the agent fails, so every failure took the success branch. My rate-limit handler and my timeout handler were both unreachable. They had never once run.
 
-A k3s control plane on an ARM64 box hosts a [Beta9](https://github.com/beam-cloud/beta9) gateway, Redis, Postgres and a private registry. GPU workers join over a private Tailscale network. Inference is served locally by llama.cpp, training runs in an Unsloth CUDA container, and retrieval uses pgvector inside my own Postgres.
+**My quota check returned zero when it broke.** Zero percent used and could-not-check looked identical. Six runs logged "could not fetch usage data, proceeding anyway" and then started 45 jobs each. Now a failed check returns nothing and stops the run, and it says so in a log line that doesn't look like a healthy one.
 
-Partly that's cost. Mostly it's the argument [psychohistory](/research/) makes in theory — that concentrating AI capability in a handful of providers has a price — and this is where that stops being an argument and becomes a bill.
+**One threshold, two different rate limits.** The weekly budget sat at 84 to 100 percent for six days while the five-hour budget sat near zero. I was checking both against one number, so it skipped every expensive job for six days while having plenty of room to run.
 
-To keep the agent loop cheap enough to run six times a day, I fine-tuned a model to drive it: a QLoRA adapter on Gemma 4 E4B, 42M trainable parameters, 35 minutes on a single RTX 3090, quantised to GGUF and served at 117 tokens/sec in 5.6 GB of VRAM. On a 44-task harness it went from **23.3% to 33.0%**, with tool-emission at 78.8%. The [evaluation harness](/research/) that produced those numbers is the more interesting artifact.
+**My cheap jobs kept my expensive jobs locked out.** The small maintenance agents ran without a quota check. They kept spending from the same weekly budget that was blocking everything else, so it could never recover on its own.
 
-### Contribute compute
+**"Did my branch survive" is the wrong question.** When an agent succeeds it pushes to an existing pull request and deletes its own branch. So success and never-started look the same if you check for the branch. Ask whether the work landed instead.
 
-The climate analysis is the workload I most want more GPU for, and the rig is idle most of the night. If you have hardware sitting unused, I'll get it running on SDG organisation discovery and ESG verification.
+**Old files fake a fresh result.** The agent writes its report to a file that's tracked in git. A fresh checkout brings the last run's report with it. Every check now has to be told the run's start time, so it can't accidentally read yesterday's answer.
 
-Onboarding today is a conversation and a Tailscale invite — deliberately, while the accounting layer is being built. I'd rather hand-run the first dozen contributors and know exactly what each node did than ship a self-serve button that can't answer that.
+**Never commit what a crashed agent left behind.** It's half-finished and it poisons the pull request. Throw it away. Write down what you threw away, because once I discarded silently and lost six runs of real work.
 
-**[Get in touch →](/contact/)**
+**A clean merge is where the silent damage is.** One merge quietly rolled a dependency back 358 commits. Both a human and a review bot checked the three things that conflicted. Nobody looked at the one that merged without complaint.
 
-## What's next
+**Letting an agent run the other agents produced nothing.** Five runs, zero completed tasks. I kept the comparison script and the result.
 
-**Peer compute accounting.** Routing between nodes works. Content-addressed caching, per-node resource accounting and adversarial-node handling are the current build — the things that turn a private mesh into something strangers can safely join.
+**I am the bottleneck.** At one point 15 pull requests were open and none had merged in four days. Agents produce work at machine speed into a queue that moves at human speed.
 
-**Attested execution.** The design targets GPU trusted execution environments, so a contributed node can run a model without its operator seeing the weights or the data. Waiting on hardware that supports it.
+## If this sounds familiar
 
-**Moving more of the loop off hosted APIs.** Training and 30B-class inference already run on my own machines. The default inference path and the embedding layer don't yet. I know precisely which workloads I can move and what each costs to move — which is the useful form of that answer, and more than most people running a sovereignty argument can tell you.
+If your agents are reporting success while shipping nothing, or you can't tell the difference between a healthy run and a broken one, I'm happy to talk. I've spent a year finding these the slow way.
 
-One deliberate subtraction: the platform's contribution ledger was designed with a token, and I took it out. It records entitlement to run compute, nothing tradeable, no wallet, no exchange value — which keeps it clear of MiCA and securities exposure entirely. Cheaper to remove the feature than to defend it.
+[Email me](/contact/).
 
-The first architecture I built for this — three agents in a fixed choreography, passing turns to each other — didn't work, and the code that decided who spoke next now sits in the repo unreferenced. The second one is the PR loop above, which came out of the wreckage of the first. That's generally how I find the right answer: by being wrong in a way that leaves evidence.
+Same if you have GPUs sitting idle and like the climate work. There's no signup button yet. It's a conversation and a network invite, because the accounting layer isn't built and I want to know what each machine is doing until it is.
 
-I audit all of this against the code and publish the results, because an autonomous system will report success indefinitely if nobody checks. Knowing which parts are load-bearing and which are scaffolding is the entire skill.
+## What isn't done
+
+Peer compute accounting, caching between machines, and handling a machine that lies to me: none of it is built. The contribute-a-GPU form on the site is a form. Confidential computing needs hardware I don't have.
+
+The default path still sends inference to a hosted API. Training and 30B-class serving run on my own machines. Embeddings don't yet.
