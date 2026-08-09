@@ -16,8 +16,8 @@ tech:
   - OpenAI API
   - WebSocket
 client: European media production company (NDA)
-github_url: https://github.com/wingie/FlowState
-og_image: https://opengraph.githubassets.com/1/wingie/FlowState
+repo_private: true
+live_url: https://agentosaurus.com
 ---
 
 ## The Problem

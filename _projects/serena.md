@@ -16,7 +16,9 @@ tech:
   - Tree-sitter
   - semantic search
 client: Internal tooling team
-github_url: https://github.com/wingie/serena
+github_url: https://github.com/oraios/serena
+upstream_owner: oraios
+upstream_repo: serena
 og_image: https://opengraph.githubassets.com/1/oraios/serena
 ---
 

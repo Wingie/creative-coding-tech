@@ -16,7 +16,9 @@ tech:
   - MIDI Remote Scripts
   - JSON-RPC
 client: Music technology lab, conservatory (NDA)
-github_url: https://github.com/wingie/ableton-mcp
+github_url: https://github.com/ahujasid/ableton-mcp
+upstream_owner: ahujasid
+upstream_repo: ableton-mcp
 og_image: https://opengraph.githubassets.com/1/ahujasid/ableton-mcp
 ---
 

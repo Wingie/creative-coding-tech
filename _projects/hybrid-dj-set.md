@@ -17,7 +17,9 @@ tech:
   - OSC
   - Ableton Link
 client: Live performance / personal creative project
-github_url: https://github.com/wingie/hybrid-dj-set
+github_url: https://github.com/MikeMorenoDSP/Hybrid-DJ-Set
+upstream_owner: MikeMorenoDSP
+upstream_repo: Hybrid-DJ-Set
 og_image: https://opengraph.githubassets.com/1/MikeMorenoDSP/Hybrid-DJ-Set
 ---
 

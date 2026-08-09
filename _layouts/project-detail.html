@@ -20,7 +20,8 @@ refactor: true
       <div class="project-hero__actions">
         {% if page.github_url %}
         <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="btn-hero btn-hero--primary">
-          <i class="fab fa-github"></i> View Code
+          <i class="fab fa-github"></i>
+          {% if page.upstream_owner %}View Upstream{% else %}View Code{% endif %}
         </a>
         {% endif %}
         <a href="/projects/" class="btn-hero btn-hero--secondary">
@@ -75,9 +76,36 @@ refactor: true
       </div>
       {% endif %}
 
+      {% if page.upstream_owner %}
+      <div class="project-sidebar__section">
+        <h4 class="project-sidebar__heading">Built on</h4>
+        <p class="project-sidebar__value">
+          <a href="{{ page.github_url }}" target="_blank" rel="noopener">{{ page.upstream_owner }}/{{ page.upstream_repo }}</a><br>
+          <small>Open-source project by {{ page.upstream_owner }}. This engagement extended it; it is not my work.</small>
+        </p>
+      </div>
+      {% endif %}
+
+      {% if page.live_url %}
+      <div class="project-sidebar__section">
+        <h4 class="project-sidebar__heading">Live</h4>
+        <p class="project-sidebar__value">
+          <a href="{{ page.live_url }}" target="_blank" rel="noopener">{{ page.live_url | remove: 'https://' }}</a>
+        </p>
+      </div>
+      {% endif %}
+
+      {% if page.repo_private %}
+      <div class="project-sidebar__section">
+        <h4 class="project-sidebar__heading">Source</h4>
+        <p class="project-sidebar__value"><small>Private repository — available on request.</small></p>
+      </div>
+      {% endif %}
+
       {% if page.github_url %}
       <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="project-sidebar__github">
-        <i class="fab fa-github"></i> View on GitHub
+        <i class="fab fa-github"></i>
+        {% if page.upstream_owner %}View upstream on GitHub{% else %}View on GitHub{% endif %}
       </a>
       {% endif %}
     </aside>
@@ -121,15 +149,19 @@ refactor: true
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
+  "@id": "{{ page.url | absolute_url }}#software",
   "name": "{{ page.title | escape }}",
   "description": "{{ page.description | escape }}",
-  "author": {
-    "@type": "Person",
-    "name": "Wingston Sharon Wilson",
-    "url": "https://creativecodingtech.com"
-  },
-  "programmingLanguage": "{{ page.language | escape }}",
-  "url": "{{ page.github_url | escape }}",
+  {% if page.upstream_owner %}
+  "author": { "@type": "Organization", "name": "{{ page.upstream_owner | escape }}" },
+  "contributor": { "@type": "Person", "name": "Wingston Sharon Wilson", "url": "https://creativecodingtech.com" },
+  "codeRepository": "{{ page.github_url | escape }}",
+  {% else %}
+  "author": { "@type": "Person", "name": "Wingston Sharon Wilson", "url": "https://creativecodingtech.com" },
+  {% if page.github_url %}"codeRepository": "{{ page.github_url | escape }}",{% endif %}
+  {% endif %}
+  {% if page.language %}"programmingLanguage": "{{ page.language | escape }}",{% endif %}
+  "url": "{{ page.url | absolute_url }}",
   "applicationCategory": "DeveloperApplication"
 }
 </script>

@@ -17,7 +17,9 @@ tech:
   - FAISS
   - Sentence Transformers
 client: IP law firm (NDA, Europe)
-github_url: https://github.com/wingie/BriefGPT
+github_url: https://github.com/e-johnstonn/BriefGPT
+upstream_owner: e-johnstonn
+upstream_repo: BriefGPT
 og_image: https://opengraph.githubassets.com/1/e-johnstonn/BriefGPT
 ---
 

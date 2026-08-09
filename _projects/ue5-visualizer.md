@@ -16,7 +16,9 @@ tech:
   - Ableton Live
   - MIDI
 client: AV production company, Berlin
-github_url: https://github.com/wingie/ue5-visualizer
+github_url: https://github.com/ZackBerw/Unreal-Engine-Interactive-3D-Visualizer
+upstream_owner: ZackBerw
+upstream_repo: Unreal-Engine-Interactive-3D-Visualizer
 og_image: https://opengraph.githubassets.com/1/ZackBerw/Unreal-Engine-Interactive-3D-Visualizer
 ---
 

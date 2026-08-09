@@ -16,7 +16,9 @@ tech:
   - Envelope modelling
   - Algorithmic composition
 client: Academic music composition group (7 composers)
-github_url: https://github.com/wingie/synthesized
+github_url: https://github.com/nikolaStanojkovski/SYNTHesized
+upstream_owner: nikolaStanojkovski
+upstream_repo: SYNTHesized
 og_image: https://opengraph.githubassets.com/1/nikolaStanojkovski/SYNTHesized
 ---
 

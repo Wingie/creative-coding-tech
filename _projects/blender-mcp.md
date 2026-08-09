@@ -16,8 +16,10 @@ tech:
   - CSM.ai API
   - Mixamo
 client: Indie game studio
-github_url: https://github.com/wingie/blender-mcp
-og_image: https://opengraph.githubassets.com/1/CommonSenseMachines/blender-mcp
+github_url: https://github.com/ahujasid/blender-mcp
+upstream_owner: ahujasid
+upstream_repo: blender-mcp
+og_image: https://opengraph.githubassets.com/1/ahujasid/blender-mcp
 ---
 
 ## The Problem

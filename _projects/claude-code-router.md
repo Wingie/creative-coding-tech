@@ -17,7 +17,9 @@ tech:
   - Gemini API
   - Anthropic API
 client: AI developer tools startup
-github_url: https://github.com/wingie/claude-code-router
+github_url: https://github.com/musistudio/claude-code-router
+upstream_owner: musistudio
+upstream_repo: claude-code-router
 og_image: https://opengraph.githubassets.com/1/musistudio/claude-code-router
 ---
 

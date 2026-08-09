@@ -62,13 +62,18 @@ The creative coding thread isn't separate from the engineering work. It's where 
 
 ## Open Source
 
-100+ public repositories across tools, experiments, and systems:
+37 original repositories on [github.com/wingie](https://github.com/wingie), alongside contributions to other people's projects.
 
-- **[FlowState](https://github.com/wingie/FlowState)** — Distributed task orchestration with ML-powered scheduling
-- **[LLM-Pokemon-Red](https://github.com/wingie/llm-pokemon-red)** — LLM agent playing Pokémon Red autonomously
-- **[Ableton-MCP](https://github.com/wingie/ableton-mcp)** — Ableton Live ↔ AI assistant via Model Context Protocol
-- **[BriefGPT](https://github.com/wingie/BriefGPT)** — Document intelligence and summarization system
-- **[Claude Code Router](https://github.com/wingie/claude-code-router)** — Multi-model routing for Claude Code
+**Mine:**
+
+- **[FlowState / Agentosaurus](/projects/flowstate/)** — multi-agent orchestration and a self-hosted GPU stack, live at [agentosaurus.com](https://agentosaurus.com). Private repository.
+- **[claude-plays-pokemon](https://github.com/wingie/claude-plays-pokemon)** — LLM agent playing Pokémon Red autonomously ([case study](/projects/pokemon-ai/))
+- **[psychohistory](https://github.com/Wingie/psychohistory)** — a bounded, falsifiable specification for forecasting collective dynamics, with a published dual-use ethics policy
+- **[risk_using_llms](https://github.com/Wingie/risk_using_llms)** — a 34-chapter book on LLM security
+
+**Extended for client work** — open-source projects by others that I built on for a client. Each case study describes what I added:
+
+- [Ableton MCP](/projects/ableton-mcp/) · [BriefGPT](/projects/briefgpt/) · [Claude Code Router](/projects/claude-code-router/) · [Serena](/projects/serena/) · [and more](/projects/)
 
 ---
 

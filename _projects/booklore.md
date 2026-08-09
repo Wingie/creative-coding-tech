@@ -17,7 +17,9 @@ tech:
   - Google Books API
   - Docker
 client: Independent bookshop chain (NDA)
-github_url: https://github.com/wingie/BookLore
+github_url: https://github.com/booklore-app/booklore
+upstream_owner: booklore-app
+upstream_repo: booklore
 og_image: https://opengraph.githubassets.com/1/booklore-app/booklore
 screenshot: /assets/img/projects/booklore-demo.gif
 ---

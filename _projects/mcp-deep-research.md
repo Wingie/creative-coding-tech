@@ -16,7 +16,9 @@ tech:
   - Cheerio
   - Node.js
 client: Policy research think tank
-github_url: https://github.com/wingie/mcp-DEEPwebresearch
+github_url: https://github.com/qpd-v/mcp-DEEPwebresearch
+upstream_owner: qpd-v
+upstream_repo: mcp-DEEPwebresearch
 og_image: https://opengraph.githubassets.com/1/qpd-v/mcp-DEEPwebresearch
 ---
 

@@ -17,7 +17,9 @@ tech:
   - SSDP
   - NetworkX
 client: Physical security consultancy (authorised engagement)
-github_url: https://github.com/wingie/CamSniff
+github_url: https://github.com/John0n1/CamSniff
+upstream_owner: John0n1
+upstream_repo: CamSniff
 og_image: https://opengraph.githubassets.com/1/John0n1/CamSniff
 ---
 

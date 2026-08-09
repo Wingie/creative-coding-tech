@@ -17,7 +17,9 @@ tech:
   - Stripe
   - Vercel
 client: Climate data startup (NDA)
-github_url: https://github.com/wingie/FireGEO
+github_url: https://github.com/mendableai/firegeo
+upstream_owner: mendableai
+upstream_repo: firegeo
 og_image: https://opengraph.githubassets.com/1/mendableai/firegeo
 ---
 

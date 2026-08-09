@@ -16,7 +16,9 @@ tech:
   - PyPDF2
   - regex
 client: Regulatory compliance team, fintech (NDA)
-github_url: https://github.com/wingie/mcp-pdf-tools
+github_url: https://github.com/hanweg/mcp-pdf-tools
+upstream_owner: hanweg
+upstream_repo: mcp-pdf-tools
 og_image: https://opengraph.githubassets.com/1/hanweg/mcp-pdf-tools
 ---
 
