@@ -97,4 +97,4 @@ The creative coding thread isn't separate from the engineering work. It's where 
 
 I take on selective consulting engagements for AI/ML strategy, engineering leadership, system architecture, and creative technology prototyping.
 
-[→ See consulting services](/consulting/) · [→ Start a conversation](/contact/)
+[→ See consulting services](/consulting/) · [→ Start a conversation](/contact/) · [→ Corrections](/corrections/)

@@ -11,7 +11,7 @@ description: >-
 
 Three years of independent work, all circling the same question: **can we measure what these systems actually do?**
 
-Everything below is unfunded and unreviewed. Where a claim hasn't been tested, it says so — that's the point, not a disclaimer.
+Everything below is unfunded and unreviewed. Where a claim hasn't been tested, it says so — that's the point, not a disclaimer. Things this site has gotten wrong live on the [corrections page](/corrections/).
 
 ---
 

@@ -27,11 +27,11 @@ repo_private: true
 live_url: https://agentosaurus.com
 ---
 
-## What it's for
+[Agentosaurus](https://agentosaurus.com) writes most of its own code. Over a thousand pull requests merged in 2026, opened by agents that coordinate with each other exclusively through code review. What they're building is a search engine for organisations working on climate.
 
-[Agentosaurus](https://agentosaurus.com) finds and analyses organisations working on the UN Sustainable Development Goals, and runs ESG due diligence on them — crawling sources, verifying claims across them, and producing reports with an audit trail back to the raw data. The compliance side is built as an EU-sovereign OSINT pipeline: entity, multi-source analysis, per-source raw results retained so a conclusion can be traced to what produced it.
+The product side finds and analyses organisations working on the UN Sustainable Development Goals and runs ESG due diligence on them — crawling sources, checking claims across them, keeping every per-source result so a conclusion can be traced back to what produced it. It's built as an EU-sovereign OSINT pipeline, which mostly means the audit trail is the feature and the report is the by-product.
 
-That's the work. The second thing going on is that **the platform builds itself**, and I've been using it to find out how agentic build flows behave when you actually let them run.
+The build side is the experiment: I wanted to know how agentic build flows behave when you stop supervising each step, so I stopped.
 
 ## Pull requests as the message bus
 
@@ -70,16 +70,24 @@ Partly that's cost. Mostly it's the argument [psychohistory](/research/) makes i
 
 To keep the agent loop cheap enough to run six times a day, I fine-tuned a model to drive it: a QLoRA adapter on Gemma 4 E4B, 42M trainable parameters, 35 minutes on a single RTX 3090, quantised to GGUF and served at 117 tokens/sec in 5.6 GB of VRAM. On a 44-task harness it went from **23.3% to 33.0%**, with tool-emission at 78.8%. The [evaluation harness](/research/) that produced those numbers is the more interesting artifact.
 
-### Looking for compute
+### Contribute compute
 
-The platform is climate work and it is idle most of the night. If you have GPUs sitting unused and you'd like them pointed at sustainability analysis rather than nothing, I'd like to hear from you — [get in touch](/contact/).
+The climate analysis is the workload I most want more GPU for, and the rig is idle most of the night. If you have hardware sitting unused, I'll get it running on SDG organisation discovery and ESG verification.
 
-Being straight about the state of it: the contribution flow is a form and a plan, not a working mesh. My own audit scores peer discovery and routing at 50%, and the content-addressed cache registry, per-peer resource accounting, cross-peer migration and adversarial-node handling at **0%**. Right now a contribution means a conversation and a Tailscale invite, not a self-serve button.
+Onboarding today is a conversation and a Tailscale invite — deliberately, while the accounting layer is being built. I'd rather hand-run the first dozen contributors and know exactly what each node did than ship a self-serve button that can't answer that.
 
-## What isn't finished
+**[Get in touch →](/contact/)**
 
-The presentation system this started as is now a legacy demo — its three-agent choreography was built, then abandoned for a simpler two-agent chat, and the custom speaker-selection function is dead code nothing calls. Beta9 is scored *operational, 40% complete*. Confidential computing is a plan gated on hardware I don't have. Several apps are one-commit experiments. The token ledger is mid-rewrite, deliberately stripped of anything tradeable to stay clear of MiCA.
+## What's next
 
-And the honest limit on sovereignty: the default inference path still falls back to hosted APIs, and embeddings aren't local yet. Own-hardware is a capability I can switch on for a workload — not a property of the whole system.
+**Peer compute accounting.** Routing between nodes works. Content-addressed caching, per-node resource accounting and adversarial-node handling are the current build — the things that turn a private mesh into something strangers can safely join.
 
-I keep that list because the project is partly about what happens when nobody is checking. An autonomous system will report success indefinitely if you let it. The audits are what make the rest worth believing.
+**Attested execution.** The design targets GPU trusted execution environments, so a contributed node can run a model without its operator seeing the weights or the data. Waiting on hardware that supports it.
+
+**Moving more of the loop off hosted APIs.** Training and 30B-class inference already run on my own machines. The default inference path and the embedding layer don't yet. I know precisely which workloads I can move and what each costs to move — which is the useful form of that answer, and more than most people running a sovereignty argument can tell you.
+
+One deliberate subtraction: the platform's contribution ledger was designed with a token, and I took it out. It records entitlement to run compute, nothing tradeable, no wallet, no exchange value — which keeps it clear of MiCA and securities exposure entirely. Cheaper to remove the feature than to defend it.
+
+The first architecture I built for this — three agents in a fixed choreography, passing turns to each other — didn't work, and the code that decided who spoke next now sits in the repo unreferenced. The second one is the PR loop above, which came out of the wreckage of the first. That's generally how I find the right answer: by being wrong in a way that leaves evidence.
+
+I audit all of this against the code and publish the results, because an autonomous system will report success indefinitely if nobody checks. Knowing which parts are load-bearing and which are scaffolding is the entire skill.
