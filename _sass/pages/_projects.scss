@@ -196,3 +196,19 @@
     color: #c084fc;
   }
 }
+
+/* Note under a section label */
+.section-note {
+  margin: -0.5rem 0 1.5rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  max-width: 46rem;
+}
+
+/* Upstream credit on a card */
+.project-card__upstream {
+  margin: 0.4rem 0 0;
+  font-size: 0.75rem;
+  opacity: 0.6;
+  font-family: var(--bs-font-monospace, monospace);
+}
