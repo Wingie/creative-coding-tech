@@ -1,7 +1,7 @@
 ---
 layout: landing
 title: Wingston Sharon Wilson — AI evaluation, ML infrastructure, creative technology
-description: Independent research on measuring what AI systems actually do — a canary-gated evaluation harness, a three-year programme on forecasting collective dynamics, and a self-hosted agent platform. Nine years shipping ML to production. Amsterdam.
+description: I build tools that test whether AI systems do what they claim. Nine years shipping machine learning at Booking.com, three years of independent research, and a self-hosted platform pointed at climate work. Amsterdam.
 ---
 
 <!-- Import Three.js via CDN importmap -->
@@ -24,9 +24,9 @@ description: Independent research on measuring what AI systems actually do — a
       <h1 class="hero-name">Wingston Sharon Wilson</h1>
       <p class="hero-role">Can we measure what these systems actually do?</p>
       <p class="hero-subline">
-        Three years of independent research into whether collective behaviour can be
-        forecast, and whether frontier AI can be steered. Nine years shipping ML to
-        production at Booking.com. Mathematician, creative coder, AI specialist.
+        I ship machine learning at Booking.com. I have done that for nine years.
+        The rest of my time goes to one question: how do you tell whether an AI
+        system really works, or only looks like it does? I build tools that test that.
       </p>
       <div class="hero-ctas">
         <a href="/research/" class="hero-cta-primary">Research</a>
@@ -41,52 +41,52 @@ description: Independent research on measuring what AI systems actually do — a
     <div class="expertise-grid">
       <div class="expertise-item">
         <i class="fas fa-flask"></i>
-        <h3>AI Evaluation &amp; Governance</h3>
+        <h3>Testing AI systems</h3>
       </div>
       <div class="expertise-item">
         <i class="fas fa-server"></i>
-        <h3>Sovereign AI Infrastructure</h3>
+        <h3>Running AI on your own hardware</h3>
       </div>
       <div class="expertise-item">
         <i class="fas fa-brain"></i>
-        <h3>ML in Production</h3>
+        <h3>Machine learning in production</h3>
       </div>
       <div class="expertise-item">
         <i class="fas fa-music"></i>
-        <h3>Creative Technology</h3>
+        <h3>Creative technology</h3>
       </div>
     </div>
   </section>
 
   <!-- ============ FEATURED PROJECTS ============ -->
   <section class="featured-section">
-    <p class="section-heading">Selected Work</p>
-    <h2 class="section-title">What I'm building</h2>
+    <p class="section-heading">Selected work</p>
+    <h2 class="section-title">What I&rsquo;m building</h2>
 
     <div class="featured-grid">
 
       <a href="/projects/agentosaurus/" class="featured-card">
         <p class="card-name">Agentosaurus</p>
-        <p class="card-desc">A climate-intelligence platform that writes most of its own code. Agents coordinate through pull requests rather than shared memory &mdash; over a thousand merged in 2026.</p>
-        <p class="card-tech">Django &middot; Claude Code &middot; k3s &middot; Self-hosted GPU</p>
+        <p class="card-desc">A site that helps people find groups working on climate. AI agents write most of its code. In 2026 they opened and merged over a thousand pull requests. They never message each other. They read each other&rsquo;s code reviews instead.</p>
+        <p class="card-tech">Django &middot; Claude Code &middot; k3s &middot; Own GPUs</p>
       </a>
 
       <a href="/research/" class="featured-card">
-        <p class="card-name">Canary-gated evaluation</p>
-        <p class="card-desc">A benchmark a model can&rsquo;t fake its way through: tokens planted in the data that only surface if it actually read the files. It caught two bugs flattering its own results.</p>
-        <p class="card-tech">Evaluation &middot; 22 models &middot; 44 tasks</p>
+        <p class="card-name">Proving what a model learned from</p>
+        <p class="card-desc">If someone fine-tunes a model on your data, can you prove it afterwards? I plant keyed markers in the training set. Later you can test any model and show, mathematically, whether it learned from that data.</p>
+        <p class="card-tech">Model provenance &middot; Fine-tuning &middot; Evaluation</p>
       </a>
 
       <a href="https://wingie.github.io/psychohistory/" target="_blank" rel="noopener" class="featured-card">
         <p class="card-name">Psychohistory</p>
-        <p class="card-desc">Three years asking whether collective behaviour can be forecast &mdash; and marking where it can&rsquo;t. One sealed pre-registered pass, several refutations, a published dual-use policy.</p>
-        <p class="card-tech">Research &middot; Falsifiable &middot; Open</p>
+        <p class="card-desc">Three years asking whether you can forecast crowd behaviour like weather. One prediction passed a sealed test. Several others failed, and I published those too.</p>
+        <p class="card-tech">Research &middot; Open &middot; Testable</p>
       </a>
 
     </div>
 
     <div style="text-align:center; margin-top: 2.5rem;">
-      <a href="/projects/" class="hero-cta-secondary">View all projects →</a>
+      <a href="/projects/" class="hero-cta-secondary">See all projects →</a>
     </div>
   </section>
 
@@ -95,11 +95,11 @@ description: Independent research on measuring what AI systems actually do — a
     <div class="numbers-grid">
       <div class="number-item">
         <div class="num">1,000+</div>
-        <div class="num-label">Agent-opened PRs merged in 2026</div>
+        <div class="num-label">Pull requests my agents merged in 2026</div>
       </div>
       <div class="number-item">
         <div class="num">22</div>
-        <div class="num-label">Models through the eval harness</div>
+        <div class="num-label">Models put through my test suite</div>
       </div>
       <div class="number-item">
         <div class="num">9</div>
@@ -107,7 +107,7 @@ description: Independent research on measuring what AI systems actually do — a
       </div>
       <div class="number-item">
         <div class="num">37</div>
-        <div class="num-label">Original open-source repos</div>
+        <div class="num-label">Open-source projects of my own</div>
       </div>
     </div>
   </section>
@@ -117,11 +117,13 @@ description: Independent research on measuring what AI systems actually do — a
     <span class="current-badge">Experience</span>
     <h2 class="current-title">Nine years at Booking.com, five roles</h2>
     <p class="current-desc">
-      Joined as a software engineer and moved most years since &mdash; team lead, senior engineer,
-      then Engineering Manager in Accommodations, where I grew from one team to three covering
-      Cancellations, Modifications and Platform Modernization. Now Engineering Manager for Flights.
-      Along the way: a Perl-to-Java platform migration, $0-auth card verification, ML for
-      personalised offers, and integrations with Apple, Kayak and Google Flights.
+      I joined as a software engineer and changed jobs most years after that.
+      Team lead, then senior engineer, then engineering manager in Accommodations,
+      where I went from running one team to running three. Now I manage the Flights
+      team. Along the way I led a move off a legacy Perl platform onto Java, built
+      card checks that verify a card without charging it, used machine learning to
+      pick who gets which offer, and shipped integrations with Apple, Kayak and
+      Google Flights.
     </p>
     <a href="/about/" class="hero-cta-secondary">Full story →</a>
   </section>
@@ -129,8 +131,8 @@ description: Independent research on measuring what AI systems actually do — a
   <!-- ============ CTA ============ -->
   <section class="landing-cta-section">
     <h2>Working on something in this space?</h2>
-    <p>I&rsquo;m open to conversations about sovereign AI, evaluation and governance, creative installations and workshops &mdash; and to a new role.</p>
-    <a href="/contact/" class="cta-btn">Start a Conversation →</a>
+    <p>I&rsquo;m happy to talk about running AI on your own hardware, testing AI systems, installations, and workshops. I&rsquo;m also looking for a new role.</p>
+    <a href="/contact/" class="cta-btn">Get in touch →</a>
   </section>
 
 </div>
