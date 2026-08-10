@@ -21,14 +21,14 @@ refactor: true
   <header class="projects-header">
     <h1 class="projects-title">Projects</h1>
     <p class="projects-subtitle">
-      Things I built, and things other people built that I extended for a client.
-      Each page says which, and who wrote the original.
+      My own projects, and the client work. Each page says which it is, and where
+      the code came from.
     </p>
   </header>
 
   <!-- Mine -->
   <section class="projects-section">
-    <h2 class="section-label">Mine</h2>
+    <h2 class="section-label">My own projects</h2>
     <div class="projects-grid projects-grid--featured">
       {% for project in mine %}
       <a href="{{ project.url | relative_url }}" class="project-card-link">
@@ -54,10 +54,11 @@ refactor: true
 
   <!-- Built on other people's work -->
   <section class="projects-section">
-    <h2 class="section-label">Built on other people&rsquo;s work</h2>
+    <h2 class="section-label">Consulting portfolio</h2>
     <p class="section-note">
-      Client jobs where I took an open-source project and extended it. The original
-      author is credited on every page.
+      Paid client work. Most of these start from an open-source project and extend it
+      to fit what the client needed. Each page says what I added, and credits whoever
+      wrote the original.
     </p>
     <div class="projects-grid projects-grid--standard">
       {% for project in extended %}
