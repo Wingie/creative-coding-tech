@@ -48,8 +48,6 @@ I didn't design it this way. My first version had three agents passing turns to 
 
 ## What went wrong, and what I did about it
 
-This is the part worth your time.
-
 **The success signal was really a "didn't crash" signal.** See the top of this page. Now the runner decides pass or fail from machine-set fields only, never from the model's own words, and it exits with a specific code when it hits a rate limit.
 
 **`set -e` without `set -o pipefail` deleted my error handling.** I piped the agent through `tee` to save a log. `tee` succeeds even when the agent fails, so every failure took the success branch. My rate-limit handler and my timeout handler were both unreachable. They had never once run.

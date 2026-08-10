@@ -12,7 +12,7 @@ Hi,
 
 I'm Wingston. I ship machine learning at Booking.com. The rest of my time goes on a problem I keep running into there: a model gives you a confident answer, and you have no way to check whether it did the work or made it up.
 
-That question turned into [Agentosaurus](/projects/agentosaurus/), a build system where agents write most of the code and talk to each other through pull requests. They merged over a thousand last year. It also turned into [psychohistory](/research/), three years of asking whether you can forecast crowds the way you forecast weather.
+That question turned into [Agentosaurus](/projects/agentosaurus/), a build system where agents write most of the code and talk to each other through pull requests. They merged over a thousand in 2026. It also turned into [psychohistory](/research/), three years of asking whether you can forecast crowds the way you forecast weather.
 
 Previously: Flights and Accommodations at Booking.com, Industry Networks in Dubai, Premiere Digital in Bangalore and Los Angeles, and a company I started young where I taught a lot of juniors to write software and made almost no money doing it.
 

@@ -24,9 +24,7 @@ upstream_repo: BriefGPT
 og_image: https://opengraph.githubassets.com/1/e-johnstonn/BriefGPT
 ---
 
-The contracts said no client document goes to a third-party cloud service. That rules out OpenAI, Anthropic and Google, which is most of the options.
-
-The firm reviews patent applications for multinational clients.
+You can't send the documents anywhere. That is the whole shape of this problem. A European IP firm reviews patent applications for multinational clients, and their confidentiality agreements say no client document goes to a third-party cloud service, which rules out OpenAI, Anthropic and Google in one line.
 
 So the analysts read the applications themselves. Four hundred to six hundred pages each, producing a structured brief covering prior art, claim scope, jurisdiction and filing strategy. Four to six hours per brief, six analysts, a growing caseload.
 
@@ -34,7 +32,7 @@ So the analysts read the applications themselves. Four hundred to six hundred pa
 
 **A local model.** Mistral-7B-Instruct quantised to 4-bit through LlamaCpp, on a workstation GPU. The machine doesn't need a network connection at all, which turned out to matter during confidential proceedings where they can't have one.
 
-**Clustering before summarising.** This is the part that made it work. A 500-page patent is mostly repetition: boilerplate legal language, restated claims, dense technical description. Chunk it in order and you summarise the same thing nine times. Instead the pipeline embeds the document, clusters those embeddings, and summarises a representative chunk from each cluster. You get the distinct parts of the document instead of a walk through it.
+**Clustering before summarising.** A 500-page patent is mostly repetition: boilerplate legal language, restated claims, dense technical description. Chunk it in order and you summarise the same thing nine times. Instead the pipeline embeds the document, clusters those embeddings, and summarises a representative chunk from each cluster. You get the distinct parts of the document instead of a walk through it.
 
 **A fixed output shape.** Instructor enforces a Pydantic schema, so every brief has the same fields even coming out of a small local model. That's what let them automate the steps afterwards.
 

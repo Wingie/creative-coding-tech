@@ -67,13 +67,22 @@ The repository is private for now.
 
 Three years asking whether you can forecast crowd behaviour the way you forecast weather.
 
-The short answer is sometimes, in narrow conditions. The paper spends most of its length on where it fails.
+The current answer is: not yet, and the one result I thought I had is withdrawn.
 
-- One prediction passed a **sealed test**. I wrote the threshold down before collecting the data and never moved it. Nine of twelve cases passed, at odds of roughly one in six million against chance.
-- One idea was **refuted**. Another was **contradicted** by the data. Both are near the top of the README.
-- Four bigger claims are **untested**. They need a training run I can't afford.
+I reported a sealed pre-registered pass. Nine of twelve cases, odds of about one in six million. I've since retracted it.
 
-The part I find most useful is a model of how fast you can deploy something before you lose control of it: risk as speed divided by your capacity to steer. I tested it against road safety, aviation and two centuries of financial crises, and it holds up out of sample. Pointed at AI, the speed is compute growth and the steering capacity counts things like how many institutions exist to evaluate models. It refuses to predict an outcome, because there isn't any outcome data yet.
+The p-value came from assuming the test would misfire 10% of the time by chance. I never measured that. When I did, the real misfire rate came out between 49% and 83%, and the decision rule stops working above 38%. The comparison was rigged without my noticing: the real measurement used one method to group people and every random comparison used a different one, so they were never comparable. Run against a null that actually matches the hypothesis, it fires on **none** of the twelve.
+
+I haven't replaced the number. There isn't a defensible one to put there yet.
+
+Two smaller things I also had wrong. I called it four independent confirmations. It's one dataset looked at three times, sharing the same source and mostly the same dates. And I counted a second dataset as supporting it when nothing in that arm fired at all.
+
+What still stands:
+
+- One idea **refuted**. Another **contradicted** by the data.
+- Of four bigger forecasting claims, one has run and came back an honest negative: it beats a naive baseline and ties the obvious one. Three haven't run. They're waiting on a dataset that doesn't exist publicly, not on hardware.
+
+The part I still find useful is a model of how fast you can deploy something before you lose control of it: risk as speed divided by your capacity to steer. I tested it against road safety, aviation and 150 years of financial crises, and it holds up out of sample. Pointed at AI, the speed is compute growth and the steering capacity counts things like how many institutions exist to evaluate models. It refuses to predict an outcome, because there isn't any outcome data yet.
 
 `ETHICS.md` says what I'm releasing and what I'm keeping back. The monitoring parts are public. The parts that would help someone target and manipulate a group are not, and I list those by name so you know what's missing.
 

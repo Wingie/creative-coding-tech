@@ -8,10 +8,9 @@ tagline: "Can we measure what these systems actually do?"
 # Site logo
 avatar: /logo.png
 description: >-
-  Wingston Sharon Wilson — independent research on measuring what AI systems
-  actually do: a canary-gated evaluation harness, a three-year programme on
-  forecasting collective dynamics, and a self-hosted agent platform pointed at
-  climate work. Amsterdam.
+  Wingston Sharon Wilson. Engineering manager at Booking.com, Amsterdam. I test
+  AI systems, run a platform where agents write most of the code, and research
+  whether crowd behaviour can be forecast.
 
 url: "https://creativecodingtech.com"
 
@@ -42,6 +41,12 @@ exclude:
   - ppts
   - handoff.md
   - scratchpad
+  - README.md
+  - CLAUDE.md
+  - LICENSE
+  - package.json
+  - package-lock.json
+  - rollup.config.js
 
 # Chirpy theme settings
 # NOTE: `paginate` is intentionally unset. jekyll-paginate only paginates the

@@ -3,7 +3,8 @@ title: LLM Pokémon Red
 slug: pokemon-ai
 tagline: Can a vision model play a game that explains nothing?
 description: >-
-  An autonomous AI agent that plays Pokémon Red using only a vision-language model and a self-maintained markdown notepad. Built as an internal capability benchmark to expose spatial reasoning failure modes that standard datasets miss entirely.
+  Can a vision model play a 1996 Game Boy game that explains nothing? Upscaling
+  the frame and giving it a notepad were the two changes that mattered.
 language: Python
 role: Built
 year: 2024

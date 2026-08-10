@@ -6,7 +6,7 @@ description: >-
   A DJ set that generates its own accompaniment, in time and in key, without a
   second person on stage.
 language: Pure Data / Max/MSP
-role: Built
+role: Extended
 year: 2023
 order: 13
 tech:
@@ -36,7 +36,7 @@ Mixxx sends clock and beat markers. Pure Data works out tempo, beat position and
 
 Then it listens to the mix itself, split into three bands. Sub-bass energy drives how busy the kick pattern is. Mids drive the melodic parts. Highs drive the generative percussion. So when a track drops, the generated material drops with it, without me touching anything.
 
-The part that makes it usable live is the key detection. A phase vocoder estimates the key of whatever is playing, and everything generated gets quantised into that scale. Random note choice stays consonant with the record. Get this wrong and it's immediately, obviously wrong to everyone in the room.
+Key detection is what makes it usable live. A phase vocoder estimates the key of whatever is playing, and everything generated gets quantised into that scale. Random note choice stays consonant with the record. Get this wrong and it's immediately, obviously wrong to everyone in the room.
 
 Rhythms come from a Euclidean sequencer, which spreads a number of hits as evenly as possible across a bar. Mathematically regular, and it doesn't sound like a metronome.
 

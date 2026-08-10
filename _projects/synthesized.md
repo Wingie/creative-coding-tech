@@ -17,7 +17,7 @@ tech:
   - FM synthesis
   - Envelope modelling
   - Algorithmic composition
-client: Academic music composition group (7 composers)
+client: University project, seven-person group
 github_url: https://github.com/nikolaStanojkovski/SYNTHesized
 upstream_owner: nikolaStanojkovski
 upstream_repo: SYNTHesized

@@ -3,7 +3,8 @@ title: CamSniff
 slug: camsniff
 tagline: 500 cameras, 12 sites, four contractors, and no inventory
 description: >-
-  CamSniff is an authorised network camera discovery and credential audit tool with six scanning modes, multi-protocol correlation (Nmap, Masscan, SSDP, ONVIF, RTSP), and OUI-based vendor fingerprinting. Used in a physical security pentest engagement covering 500 cameras across 12 sites.
+  Twelve sites, roughly 500 cameras, and no inventory. Extending CamSniff with
+  per-site profiles made a two-day audit window workable.
 language: Python
 role: Extended
 year: 2024
@@ -31,7 +32,7 @@ The work was authorised in writing: a signed scope of work and a letter of autho
 
 [CamSniff](https://github.com/John0n1/CamSniff) is John0n1's scanner. I extended it with per-site profiles.
 
-The profile holds each site's network layout, the vendor OUI ranges present there, and the RTSP path patterns those vendors use. That last part is what makes it fast. Camera vendors put their streams at predictable paths, and the MAC address prefix tells you the vendor before you've touched the camera. So instead of trying every known path against every device, it tries the handful that vendor actually uses.
+The profile holds each site's network layout, the vendor OUI ranges present there, and the RTSP path patterns those vendors use. Camera vendors put their streams at predictable paths, and the MAC address prefix tells you the vendor before you've touched the camera. So instead of trying every known path against every device, it tries the handful that vendor actually uses.
 
 Scanning is graded by how loud you're willing to be:
 
@@ -46,3 +47,5 @@ Scanning is graded by how loud you're willing to be:
 On a live site you start at the top of that table. A camera network shared with building management is not somewhere to open with T5.
 
 Cameras with factory credentials turned up at nine of the twelve sites. The oldest of those had been installed in 2017. Everything found was fixed before the engagement ended, and the client now runs the same scan quarterly with a read-only profile.
+
+*Those are the client's numbers, not mine.*

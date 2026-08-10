@@ -3,7 +3,9 @@ title: MCP PDF Tools
 slug: pdf-tools
 tagline: 800 regulatory PDFs a month, and someone has to open all of them
 description: >-
-  mcp-pdf-tools is a PDF processing MCP server with content extraction, text-pattern matching across directories, fuzzy filename matching, and ordered merge. Extended for a fintech compliance team where 20 analyst-hours of weekly document triage dropped to 2.
+  A compliance team gets 800 regulatory PDFs a month and has to work out which
+  ones matter. European regulators name their annexes predictably, which turned
+  out to be the useful part.
 language: Python
 role: Extended
 year: 2025
@@ -22,9 +24,7 @@ upstream_repo: mcp-pdf-tools
 og_image: https://opengraph.githubassets.com/1/hanweg/mcp-pdf-tools
 ---
 
-Eight hundred PDFs a month, and somebody has to open every one to find out whether it matters.
-
-Regulatory guidance, updated frameworks, national implementations of EU directives, technical standards from the EBA and ESMA. The compliance team is four people.
+Regulatory guidance arrives whether you want it or not. Updated frameworks, national implementations of EU directives, technical standards from the EBA and ESMA. About 800 documents a month land on a compliance team of four, and somebody has to open each one to find out whether it matters to them at all.
 
 Their job is working out which ones affect which of the company's products, in which countries. Before any of that, somebody has to open each document and read enough to know whether it matters at all. Four analysts, 200 documents each per month.
 
@@ -37,3 +37,5 @@ What makes that work on this particular corpus is the filenames. European regula
 There's also directory-wide pattern search, which they use for questions nobody planned for. Which of our filings mention DORA Article 28. That takes seconds across the whole archive.
 
 Weekly triage dropped from most of a working day to about two hours.
+
+*Those are the client's numbers, not mine.*

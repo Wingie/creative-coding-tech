@@ -3,7 +3,8 @@ title: UE5 Visualizer
 slug: ue5
 tagline: Visuals that follow the music, instead of a VJ following it for them
 description: >-
-  An Unreal Engine 5 audio-reactive visualisation system where MaxForLive OSC devices convert MIDI and audio amplitude to Open Sound Control messages driving UE5 Blueprints. 12-camera switching via MIDI. Camera switching latency under 16ms. Deployed at 2 festival shows.
+  Festival visuals driven by the music instead of by a VJ watching it. Twelve
+  cameras bound to MIDI notes, cut with no blend so the edit lands on the beat.
 language: Blueprints / MaxForLive
 role: Extended
 year: 2024
@@ -34,7 +35,7 @@ On the Ableton side, three Max for Live devices. One turns MIDI notes into OSC, 
 
 On the Unreal side, a receiver routes those messages to named parameters, which drive material properties: emission, colour shift, distortion.
 
-The part that sells it is the cameras. Twelve `CineCameraActor`s sit in the scene, each bound to a MIDI note. The note switches the view target with no blend, so the cut lands on the beat rather than sliding into it. A blend, however short, reads as a camera move. A hard cut reads as edited.
+Twelve `CineCameraActor`s sit in the scene, each bound to a MIDI note. The note switches the view target with no blend, so the cut lands on the beat rather than sliding into it. A blend, however short, reads as a camera move. A hard cut reads as edited.
 
 End-to-end latency is about one audio frame, which nobody can see.
 

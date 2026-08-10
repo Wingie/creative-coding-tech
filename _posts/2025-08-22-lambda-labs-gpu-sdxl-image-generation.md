@@ -8,24 +8,16 @@ description: >-
   Renting a GPU to run SDXL, and four hours lost to grainy output that turned out not to be the sampler.
 ---
 
-You want to generate images.
-You *could* buy an H100. It costs as much as a Honda Civic.
-Or you could rent one from Lambda Labs for the price of a coffee.
-(A very expensive coffee, if you forget to turn it off).
+I rented a GPU to run SDXL rather than buying one. Django queues the job, Celery runs it, the GPU box runs ComfyUI, images come back.
 
-## The Pipeline from Hell
+Then every image came out looking like it had been printed on sandpaper.
 
-We are chaining together:
-1.  **Django** (Python, sensible)
-2.  **Celery** (Distributed queues, chaos)
-3.  **Lambda Labs API** (The landlord)
-4.  **ComfyUI** (Spaghetti nodes)
+I spent four hours on it. I checked the sampler. I checked the step count. I checked the CFG scale. I regenerated the same prompt at a dozen settings and got a dozen grainy pictures.
 
-It is a Rube Goldberg machine for generating waifus.
+It was the VAE running in fp16.
 
-## The Graininnies
+SDXL's default VAE overflows at half precision. The usual symptom people describe is black or blown-out images, which is why `sdxl-vae-fp16-fix` exists, but partial overflow shows up as noise across the whole frame. It looks like a sampler problem, so that's where you go looking.
 
-My images looked like they were printed on sandpaper.
-Why? **VAE Precision**.
-The default VAE runs in `fp16`. It saves memory. It also makes your art look like garbage.
-I spent 4 hours debugging "The Graininnies" so you don't have to.
+Switch the VAE to fp32, or use the fixed fp16 one. The memory cost is small next to the model.
+
+The other thing worth knowing: bill by the hour means bill by the hour. A box you forgot to stop overnight costs more than the images were worth.

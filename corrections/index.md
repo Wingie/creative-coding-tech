@@ -13,6 +13,28 @@ Everything below stays up.
 
 ---
 
+## I published a result and then withdrew it
+
+**Found 10 August 2026.**
+
+I reported a sealed pre-registered pass in my psychohistory work, and this site repeated it on three pages. Nine of twelve cases, a p-value of 1.7 in ten million. It was on the homepage, the research page, and on this page as a standing caveat.
+
+It doesn't hold.
+
+The p-value rested on assuming the test would misfire about 10% of the time by chance. I asserted that from how the test was built. I never measured it. When I measured it four different ways, the real misfire rate came out between 49% and 83%. The rule I was using stops working above 38%.
+
+The comparison itself was broken. The real measurement grouped people one way and every random comparison grouped them another, so they were never comparable in the first place. The random comparisons also turned out to be nearly flat, which meant the test had quietly reduced to checking whether a number came out positive. It fired on 8 of 10 windows where nothing was happening.
+
+Run against a null that matches what the hypothesis actually says, it fires on **none** of the twelve.
+
+Two more things I had wrong in the same paragraph. I called it four independent confirmations. It is one dataset looked at three times, sharing a source and mostly sharing dates. And I counted a second dataset as supporting it when nothing in that arm fired at all.
+
+**What I did.** No replacement number. There isn't one I can defend yet. The retraction, the measurements behind it and a frozen re-test are all in the repository, and the site now says the claim is withdrawn.
+
+The threshold really was frozen before I saw the data, and it never moved. That part was fine. The null was wrong, and a frozen threshold against a wrong null buys you nothing.
+
+---
+
 ## The site wrote itself
 
 **Found 9 August 2026. Started around January 2026.**
@@ -40,11 +62,11 @@ The loop had no check in it. I didn't notice for months because the output looke
 
 **Found 9 August 2026.**
 
-Fourteen of fifteen project pages linked to GitHub repositories under my account that don't exist. The pages had the correct original author stored in their metadata. A template overwrote it with my username. So each page knew whose work it was and hid it anyway.
+Thirteen of fifteen project pages linked to GitHub repositories under my account that don't exist. The pages had the correct original author stored in their metadata. A template overwrote it with my username. So each page knew whose work it was and hid it anyway.
 
-Most of those pages describe real client jobs where I extended someone else's open-source project. That's what open source is for. The broken links made it look like I was claiming to have written them. One page said a repository had "hundreds of stars". The real one has 2,890 and belongs to someone else.
+Most of those pages describe real client jobs where I extended someone else's open-source project. That's what open source is for. The broken links made it look like I was claiming to have written them. One page said a repository had "hundreds of stars". The real one has tens of thousands and belongs to someone else.
 
-**What I did.** Every link now points at the real project, and I checked each one loads. Each page names the original author and says plainly that I extended their work. The page data no longer lists me as the author of things I only contributed to.
+**What I did.** Every link now points at the real project. Two have since moved again and I have repointed them; upstream repos get renamed and this will keep happening. Each page names the original author and says plainly that I extended their work. The page data no longer lists me as the author of things I only contributed to.
 
 ---
 
@@ -62,7 +84,7 @@ The site said "100+ open source repositories". I have 169 public, of which 37 ar
 
 **The benchmark numbers on this site come from my own test suite, scored by my own scorer.** Nobody else has checked them. One leaderboard position I quoted elsewhere came from a partial run; the 44-task figures are the complete ones.
 
-**The psychohistory paper is version 0.5 and still in review.** One prediction passed a sealed test. Several other claims were refuted or contradicted, and that's in the repository README.
+**The psychohistory paper is version 0.5 and still in review.** See the entry above about the retracted result.
 
 **Client results on project pages come from the clients.** Most are under NDA, so you're taking my word for them.
 
@@ -70,4 +92,4 @@ The site said "100+ open source repositories". I have 169 public, of which 37 ar
 
 ---
 
-*Last updated 9 August 2026. Find something wrong, [tell me](/contact/), and it goes on this page.*
+*Last updated 10 August 2026. Find something wrong, [tell me](/contact/), and it goes on this page.*

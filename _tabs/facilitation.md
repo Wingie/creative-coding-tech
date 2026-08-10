@@ -49,7 +49,11 @@ I'm not a monk or an authorised teacher in any lineage. I'm a householder practi
 
 **The Dreaming Machine.** A weekend on dreams and technology. Lucid dream training, dream journalling, and building something small that responds to your sleep.
 
-Fifteen workshop decks exist and eight are published on this site. Each one has a written curriculum with a duration, an audience and what you should be able to do by the end.
+Fifteen workshop decks exist. Eight are up here if you want to see how I teach before booking anything:
+
+[Ableton and Sonic Pi](/assets/workshops/ableton-sonic-pi/) · [Algorithms as code](/assets/workshops/algorithms-as-code/) · [Conscious coder](/assets/workshops/conscious-coder/) · [Generative art](/assets/workshops/conscious-art/) · [Meditation for beginners](/assets/workshops/basic-meditation/) · [Conscious consumption](/assets/workshops/conscious-consumption/) · [Conscious planning](/assets/workshops/conscious-planning/) · [Reformed contemplative practice](/assets/workshops/christian-spiritual-practices/)
+
+Each has a written curriculum with a duration, an audience, and what you should be able to do by the end.
 
 ---
 

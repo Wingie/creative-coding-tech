@@ -3,7 +3,8 @@ title: Ableton MCP
 slug: ableton-mcp
 tagline: Students who'd never opened a DAW, writing music in one session
 description: >-
-  Ableton MCP is a Model Context Protocol integration that lets AI assistants directly control Ableton Live via TCP socket + Python MIDI Remote Scripts. Built for a conservatory music tech lab where students with no DAW experience produced complete arrangements in two hours.
+  A conservatory teaching composition to students who had never opened a DAW.
+  Extending Ableton MCP let them describe what they wanted and hear it.
 language: Python
 role: Extended
 year: 2024
@@ -42,4 +43,4 @@ I found that by breaking it. Send commands faster than the Live runtime handles 
 
 ## What happened
 
-Three workshops. Students had a four-bar arrangement by the end of a two-hour session, with no prior Ableton knowledge. The lab has since used the same setup for film scoring, where students write cues against a scene by describing them.
+Three workshops. Students had a four-bar arrangement by the end of a two-hour session, having never opened Ableton before. The lab has since used the same setup for film scoring, where students write cues against a scene by describing them.

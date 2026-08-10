@@ -25,9 +25,7 @@ upstream_repo: firegeo
 og_image: https://opengraph.githubassets.com/1/mendableai/firegeo
 ---
 
-Two years of satellite imagery, and nothing anyone could buy.
-
-The startup had wildfire perimeters, spread velocity and atmospheric conditions. What they didn't have was a product.
+The startup had done the hard part already. Two years of satellite imagery processed into wildfire perimeters, spread velocity and atmospheric conditions, and a data science team who knew what all of it meant. What they had never built was anything a customer could actually buy.
 
 They'd tried building a dashboard themselves and got stuck on billing.
 

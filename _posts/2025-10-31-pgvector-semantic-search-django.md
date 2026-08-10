@@ -8,34 +8,16 @@ description: >-
   Adding vector search to a Django app with pgvector and an HNSW index, including what it costs in memory and build time.
 ---
 
-I had a simple problem. I wanted to search for "mental health" and find "psychological support."
-In the old days, we called this "using a thesaurus."
-Today, we call it **High-Dimensional Vector Space Embeddings**.
+I wanted a search that finds "psychological support" when someone types "mental health". You do that by turning text into a list of numbers and measuring the distance between lists.
 
-Because why use a simple solution when you can use a 384-dimensional floating point array?
+Getting it working in Django took longer than the search itself.
 
-## The Vector Promise
+**Alpine.** I started there because the image is small. pgvector needs a compiler and the usual build packages, and by the time I had them the image wasn't small any more. I went to the Debian-based Postgres image and stopped fighting it.
 
-The promise is magic. You feed text into a Black Box (the Model), it spits out a list of numbers (the Embedding), and then you use Math (Cosine Similarity) to find things that "mean" the same thing.
+**The migration is not just a column.** You're adding a `vector(384)` field, and then you need an index or every query scans the table.
 
-## The Reality: Docker Hell
+**Use HNSW, and know what it costs.** It builds a navigable graph, which is fast to search and expensive to hold in memory. On a small dataset you'll never notice. It's worth checking before you assume it scales quietly.
 
-First, you have to find a Docker image.
-I thought: "I'll use Alpine. It's small."
-Postgres said: "LOL."
-`pgvector` doesn't build on Alpine easily. You have to use Debian. Your container is now 500MB larger. You are sad.
+Once it ran, it did the thing. Type "I am sad" and it returns the crisis support line, which nowhere in its text says "sad".
 
-## The Reality: The Migration
-
-Then you have to migrate your database.
-You aren't just adding a column. You are adding `vector(384)`.
-And you need an index. not a B-Tree. An **HNSW** index (Hierarchical Navigable Small World).
-It builds a graph you can walk quickly. It costs memory to do it.
-
-## The 40-Minute Miracle
-
-But... it does work.
-After fighting Docker, fighting migrations, and fighting the embedding service... I embedded 429 organizations in 40 minutes.
-And the search results?
-They are... eerie.
-I type "I am sad" and it finds "Crisis Support Hotline."
+That's the part that feels like magic and isn't. The model has seen enough text to know those two live near each other. It has no idea what either one means.

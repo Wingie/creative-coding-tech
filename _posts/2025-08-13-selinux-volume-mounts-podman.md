@@ -8,21 +8,19 @@ description: >-
   Your container can see the file and still can't read it. chmod and chown look fine. It's SELinux, and the fix is one character.
 ---
 
-You have a container. It runs fine on your laptop.
-You deploy it to RHEL/Oracle Linux.
-It crashes. `Permission Denied`.
-You check `chmod`. It's fine.
-You check `chown`. It's fine.
+Your container runs fine on your laptop. You deploy it to RHEL or Oracle Linux and it dies with permission denied.
 
-**It's SELinux.** It's always SELinux.
+You check `chmod`. Fine. You check `chown`. Fine. The file is right there and the process can see it.
 
-## The Tale of Two Colons
+It's SELinux.
 
-The difference between a working database and a 3am outage was one character:
-`:z` vs `:Z`.
+The whole thing comes down to one character in your volume mount:
 
-- `:Z` (Capital Z): "This is MY volume. Touch it and die."
-- `:z` (Little z): "We can share."
+- `:Z` labels the volume for one container only.
+- `:z` labels it shared.
 
-If you mount the same volume into two containers with `:Z`, SELinux will shoot the second container in the head.
-It won't tell you why. The process just gets permission denied on files it can plainly see.
+Mount the same volume into two containers with `:Z` and the second one gets denied on files it can plainly read. Nothing tells you that's what happened. You get `EACCES` and a stack trace about a file that exists.
+
+Use `:z` when two containers share a volume. Use `:Z` when one owns it.
+
+If you're about to disable SELinux to make this go away: the label is the fix, and it takes one keystroke.

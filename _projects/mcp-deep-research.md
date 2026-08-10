@@ -3,7 +3,9 @@ title: MCP Deep Research
 slug: deep-research
 tagline: Three hours of finding sources before anyone writes anything
 description: >-
-  mcp-DEEPwebresearch is a breadth-first deep research MCP server with TF-IDF relevance scoring, Playwright headless browsing, and configurable depth/branching. Extended for a policy research think tank where analysts spent 3 hours per brief just gathering sources.
+  A think tank was spending three hours per briefing just finding sources.
+  Extending a research crawler with a real browser and per-hop scoring cut it
+  to minutes.
 language: TypeScript
 role: Extended
 year: 2025
@@ -24,7 +26,7 @@ og_image: https://opengraph.githubassets.com/1/qpd-v/mcp-DEEPwebresearch
 
 Three hours of every brief went on finding sources. Not reading them. Finding them.
 
-The think tank writes briefings for government clients, and each one needs fifteen to twenty-five citations. Not reading them. Finding them: telling a primary source from commentary, working out what's paywalled, discarding things that only look relevant.
+The think tank writes briefings for government clients, and each one needs fifteen to twenty-five citations. The work is telling a primary source from commentary, working out what's paywalled, discarding things that only look relevant.
 
 They'd tried a standard RAG setup and it didn't fit. The sources they need are on the open web, not in a corpus you can index in advance. New regulatory filings, parliamentary records and preprints appear daily.
 
@@ -39,3 +41,5 @@ They'd tried a standard RAG setup and it didn't fit. The sources they need are o
 They run it wider than the default, three hops deep and four branches, because a briefing wants coverage more than speed.
 
 Source-gathering went from about three hours to about eight minutes. The analysts spend that time on the brief instead.
+
+*Those are the client's numbers, not mine.*

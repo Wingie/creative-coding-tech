@@ -26,9 +26,7 @@ og_image: https://opengraph.githubassets.com/1/booklore-app/booklore
 screenshot: /assets/img/projects/booklore-demo.gif
 ---
 
-Three people knew where the books were. One of them left, and took her share of it with her.
-
-The chain has four shops and about 12,000 books, recorded across physical shelves, staff laptops, an old FileMaker database and a half-finished Google Sheet.
+The chain has four shops and about 12,000 books, and the record of where they all are lived partly in a FileMaker database from years ago, partly in a Google Sheet somebody started, partly on staff laptops, and partly in the heads of three people who had worked there long enough. Then one of those three left.
 
 They'd looked at Goodreads and didn't want a business catalogue living on someone else's platform. They'd looked at Calibre and found it built for one person on one desktop. They wanted something on their own hardware, usable by several people at once, run by staff who don't think of themselves as technical.
 
