@@ -65,11 +65,9 @@ The repository is private for now.
 
 ## Psychohistory
 
-Three years asking whether you can forecast crowd behaviour the way you forecast weather.
+Three years asking whether you can forecast crowd behaviour the way you forecast weather. Still going, nothing finished.
 
-Three years in and still going. Nothing here is finished.
-
-Some of it holds up, some of it didn't, and both are written down in the repo. An early test looked good until I measured something I'd assumed, and the next version is pre-registered and waiting on data. I don't quote numbers from it.
+Some of it holds up, some of it didn't, and both are in the repo. An early test looked good until I measured something I'd assumed. The next version is pre-registered and waiting on data, so there's no number to quote yet.
 
 The part I still find useful is a model of how fast you can deploy something before you lose control of it: risk as speed divided by your capacity to steer. I tested it against road safety, aviation and 150 years of financial crises, and it holds up out of sample. Pointed at AI, the speed is compute growth and the steering capacity counts things like how many institutions exist to evaluate models. It refuses to predict an outcome, because there isn't any outcome data yet.
 
