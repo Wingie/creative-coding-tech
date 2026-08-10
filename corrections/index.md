@@ -13,25 +13,15 @@ Everything below stays up.
 
 ---
 
-## I published a result and then withdrew it
+## A result on this site that I'd already withdrawn
 
-**Found 10 August 2026.**
+**10 August 2026.**
 
-I reported a sealed pre-registered pass in my psychohistory work, and this site repeated it on three pages. Nine of twelve cases, a p-value of 1.7 in ten million. It was on the homepage, the research page, and on this page as a standing caveat.
+Psychohistory is a side project, not a published paper. At one point I had a result I liked: a pre-registered test that fired on nine of twelve cases. I put it on three pages here.
 
-It doesn't hold.
+Then I checked the maths behind it and it didn't hold. The test assumed a background failure rate I'd never measured, and when I measured it the rule stopped working. Against a null that actually matches the hypothesis it fires on none of the twelve. I withdrew it in the repo months ago and never updated this site.
 
-The p-value rested on assuming the test would misfire about 10% of the time by chance. I asserted that from how the test was built. I never measured it. When I measured it four different ways, the real misfire rate came out between 49% and 83%. The rule I was using stops working above 38%.
-
-The comparison itself was broken. The real measurement grouped people one way and every random comparison grouped them another, so they were never comparable in the first place. The random comparisons also turned out to be nearly flat, which meant the test had quietly reduced to checking whether a number came out positive. It fired on 8 of 10 windows where nothing was happening.
-
-Run against a null that matches what the hypothesis actually says, it fires on **none** of the twelve.
-
-Two more things I had wrong in the same paragraph. I called it four independent confirmations. It is one dataset looked at three times, sharing a source and mostly sharing dates. And I counted a second dataset as supporting it when nothing in that arm fired at all.
-
-**What I did.** No replacement number. There isn't one I can defend yet. The retraction, the measurements behind it and a frozen re-test are all in the repository, and the site now says the claim is withdrawn.
-
-The threshold really was frozen before I saw the data, and it never moved. That part was fine. The null was wrong, and a frozen threshold against a wrong null buys you nothing.
+No replacement number. The repo has the full working if you want it.
 
 ---
 

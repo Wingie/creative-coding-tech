@@ -67,20 +67,16 @@ The repository is private for now.
 
 Three years asking whether you can forecast crowd behaviour the way you forecast weather.
 
-The current answer is: not yet, and the one result I thought I had is withdrawn.
+The current answer is no, and the one result I liked turned out not to hold.
 
-I reported a sealed pre-registered pass. Nine of twelve cases, odds of about one in six million. I've since retracted it.
+I had a pre-registered test that fired on nine of twelve cases. The p-value depended on a background failure rate I'd assumed rather than measured. When I measured it, the rule stopped working, and against a proper null it fires on none of the twelve. I withdrew it. There's no replacement number because I don't have one worth quoting.
 
-The p-value came from assuming the test would misfire 10% of the time by chance. I never measured that. When I did, the real misfire rate came out between 49% and 83%, and the decision rule stops working above 38%. The comparison was rigged without my noticing: the real measurement used one method to group people and every random comparison used a different one, so they were never comparable. Run against a null that actually matches the hypothesis, it fires on **none** of the twelve.
+I also had the supporting evidence wrong: it was one dataset looked at three times, not four independent runs, and a second dataset I'd counted as support didn't fire at all.
 
-I haven't replaced the number. There isn't a defensible one to put there yet.
+What survives:
 
-Two smaller things I also had wrong. I called it four independent confirmations. It's one dataset looked at three times, sharing the same source and mostly the same dates. And I counted a second dataset as supporting it when nothing in that arm fired at all.
-
-What still stands:
-
-- One idea **refuted**. Another **contradicted** by the data.
-- Of four bigger forecasting claims, one has run and came back an honest negative: it beats a naive baseline and ties the obvious one. Three haven't run. They're waiting on a dataset that doesn't exist publicly, not on hardware.
+- One idea **refuted**, another **contradicted** by the data.
+- Of four forecasting claims, one has run and came back an honest negative. It beats a naive baseline and ties the obvious one. Three haven't run, and they're waiting on a dataset that doesn't exist publicly rather than on hardware.
 
 The part I still find useful is a model of how fast you can deploy something before you lose control of it: risk as speed divided by your capacity to steer. I tested it against road safety, aviation and 150 years of financial crises, and it holds up out of sample. Pointed at AI, the speed is compute growth and the steering capacity counts things like how many institutions exist to evaluate models. It refuses to predict an outcome, because there isn't any outcome data yet.
 
