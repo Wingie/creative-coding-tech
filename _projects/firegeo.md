@@ -25,7 +25,9 @@ upstream_repo: firegeo
 og_image: https://opengraph.githubassets.com/1/mendableai/firegeo
 ---
 
-A climate data startup had spent two years processing satellite imagery. They had wildfire perimeters, spread velocity, atmospheric conditions. What they didn't have was anything a customer could pay for.
+Two years of satellite imagery, and nothing anyone could buy.
+
+The startup had wildfire perimeters, spread velocity and atmospheric conditions. What they didn't have was a product.
 
 They'd tried building a dashboard themselves and got stuck on billing.
 

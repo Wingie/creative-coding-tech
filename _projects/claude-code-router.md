@@ -25,7 +25,9 @@ upstream_repo: claude-code-router
 og_image: https://opengraph.githubassets.com/1/musistudio/claude-code-router
 ---
 
-An AI developer tools startup had fifteen engineers using Claude Code every day. It worked. It cost $40,000 a month.
+$40,000 a month, for fifteen engineers using one tool.
+
+It was working. That was the problem. Nobody wanted to give it up.
 
 Almost all of that went to one model doing everything: autocomplete, architectural reasoning, and background lint checks nobody reads.
 

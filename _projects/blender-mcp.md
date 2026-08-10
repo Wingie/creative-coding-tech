@@ -23,7 +23,9 @@ upstream_repo: blender-mcp
 og_image: https://opengraph.githubassets.com/1/ahujasid/blender-mcp
 ---
 
-An indie game studio making a 3D action RPG had six artists and one 3D generalist. Every placeholder model went through him. His queue was two weeks long.
+One person could make 3D models. Six people needed them. His queue was two weeks long.
+
+The studio was making a 3D action RPG and every placeholder went through the one generalist.
 
 So a concept artist who needed a dwarf warrior in heavy plate carrying a two-handed axe waited two weeks to see it in the engine. Environment work waited on geometry. Animation waited on meshes. A second generalist wasn't in the budget.
 

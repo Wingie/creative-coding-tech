@@ -22,9 +22,9 @@ upstream_repo: ableton-mcp
 og_image: https://opengraph.githubassets.com/1/ahujasid/ableton-mcp
 ---
 
-A music technology lab at a European conservatory ran composition workshops. Most students had never opened a DAW.
+Teaching Ableton's interface takes weeks. Teaching chord voicing and arrangement should take an afternoon.
 
-Teaching Ableton's interface takes weeks. Teaching chord voicing and arrangement should take an afternoon. So the workshops were spending their time on the wrong thing.
+A music technology lab at a European conservatory was spending its workshops on the first thing. Most of their composition students had never opened a DAW.
 
 A student knows they want a minor 7th with an open voicing. Getting that into Ableton means knowing where clips live, how the MIDI editor works, and which note input mode you're in. The lab wanted that gap gone.
 

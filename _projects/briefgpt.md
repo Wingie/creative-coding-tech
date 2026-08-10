@@ -24,7 +24,9 @@ upstream_repo: BriefGPT
 og_image: https://opengraph.githubassets.com/1/e-johnstonn/BriefGPT
 ---
 
-A European IP law firm reviews patent applications for multinational clients. Their confidentiality agreements ban sending client documents to any third-party cloud service. That rules out OpenAI, Anthropic and Google.
+The contracts said no client document goes to a third-party cloud service. That rules out OpenAI, Anthropic and Google, which is most of the options.
+
+The firm reviews patent applications for multinational clients.
 
 So the analysts read the applications themselves. Four hundred to six hundred pages each, producing a structured brief covering prior art, claim scope, jurisdiction and filing strategy. Four to six hours per brief, six analysts, a growing caseload.
 

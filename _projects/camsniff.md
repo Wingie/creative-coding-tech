@@ -23,9 +23,9 @@ upstream_repo: CamSniff
 og_image: https://opengraph.githubassets.com/1/John0n1/CamSniff
 ---
 
-A physical security consultancy was auditing camera infrastructure for a facility management company. Twelve sites, roughly 500 IP cameras installed over seven years, multiple vendors, four different integrators.
+Nobody had a list of the cameras.
 
-Nobody had a list. Nobody knew which cameras still had factory passwords, or which were reachable from outside the management VLAN.
+Twelve sites, roughly 500 of them, installed over seven years by four different integrators using whatever hardware was cheap that year. A security consultancy was auditing the lot. Nobody knew which cameras still had factory passwords, or which were reachable from outside the management VLAN.
 
 The work was authorised in writing: a signed scope of work and a letter of authorisation from the client's CISO. The audit had a two-day on-site window.
 

@@ -22,9 +22,9 @@ upstream_repo: mcp-DEEPwebresearch
 og_image: https://opengraph.githubassets.com/1/qpd-v/mcp-DEEPwebresearch
 ---
 
-A policy research think tank writes briefings for government clients on tech regulation, climate and economics. Each brief needs fifteen to twenty-five cited sources.
+Three hours of every brief went on finding sources. Not reading them. Finding them.
 
-Finding them took about three hours per brief. Not reading them. Finding them: telling a primary source from commentary, working out what's paywalled, discarding things that only look relevant.
+The think tank writes briefings for government clients, and each one needs fifteen to twenty-five citations. Not reading them. Finding them: telling a primary source from commentary, working out what's paywalled, discarding things that only look relevant.
 
 They'd tried a standard RAG setup and it didn't fit. The sources they need are on the open web, not in a corpus you can index in advance. New regulatory filings, parliamentary records and preprints appear daily.
 

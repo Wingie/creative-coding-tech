@@ -22,7 +22,9 @@ upstream_repo: mcp-pdf-tools
 og_image: https://opengraph.githubassets.com/1/hanweg/mcp-pdf-tools
 ---
 
-A fintech compliance team gets around 800 PDFs a month. Regulatory guidance, updated frameworks, national implementations of EU directives, EBA and ESMA technical standards.
+Eight hundred PDFs a month, and somebody has to open every one to find out whether it matters.
+
+Regulatory guidance, updated frameworks, national implementations of EU directives, technical standards from the EBA and ESMA. The compliance team is four people.
 
 Their job is working out which ones affect which of the company's products, in which countries. Before any of that, somebody has to open each document and read enough to know whether it matters at all. Four analysts, 200 documents each per month.
 
