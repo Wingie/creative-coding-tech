@@ -57,7 +57,7 @@ I want to take this to Chinchilla scale, which means training on about twenty to
 
 **If you have compute sitting idle and this sounds interesting, [email me](/contact/).**
 
-The harness is built so somebody else can check the method. Most of it runs without a GPU: 533 tests you can run on a laptop. It locks the scoring rules before a run, so I can't move the goalposts afterwards. It filters held-out data, so a leak can't be mistaken for a result. When earlier findings turned out to be an artefact of a small sample, I retracted them in the README and left the retraction there.
+The harness is built so somebody else can check the method. Most of it runs without a GPU: 533 tests you can run on a laptop. It locks the scoring rules before a run, so I can't move the goalposts afterwards. It filters held-out data, so a leak can't be mistaken for a result. When an earlier finding turned out to be a small-sample artefact, I said so in the README and left that there.
 
 The repository is private for now.
 
@@ -67,13 +67,13 @@ The repository is private for now.
 
 Three years asking whether you can forecast crowd behaviour the way you forecast weather.
 
-The current answer is no, and the one result I liked turned out not to hold.
+No answer yet, and the first result I liked didn't survive me going back at it.
 
-I had a pre-registered test that fired on nine of twelve cases. The p-value depended on a background failure rate I'd assumed rather than measured. When I measured it, the rule stopped working, and against a proper null it fires on none of the twelve. I withdrew it. There's no replacement number because I don't have one worth quoting.
+The test fired on nine of twelve cases. The p-value depended on a background failure rate I'd assumed rather than measured. Once I measured it the rule didn't hold, and against a proper null it fires on none of the twelve. I also had the supporting evidence wrong: one dataset looked at three times, not four independent runs, and a second dataset I'd counted as support didn't fire at all.
 
-I also had the supporting evidence wrong: it was one dataset looked at three times, not four independent runs, and a second dataset I'd counted as support didn't fire at all.
+There's a new pre-registered test frozen and waiting on data. No number until it runs.
 
-What survives:
+What survives from the rest:
 
 - One idea **refuted**, another **contradicted** by the data.
 - Of four forecasting claims, one has run and came back an honest negative. It beats a naive baseline and ties the obvious one. Three haven't run, and they're waiting on a dataset that doesn't exist publicly rather than on hardware.

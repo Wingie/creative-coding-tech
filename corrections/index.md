@@ -13,15 +13,15 @@ Everything below stays up.
 
 ---
 
-## A result on this site that I'd already withdrawn
+## A result on this site that I'd already moved past
 
 **10 August 2026.**
 
-Psychohistory is a side project, not a published paper. At one point I had a result I liked: a pre-registered test that fired on nine of twelve cases. I put it on three pages here.
+Psychohistory is a side project I'm still working on, not a published paper. At one point I had a result I liked: a pre-registered test that fired on nine of twelve cases. I put it on three pages here.
 
-Then I checked the maths behind it and it didn't hold. The test assumed a background failure rate I'd never measured, and when I measured it the rule stopped working. Against a null that actually matches the hypothesis it fires on none of the twelve. I withdrew it in the repo months ago and never updated this site.
+Then I went back at my own test and found the problem. It assumed a background failure rate I'd never measured, and once I measured it the rule didn't hold. Against a null that matches the hypothesis it fires on none of the twelve.
 
-No replacement number. The repo has the full working if you want it.
+That was months ago. The repo moved on. This site didn't, which is the actual mistake here. There's a new pre-registered test frozen and waiting to run, and no number worth quoting until it does.
 
 ---
 
@@ -74,7 +74,7 @@ The site said "100+ open source repositories". I have 169 public, of which 37 ar
 
 **The benchmark numbers on this site come from my own test suite, scored by my own scorer.** Nobody else has checked them. One leaderboard position I quoted elsewhere came from a partial run; the 44-task figures are the complete ones.
 
-**The psychohistory paper is version 0.5 and still in review.** See the entry above about the retracted result.
+**Psychohistory is v0.5 and still moving.** See the entry above for where the headline result got to.
 
 **Client results on project pages come from the clients.** Most are under NDA, so you're taking my word for them.
 
