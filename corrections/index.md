@@ -13,16 +13,6 @@ Everything below stays up.
 
 ---
 
-## The site was behind my own repo
-
-**10 August 2026.**
-
-Psychohistory is a side project I'm still iterating on. An early test looked good, I put it on three pages here, and then it didn't survive a closer look. The repo moved on months ago. This site didn't.
-
-That's the mistake: I updated the work and not the page describing it.
-
----
-
 ## The site wrote itself
 
 **Found 9 August 2026. Started around January 2026.**
@@ -72,7 +62,7 @@ The site said "100+ open source repositories". I have 169 public, of which 37 ar
 
 **The benchmark numbers on this site come from my own test suite, scored by my own scorer.** Nobody else has checked them. One leaderboard position I quoted elsewhere came from a partial run; the 44-task figures are the complete ones.
 
-**Psychohistory is v0.5 and still moving.** See the entry above for where the headline result got to.
+**Psychohistory is a side project and still in progress.** Nothing on it here is a finished result.
 
 **Client results on project pages come from the clients.** Most are under NDA, so you're taking my word for them.
 

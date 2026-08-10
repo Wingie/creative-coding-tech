@@ -67,12 +67,9 @@ The repository is private for now.
 
 Three years asking whether you can forecast crowd behaviour the way you forecast weather.
 
-Still working on it. Three years in, the honest summary is that some of it holds and a lot of it doesn't, and both are written down.
+Three years in and still going. Nothing here is finished.
 
-An early test looked good and then didn't. It assumed a background failure rate I hadn't measured, and once I measured it the rule stopped working. A new test is pre-registered and waiting on data. I don't quote a number until it runs.
-
-- One idea **refuted**, another **contradicted** by the data.
-- Of four forecasting claims, one ran and came back an honest negative. It beats a naive baseline and ties the obvious one. Three are waiting on a dataset that doesn't exist publicly.
+Some of it holds up, some of it didn't, and both are written down in the repo. An early test looked good until I measured something I'd assumed, and the next version is pre-registered and waiting on data. I don't quote numbers from it.
 
 The part I still find useful is a model of how fast you can deploy something before you lose control of it: risk as speed divided by your capacity to steer. I tested it against road safety, aviation and 150 years of financial crises, and it holds up out of sample. Pointed at AI, the speed is compute growth and the steering capacity counts things like how many institutions exist to evaluate models. It refuses to predict an outcome, because there isn't any outcome data yet.
 
