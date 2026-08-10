@@ -13,15 +13,13 @@ Everything below stays up.
 
 ---
 
-## A result on this site that I'd already moved past
+## The site was behind my own repo
 
 **10 August 2026.**
 
-Psychohistory is a side project I'm still working on, not a published paper. At one point I had a result I liked: a pre-registered test that fired on nine of twelve cases. I put it on three pages here.
+Psychohistory is a side project I'm still iterating on. An early test looked good, I put it on three pages here, and then it didn't survive a closer look. The repo moved on months ago. This site didn't.
 
-Then I went back at my own test and found the problem. It assumed a background failure rate I'd never measured, and once I measured it the rule didn't hold. Against a null that matches the hypothesis it fires on none of the twelve.
-
-That was months ago. The repo moved on. This site didn't, which is the actual mistake here. There's a new pre-registered test frozen and waiting to run, and no number worth quoting until it does.
+That's the mistake: I updated the work and not the page describing it.
 
 ---
 

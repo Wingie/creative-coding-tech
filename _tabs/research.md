@@ -67,16 +67,12 @@ The repository is private for now.
 
 Three years asking whether you can forecast crowd behaviour the way you forecast weather.
 
-No answer yet, and the first result I liked didn't survive me going back at it.
+Still working on it. Three years in, the honest summary is that some of it holds and a lot of it doesn't, and both are written down.
 
-The test fired on nine of twelve cases. The p-value depended on a background failure rate I'd assumed rather than measured. Once I measured it the rule didn't hold, and against a proper null it fires on none of the twelve. I also had the supporting evidence wrong: one dataset looked at three times, not four independent runs, and a second dataset I'd counted as support didn't fire at all.
-
-There's a new pre-registered test frozen and waiting on data. No number until it runs.
-
-What survives from the rest:
+An early test looked good and then didn't. It assumed a background failure rate I hadn't measured, and once I measured it the rule stopped working. A new test is pre-registered and waiting on data. I don't quote a number until it runs.
 
 - One idea **refuted**, another **contradicted** by the data.
-- Of four forecasting claims, one has run and came back an honest negative. It beats a naive baseline and ties the obvious one. Three haven't run, and they're waiting on a dataset that doesn't exist publicly rather than on hardware.
+- Of four forecasting claims, one ran and came back an honest negative. It beats a naive baseline and ties the obvious one. Three are waiting on a dataset that doesn't exist publicly.
 
 The part I still find useful is a model of how fast you can deploy something before you lose control of it: risk as speed divided by your capacity to steer. I tested it against road safety, aviation and 150 years of financial crises, and it holds up out of sample. Pointed at AI, the speed is compute growth and the steering capacity counts things like how many institutions exist to evaluate models. It refuses to predict an outcome, because there isn't any outcome data yet.
 
