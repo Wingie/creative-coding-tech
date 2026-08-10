@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "I Accidentally Gave the Entire Internet Keys to My AI Kingdom (A Post-Mortem)"
+title: "I shipped an admin dashboard with no authentication"
 date: 2026-01-12 15:00:00 +0100
 categories: [security, incidents, ai-agents]
 tags: [django, authentication, security, claude, ai-agents, production]

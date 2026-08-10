@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SELinux is Why Your Container is Broken (And Why You Should Keep It On)"
+title: "The file is right there and the container still can't read it"
 date: 2025-08-13 10:00:00 +0100
 categories: [devops, containers, security]
 tags: [selinux, podman, docker, oracle-linux, containers]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The Inception Architecture: Running AI Agents Inside Celery Workers Inside Docker"
+title: "Running an AI agent inside a Celery worker inside Docker"
 date: 2026-01-10 10:00:00 +0100
 categories: [ai-agents, devops, automation]
 tags: [claude, celery, docker, python, autonomous-agents, django]

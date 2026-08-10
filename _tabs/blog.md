@@ -2,6 +2,6 @@
 layout: home
 title: Blog
 icon: fas fa-rss
-order: 5
+order: 6
 permalink: /blog/
 ---

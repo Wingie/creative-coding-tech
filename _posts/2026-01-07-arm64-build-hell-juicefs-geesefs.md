@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ARM64 is the Future (And the Future is Broken)"
+title: "exec format error is never what you think it is"
 date: 2026-01-07 16:00:00 +0100
 categories: [devops, arm64, kubernetes]
 tags: [arm64, k3s, juicefs, geesefs, oracle-cloud, beta9]

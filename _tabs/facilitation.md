@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Facilitation
+icon: fas fa-chalkboard-teacher
+order: 5
 description: >-
   Workshops, installations and guided practice in Amsterdam and across Europe.
   Creative coding, live audiovisual work, meditation and shadow work.

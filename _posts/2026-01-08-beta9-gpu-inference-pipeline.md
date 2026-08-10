@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How I Accidentally Built My Own Cloud GPU Cloud (And Why You Shouldn't)"
+title: "I built my own GPU cloud, badly, and it mostly works"
 date: 2026-01-08 14:00:00 +0100
 categories: [ai-infrastructure, gpu, devops]
 tags: [beta9, ollama, gpu, inference, oracle-cloud, kubernetes, machine-learning]

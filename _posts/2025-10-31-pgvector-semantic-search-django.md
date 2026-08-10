@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SQL Was Hard, So We Invented Vectors (Now It's Impossible)"
+title: "Vector search in Django with pgvector, and what the index costs you"
 date: 2025-10-31 14:00:00 +0100
 categories: [ai, databases, django]
 tags: [pgvector, embeddings, semantic-search, postgresql, django]

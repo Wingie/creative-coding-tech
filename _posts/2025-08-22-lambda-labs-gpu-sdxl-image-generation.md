@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How to Burn $2/Hour on Lambda Labs (And Why You'll Do It Anyway)"
+title: "Four hours debugging grainy SDXL output on a rented GPU"
 date: 2025-08-22 14:00:00 +0100
 categories: [ai, gpu, image-generation]
 tags: [lambda-labs, sdxl, comfyui, gpu, image-generation, remote-execution]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "I Automate Myself Out of a Job (And You Should Too)"
+title: "Celery workers that read a Sentry error and open a pull request"
 date: 2025-12-15 11:00:00 +0100
 categories: [ai-agents, automation, python]
 tags: [celery, claude, autonomous-agents, django, python, devops]

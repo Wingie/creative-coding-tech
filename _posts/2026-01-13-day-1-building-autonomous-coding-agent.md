@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Day 1 of Building an Autonomous Coding Agent: AI That Ships While You Sleep"
+title: "Agents that ship code overnight, and the test gate that never ran"
 date: 2026-01-13 16:00:00 +0100
 categories: [ai-agents, automation, devops]
 tags: [autonomous-agents, claude, cron, ci-cd, python, django]
