@@ -39,4 +39,4 @@ The kicks alone use four different approaches, because you can't get that much v
 
 Each one is a `SynthDef` with its parameters exposed, so the composition layer can play the same kick five different ways.
 
-Six tracks came out of it. It was submitted by all seven of us, though the SuperCollider library was mostly my part, and it's shared with the group as a reference.
+Six tracks came out of it. Submitted by all seven of us. The synthesis library was my part, and the group still uses it.

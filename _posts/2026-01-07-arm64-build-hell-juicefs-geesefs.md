@@ -22,7 +22,7 @@ It was a masterclass in what I call **Binary Compatibility Hell.**
 
 Java promised "Write Once, Run Anywhere." Go promised "Cross-Compilation is Easy."
 
- reality promises: "Exec format error."
+Reality promises: "Exec format error."
 
 ### Exhibit A: JuiceFS and the GLIBC Mismatch
 

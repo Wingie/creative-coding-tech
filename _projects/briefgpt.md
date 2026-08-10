@@ -24,7 +24,7 @@ upstream_repo: BriefGPT
 og_image: https://opengraph.githubassets.com/1/e-johnstonn/BriefGPT
 ---
 
-You can't send the documents anywhere. That is the whole shape of this problem. A European IP firm reviews patent applications for multinational clients, and their confidentiality agreements say no client document goes to a third-party cloud service, which rules out OpenAI, Anthropic and Google in one line.
+You can't send the documents anywhere. A European IP firm's confidentiality agreements bar third-party cloud services, which rules out OpenAI, Anthropic and Google in one line.
 
 So the analysts read the applications themselves. Four hundred to six hundred pages each, producing a structured brief covering prior art, claim scope, jurisdiction and filing strategy. Four to six hours per brief, six analysts, a growing caseload.
 
@@ -36,4 +36,4 @@ So the analysts read the applications themselves. Four hundred to six hundred pa
 
 **A fixed output shape.** Instructor enforces a Pydantic schema, so every brief has the same fields even coming out of a small local model. That's what let them automate the steps afterwards.
 
-Review time went from around four hours to around forty-five minutes. Six analysts were using it within a day.
+Review time went from four hours to forty-five minutes. Six analysts were using it within a day.

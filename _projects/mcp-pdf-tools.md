@@ -26,7 +26,7 @@ og_image: https://opengraph.githubassets.com/1/hanweg/mcp-pdf-tools
 
 Regulatory guidance arrives whether you want it or not. Updated frameworks, national implementations of EU directives, technical standards from the EBA and ESMA. About 800 documents a month land on a compliance team of four, and somebody has to open each one to find out whether it matters to them at all.
 
-Their job is working out which ones affect which of the company's products, in which countries. Before any of that, somebody has to open each document and read enough to know whether it matters at all. Four analysts, 200 documents each per month.
+Their job is working out which ones affect which products, in which countries. Four analysts, 200 documents each per month.
 
 [MCP PDF Tools](https://github.com/hanweg/mcp-pdf-tools) is hanweg's project. I extended it for this triage.
 
@@ -36,4 +36,4 @@ What makes that work on this particular corpus is the filenames. European regula
 
 There's also directory-wide pattern search, which they use for questions nobody planned for. Which of our filings mention DORA Article 28. That takes seconds across the whole archive.
 
-Weekly triage dropped from most of a working day to about two hours.
+Weekly triage dropped from most of a working day to about two hours per analyst.

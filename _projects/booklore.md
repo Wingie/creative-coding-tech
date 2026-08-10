@@ -26,7 +26,7 @@ og_image: https://opengraph.githubassets.com/1/booklore-app/booklore
 screenshot: /assets/img/projects/booklore-demo.gif
 ---
 
-The chain has four shops and about 12,000 books, and the record of where they all are lived partly in a FileMaker database from years ago, partly in a Google Sheet somebody started, partly on staff laptops, and partly in the heads of three people who had worked there long enough. Then one of those three left.
+Four shops, about 12,000 books. The record of where they were lived in an old FileMaker database, a Google Sheet, staff laptops, and three people's heads. Then one of those three left.
 
 They'd looked at Goodreads and didn't want a business catalogue living on someone else's platform. They'd looked at Calibre and found it built for one person on one desktop. They wanted something on their own hardware, usable by several people at once, run by staff who don't think of themselves as technical.
 

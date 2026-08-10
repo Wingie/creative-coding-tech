@@ -44,7 +44,7 @@ async def find_all_references(
 
 That returns every call site across the repository in under 200ms, because the language server is already holding the index in memory.
 
-About thirty tools are exposed to the assistant. The ones that get used: find every call site, jump to a definition across files, list what a file exports, get the call tree in both directions, and read the current errors.
+Thirty tools are exposed to the assistant. The ones that get used: find every call site, jump to a definition across files, list what a file exports, get the call tree in both directions, and read the current errors.
 
 ## What it changed
 
@@ -52,4 +52,4 @@ Reviewers can check what a change actually reaches before approving it, which ma
 
 New engineers start with a session asking what a function does, where it's called, and everywhere it touches the database. That used to be a few days of reading.
 
-The team reckoned review cycles roughly halved.
+The team reckoned review cycles halved.

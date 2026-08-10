@@ -37,4 +37,4 @@ So a concept artist who needed a dwarf warrior in heavy plate carrying a two-han
 
 The addon runs a TCP server inside Blender and executes JSON commands against the `bpy` API. That means the artist keeps talking to it: make the armour more ornate, he's too tall. Each turn is a material tweak or a bone scale.
 
-Placeholders went from a two-week wait to about twenty minutes, made by the artist who wanted them. The generalist went back to the models that ship.
+Placeholders went from a two-week wait to twenty minutes, made by the artist who wanted them. The generalist went back to the models that ship.

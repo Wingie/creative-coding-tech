@@ -39,4 +39,4 @@ An engineer points `ANTHROPIC_BASE_URL` at `localhost:3456` once and forgets abo
 
 No UI, no config file for engineers to manage, nothing new to learn.
 
-Background jobs went to a local model, which is where most of the saving came from. Their monthly spend went from $40,000 to about $14,000. Setup took an afternoon.
+Background jobs went to a local model, which is where most of the saving came from. Their monthly spend went from $40,000 to about $14,000. Setup took an afternoon, because the proxy is the only thing that changed. The routing rules took longer to get right.

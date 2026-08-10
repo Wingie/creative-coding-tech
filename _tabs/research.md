@@ -9,9 +9,7 @@ description: >-
   forecast.
 ---
 
-Three years of unpaid work. Some of it worked. A fair amount didn't, and that's written down too.
-
-Things this site has got wrong are on the [corrections page](/corrections/).
+Three years of unpaid work on testing AI systems. What worked and what didn't are both in the repos.
 
 ---
 
@@ -43,7 +41,7 @@ The useful finding was about the test, not the models. I ran one fine-tuned mode
 
 It also found two bugs in itself. It was scoring a rival framework zero on real shell commands, because that framework names its tools differently and my scorer only knew mine. And it was rewarding runs that did nothing: a one-turn timeout with no tool calls scored 0.95 for efficiency, which quietly inflated every failure. Both fixed.
 
-It's my suite and my scorer, so treat the numbers accordingly.
+My suite, my scorer.
 
 ---
 
@@ -57,7 +55,7 @@ I want to take this to Chinchilla scale, which means training on about twenty to
 
 **If you have compute sitting idle and this sounds interesting, [email me](/contact/).**
 
-The harness is built so somebody else can check the method. Most of it runs without a GPU: 533 tests you can run on a laptop. It locks the scoring rules before a run, so I can't move the goalposts afterwards. It filters held-out data, so a leak can't be mistaken for a result. When an earlier finding turned out to be a small-sample artefact, I said so in the README and left that there.
+The harness is built so somebody else can check it. Most of it runs without a GPU, so you don't need to rent hardware to audit the method. Scoring rules are locked before a run. Held-out data is filtered.
 
 The repository is private for now.
 

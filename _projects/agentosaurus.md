@@ -3,11 +3,11 @@ title: Agentosaurus
 slug: agentosaurus
 redirect_from:
   - /projects/flowstate/
-tagline: AI agents write most of this platform. Here is everything that went wrong.
+tagline: AI agents write most of this platform. These are the things that broke.
 description: >-
   A climate research platform where AI agents write most of the code and hand work
-  to each other through pull requests. Over a thousand merged in 2026. This page is
-  about the failures, because those are the useful part.
+  to each other through pull requests. Over a thousand merged in 2026. The failures
+  are the useful part, so those are what this page covers.
 language: Python
 role: Built
 year: 2024
@@ -76,7 +76,7 @@ If your agents are reporting success while shipping nothing, or you can't tell t
 
 [Email me](/contact/).
 
-Same if you have GPUs sitting idle and like the climate work. There's no signup button yet. It's a conversation and a network invite, because the accounting layer isn't built and I want to know what each machine is doing until it is.
+Same if you have GPUs sitting idle and like the climate work. There's no signup button yet. It's a conversation and a network invite until the accounting layer exists.
 
 ## What isn't done
 

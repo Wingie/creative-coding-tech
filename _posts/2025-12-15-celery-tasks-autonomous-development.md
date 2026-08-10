@@ -42,8 +42,4 @@ The core is **Django + Celery + redis**. Because everything in Python eventually
 
 If you want to see how I built this Rube Goldberg machine of self-replication, read on.
 
-**Measured later.** These were my impressions at the time. In August 2026 I pulled
-the numbers out of 105 days of run logs: 3,416 agent runs, 79% marked success.
-Except the last three months read 100%, which was false. Sessions were dying on a
-rate limit after four seconds and being logged as successes. Real figure unknown for
-that window. See [Agentosaurus](/projects/agentosaurus/).
+**Measured later.** These were my impressions at the time. The real figures are on the [Agentosaurus page](/projects/agentosaurus/).

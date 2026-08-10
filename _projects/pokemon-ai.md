@@ -37,6 +37,6 @@ The agent runs on PyBoy with a vision model in the loop. Two parts made the diff
 
 On top of those, a small state machine tracks the current goal, so the prompt says get the starter, or beat Brock, rather than leaving it to work out what it should be doing from first principles.
 
-It got seven gym badges with nobody touching the controls.
+It got seven gym badges over about forty hours of play, with nobody touching the controls and no save-state reloads.
 
 The interesting failures were spatial. It reads a scene fine. It struggles to know it's been in this room before, from a different door.

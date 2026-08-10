@@ -31,7 +31,7 @@ A student knows they want a minor 7th with an open voicing. Getting that into Ab
 
 [Ableton MCP](https://github.com/ahujasid/ableton-mcp) is Siddharth Ahuja's project. It connects an AI assistant to Live's Python remote scripts over a local socket. I extended it for the lab's teaching setup.
 
-The design is dull on purpose. An MCP server on one side, a persistent TCP connection to an addon running inside Ableton on the other, newline-delimited JSON between them. Nothing goes to a cloud service. About eighteen tools cover clips, notes, tempo and key, device parameters and transport.
+The design is dull on purpose. An MCP server on one side, a persistent TCP connection to an addon running inside Ableton on the other, newline-delimited JSON between them. Nothing goes to a cloud service. Eighteen tools cover clips, notes, tempo and key, device parameters and transport.
 
 ## The one interesting bug
 
@@ -39,7 +39,7 @@ Anything that changes state waits 100ms before it fires.
 
 I found that by breaking it. Send commands faster than the Live runtime handles them and the undo stack corrupts. Not a crash, which would have been easier. Undo just starts doing the wrong thing, and you don't notice until you need it.
 
-100ms is far too slow for anything real-time and completely invisible to a person talking to an assistant. Nobody types that fast.
+100ms is useless for real-time and invisible to someone typing.
 
 ## What happened
 
