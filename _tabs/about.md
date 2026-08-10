@@ -4,13 +4,15 @@ title: About
 icon: fas fa-user
 order: 1
 description: >-
-  Wingston Sharon Wilson. Engineering manager at Booking.com, Amsterdam.
-  Machine learning by day, test harnesses and small models by night.
+  Wingston Sharon Wilson. Engineering manager at Booking.com, Amsterdam. Nine
+  years leading teams and growing engineers, plus research on testing AI systems.
 ---
 
 Hi,
 
-I'm Wingston. I ship machine learning at Booking.com. The rest of my time goes on a problem I keep running into there: a model gives you a confident answer, and you have no way to check whether it did the work or made it up.
+I'm Wingston. I lead engineering teams at Booking.com. Nine years, several teams, mostly spent hiring people and growing them into jobs they hadn't done before.
+
+The rest of my time goes on a problem I keep running into at work: a model gives you a confident answer, and you have no way to check whether it did the work or made it up.
 
 That question turned into [Agentosaurus](/projects/agentosaurus/), a build system where agents write most of the code and talk to each other through pull requests. They merged over a thousand in 2026. It also turned into [psychohistory](/research/), three years of asking whether you can forecast crowds the way you forecast weather.
 
