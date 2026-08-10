@@ -47,5 +47,3 @@ Scanning is graded by how loud you're willing to be:
 On a live site you start at the top of that table. A camera network shared with building management is not somewhere to open with T5.
 
 Cameras with factory credentials turned up at nine of the twelve sites. The oldest of those had been installed in 2017. Everything found was fixed before the engagement ended, and the client now runs the same scan quarterly with a read-only profile.
-
-*Those are the client's numbers, not mine.*

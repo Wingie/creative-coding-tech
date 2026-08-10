@@ -23,7 +23,7 @@ I run workshops and I guide people through practice. Some of it is code. Some of
 
 The two halves aren't as separate as they look. Debugging and sitting still are both attention held on something that isn't giving you what you want yet. I've spent about as long doing one as the other.
 
-I'm not a monk or an authorised teacher in any lineage. I'm a householder practitioner who has sat a lot, including several long retreats in the Mahasi tradition. Take that for what it's worth.
+I'm not a monk or an authorised teacher in any lineage. I'm a householder practitioner who has sat a lot, including several long retreats in the Mahasi tradition.
 
 ---
 

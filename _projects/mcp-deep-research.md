@@ -41,5 +41,3 @@ They'd tried a standard RAG setup and it didn't fit. The sources they need are o
 They run it wider than the default, three hops deep and four branches, because a briefing wants coverage more than speed.
 
 Source-gathering went from about three hours to about eight minutes. The analysts spend that time on the brief instead.
-
-*Those are the client's numbers, not mine.*

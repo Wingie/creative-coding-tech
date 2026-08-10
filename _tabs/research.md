@@ -43,7 +43,7 @@ The useful finding was about the test, not the models. I ran one fine-tuned mode
 
 It also found two bugs in itself. It was scoring a rival framework zero on real shell commands, because that framework names its tools differently and my scorer only knew mine. And it was rewarding runs that did nothing: a one-turn timeout with no tool calls scored 0.95 for efficiency, which quietly inflated every failure. Both fixed.
 
-*These numbers come from my suite, scored by my scorer. Nobody else has checked them.*
+It's my suite and my scorer, so treat the numbers accordingly.
 
 ---
 
@@ -83,10 +83,10 @@ The tool that ships with it turns down requests to design manipulation campaigns
 
 ## A book on AI security
 
-34 chapters on how AI systems get attacked. Prompt injection, poisoned training data, leaking things it shouldn't know, multi-agent systems turning on each other, supply chain, and what regulators are going to want. Self-published, not peer reviewed.
+34 chapters on how AI systems get attacked. Prompt injection, poisoned training data, leaking things it shouldn't know, multi-agent systems turning on each other, supply chain, and what regulators are going to want.
 
 [Read it](https://github.com/Wingie/risk_using_llms)
 
 ---
 
-Studying for the IAPP AI governance certificate. Haven't sat the exam yet.
+Studying for the IAPP AI governance certificate.

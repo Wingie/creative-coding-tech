@@ -52,4 +52,4 @@ Reviewers can check what a change actually reaches before approving it, which ma
 
 New engineers start with a session asking what a function does, where it's called, and everywhere it touches the database. That used to be a few days of reading.
 
-*The team reported review cycles roughly halving. That's their figure, not mine.*
+The team reckoned review cycles roughly halved.

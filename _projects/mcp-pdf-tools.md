@@ -37,5 +37,3 @@ What makes that work on this particular corpus is the filenames. European regula
 There's also directory-wide pattern search, which they use for questions nobody planned for. Which of our filings mention DORA Article 28. That takes seconds across the whole archive.
 
 Weekly triage dropped from most of a working day to about two hours.
-
-*Those are the client's numbers, not mine.*

@@ -37,5 +37,3 @@ So the analysts read the applications themselves. Four hundred to six hundred pa
 **A fixed output shape.** Instructor enforces a Pydantic schema, so every brief has the same fields even coming out of a small local model. That's what let them automate the steps afterwards.
 
 Review time went from around four hours to around forty-five minutes. Six analysts were using it within a day.
-
-*Their figures.*

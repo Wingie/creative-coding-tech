@@ -7,9 +7,7 @@ description: >-
 permalink: /corrections/
 ---
 
-I build test harnesses for AI systems. In 2026 I found out I had never pointed one at my own website.
-
-Everything below stays up.
+Things this site got wrong. They stay up.
 
 ---
 
@@ -60,13 +58,13 @@ The site said "100+ open source repositories". I have 169 public, of which 37 ar
 
 ## Things you should know
 
-**The benchmark numbers on this site come from my own test suite, scored by my own scorer.** Nobody else has checked them. One leaderboard position I quoted elsewhere came from a partial run; the 44-task figures are the complete ones.
+**Benchmark numbers here come from my own test suite and my own scorer.**
 
-**Psychohistory is a side project and still in progress.** Nothing on it here is a finished result.
+**Psychohistory is a side project, still in progress.**
 
-**Client results on project pages come from the clients.** Most are under NDA, so you're taking my word for them.
+**Client results come from the clients, mostly under NDA.**
 
-**Booking.com business figures and team sizes are confidential.** That's why some pages describe what I did without saying how big it was.
+**Booking.com figures and team sizes are confidential**, which is why some pages describe what I did without saying how big it was.
 
 ---
 
