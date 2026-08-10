@@ -1,9 +1,10 @@
 ---
 title: Ableton MCP
 slug: ableton-mcp
-tagline: Describe a chord progression. Hear it immediately. No mouse required.
+tagline: Students who'd never opened a DAW, writing music in one session
 description: >-
-  Ableton MCP is a Model Context Protocol integration that lets AI assistants directly control Ableton Live via TCP socket + Python MIDI Remote Scripts. Built for a conservatory music tech lab where students with no DAW experience produced complete arrangements in two hours.
+  A conservatory teaching composition to students who had never opened a DAW.
+  Extending Ableton MCP let them describe what they wanted and hear it.
 language: Python
 role: Extended
 year: 2024
@@ -16,78 +17,30 @@ tech:
   - MIDI Remote Scripts
   - JSON-RPC
 client: Music technology lab, conservatory (NDA)
-github_url: https://github.com/wingie/ableton-mcp
+github_url: https://github.com/ahujasid/ableton-mcp
+upstream_owner: ahujasid
+upstream_repo: ableton-mcp
 og_image: https://opengraph.githubassets.com/1/ahujasid/ableton-mcp
 ---
 
-## The Problem
+Teaching Ableton's interface takes weeks. Teaching chord voicing and arrangement should take an afternoon.
 
-A music technology lab at a European conservatory was running workshops for composition students — many of whom had no prior DAW experience. Teaching Ableton Live's interface takes weeks. Teaching chord voicing, arrangement structure, and creative experimentation should take one session.
+A music technology lab at a European conservatory was spending its workshops on the first thing. Most of their composition students had never opened a DAW.
 
-The bottleneck was the gap between musical intention and technical execution. A student knows they want "a minor 7th chord with an open voicing" — getting that into Ableton requires knowing where clips, MIDI editors, and note input modes are. The lab wanted to eliminate that gap entirely.
+A student knows they want a minor 7th with an open voicing. Getting that into Ableton means knowing where clips live, how the MIDI editor works, and which note input mode you're in. The lab wanted that gap gone.
 
-## What We Built
+[Ableton MCP](https://github.com/ahujasid/ableton-mcp) is Siddharth Ahuja's project. It connects an AI assistant to Live's Python remote scripts over a local socket. I extended it for the lab's teaching setup.
 
-Ableton MCP bridges Claude's tool-calling interface to Ableton Live's Python MIDI Remote Scripts via a TCP socket server. The MCP server runs locally, receives JSON commands from Claude, and translates them into Live API calls.
+The design is dull on purpose. An MCP server on one side, a persistent TCP connection to an addon running inside Ableton on the other, newline-delimited JSON between them. Nothing goes to a cloud service. Eighteen tools cover clips, notes, tempo and key, device parameters and transport.
 
-The architecture is deliberately simple: a FastMCP server on one side, a persistent TCP connection to a Python addon running inside Ableton on the other. No external services, no cloud APIs for the audio control path.
+## The one interesting bug
 
-## How It Works
+Anything that changes state waits 100ms before it fires.
 
-The TCP protocol uses newline-delimited JSON. Each command has an `action` field and action-specific parameters:
+I found that by breaking it. Send commands faster than the Live runtime handles them and the undo stack corrupts. Not a crash, which would have been easier. Undo just starts doing the wrong thing, and you don't notice until you need it.
 
-```python
-# Ableton addon: receive commands, execute via Live API
-import json
-import socket
-from _Framework.ControlSurface import ControlSurface
+100ms is useless for real-time and invisible to someone typing.
 
-class MCPBridge(ControlSurface):
-    def __init__(self, c_instance):
-        super().__init__(c_instance)
-        self._server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self._server.bind(("127.0.0.1", 9000))
-        self._server.listen(1)
-        self._schedule_message(0, self._accept_connection)
+## What happened
 
-    def _handle_command(self, cmd: dict):
-        action = cmd.get("action")
-
-        if action == "create_clip":
-            track = self.song.tracks[cmd["track_index"]]
-            clip_slot = track.clip_slots[cmd["scene_index"]]
-            clip_slot.create_clip(cmd.get("length", 4.0))
-
-        elif action == "add_note":
-            # 100ms delay before state-modifying commands
-            # avoids Live's undo stack corruption
-            self._schedule_message(1, lambda: self._add_note(cmd))
-
-        elif action == "set_tempo":
-            self.song.tempo = cmd["bpm"]
-```
-
-The 100ms scheduling delay before state-modifying commands (`add_note`, `delete_clip`, `set_volume`) was discovered through testing — Ableton's undo stack would occasionally get corrupted if commands arrived faster than the Live runtime could process them. The delay costs negligible latency in practice.
-
-The MCP server exposes 18 tools covering clip creation, MIDI note placement, tempo/key changes, device parameter control, and session transport.
-
-## The Outcome
-
-<div class="metric-row">
-  <div class="metric">
-    <span class="metric__value">3</span>
-    <span class="metric__label">workshops delivered</span>
-  </div>
-  <div class="metric">
-    <span class="metric__value">2 hrs</span>
-    <span class="metric__label">from zero to arrangement</span>
-  </div>
-  <div class="metric">
-    <span class="metric__value">0</span>
-    <span class="metric__label">prerequisite DAW knowledge</span>
-  </div>
-</div>
-
-Students described chord progressions in plain language ("make it darker, add a sus4 before the resolution"), asked for style variations ("more jazz, less pop"), and had the system render their ideas directly into the Live session. By the end of each two-hour session, every participant had a complete four-bar arrangement with drums, bass, chords, and a lead melody.
-
-The lab is now using the same approach for film scoring workshops, where students control scene-synced cue composition via conversation.
+Three workshops. Students had a four-bar arrangement by the end of a two-hour session, having never opened Ableton before. The lab has since used the same setup for film scoring, where students write cues against a scene by describing them.

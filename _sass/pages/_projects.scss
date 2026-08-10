@@ -142,6 +142,44 @@
   }
 }
 
+/* Project card link wrapper */
+.project-card-link {
+  text-decoration: none;
+  display: block;
+  color: inherit;
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .project-card {
+    cursor: pointer;
+  }
+}
+
+.project-card__detail-link {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(0, 212, 255, 0.7);
+  letter-spacing: 0.02em;
+  transition: color 0.15s ease;
+
+  .project-card-link:hover & {
+    color: #00d4ff;
+  }
+
+  .project-card--creative & {
+    color: rgba(168, 85, 247, 0.7);
+
+    .project-card-link:hover & {
+      color: #c084fc;
+    }
+  }
+}
+
 .tag {
   display: inline-block;
   padding: 0.2rem 0.6rem;
@@ -157,4 +195,20 @@
     border-color: rgba(168, 85, 247, 0.2);
     color: #c084fc;
   }
+}
+
+/* Note under a section label */
+.section-note {
+  margin: -0.5rem 0 1.5rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  max-width: 46rem;
+}
+
+/* Upstream credit on a card */
+.project-card__upstream {
+  margin: 0.4rem 0 0;
+  font-size: 0.75rem;
+  opacity: 0.6;
+  font-family: var(--bs-font-monospace, monospace);
 }

@@ -6,6 +6,7 @@ gem "html-proofer", "~> 5.0", group: :test
 
 group :jekyll_plugins do
   gem "jekyll-sitemap"
+  gem "jekyll-redirect-from"
   gem "jekyll-paginate"
   gem "jekyll-seo-tag"
   gem "jekyll-archives"

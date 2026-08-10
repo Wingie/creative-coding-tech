@@ -3,14 +3,14 @@ timezone: Europe/Amsterdam
 future: true
 
 title: Creative Coding Tech
-tagline: "Engineering Leader. Creative Technologist. AI/ML Architect."
+tagline: "Can we measure what these systems actually do?"
 
 # Site logo
 avatar: /logo.png
 description: >-
-  Wingston Sharon Wilson — Engineering Manager @ Booking.com. 15+ years
-  building AI/ML systems, distributed platforms, and creative technology.
-  Amsterdam-based founder and live coding artist.
+  Wingston Sharon Wilson. Engineering manager at Booking.com, Amsterdam. I test
+  AI systems, run a platform where agents write most of the code, and research
+  whether crowd behaviour can be forecast.
 
 url: "https://creativecodingtech.com"
 
@@ -37,8 +37,6 @@ social:
 
 author: Wingston Sharon Wilson
 
-# Google Search Console verification (replace with actual code)
-# google_site_verification: "your-verification-code"
 
 theme: jekyll-theme-chirpy
 
@@ -46,9 +44,20 @@ theme: jekyll-theme-chirpy
 exclude:
   - ppts
   - r2-worker
+  - handoff.md
+  - scratchpad
+  - README.md
+  - CLAUDE.md
+  - LICENSE
+  - package.json
+  - package-lock.json
+  - rollup.config.js
 
 # Chirpy theme settings
-paginate: 10
+# NOTE: `paginate` is intentionally unset. jekyll-paginate only paginates the
+# site-root index.html, which here is the landing page — so enabling it produced
+# /page2..5/ as duplicate copies of the landing page (all indexed in sitemap.xml)
+# while /blog/ still received no paginator. _layouts/home.html lists all posts.
 
 # Collections — required for _tabs/ to output pages
 collections:

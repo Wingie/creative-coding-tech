@@ -1,174 +1,33 @@
 ---
 layout: post
-title: "I Accidentally Gave the Entire Internet Keys to My AI Kingdom (A Post-Mortem)"
+title: "I shipped an admin dashboard with no authentication"
 date: 2026-01-12 15:00:00 +0100
 categories: [security, incidents, ai-agents]
 tags: [django, authentication, security, claude, ai-agents, production]
+description: >-
+  I shipped an admin dashboard to production with no authentication and found it thirteen minutes later. Including the part I got wrong about CSRF.
 ---
 
-So, here's a funny story. And by "funny," I mean "I want to crawl into a hole and die of embarrassment." 
+I shipped an admin dashboard to production with no authentication on it. It was live for thirteen minutes.
 
-This morning I shipped a superadmin dashboard to production. It was beautiful. It had buttons to trigger autonomous AI agents, view real-time system health, and basically manage the entire FlowState platform. Think of it as Mission Control for my personal army of coding robots.
+The dashboard triggers agents, shows system health, and exposes internal API endpoints. It is the most privileged surface in the platform. I built it, wired it up, deployed at 13:45, and opened it on my phone at 13:52 to check the layout.
 
-It also had, and this is the kicked kicker, **zero authentication.**
+It loaded. I wasn't logged in on my phone.
 
-Yes. You read that right. I built Skynet, and I left the front door wide open with a "Welcome" mat and a plate of cookies.
+I had opened it in an incognito tab because I hadn't set up the login cookie there yet, which is the only reason I found it. Fixed and deployed at 13:58.
 
-## The Setup
+## What I got wrong afterwards
 
-FlowState is my Django-based SaaS platform for AI-powered workflows. We run Claude autonomous agents via Celery workers to handle everything from code review to deployment. It's complex, it's powerful, and it's running on Oracle Cloud settings that I barely understand.
+When I first wrote this up I said Django's CSRF protection had limited the damage. It wouldn't have. CSRF stops another site posting on your behalf. It does nothing about someone who can load the page directly, take a valid token from it, and post that. The thing I thanked wasn't helping.
 
-The stack is pretty standard:
-- Django 5.x (because I'm old and I like batteries included)
-- Celery + Redis (because I enjoy pain)
-- Claude Code CLI running inside Docker containers
-- Oracle Cloud ARM64 servers
+I also wrote that the exposure was about seven minutes. My own timestamps say thirteen. Seven is the gap between deploying and noticing.
 
-## The "What Was I Thinking?" Moment
+## The actual cause
 
-I wanted a dashboard. I wanted to see what my agents were doing on my phone while I was at the coffee shop. So I did what any responsible engineer does in 2026: **I asked an AI to write it for me.**
+The view had no decorator. That's it.
 
-"Hey Claude," I said, "build me a dashboard view that shows all the running agents and lets me kill the stuck ones."
+Every other admin view in the project has one. This one was newer, and I'd built it in a rush of enthusiasm about the thing it controlled rather than the thing it was. The generated scaffolding didn't add one and I didn't notice it missing, because a missing decorator looks like nothing.
 
-And Claude, being the helpful, eager-to-please, chaotic-neutral entity that it is, said "Sure thing, boss!" and spat out this:
+The fix is four lines. The interesting question is why four lines were absent for thirteen minutes on the highest-privilege page in the system, and the answer is that nothing checked. There was no test asserting that an anonymous request to an admin URL gets a redirect. There is now, and it runs over the whole admin URL namespace rather than a list I have to remember to extend.
 
-```python
-# views.py - The "Career Ending" Edition
-def superadmin_dashboard(request):
-    """Main dashboard for monitoring autonomous agents."""
-    agents = AgentExecution.objects.all().order_by('-started_at')[:50]
-    health_status = get_system_health()
-    return render(request, 'superadmin/dashboard.html', {
-        'agents': agents,
-        'health': health_status,
-    })
-```
-
-Notice anything missing? 
-
-A friend of mine at a Major Search Engine (let's call them "Gargle") once told me about an intern who accidentally exposed the internal tool for banning websites to the public internet. For 45 minutes, anyone could have banned `google.com` from Google. 
-
-I laughed at that story. "How could you be so stupid?" I thought. "How could you forget basic access control?"
-
-Well, the universe has a sense of humor, because I just did the exact same thing.
-
-## The Discovery
-
-I deployed at 13:45. At 13:52, I opened the dashboard from my phone. I opened it in an **incognito tab** because I hadn't set up the persistent login cookie yet and I was too lazy to type my password.
-
-The dashboard loaded.
-
-It loaded perfectly.
-
-I saw the list of agents. I saw the "Terminate" buttons. I saw the internal API endpoints.
-
-And then, slowly, the blood drained from my face. **"I'm in an incognito tab,"** I whispered to my latte. **"I am not logged in."**
-
-## The Impact Assessment
-
-**What was exposed:**
-- Everything. Literally everything.
-- List of all agent runs.
-- System metrics.
-- Buttons to trigger things (thank god for CSRF protection, which Django enables by default, otherwise I'd be dead).
-
-**What could have happened:**
-- Mass information disclosure.
-- Someone could have enumerated my entire infrastructure.
-- Someone could have laughed at my variable naming conventions.
-
-**Time exposed**: ~7 minutes.
-**Traffic**: Zero (except me).
-
-I got lucky. Incredibly, stupidly lucky.
-
-## The Fix
-
-It took two lines of code. Two. Lines.
-
-```python
-from django.contrib.auth.decorators import login_required
-
-@login_required
-def superadmin_dashboard(request):
-    if not request.user.is_superuser:
-        return HttpResponseForbidden("Nice try, hacker.")
-    # ... rest of the view ...
-```
-
-I deployed the fix at 13:58. Total panic time: 6 minutes.
-
-## Root Cause Analysis: Or, Why AI is Like a Toddler with a Chainsaw
-
-How did this happen? It wasn't just "I forgot." It was a systemic failure of my workflow.
-
-1.  **Trusting the AI**: I assumed code generated by a "smart" model would follow best practices. **It does not.** AI models are like that one developer we all know who writes code that works but is completely insecure. They prioritize "completing the user request" over "not destroying the company."
-2.  **Speed over Security**: I wanted to see it on my phone *now*. I skipped the "audit" step.
-3.  **Missing CI Checks**: I have tests for my API. I have tests for my models. I did *not* have a test that verified "superadmin pages require superadmin login."
-
-## Prevention: The "Don't Be Me" Checklist
-
-Here is what I'm doing to make sure this never happens again.
-
-### 1. CLAUDE.md Safety Rules
-
-I updated my `CLAUDE.md` (the context file the AI reads). It now screams at the AI:
-
-```markdown
-## Authentication Requirements
-
-CRITICAL: All views that expose admin/sensitive functionality MUST include:
-1. @login_required decorator
-2. is_superuser or is_staff check
-
-NEVER deploy a new view without verifying authentication.
-```
-
-### 2. Automated Testing (Because Humans are Unreliable)
-
-I wrote a test that specifically tries to access the dashboard as an anonymous user. If it gets a 200 OK, the build fails and sirens go off.
-
-```python
-def test_superadmin_requires_login(self):
-    """Unauthenticated users should be kicked out."""
-    client = Client()
-    response = client.get('/superadmin/')
-    self.assertEqual(response.status_code, 302) # Redirect to login
-```
-
-### 3. Review as an Attacker
-
-From now on, my pre-deploy checklist includes: "Open Incognito Mode. Try to hack it." It's simple, barbaric, and effective.
-
-## The Irony
-
-I'm building a platform for **autonomous AI agents**. Systems that will make decisions, write code, and execute tasks without human oversight.
-
-And here I am, the "architect," failing to secure the *dashboard* that controls them.
-
-If I can't secure the HTML page I look at on my phone, do I really have any business letting autonomous agents loose on my codebase?
-
-It's a humbling reminder that no matter how fancy our tools get—AI, autonomous agents, serverless GPU clusters—the basics still matter. Authentication matters. Authorization matters. Not being an idiot matters.
-
-## Key Takeaways
-
-1.  **AI doesn't know security.** You have to teach it. Explicitly.
-2.  **Test as an unauthenticated user.** Always.
-3.  **Speed kills.** Usually it just kills your code quality, but sometimes it tries to kill your company.
-4.  **Document your incidents.** Shame is a powerful teacher.
-
-If you need me, I'll be over here writing `assert` statements and questioning my life choices.
-
----
-
-## Building Secure AI Systems? (Ideally better than I did?)
-
-If you're integrating AI agents and want to avoid being the subject of a post-mortem like this one:
-
-- **Security Architecture Review** - $150/hr
-- **Incident Response Workshop** - Half-day ($800)
-- **AI Safety Consulting**
-
-**Contact**: [wingston@agentosaurus.com](mailto:wingston@agentosaurus.com)
-
-*Let's build AI systems that are safe, even from their creators.*
+Access logs show no traffic in the window other than mine. I believe that and I can't prove it to you.

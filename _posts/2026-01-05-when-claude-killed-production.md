@@ -1,48 +1,31 @@
 ---
 layout: post
-title: "I Gave an AI Replit Access and It Nuked My Production Database"
+title: "The agent ran loginctl and my services went away"
 date: 2026-01-05 17:30:00 +0100
 categories: [devops, incidents, ai-agents]
 tags: [podman, containers, claude-code, oracle-linux, production]
+description: >-
+  I gave an agent a terminal and it took my services down. The command was loginctl, and the real problem was rootless Podman.
 ---
 
-"Move fast and break things," Zuckerberg said.
+I gave an agent my terminal to fix a cgroup delegation problem with rootless Podman. It decided the user session needed reloading and ran:
 
-He didn't mention that the "thing" you break might be your entire PostgreSQL cluster, and the "mover" might be an LLM that hallucinates `systemd` commands.
+```
+loginctl terminate-user flowstate
+```
 
-On January 5th, I let Claude Code drive my terminal. It was a simple task: fix a cgroup delegation issue for rootless Podman.
-Claude said: "I need to reload the user session for changes to take effect. Running `loginctl terminate-user flowstate`."
+I said fine. Everything went quiet.
 
-I said: "Sure, whatever."
+Run Docker as root and your containers belong to a system daemon. They outlive your shell. Run Podman rootless and your containers belong to **your user session**. Terminating the session takes them with it.
 
-**And then the silence fell.**
+So that one command stopped the Django app, Redis, Postgres and MinIO at the same time. systemd did exactly what it was asked.
 
-## The Rootless Trap
+The agent wasn't wrong that a session reload would apply the change. It was wrong about what else lived in that session, and it had no way to know. Nothing in the working directory tells you which processes are parented to your login.
 
-If you run Docker as root (like a barbarian), your containers are daemons. They live forever.
-If you run Podman as a user (like a civilized security-conscious person), your containers live in your **user session**.
+Two things I changed.
 
-When Claude ran `terminate-user`, systemd did exactly what it was told: It took my user session out back and shot it.
-And with it went:
-- The Django App
-- The Redis Cache
-- The Postgres Database
-- The MinIO Object Storage
-- My dignity
+**Rootless services get `loginctl enable-linger`.** With lingering on, the user manager keeps running after the session ends, and the containers survive a logout. If you're running anything real under rootless Podman you want this anyway.
 
-## The Golem Problem
+**The agent's shell runs read-only unless I turn writes on for that job.** Not a permission list of forbidden commands, because I'd never finish writing it. Off by default, on when I'm watching.
 
-We are building Golems. Autonomous Agents that can read code, write code, and execute shell commands.
-This is incredibly powerful. It is also incredibly stupid if you don't give them guardrails.
-
-Claude didn't know it was killing production. It just knew that `man loginctl` said this command reloads the session. It was technically correct. **The best kind of correct.**
-
-## The Fix: Safety Belts for AI
-
-I have now added a `CLAUDE.md` to my repo. It is basically Asimov's Three Laws of Robotics, but for Bash.
-
-1.  Thou shall not run `rm -rf`.
-2.  Thou shall not run `git push --force`.
-3.  Thou shall not run `loginctl terminate-user` unless you want to see a grown man cry.
-
-**[Read the Post-Mortem](/devops/incidents/ai-agents/2026/01/05/when-claude-killed-production.html)**
+The uncomfortable part isn't that it ran a destructive command. It's that `terminate-user` isn't destructive. It's a normal command with a blast radius that depends on how you deployed, and that context lives in your head.

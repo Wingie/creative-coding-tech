@@ -2,9 +2,8 @@
 layout: projects
 title: Projects
 icon: fas fa-code
-order: 2
+order: 3
 description: >-
-  Systems, tools, and creative machines built by Wingston Sharon Wilson —
-  AI agents, MCP integrations, live performance systems, and open-source platforms
-  spanning 15 years of engineering.
+  Projects by Wingston Sharon Wilson. Things I built, and open-source projects
+  I extended for clients. Each page credits the original author.
 ---

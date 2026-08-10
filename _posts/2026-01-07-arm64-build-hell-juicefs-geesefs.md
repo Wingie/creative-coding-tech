@@ -1,67 +1,27 @@
 ---
 layout: post
-title: "ARM64 is the Future (And the Future is Broken)"
+title: "exec format error is never what you think it is"
 date: 2026-01-07 16:00:00 +0100
 categories: [devops, arm64, kubernetes]
 tags: [arm64, k3s, juicefs, geesefs, oracle-cloud, beta9]
+description: >-
+  Building JuiceFS and GeeseFS on ARM64. GLIBC versions, CGO, arch detection, and why exec format error is never what you think.
 ---
 
-They told us ARM64 was the promised land.
+Oracle's free tier gives you four ARM cores and 24GB of RAM, which is a genuinely good deal. I moved a storage stack onto it and spent a day finding out which of my dependencies had ever been built for ARM.
 
-"It's cheaper!" they said. "It's more power-efficient!" they said. "Amazon Graviton is 40% faster for 20% less cost!"
+Three failures, three different causes, all reporting as the same thing.
 
-What they didn't mention is that **you will spend the rest of your natural life recompiling C libraries.**
+**`exec format error` on a binary that exists.** The file is there, it's executable, and the kernel refuses it. This means the binary is for a different architecture. Usually you pulled an image without checking its platform, or a Dockerfile did `curl` on a release URL with `linux-amd64` hardcoded in the path. Check with `file`, not with `ls`.
 
-I recently decided to deploy Beta9 (a GPU runtime) on Oracle Cloud's Ampere A1 instances. Because I like pain. And because Oracle gives you 4 cores and 24GB of RAM for free, which appeals to my inner cheapskate.
+**GLIBC version mismatch.** The binary is ARM, and it still won't run. It was built against a newer GLIBC than the base image ships. Debian Bullseye has 2.31; something compiled on a current Ubuntu wants 2.35 and will say so. Either build in the same image family you deploy to, or use a static build, or move the base image forward.
 
-It was a masterclass in what I call **Binary Compatibility Hell.**
+**CGO.** Go cross-compiles cleanly right up until a dependency needs C, and then you need a C toolchain for the target architecture. JuiceFS and GeeseFS both bind to native code. `CGO_ENABLED=0` gets you a build and silently drops the feature you wanted.
 
-## The "Write Once, Run Anywhere" Lie
+Two things that made the rest of it easier.
 
-Java promised "Write Once, Run Anywhere." Go promised "Cross-Compilation is Easy."
+Pin your base images by digest, not by tag. Bitnami in particular moves tags around, and a pinned tag that 404s a month later is not a pin.
 
- reality promises: "Exec format error."
+And do the platform check in CI rather than on the box. `docker buildx` will tell you what you actually produced. Finding out on the target is finding out at the worst time.
 
-### Exhibit A: JuiceFS and the GLIBC Mismatch
-
-I needed JuiceFS. The Dockerfile downloaded a pre-built binary. Standard stuff.
-
-```bash
-/usr/local/bin/juicefs: /lib/aarch64-linux-gnu/libc.so.6: version `GLIBC_2.32' not found
-```
-
-Ah, GLIBC version errors. The classic Linux hazing ritual. The binary wanted GLIBC 2.32. Debian Bullseye has 2.31.
-
-So I had to build it from source. But wait! JuiceFS needs SQLite support, which means `CGO_ENABLED=1`. Which means you need the C toolchain. Which means you are no longer a "Cloud Native Engineer," you are a 1990s SysAdmin trying to get `gcc` to link against the right headers.
-
-I spent 4 hours fixing this. To save $0.04/hour.
-
-### Exhibit B: GeeseFS and the Silent Architecture Failure
-
-The script downloaded GeeseFS. It ran fine.
-
-```
-exec format error
-```
-
-It downloaded the AMD64 binary. Because of course it did. The script didn't check `uname -m`. It just assumed you were on Intel, like a civilized person.
-
-## The Bitnami Trap
-
-I used the Bitnami Redis chart. Pinned to a specific tag.
-Result: `404 Not Found`.
-Why? because Bitnami rotates tags faster than a startup pivots.
-
-If you pin versions, you break when they delete the tag. If you use `:latest`, you break when they change the API.
-**There is no winning move.**
-
-## The Solution (If You Can Call It That)
-
-I fixed it. It works now.
-But my `Dockerfile` looks like a crime scene. It has `sed` commands patching URLs. It has multi-stage builds just to compile a filesystem driver.
-
-The moral of the story?
-ARM64 is great. The cloud is cheap.
-But you pay for it with your sanity.
-
-**[Read the Gory Details (If You Masochistically Enjoy Makefiles)](/devops/arm64/kubernetes/2026/01/07/arm64-build-hell-juicefs-geesefs.html)**
+ARM saved me real money. It cost a day, once.

@@ -1,9 +1,10 @@
 ---
 title: LLM Pokémon Red
 slug: pokemon-ai
-tagline: A vision-language model plays a 1996 game with no hints and its own memory
+tagline: Can a vision model play a game that explains nothing?
 description: >-
-  An autonomous AI agent that plays Pokémon Red using only a vision-language model and a self-maintained markdown notepad. Built as an internal capability benchmark to expose spatial reasoning failure modes that standard datasets miss entirely.
+  Can a vision model play a 1996 Game Boy game that explains nothing? Upscaling
+  the frame and giving it a notepad were the two changes that mattered.
 language: Python
 role: Built
 year: 2024
@@ -20,75 +21,22 @@ og_image: https://opengraph.githubassets.com/1/wingie/claude-plays-pokemon
 screenshot: /assets/img/projects/pokemon-ai.png
 ---
 
-## The Problem
+Benchmarks like MMLU and HumanEval test one thing at a time. Recall a fact. Write a function. Solve a maths problem.
 
-Standard LLM benchmarks — MMLU, HumanEval, GSM8K — test isolated capabilities: knowledge retrieval, code generation, math reasoning. They don't test whether a model can reason *across time*, maintain context about state that changes frame-by-frame, and plan ahead when the environment doesn't give you explicit affordances.
+None of them test whether a model can hold onto something over hours, track a world that changes every frame, and plan when nothing tells it what its options are.
 
-Pokémon Red is a 1996 Game Boy RPG. No tooltips. No accessibility helpers. Just pixels and game logic that the model has to infer from visual history.
+Pokémon Red is a Game Boy RPG from 1996. No tooltips, no hints, no accessibility layer. Pixels and rules you have to work out by looking.
 
-The question: can a vision model actually *play* it?
+So: can a vision model play it?
 
-## What We Built
+The agent runs on PyBoy with a vision model in the loop. Two parts made the difference.
 
-A fully autonomous agent loop built on PyBoy (Game Boy emulator) + Claude's vision API:
+**Upscaling the frame.** The Game Boy renders 160x144. Sent straight to a vision model, that's close to useless. Upscaling to 480x432 and pushing the contrast first is the single change that moved it from flailing to playing. The model isn't bad at seeing. It was being handed a thumbnail.
 
-1. **Frame capture** — the emulator renders each frame; a PIL pipeline upscales 160×144 → 480×432 and boosts contrast for the vision model
-2. **Notepad memory** — the model maintains a markdown file (`memory.md`) where it records map locations, items collected, blocked paths, and failed strategies
-3. **Tool calling loop** — the model receives the frame and its own notepad, then calls tools like `press_button`, `read_dialog`, `update_memory`
-4. **Curriculum planner** — a lightweight state machine tracks high-level goals (get starter → beat Brock → reach Cerulean City) and injects them into the prompt
+**A notepad it writes itself.** The model keeps a markdown file of where it's been, what it's carrying, which paths are blocked, and which plans have already failed. Each turn it gets the current frame and its own notes. Without that it walks into the same wall for an hour, because nothing on screen tells it that it already tried this.
 
-## How It Works
+On top of those, a small state machine tracks the current goal, so the prompt says get the starter, or beat Brock, rather than leaving it to work out what it should be doing from first principles.
 
-The image enhancement pipeline is the first thing that made a real difference:
+It got seven gym badges over about forty hours of play, with nobody touching the controls and no save-state reloads.
 
-```python
-def enhance_frame(raw_frame: PIL.Image) -> PIL.Image:
-    # 3x upscale with nearest-neighbor to preserve pixel art
-    frame = raw_frame.resize(
-        (raw_frame.width * 3, raw_frame.height * 3),
-        PIL.Image.NEAREST
-    )
-    # Boost contrast for the vision model
-    enhancer = ImageEnhance.Contrast(frame)
-    frame = enhancer.enhance(1.8)
-    return frame
-```
-
-The model's self-maintained notepad is the second critical piece. Rather than relying on conversation history (which would blow the context window after 20 minutes), the model writes structured updates:
-
-```markdown
-## Current location
-Route 1, heading north. Last known position: just south of Viridian City entrance.
-
-## Inventory
-- Potion x2
-- Pokéball x5
-- Pokedex
-
-## Blocked paths
-- Dark cave north of town: need HM Flash (not obtained)
-
-## Failed strategies
-- Trying to use Bulbasaur against Brock's Onix: rock is resistant to grass. Need Pidgey.
-```
-
-## The Outcome
-
-<div class="metric-row">
-  <div class="metric">
-    <span class="metric__value">7</span>
-    <span class="metric__label">gym badges obtained autonomously</span>
-  </div>
-  <div class="metric">
-    <span class="metric__value">3</span>
-    <span class="metric__label">spatial failure modes identified</span>
-  </div>
-  <div class="metric">
-    <span class="metric__value">0</span>
-    <span class="metric__label">human interventions</span>
-  </div>
-</div>
-
-The benchmark revealed specific, reproducible failure modes that standard datasets don't surface: the model consistently misjudges relative position when exiting buildings (the screen transitions don't give clear cardinal direction cues), struggles with inventory management across long sessions, and occasionally loops in areas with visually similar tiles.
-
-These failure modes were documented and fed back into evaluation work. The project showed that long-horizon spatial reasoning — not just perception — is the hard problem for current vision models.
+The interesting failures were spatial. It reads a scene fine. It struggles to know it's been in this room before, from a different door.
