@@ -100,10 +100,10 @@ function authorised(request, env) {
   } catch {
     return false;
   }
-  const password = decoded.slice(decoded.indexOf(":") + 1);
-  if (password.length !== expected.length) return false;
+  const given = decoded.slice(decoded.indexOf(":") + 1);
+  if (given.length !== expected.length) return false;
   let diff = 0;
-  for (let i = 0; i < expected.length; i++) diff |= password.charCodeAt(i) ^ expected.charCodeAt(i);
+  for (let i = 0; i < expected.length; i++) diff |= given.charCodeAt(i) ^ expected.charCodeAt(i);
   return diff === 0;
 }
 
