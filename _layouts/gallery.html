@@ -49,21 +49,43 @@
     .bar button[aria-pressed="true"] { background: var(--chip-on); color: #14120f; }
     .bar button[aria-pressed="true"] small { color: #5b5242; }
     .bar button:disabled { opacity: 0.35; cursor: default; }
-    #view-toggle { margin-left: auto; }
+    .nav-right { margin-left: auto; display: flex; gap: 6px; }
     .sep { width: 1px; height: 20px; background: var(--line); }
 
     #hint, #room { position: fixed; z-index: 4; left: 50%; transform: translateX(-50%); pointer-events: none;
       color: var(--muted); font-size: 13px; text-align: center; padding: 0 16px; width: 100%; max-width: 560px; }
     #hint { bottom: max(18px, env(safe-area-inset-bottom)); transition: opacity 1.2s; }
     #hint.fade { opacity: 0; }
-    #room { top: 50%; transform: translate(-50%, 140px); color: var(--ink); font-size: 14px; letter-spacing: 0.06em;
-      text-transform: uppercase; opacity: 0.75; }
+    #room { top: 88px; color: var(--ink); font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase;
+      opacity: 0; transition: opacity 0.6s; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.8); }
+    #room.show { opacity: 0.95; }
+
+    #rooms-btn { font: inherit; font-size: 13px; color: var(--ink); background: var(--chip);
+      border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+    #rooms-panel { position: fixed; z-index: 8; top: 100px; right: 16px; width: min(340px, calc(100vw - 32px));
+      max-height: calc(100vh - 90px); overflow: auto; background: rgba(20, 18, 16, 0.96); border: 1px solid var(--line);
+      border-radius: 10px; padding: 6px; }
+    #rooms-panel[hidden] { display: none; }
+    #rooms-panel ol { list-style: none; margin: 0; padding: 0; }
+    #rooms-panel button { display: flex; width: 100%; justify-content: space-between; gap: 12px; align-items: baseline;
+      font: inherit; color: var(--ink); background: none; border: 0; border-radius: 6px; padding: 9px 10px;
+      cursor: pointer; text-align: left; }
+    #rooms-panel button:hover, #rooms-panel button:focus-visible { background: rgba(233, 226, 214, 0.08); }
+    #rooms-panel strong { font-weight: 600; }
+    #rooms-panel span { color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+    #minimap { position: fixed; z-index: 4; left: 16px; bottom: max(16px, env(safe-area-inset-bottom));
+      width: 220px; height: 150px; background: rgba(15, 14, 12, 0.72); border: 1px solid var(--line);
+      border-radius: 8px; display: none; pointer-events: none; }
+    body[data-view="walk"] #minimap { display: block; }
+    @media (max-width: 700px) { body[data-view="walk"] #minimap { display: none; } }
     #crosshair { position: fixed; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px;
       border-radius: 50%; background: rgba(233, 226, 214, 0.7); z-index: 4; display: none; pointer-events: none; }
     body[data-view="walk"] #scene.locked ~ #crosshair { display: block; }
     body[data-view="grid"] #hint, body[data-view="grid"] #room { display: none; }
 
-    #status { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); padding: 16px; text-align: center; }
+    #status { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); padding: 16px; text-align: center; pointer-events: none; }
+    #status[hidden] { display: none; }
 
     #grid { padding: 120px 16px 48px; max-width: 1400px; margin: 0 auto; }
     .grid-room { margin-bottom: 48px; }
@@ -101,11 +123,16 @@
     <div class="bar" id="themes" aria-label="Filter by theme"></div>
     <span class="sep"></span>
     <div class="bar" id="treatments" aria-label="How prints are shown"></div>
-    <button type="button" id="view-toggle">Grid</button>
+    <span class="nav-right">
+      <button type="button" id="rooms-btn" aria-expanded="false" aria-controls="rooms-panel">Rooms</button>
+      <button type="button" id="view-toggle">Grid</button>
+    </span>
   </header>
 
   <canvas id="scene" aria-label="A walkable gallery. Use the Grid button for a flat list of the same photos."></canvas>
   <div id="crosshair"></div>
+  <canvas id="minimap" aria-hidden="true"></canvas>
+  <div id="rooms-panel" hidden><ol></ol></div>
   <div id="room"></div>
   <div id="hint"></div>
   <div id="status">Loading the gallery</div>

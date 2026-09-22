@@ -8,6 +8,7 @@ export function renderGrid(container, people, base, theme, lightbox) {
     const photos = person.photos.filter((p) => matches(p, theme));
     const section = document.createElement("section");
     section.className = "grid-room";
+    section.id = "room-" + person.slug;
     const h = document.createElement("h2");
     h.textContent = person.name;
     const date = document.createElement("span");

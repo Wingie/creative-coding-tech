@@ -91,6 +91,10 @@ async function main() {
 
   const lightbox = new Lightbox(BASE, () => walk && (walk.controls.enabled = true));
   const grid = $("#grid");
+  buildRoomList(people, (slug) => {
+    if (state.view === "walk" && walk) walk.teleport(slug);
+    else document.getElementById("room-" + slug)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 
   const setView = (v) => {
     state.view = v;
@@ -122,6 +126,97 @@ async function main() {
   setView(canWalk && !reduced ? "walk" : "grid");
 }
 
+function monthYear(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return isNaN(d) ? "" : d.toLocaleDateString("en-GB", { month: "short", year: "numeric" });
+}
+
+function buildRoomList(people, go) {
+  const btn = $("#rooms-btn");
+  const panel = $("#rooms-panel");
+  const list = panel.querySelector("ol");
+  list.textContent = "";
+  for (const p of people) {
+    const li = document.createElement("li");
+    const b = document.createElement("button");
+    b.type = "button";
+    const name = document.createElement("strong");
+    name.textContent = p.name;
+    const meta = document.createElement("span");
+    meta.textContent = `${p.photos.length} photos · ${monthYear(p.shoot_date)}`;
+    b.append(name, meta);
+    b.addEventListener("click", () => {
+      close();
+      go(p.slug);
+    });
+    li.append(b);
+    list.append(li);
+  }
+  const close = () => {
+    panel.hidden = true;
+    btn.setAttribute("aria-expanded", "false");
+  };
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    panel.hidden = !panel.hidden;
+    btn.setAttribute("aria-expanded", String(!panel.hidden));
+  });
+  document.addEventListener("pointerdown", (e) => {
+    if (!panel.hidden && !panel.contains(e.target) && e.target !== btn) close();
+  });
+  addEventListener("keydown", (e) => e.key === "Escape" && close());
+}
+
+let toastTimer = 0;
+function toast(text, ms = 2600) {
+  const el = $("#room");
+  el.textContent = text;
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("show"), ms);
+}
+function hideToast() {
+  clearTimeout(toastTimer);
+  $("#room").classList.remove("show");
+}
+
+function drawMinimap(canvas, built, camera, yaw) {
+  const g = canvas.getContext("2d");
+  const dpr = Math.min(devicePixelRatio, 2);
+  const W = canvas.clientWidth;
+  const H = canvas.clientHeight;
+  if (canvas.width !== W * dpr) {
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+  }
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.clearRect(0, 0, W, H);
+  const e = built.extent;
+  const pad = 8;
+  // stretched to fill the map: the building is long and shallow
+  const sx = (W - 2 * pad) / (e.maxX - e.minX);
+  const sz = (H - 2 * pad) / (e.maxZ - e.minZ);
+  const X = (x) => pad + (x - e.minX) * sx;
+  const Z = (z) => pad + (z - e.minZ) * sz;
+  g.fillStyle = "rgba(233,226,214,0.10)";
+  g.fillRect(X(0), Z(-e.corridorHalf), e.maxX * sx, 2 * e.corridorHalf * sz);
+  const here = roomAt(built.rooms, camera.position.x, camera.position.z);
+  for (const r of built.rooms) {
+    const b = r.bounds;
+    g.fillStyle = r === here ? "rgba(224,179,106,0.55)" : r.dim ? "rgba(233,226,214,0.07)" : "rgba(233,226,214,0.22)";
+    g.fillRect(X(b.x0) + 1, Z(b.z0) + 1, (b.x1 - b.x0) * sx - 2, (b.z1 - b.z0) * sz - 2);
+  }
+  const px = X(camera.position.x);
+  const pz = Z(camera.position.z);
+  g.fillStyle = "#e0b36a";
+  g.beginPath();
+  g.moveTo(px - Math.sin(yaw) * 7, pz - Math.cos(yaw) * 7);
+  g.lineTo(px + Math.cos(yaw) * 4, pz - Math.sin(yaw) * 4);
+  g.lineTo(px - Math.cos(yaw) * 4, pz + Math.sin(yaw) * 4);
+  g.fill();
+}
+
 function startWalk(people, lightbox) {
   const canvas = $("#scene");
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
@@ -131,15 +226,19 @@ function startWalk(people, lightbox) {
   renderer.toneMappingExposure = 1.05;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0b0a09);
-  scene.fog = new THREE.Fog(0x0b0a09, 10, 34);
-  scene.add(new THREE.HemisphereLight(0xfff1dd, 0x1a140f, 0.9));
-  const key = new THREE.DirectionalLight(0xffe2c0, 0.35);
+  scene.background = new THREE.Color(0x1d1b18);
+  scene.fog = new THREE.Fog(0x1d1b18, 18, 55);
+  scene.add(new THREE.HemisphereLight(0xfff4e6, 0x3a3128, 2.1));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+  const key = new THREE.DirectionalLight(0xffe7cc, 0.9);
   key.position.set(4, 10, 3);
   scene.add(key);
+  const fill = new THREE.DirectionalLight(0xdfe6ff, 0.35);
+  fill.position.set(-6, 8, -5);
+  scene.add(fill);
 
   const camera = new THREE.PerspectiveCamera(68, 1, 0.05, 80);
-  const built = buildGallery(scene, people);
+  const built = buildGallery(scene, people, { anisotropy: renderer.capabilities.getMaxAnisotropy() });
   const framesByRoom = new Map();
   const frames = [];
   for (const room of built.rooms) {
@@ -189,7 +288,10 @@ function startWalk(people, lightbox) {
   addEventListener("resize", resize);
   resize();
 
-  const roomLabel = $("#room");
+  const minimap = $("#minimap");
+  const hall = built.rooms.find((r) => r.isHall);
+  if (hall) toast("Latest shoot: " + hall.person.name, 3000);
+  let lastMap = 0;
   let last = performance.now();
   let lastLoad = 0;
   let currentRoom;
@@ -206,8 +308,14 @@ function startWalk(people, lightbox) {
       placeBillboards(frames, camera.position);
       const r = roomAt(built.rooms, camera.position.x, camera.position.z);
       if (r !== currentRoom) {
+        const prev = currentRoom;
         currentRoom = r;
-        roomLabel.textContent = r ? (r.isHall ? "Latest: " + r.person.name : r.person.name) : "";
+        if (r && !r.isHall) toast(r.person.name);
+        else if (prev && prev.isHall) hideToast();
+      }
+      if (now - lastMap > 100 && minimap.clientWidth > 0) {
+        drawMinimap(minimap, built, camera, controls.yaw);
+        lastMap = now;
       }
       renderer.render(scene, camera);
     }
@@ -215,10 +323,21 @@ function startWalk(people, lightbox) {
   }
   requestAnimationFrame(tick);
 
+  function teleport(slug) {
+    const r = built.rooms.find((q) => q.id === slug) || (slug === "hall" ? hall : null);
+    if (!r) return false;
+    controls.teleport(r.door.x, r.door.z, r.door.yaw);
+    return true;
+  }
+
+  window.__gallery = { controls, rooms: built.rooms, teleport, camera, renderer };
+
   return {
     controls,
+    teleport,
     setTheme(t) {
-      rehang(built.rooms, framesByRoom, t, performance.now());
+      const counts = rehang(built.rooms, framesByRoom, t, performance.now());
+      for (const r of built.rooms) r.dim = counts[r.id] === 0;
     },
     setTreatment(t) {
       loader.mode = t;

@@ -87,6 +87,15 @@ export class Controls {
     this.pitch = Math.max(-1.2, Math.min(1.2, this.pitch - dPitch));
   }
 
+  teleport(x, z, yaw) {
+    this.x = x;
+    this.z = z;
+    this.yaw = yaw;
+    this.pitch = 0;
+    this.walkTarget = null;
+    this.keys.clear();
+  }
+
   walkTo(x, z) {
     this.walkTarget = { x, z };
   }

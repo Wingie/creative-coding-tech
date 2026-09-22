@@ -51,25 +51,33 @@ function roomWidthFor(photos) {
   return w;
 }
 
-function labelTexture(lines, { width = 1024, height = 512, bg = "#14120f", fg = "#e9e2d6" } = {}) {
+let maxAniso = 1;
+
+function labelTexture(lines, { width = 2048, height = 1024, bg = "#1b1815", fg = "#f1ebe0", pad = 110 } = {}) {
   const c = document.createElement("canvas");
   c.width = width;
   c.height = height;
   const g = c.getContext("2d");
   g.fillStyle = bg;
   g.fillRect(0, 0, width, height);
-  let y = 90;
+  g.textBaseline = "alphabetic";
+  let y = pad; // top of the next line
   for (const line of lines) {
+    if (!line.text) continue;
+    const size = line.size || 88;
     g.fillStyle = line.color || fg;
-    g.font = `${line.weight || 400} ${line.size || 44}px "Helvetica Neue", Arial, sans-serif`;
-    for (const part of wrap(g, line.text, width - 120)) {
-      g.fillText(part, 60, y);
-      y += (line.size || 44) * 1.35;
+    g.font = `${line.weight || 400} ${size}px "Helvetica Neue", Arial, sans-serif`;
+    for (const part of wrap(g, line.text, width - 2 * pad)) {
+      g.fillText(part, pad, y + size * 0.82);
+      y += size * 1.22;
     }
-    y += line.after || 10;
+    y += line.after || 20;
   }
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = maxAniso;
+  tex.generateMipmaps = true;
+  tex.minFilter = THREE.LinearMipmapLinearFilter;
   return tex;
 }
 
@@ -95,11 +103,13 @@ export function formatDate(iso) {
   return d.toLocaleDateString("en-GB", { month: "long", year: "numeric" });
 }
 
-export function buildGallery(scene, people) {
+export function buildGallery(scene, people, { anisotropy = 8 } = {}) {
+  maxAniso = anisotropy;
   const walls = []; // segments for collision: {x1,z1,x2,z2}
   const rooms = [];
-  const wallMat = new THREE.MeshLambertMaterial({ color: 0x24211e });
-  const hallWallMat = new THREE.MeshLambertMaterial({ color: 0x2a2622 });
+  const wallMat = new THREE.MeshLambertMaterial({ color: 0x8c8479 });
+  const hallWallMat = new THREE.MeshLambertMaterial({ color: 0x958d81 });
+  const skirtMat = new THREE.MeshLambertMaterial({ color: 0x1c1a17 });
   const group = new THREE.Group();
   scene.add(group);
 
@@ -110,6 +120,11 @@ export function buildGallery(scene, people) {
     m.position.set((x1 + x2) / 2, WALL_H / 2, (z1 + z2) / 2);
     m.rotation.y = -Math.atan2(z2 - z1, x2 - x1);
     group.add(m);
+    // dark skirting so the wall meets the floor with a clear edge
+    const k = new THREE.Mesh(new THREE.BoxGeometry(len, 0.12, T + 0.03), skirtMat);
+    k.position.set(m.position.x, 0.06, m.position.z);
+    k.rotation.y = m.rotation.y;
+    group.add(k);
     walls.push({ x1, z1, x2, z2 });
   }
 
@@ -128,18 +143,19 @@ export function buildGallery(scene, people) {
       isHall: true,
       photos: newest.photos.slice(0, 6),
       scale: 1.45,
+      door: { x: -2.5, z: 0, yaw: Math.PI / 2 },
       runs: [run(-HALL_W + T / 2, HALL_HALF, -HALL_W + T / 2, -HALL_HALF, 1, 0)],
       bounds: { x0: -HALL_W, x1: 0, z0: -HALL_HALF, z1: HALL_HALF },
     });
     // Plaque on the north wall, near the feature wall.
     const tex = labelTexture([
-      { text: "Latest shoot", size: 34, color: "#b8a98f", after: 6 },
-      { text: newest.name, size: 72, weight: 600, after: 4 },
-      { text: formatDate(newest.shoot_date), size: 40, color: "#b8a98f", after: 24 },
-      { text: newest.blurb || "", size: 36 },
+      { text: "Latest shoot", size: 120, color: "#c9b99c", after: 10 },
+      { text: newest.name, size: 280, weight: 600, after: 0 },
+      { text: formatDate(newest.shoot_date), size: 130, color: "#c9b99c", after: 40 },
+      { text: newest.blurb || "", size: 90 },
     ]);
-    const plaque = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 0.7), new THREE.MeshBasicMaterial({ map: tex }));
-    plaque.position.set(-HALL_W + 2.2, 1.55, -HALL_HALF + T / 2 + 0.02);
+    const plaque = new THREE.Mesh(new THREE.PlaneGeometry(2.0, 1.0), new THREE.MeshBasicMaterial({ map: tex }));
+    plaque.position.set(-HALL_W + 2.6, 1.55, -HALL_HALF + T / 2 + 0.02);
     group.add(plaque);
   }
 
@@ -202,16 +218,16 @@ export function buildGallery(scene, people) {
     // name sign above the door, on the corridor side
     const tex = labelTexture(
       [
-        { text: person.name, size: 96, weight: 600, after: 0 },
-        { text: formatDate(person.shoot_date), size: 44, color: "#b8a98f" },
+        { text: person.name, size: 230, weight: 600, after: 10 },
+        { text: formatDate(person.shoot_date) + "  ·  " + person.photos.length + " photos", size: 110, color: "#c9b99c" },
       ],
-      { width: 1024, height: 300 }
+      { width: 2048, height: 560, pad: 70 }
     );
     const sign = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.8, 0.53),
+      new THREE.PlaneGeometry(2.4, 0.66),
       new THREE.MeshBasicMaterial({ map: tex, transparent: true })
     );
-    sign.position.set(x0 + w / 2, 2.85, zNear - side * (half + 0.02));
+    sign.position.set(x0 + w / 2, 2.95, zNear - side * (half + 0.02));
     sign.rotation.y = side < 0 ? 0 : Math.PI;
     group.add(sign);
 
@@ -222,6 +238,9 @@ export function buildGallery(scene, people) {
       scale: 1,
       runs,
       sign,
+      side,
+      // just inside the doorway, facing into the room (forward is (-sin yaw, -cos yaw))
+      door: { x: x0 + w / 2, z: zNear + side * 1.3, yaw: side < 0 ? 0 : Math.PI },
       bounds: { x0, x1, z0: Math.min(zNear, zFar), z1: Math.max(zNear, zFar) },
     });
   }
@@ -232,7 +251,7 @@ export function buildGallery(scene, people) {
   const span = CORRIDOR_HALF + ROOM_D + 1;
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(maxX - minX, span * 2),
-    new THREE.MeshStandardMaterial({ color: 0x2b241d, roughness: 0.55, metalness: 0.05 })
+    new THREE.MeshStandardMaterial({ color: 0x6b5f52, roughness: 0.42, metalness: 0.08 })
   );
   floor.rotation.x = -Math.PI / 2;
   floor.position.set((minX + maxX) / 2, 0, 0);
@@ -240,13 +259,49 @@ export function buildGallery(scene, people) {
   group.add(floor);
   const ceiling = new THREE.Mesh(
     new THREE.PlaneGeometry(maxX - minX, span * 2),
-    new THREE.MeshBasicMaterial({ color: 0x0c0b0a })
+    new THREE.MeshBasicMaterial({ color: 0x3b3732 })
   );
   ceiling.rotation.x = Math.PI / 2;
   ceiling.position.set((minX + maxX) / 2, WALL_H, 0);
   group.add(ceiling);
 
-  return { rooms, walls, floor, start: { x: -2, z: 0, yaw: Math.PI / 2 } };
+  // A runner from the feature wall through the doorway and down the corridor,
+  // so the way on is readable from anywhere in the hall.
+  const runnerMat = new THREE.MeshStandardMaterial({ color: 0x6a3a2f, roughness: 0.9 });
+  const runner = new THREE.Mesh(new THREE.PlaneGeometry(corridorLen + HALL_W - 1.5, 1.3), runnerMat);
+  runner.rotation.x = -Math.PI / 2;
+  runner.position.set((-HALL_W + 1.5 + corridorLen) / 2, 0.005, 0);
+  group.add(runner);
+
+  // Lit doorway into the corridor: a warm glowing frame plus a light just beyond it.
+  const glowMat = new THREE.MeshBasicMaterial({ color: 0xffd9a6 });
+  const jambL = new THREE.Mesh(new THREE.BoxGeometry(0.06, 3.0, 0.2), glowMat);
+  jambL.position.set(0, 1.5, -CORRIDOR_HALF + 0.05);
+  const jambR = jambL.clone();
+  jambR.position.z = CORRIDOR_HALF - 0.05;
+  const lintel = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.06, CORRIDOR_HALF * 2), glowMat);
+  lintel.position.set(0, 3.0, 0);
+  group.add(jambL, jambR, lintel);
+  const doorLight = new THREE.PointLight(0xffc98f, 6, 14, 1.6);
+  doorLight.position.set(2, 2.8, 0);
+  group.add(doorLight);
+  const sign = new THREE.Mesh(
+    new THREE.PlaneGeometry(1.9, 0.42),
+    new THREE.MeshBasicMaterial({
+      map: labelTexture([{ text: "Rooms", size: 170, weight: 600 }], { width: 2048, height: 450, bg: "#1b1815", pad: 120 }),
+    })
+  );
+  sign.position.set(-0.1, 3.33, 0);
+  sign.rotation.y = -Math.PI / 2;
+  group.add(sign);
+
+  return {
+    rooms,
+    walls,
+    floor,
+    extent: { minX: -HALL_W, maxX: corridorLen, minZ: -(CORRIDOR_HALF + ROOM_D), maxZ: CORRIDOR_HALF + ROOM_D, corridorHalf: CORRIDOR_HALF },
+    start: { x: -2.5, z: 0, yaw: Math.PI / 2 },
+  };
 }
 
 // Which room contains a point (null in the corridor).
