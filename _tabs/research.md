@@ -57,6 +57,8 @@ I want to take this to Chinchilla scale, which means training on about twenty to
 
 The harness is built so somebody else can check it. Most of it runs without a GPU, so you don't need to rent hardware to audit the method. Scoring rules are locked before a run. Held-out data is filtered.
 
+**Governance lives inside the architecture.** One tower's only job is governance. The operator's identity is a signed key, every message between towers is signed, and each worker gets challenged with held-back test questions when it starts and again whenever its weights or version change. The kill switch belongs to whoever runs the system: once flipped it can't be undone, and the model is never trained on it, so there's nothing for it to learn its way around. Refusals are judged from the log and the guards; the model's own account of itself doesn't count. This part is an open pull request and runs at toy scale.
+
 The repository is private for now.
 
 ---
