@@ -6,6 +6,9 @@
  * Domain: media.creativecodingtech.com
  */
 
+import adminPage from "../admin/index.html";
+import { curate } from "./curate.js";
+
 const MIME_TYPES = {
   // Images
   jpg: "image/jpeg",
@@ -77,11 +80,90 @@ function getCorsHeaders(request, env) {
   };
 }
 
+// ---- Gallery curation page (/admin), behind Basic auth ----------------------
+// Password comes from the ADMIN_PASSWORD secret (`wrangler secret put ADMIN_PASSWORD`).
+// Without it the page is closed, never open.
+
+const CURATION_KEY = "gallery/curation.json";
+const ALL_KEY = "gallery/gallery_all.json";
+const PUBLIC_KEY = "gallery/gallery.json";
+
+function authorised(request, env) {
+  const expected = env.ADMIN_PASSWORD;
+  if (!expected) return false;
+  const header = request.headers.get("Authorization") || "";
+  const [scheme, encoded] = header.split(" ");
+  if (scheme !== "Basic" || !encoded) return false;
+  let decoded = "";
+  try {
+    decoded = atob(encoded);
+  } catch {
+    return false;
+  }
+  const password = decoded.slice(decoded.indexOf(":") + 1);
+  if (password.length !== expected.length) return false;
+  let diff = 0;
+  for (let i = 0; i < expected.length; i++) diff |= password.charCodeAt(i) ^ expected.charCodeAt(i);
+  return diff === 0;
+}
+
+async function readJson(env, key, fallback) {
+  const obj = await env.MEDIA_BUCKET.get(key);
+  return obj ? obj.json() : fallback;
+}
+
+async function handleAdmin(request, env, url) {
+  const noStore = { "Cache-Control": "no-store" };
+  if (!authorised(request, env)) {
+    return new Response("Sign in to curate the gallery.", {
+      status: 401,
+      headers: { ...noStore, "WWW-Authenticate": 'Basic realm="gallery curation"' },
+    });
+  }
+  if (url.pathname === "/admin" || url.pathname === "/admin/") {
+    return new Response(adminPage, { headers: { ...noStore, "Content-Type": "text/html; charset=utf-8" } });
+  }
+  if (url.pathname === "/admin/api/config") {
+    return Response.json({ media: "/gallery/" }, { headers: noStore });
+  }
+  if (url.pathname === "/admin/api/all") {
+    return Response.json(await readJson(env, ALL_KEY, { people: [] }), { headers: noStore });
+  }
+  if (url.pathname === "/admin/api/curation") {
+    if (request.method === "GET") {
+      return Response.json(await readJson(env, CURATION_KEY, {}), { headers: noStore });
+    }
+    if (request.method === "PUT") {
+      const curation = await request.json();
+      await env.MEDIA_BUCKET.put(CURATION_KEY, JSON.stringify(curation), {
+        httpMetadata: { contentType: "application/json" },
+      });
+      // Publish straight away: rebuild the public gallery.json from every synced photo.
+      const all = await readJson(env, ALL_KEY, { people: [] });
+      const people = curate(all.people, curation);
+      await env.MEDIA_BUCKET.put(PUBLIC_KEY, JSON.stringify({ generated: new Date().toISOString(), people }), {
+        httpMetadata: { contentType: "application/json" },
+      });
+      return Response.json({ ok: true, rooms: people.length }, { headers: noStore });
+    }
+    return new Response("Method Not Allowed", { status: 405, headers: noStore });
+  }
+  return new Response("Not Found", { status: 404, headers: noStore });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === "/admin" || url.pathname.startsWith("/admin/")) {
+      return handleAdmin(request, env, url);
+    }
     const key = decodeURIComponent(url.pathname.slice(1)); // Remove leading /
     const corsHeaders = getCorsHeaders(request, env);
+
+    // The curation file and the unfiltered photo list are for the admin page only.
+    if (key === CURATION_KEY || key === ALL_KEY) {
+      return new Response("Not Found", { status: 404, headers: corsHeaders });
+    }
 
     // Handle CORS preflight
     if (request.method === "OPTIONS") {
@@ -114,7 +196,8 @@ export default {
       const headers = new Headers({
         ...corsHeaders,
         "Content-Type": mimeType,
-        "Cache-Control": getCacheControl(mimeType),
+        // gallery.json changes whenever a room is published, so it must not sit in caches for a day
+        "Cache-Control": key === PUBLIC_KEY ? "public, max-age=60" : getCacheControl(mimeType),
         ETag: object.httpEtag,
         "Accept-Ranges": "bytes",
       });

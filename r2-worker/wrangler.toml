@@ -2,6 +2,14 @@ name = "creative-coding-media"
 main = "src/index.js"
 compatibility_date = "2024-12-01"
 
+# admin/index.html is bundled into the worker as a string (the /admin curation page)
+[[rules]]
+type = "Text"
+globs = ["**/*.html"]
+fallthrough = true
+
+# The /admin page needs a password: `npx wrangler secret put ADMIN_PASSWORD --env production`
+
 # Custom domain: media.creativecodingtech.com
 # This is configured via Cloudflare Dashboard > R2 > Bucket Settings > Custom Domains
 # OR via this worker's routes below

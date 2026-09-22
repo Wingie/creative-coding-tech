@@ -52,6 +52,7 @@ exclude:
   - package.json
   - package-lock.json
   - rollup.config.js
+  - scripts
 
 # Chirpy theme settings
 # NOTE: `paginate` is intentionally unset. jekyll-paginate only paginates the

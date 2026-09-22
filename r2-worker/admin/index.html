@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Gallery curation</title>
+<style>
+  :root { --bg:#0f0e0d; --panel:#181614; --ink:#ece6dc; --muted:#9a8f7e; --line:#2c2824; --accent:#e0b36a; --bad:#c9695c; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 "Helvetica Neue", Arial, sans-serif; }
+  header { display:flex; gap:12px; align-items:center; padding:12px 16px; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--bg); z-index:2; }
+  header h1 { font-size:16px; margin:0; font-weight:600; }
+  header .status { color:var(--muted); margin-left:auto; }
+  button, select, textarea { font:inherit; color:var(--ink); background:var(--panel); border:1px solid var(--line); border-radius:6px; }
+  button { padding:6px 12px; cursor:pointer; }
+  button.primary { background:var(--accent); color:#1b150c; border-color:var(--accent); font-weight:600; }
+  .wrap { display:grid; grid-template-columns:260px 1fr; min-height:calc(100vh - 53px); }
+  nav { border-right:1px solid var(--line); padding:8px; }
+  nav .room { display:flex; align-items:center; gap:8px; padding:8px; border-radius:6px; cursor:pointer; }
+  nav .room[aria-current="true"] { background:var(--panel); }
+  nav .room .n { color:var(--muted); margin-left:auto; font-size:12px; }
+  nav .room.off .name { color:var(--muted); text-decoration:line-through; }
+  section { padding:16px; }
+  .roomhead { display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start; margin-bottom:16px; }
+  .roomhead h2 { margin:0 0 4px; font-size:20px; }
+  .roomhead .meta { color:var(--muted); }
+  .roomhead textarea { width:min(520px,100%); min-height:64px; padding:8px; }
+  label.ok { display:flex; gap:8px; align-items:center; padding:8px 10px; border:1px solid var(--line); border-radius:6px; }
+  label.ok input { width:18px; height:18px; }
+  .legend { color:var(--muted); margin:0 0 12px; }
+  .photos { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:8px; overflow:hidden; position:relative; }
+  .card.pinned { border-color:var(--accent); }
+  .card.hidden img { opacity:.25; }
+  .card.cut { outline:2px dashed var(--line); }
+  .card img { width:100%; aspect-ratio:2/3; object-fit:cover; display:block; cursor:grab; }
+  .card .row { display:flex; gap:4px; padding:6px; align-items:center; }
+  .card .row button { padding:3px 7px; font-size:12px; }
+  .card .row select { font-size:12px; padding:2px; margin-left:auto; max-width:78px; }
+  .card .info { font-size:11px; color:var(--muted); padding:0 6px 6px; }
+  .card .badge { position:absolute; top:6px; left:6px; background:rgba(0,0,0,.7); border-radius:4px; padding:1px 6px; font-size:11px; }
+  .card.drop { outline:2px solid var(--accent); }
+  .divider { grid-column:1/-1; color:var(--muted); border-top:1px solid var(--line); padding-top:8px; margin-top:4px; }
+  @media (max-width:700px){ .wrap{grid-template-columns:1fr} nav{border-right:0;border-bottom:1px solid var(--line);display:flex;overflow-x:auto} nav .room{white-space:nowrap} }
+</style>
+</head>
+<body>
+<header>
+  <h1>Gallery curation</h1>
+  <span class="status" id="status">Loading</span>
+  <button class="primary" id="save" disabled>Publish</button>
+</header>
+<div class="wrap">
+  <nav id="rooms"></nav>
+  <section id="room"></section>
+</div>
+<script>
+const LIMIT = 24;
+let media = "/gallery/", all = { people: [] }, cur = {}, sel = null, dirty = false;
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+
+function roomCur(slug) {
+  const person = all.people.find((p) => p.slug === slug);
+  cur[slug] = cur[slug] || {};
+  const c = cur[slug];
+  c.hidden = c.hidden || [];
+  c.pinned = c.pinned || [];
+  c.treatment = c.treatment || {};
+  if (c.sitter_ok === undefined) c.sitter_ok = person ? person.sitter_ok : false;
+  return c;
+}
+
+function wallOrder(person) {
+  const c = roomCur(person.slug);
+  const hidden = new Set(c.hidden);
+  const byId = new Map(person.photos.map((p) => [p.id, p]));
+  const pinned = c.pinned.filter((id) => byId.has(id) && !hidden.has(id)).map((id) => byId.get(id));
+  const pinnedSet = new Set(pinned.map((p) => p.id));
+  const rest = person.photos.filter((p) => !hidden.has(p.id) && !pinnedSet.has(p.id));
+  const onWall = pinned.concat(rest).slice(0, Math.max(LIMIT, pinned.length));
+  const onWallSet = new Set(onWall.map((p) => p.id));
+  const off = person.photos.filter((p) => !onWallSet.has(p.id));
+  return { onWall, off, pinnedSet, hidden };
+}
+
+function touch() {
+  dirty = true;
+  $("#save").disabled = false;
+  $("#status").textContent = "Unpublished changes";
+}
+
+function renderRooms() {
+  const nav = $("#rooms");
+  nav.innerHTML = "";
+  for (const p of all.people) {
+    const c = roomCur(p.slug);
+    const el = document.createElement("div");
+    el.className = "room" + (c.sitter_ok ? "" : " off");
+    el.setAttribute("aria-current", String(p.slug === sel));
+    el.innerHTML = `<span class="name">${esc(p.name)}</span><span class="n">${p.photos.length}</span>`;
+    el.onclick = () => { sel = p.slug; renderRooms(); renderRoom(); };
+    nav.append(el);
+  }
+}
+
+function renderRoom() {
+  const person = all.people.find((p) => p.slug === sel);
+  const box = $("#room");
+  if (!person) { box.innerHTML = "<p>Pick a room.</p>"; return; }
+  const c = roomCur(person.slug);
+  const { onWall, off, pinnedSet, hidden } = wallOrder(person);
+  const date = person.shoot_date ? new Date(person.shoot_date).toLocaleDateString("en-GB", { month: "long", year: "numeric" }) : "";
+  box.innerHTML = `
+    <div class="roomhead">
+      <div><h2>${esc(person.name)}</h2><div class="meta">${esc(date)} · ${person.photos.length} photos in the Showcase album</div></div>
+      <label class="ok"><input type="checkbox" id="ok" ${c.sitter_ok ? "checked" : ""}> The sitter is happy for this room to be public</label>
+      <textarea id="blurb" placeholder="Room text (optional)">${esc(c.blurb ?? person.blurb ?? "")}</textarea>
+    </div>
+    <p class="legend">Top ${LIMIT} hang on the wall: pinned first in your order, then by Lightroom's quality score. Drag a photo onto another to pin it in that spot.</p>
+    <div class="photos" id="photos"></div>`;
+  $("#ok").onchange = (e) => { c.sitter_ok = e.target.checked; touch(); renderRooms(); };
+  $("#blurb").oninput = (e) => { c.blurb = e.target.value; touch(); };
+  const grid = $("#photos");
+  onWall.forEach((p, i) => grid.append(card(person, p, { pinned: pinnedSet.has(p.id), n: i + 1 })));
+  if (off.length) {
+    const d = document.createElement("div");
+    d.className = "divider";
+    d.textContent = "Not on the wall";
+    grid.append(d);
+    off.forEach((p) => grid.append(card(person, p, { hidden: hidden.has(p.id), pinned: false, cut: !hidden.has(p.id) })));
+  }
+}
+
+function card(person, p, { pinned, hidden, n, cut }) {
+  const c = roomCur(person.slug);
+  const el = document.createElement("div");
+  el.className = "card" + (pinned ? " pinned" : "") + (hidden ? " hidden" : "") + (cut ? " cut" : "");
+  el.draggable = true;
+  el.dataset.id = p.id;
+  const t = c.treatment[p.id] || "photo";
+  el.innerHTML = `
+    ${n ? `<span class="badge">${n}</span>` : ""}
+    <img src="${media}${esc(p.src640)}" alt="" loading="lazy">
+    <div class="row">
+      <button type="button" data-a="pin" title="Pin">${pinned ? "Unpin" : "Pin"}</button>
+      <button type="button" data-a="hide">${hidden ? "Show" : "Hide"}</button>
+      <select data-a="treat" title="How this print is shown">
+        <option value="photo" ${t === "photo" ? "selected" : ""}>Photo</option>
+        <option value="vector" ${t === "vector" ? "selected" : ""} ${p.vector ? "" : "disabled"}>Vector</option>
+        <option value="cutout" ${t === "cutout" ? "selected" : ""} ${p.cutout ? "" : "disabled"}>Cutout</option>
+      </select>
+    </div>
+    <div class="info">score ${p.score ?? "?"} · ${esc((p.themes || []).join(", ") || "no theme")}</div>`;
+  el.querySelector('[data-a="pin"]').onclick = () => {
+    if (pinned) c.pinned = c.pinned.filter((id) => id !== p.id);
+    else { c.pinned = c.pinned.filter((id) => id !== p.id); c.pinned.push(p.id); c.hidden = c.hidden.filter((id) => id !== p.id); }
+    touch(); renderRoom();
+  };
+  el.querySelector('[data-a="hide"]').onclick = () => {
+    if (hidden) c.hidden = c.hidden.filter((id) => id !== p.id);
+    else { c.hidden.push(p.id); c.pinned = c.pinned.filter((id) => id !== p.id); }
+    touch(); renderRoom();
+  };
+  el.querySelector('[data-a="treat"]').onchange = (e) => {
+    if (e.target.value === "photo") delete c.treatment[p.id]; else c.treatment[p.id] = e.target.value;
+    touch();
+  };
+  el.addEventListener("dragstart", (e) => e.dataTransfer.setData("text/plain", p.id));
+  el.addEventListener("dragover", (e) => { e.preventDefault(); el.classList.add("drop"); });
+  el.addEventListener("dragleave", () => el.classList.remove("drop"));
+  el.addEventListener("drop", (e) => {
+    e.preventDefault();
+    el.classList.remove("drop");
+    const moving = e.dataTransfer.getData("text/plain");
+    if (!moving || moving === p.id) return;
+    // Pin everything up to the drop target in its current order, then insert the dragged photo there.
+    const { onWall } = wallOrder(person);
+    const idx = onWall.findIndex((q) => q.id === p.id);
+    const order = onWall.slice(0, idx + 1).map((q) => q.id).filter((id) => id !== moving);
+    const at = order.indexOf(p.id);
+    order.splice(at < 0 ? order.length : at, 0, moving);
+    const rest = c.pinned.filter((id) => !order.includes(id));
+    c.pinned = order.concat(rest);
+    c.hidden = c.hidden.filter((id) => id !== moving);
+    touch(); renderRoom();
+  });
+  return el;
+}
+
+$("#save").onclick = async () => {
+  $("#save").disabled = true;
+  $("#status").textContent = "Publishing";
+  const res = await fetch("api/curation", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cur) });
+  if (res.ok) {
+    const r = await res.json();
+    dirty = false;
+    $("#status").textContent = `Published. ${r.rooms} rooms are public.`;
+  } else {
+    $("#save").disabled = false;
+    $("#status").textContent = "Publishing failed: " + res.status;
+  }
+};
+addEventListener("beforeunload", (e) => { if (dirty) e.preventDefault(); });
+
+(async () => {
+  try {
+    media = (await (await fetch("api/config")).json()).media;
+    all = await (await fetch("api/all")).json();
+    cur = await (await fetch("api/curation")).json();
+    sel = all.people[0]?.slug;
+    $("#status").textContent = `${all.people.length} rooms`;
+    renderRooms();
+    renderRoom();
+  } catch (e) {
+    $("#status").textContent = "Could not load: " + e.message;
+  }
+})();
+</script>
+</body>
+</html>

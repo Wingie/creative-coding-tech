@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description | strip_newlines | escape }}">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <meta property="og:title" content="{{ page.title }} | {{ site.title }}">
+  <meta property="og:description" content="{{ page.description | escape }}">
+  <meta name="theme-color" content="#0b0a09">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #0b0a09;
+      --ink: #e9e2d6;
+      --muted: #a39680;
+      --chip: rgba(28, 25, 22, 0.78);
+      --chip-on: #e9e2d6;
+      --line: rgba(233, 226, 214, 0.14);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
+      font: 15px/1.45 "Helvetica Neue", Arial, sans-serif; }
+    body[data-view="walk"] { overflow: hidden; }
+    a { color: var(--ink); }
+
+    #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: none; touch-action: none; cursor: grab; }
+    #scene.locked { cursor: none; }
+    body[data-view="walk"] #scene { display: block; }
+    body[data-view="walk"] #grid { display: none; }
+
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 8px 14px;
+      align-items: center; padding: 12px 16px; padding-top: max(12px, env(safe-area-inset-top));
+      background: linear-gradient(var(--bg), rgba(11, 10, 9, 0)); pointer-events: none; }
+    header > * { pointer-events: auto; }
+    .home { text-decoration: none; font-weight: 600; letter-spacing: 0.02em; margin-right: 6px; white-space: nowrap; }
+    .home span { color: var(--muted); font-weight: 400; }
+    .bar { display: flex; flex-wrap: wrap; gap: 6px; }
+    .bar button, #view-toggle { font: inherit; font-size: 13px; color: var(--ink); background: var(--chip);
+      border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+    .bar button small { color: var(--muted); font-size: 11px; }
+    .bar button[aria-pressed="true"] { background: var(--chip-on); color: #14120f; }
+    .bar button[aria-pressed="true"] small { color: #5b5242; }
+    .bar button:disabled { opacity: 0.35; cursor: default; }
+    #view-toggle { margin-left: auto; }
+    .sep { width: 1px; height: 20px; background: var(--line); }
+
+    #hint, #room { position: fixed; z-index: 4; left: 50%; transform: translateX(-50%); pointer-events: none;
+      color: var(--muted); font-size: 13px; text-align: center; padding: 0 16px; width: 100%; max-width: 560px; }
+    #hint { bottom: max(18px, env(safe-area-inset-bottom)); transition: opacity 1.2s; }
+    #hint.fade { opacity: 0; }
+    #room { top: 50%; transform: translate(-50%, 140px); color: var(--ink); font-size: 14px; letter-spacing: 0.06em;
+      text-transform: uppercase; opacity: 0.75; }
+    #crosshair { position: fixed; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px;
+      border-radius: 50%; background: rgba(233, 226, 214, 0.7); z-index: 4; display: none; pointer-events: none; }
+    body[data-view="walk"] #scene.locked ~ #crosshair { display: block; }
+    body[data-view="grid"] #hint, body[data-view="grid"] #room { display: none; }
+
+    #status { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); padding: 16px; text-align: center; }
+
+    #grid { padding: 120px 16px 48px; max-width: 1400px; margin: 0 auto; }
+    .grid-room { margin-bottom: 48px; }
+    .grid-room h2 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+    .grid-room h2 span { color: var(--muted); font-weight: 400; font-size: 15px; }
+    .grid-room.empty { opacity: 0.45; }
+    .grid-room .none { color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; margin-top: 12px; }
+    .grid button { padding: 0; border: 0; background: #1a1714; cursor: zoom-in; aspect-ratio: 2 / 3; overflow: hidden; }
+    .grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    #lightbox { position: fixed; inset: 0; z-index: 10; background: rgba(8, 7, 6, 0.96); display: flex;
+      flex-direction: column; align-items: center; justify-content: center; padding: 56px 16px 24px; }
+    #lightbox[hidden] { display: none; }
+    #lightbox img { max-width: 100%; max-height: calc(100% - 40px); object-fit: contain; }
+    .lb-caption { color: var(--muted); font-size: 13px; margin-top: 12px; text-align: center; }
+    #lightbox button { position: absolute; font: inherit; color: var(--ink); background: none; border: 0;
+      font-size: 28px; padding: 12px 16px; cursor: pointer; }
+    .lb-close { top: 8px; right: 8px; }
+    .lb-prev { left: 4px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 4px; top: 50%; transform: translateY(-50%); }
+
+    @media (max-width: 640px) {
+      header { gap: 6px; }
+      .bar button, #view-toggle { font-size: 12px; padding: 4px 10px; }
+      .sep { display: none; }
+      #grid { padding-top: 170px; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body data-view="grid">
+  <header>
+    <a class="home" href="{{ '/' | relative_url }}">Creative Coding Tech <span>/ Gallery</span></a>
+    <div class="bar" id="themes" aria-label="Filter by theme"></div>
+    <span class="sep"></span>
+    <div class="bar" id="treatments" aria-label="How prints are shown"></div>
+    <button type="button" id="view-toggle">Grid</button>
+  </header>
+
+  <canvas id="scene" aria-label="A walkable gallery. Use the Grid button for a flat list of the same photos."></canvas>
+  <div id="crosshair"></div>
+  <div id="room"></div>
+  <div id="hint"></div>
+  <div id="status">Loading the gallery</div>
+  <main id="grid"></main>
+
+  <div id="lightbox" hidden>
+    <button type="button" class="lb-close" aria-label="Close">&times;</button>
+    <button type="button" class="lb-prev" aria-label="Previous">&lsaquo;</button>
+    <img alt="">
+    <div class="lb-caption"></div>
+    <button type="button" class="lb-next" aria-label="Next">&rsaquo;</button>
+  </div>
+
+  {{ content }}
+  <script type="module" src="{{ '/assets/js/gallery/main.js' | relative_url }}"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+# Rooms in /gallery/. One entry per Lightroom album in Studio5 > Showcases.
+# Only Showcases albums belong here. The full shoots stay private.
+# share: the album's public Lightroom link (adobe.ly or lightroom.adobe.com/shares/...).
+# sitter_ok: false keeps the room out of the public gallery.json.
+- slug: kezia
+  name: Kezia
+  share: https://adobe.ly/4vC7tr1
+  blurb: ""
+  sitter_ok: true
+- slug: alice
+  name: Alice
+  share: https://adobe.ly/4zQOc8C
+  blurb: ""
+  sitter_ok: true
+- slug: erica-charlize
+  name: Erica and Charlize
+  share: https://adobe.ly/4gJFtOe
+  blurb: ""
+  sitter_ok: true
+- slug: noemi
+  name: Noemi
+  share: https://adobe.ly/4ydpAWE
+  blurb: ""
+  sitter_ok: true
+- slug: lynn
+  name: Lynn
+  share: https://adobe.ly/4g0KFNp
+  blurb: ""
+  sitter_ok: true
+- slug: charlize
+  name: Charlize
+  share: https://adobe.ly/3QJqGsr
+  blurb: ""
+  sitter_ok: true
+- slug: natalia
+  name: Natalia
+  share: https://adobe.ly/4aK8LbT
+  blurb: ""
+  sitter_ok: true

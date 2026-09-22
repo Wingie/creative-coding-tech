@@ -53,3 +53,6 @@ ppts/
 
 # R2 Worker
 r2-worker/node_modules/
+# Gallery media synced from Lightroom (local only; production lives in R2)
+gallery-media/
+__pycache__/
