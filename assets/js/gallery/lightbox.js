@@ -49,7 +49,7 @@ export class Lightbox {
     full.onload = () => {
       if (this.list[this.i] === p) this.img.src = full.src;
     };
-    full.src = this.base + p.src2048;
+    full.src = this.base + p.src1280;
     const date = formatDate(p.captured || this.person.shoot_date);
     this.caption.textContent = [this.person.name, date, `${this.i + 1} of ${this.list.length}`]
       .filter(Boolean)

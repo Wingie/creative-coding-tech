@@ -1,9 +1,9 @@
-// Texture levels by distance: nothing far away, 640px nearby, 2048px up close.
+// Texture levels by distance: nothing far away, 640px nearby, 1280px up close.
 // Also handles the vector crossfade and cutout billboards.
 import * as THREE from "three";
 
-const NEAR_2048 = 3;
-const DROP_2048 = 6;
+const NEAR_1280 = 3;
+const DROP_1280 = 6;
 const LOAD_640 = 22;
 const DROP_ALL = 32;
 const VECTOR_FULL = 4; // vector fully shown beyond this distance
@@ -78,22 +78,22 @@ export class Loader {
       if (live && d < LOAD_640 && !f.tex.t640) {
         this.request(f.photo.id + ":640", f.photo.src640, (t) => {
           f.tex.t640 = t;
-          if (!f.tex.t2048) setMap(f.pic, t);
+          if (!f.tex.t1280) setMap(f.pic, t);
         });
       }
-      if (live && d < NEAR_2048 && !f.tex.t2048) {
-        this.request(f.photo.id + ":2048", f.photo.src2048, (t) => {
-          f.tex.t2048 = t;
+      if (live && d < NEAR_1280 && !f.tex.t1280) {
+        this.request(f.photo.id + ":1280", f.photo.src1280, (t) => {
+          f.tex.t1280 = t;
           setMap(f.pic, t);
         });
       }
-      if (f.tex.t2048 && d > DROP_2048) {
-        f.tex.t2048.dispose();
-        f.tex.t2048 = null;
+      if (f.tex.t1280 && d > DROP_1280) {
+        f.tex.t1280.dispose();
+        f.tex.t1280 = null;
         if (f.tex.t640) setMap(f.pic, f.tex.t640);
       }
       if (d > DROP_ALL) {
-        for (const k of ["t640", "t2048", "vec", "cut"]) {
+        for (const k of ["t640", "t1280", "vec", "cut"]) {
           if (f.tex[k]) {
             f.tex[k].dispose();
             f.tex[k] = null;

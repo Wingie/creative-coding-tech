@@ -9,7 +9,7 @@ share API, and writes a media folder the gallery page reads:
         gallery.json        what the public gallery shows (curated, sitter_ok only)
         gallery_all.json    every photo before curation (the curation page uses it)
         curation.json       written by the curation page, merged over the automatic picks
-        <slug>/<id>_640.jpg, <id>_2048.jpg, <id>_vec.svg, <id>_cutout.png (optional)
+        <slug>/<id>_640.jpg, <id>_1280.jpg, <id>_vec.svg, <id>_cutout.png (optional)
 
 Only Showcases albums belong in the yml. Full shoots stay private.
 
@@ -240,16 +240,16 @@ def sync_room(person, out, search_themes, make_vectors, dry_run):
         if dry_run:
             rec["themes"] = search_themes.get(aid, [])
             return rec
-        big = os.path.join(room_dir, aid + "_2048.jpg")
+        big = os.path.join(room_dir, aid + "_1280.jpg")
         small = os.path.join(room_dir, aid + "_640.jpg")
-        if not download(space, a, "2048", big):
+        if not download(space, a, "1280", big):
             return None
         if not download(space, a, "640", small):
             with Image.open(big) as im:
                 im.convert("RGB").resize((640, 640 * im.size[1] // im.size[0])).save(small, quality=85)
         with Image.open(big) as im:
             rec["w"], rec["h"] = im.size
-        rec["src2048"] = person["slug"] + "/" + aid + "_2048.jpg"
+        rec["src1280"] = person["slug"] + "/" + aid + "_1280.jpg"
         rec["src640"] = person["slug"] + "/" + aid + "_640.jpg"
         rec["themes"] = search_themes.get(aid) or pixel_themes(small)
         if make_vectors:
@@ -305,14 +305,30 @@ def curate(rooms, curation, limit):
     return public
 
 
-def upload(out):
+def upload(out, workers=8):
+    jobs = []
     for dirpath, _, files in os.walk(out):
         for name in files:
             if name == "curation.json":
                 continue  # owned by the curation page in R2
             path = os.path.join(dirpath, name)
-            key = "media/gallery/" + os.path.relpath(path, out)
-            subprocess.run(["npx", "wrangler", "r2", "object", "put", key, "--file", path, "--remote"], check=True)
+            jobs.append(("media/gallery/" + os.path.relpath(path, out), path))
+    worker_dir = os.path.join(ROOT, "r2-worker")
+
+    def put(job):
+        key, path = job
+        cmd = ["npx", "wrangler", "r2", "object", "put", key, "--file", path, "--remote"]
+        return key, subprocess.run(cmd, cwd=worker_dir, capture_output=True).returncode
+
+    from concurrent.futures import ThreadPoolExecutor
+    failed = []
+    with ThreadPoolExecutor(workers) as pool:
+        for key, code in pool.map(put, jobs):
+            if code:
+                failed.append(key)
+    print(f"uploaded {len(jobs) - len(failed)}/{len(jobs)}")
+    if failed:
+        raise SystemExit("upload failed for: " + ", ".join(failed[:10]))
 
 
 def main():
