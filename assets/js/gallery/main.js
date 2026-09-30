@@ -6,12 +6,14 @@ import { Loader, placeBillboards } from "./loader.js";
 import { Controls } from "./controls.js";
 import { Lightbox } from "./lightbox.js";
 import { renderGrid } from "./fallback.js";
+import { startPath } from "./path.js";
 
 const LOCAL = ["localhost", "127.0.0.1", ""].includes(location.hostname);
 const DATA_URL =
   new URLSearchParams(location.search).get("data") ||
   (LOCAL ? "/gallery-media/gallery.json" : "https://media.creativecodingtech.com/gallery/gallery.json");
 const BASE = DATA_URL.slice(0, DATA_URL.lastIndexOf("/") + 1);
+const WORLD = new URLSearchParams(location.search).get("world") === "path" ? "path" : "rooms";
 
 const THEMES = [
   ["all", "All"],
@@ -75,9 +77,26 @@ async function main() {
     $("#status").textContent = "No rooms are open yet.";
     return;
   }
+  let pathData = null;
+  if (WORLD === "path") {
+    try {
+      const res = await fetch(BASE + "path.json", { cache: "no-cache" });
+      if (res.ok) pathData = await res.json();
+    } catch (e) {
+      pathData = null;
+    }
+  }
+  const world = pathData ? "path" : "rooms";
+  document.body.dataset.world = world;
+  setupWorldToggle(world);
+  if (world === "path") {
+    $("#hint").textContent = matchMedia("(pointer: coarse)").matches
+      ? "Drag to look. Tap the path to walk. You stop at each panel; arrows for the next one."
+      : "WASD to move. Drag to look. You stop at each panel; arrow keys for the next one.";
+  }
   $("#status").hidden = true;
 
-  const all = people.flatMap((p) => p.photos);
+  const all = pathData ? Object.values(pathData.photos) : people.flatMap((p) => p.photos);
   const themeCounts = Object.fromEntries(THEMES.map(([id]) => [id, all.filter((p) => matches(p, id)).length]));
   const treatCounts = {
     photo: all.length,
@@ -104,7 +123,12 @@ async function main() {
       renderGrid(grid, people, BASE, state.theme, lightbox);
       if (walk) walk.controls.unlock();
     } else if (!walk) {
-      walk = startWalk(people, lightbox);
+      walk = pathData
+        ? startPath($("#scene"), pathData, BASE, lightbox, {
+            toast,
+            hint: () => $("#hint").classList.add("fade"),
+          })
+        : startWalk(people, lightbox);
       walk.setTheme(state.theme);
       walk.setTreatment(state.treatment);
     }
@@ -120,10 +144,38 @@ async function main() {
     if (walk) walk.setTreatment(id);
   });
 
+  setupSnapToggle(() => walk);
   const toggle = $("#view-toggle");
   if (!canWalk) toggle.hidden = true;
   toggle.addEventListener("click", () => setView(state.view === "walk" ? "grid" : "walk"));
   setView(canWalk && !reduced ? "walk" : "grid");
+}
+
+function setupSnapToggle(getWalk) {
+  const b = $("#snap-toggle");
+  if (!b) return;
+  let panels = true;
+  const label = () => (b.textContent = panels ? "Free walk" : "Panels");
+  label();
+  b.addEventListener("click", () => {
+    panels = !panels;
+    label();
+    const w = getWalk();
+    if (w && w.setSnap) w.setSnap(panels);
+  });
+}
+
+function setupWorldToggle(world) {
+  const b = $("#world-toggle");
+  if (!b) return;
+  b.textContent = world === "path" ? "Rooms" : "Path";
+  b.title = world === "path" ? "Walk the rooms, one per sitter" : "Walk the cloud path, sorted by likeness";
+  b.addEventListener("click", () => {
+    const u = new URL(location.href);
+    if (world === "path") u.searchParams.delete("world");
+    else u.searchParams.set("world", "path");
+    location.href = u.toString();
+  });
 }
 
 function monthYear(iso) {
@@ -255,7 +307,7 @@ function startWalk(people, lightbox) {
   const touch = matchMedia("(pointer: coarse)").matches;
   hint.textContent = touch
     ? "Drag to look. Tap the floor to walk. Tap a photo to open it."
-    : "Click to walk. WASD to move, mouse to look. Click a photo to open it. Esc to stop.";
+    : "WASD to move. Drag to look. Click the floor to walk there, or a photo to open it.";
 
   controls.onTap = (nx, ny, centre, pointerType) => {
     ray.setFromCamera(new THREE.Vector2(nx, ny), camera);
@@ -263,16 +315,12 @@ function startWalk(people, lightbox) {
     if (hit && hit.object.userData.frame && hit.distance < 9) {
       const f = hit.object.userData.frame;
       const list = f.room.photos.filter((p) => matches(p, state.theme));
-      controls.unlock();
       controls.enabled = false;
       lightbox.open(f.room.person, list, f.photo);
       return;
     }
     if (centre) return;
-    if (pointerType === "mouse") {
-      controls.lock();
-      hint.classList.add("fade");
-    } else if (hit && hit.object === built.floor) {
+    if (hit && hit.object === built.floor) {
       controls.walkTo(hit.point.x, hit.point.z);
       hint.classList.add("fade");
     }

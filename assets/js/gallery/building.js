@@ -17,8 +17,8 @@ const RUN_MARGIN = 0.5;
 // Frame size for a photo on a normal wall. The hall uses a larger scale.
 export function frameSize(photo, scale = 1) {
   const a = (photo.w || 2) / (photo.h || 3);
-  if (a < 1) return { w: 1.25 * a * scale, h: 1.25 * scale };
-  return { w: 1.5 * scale, h: (1.5 / a) * scale };
+  if (a < 1) return { w: 1.7 * a * scale, h: 1.7 * scale };
+  return { w: 2.05 * scale, h: (2.05 / a) * scale };
 }
 
 function run(ax, az, bx, bz, nx, nz) {

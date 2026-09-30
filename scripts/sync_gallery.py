@@ -309,8 +309,8 @@ def upload(out, workers=8):
     jobs = []
     for dirpath, _, files in os.walk(out):
         for name in files:
-            if name == "curation.json":
-                continue  # owned by the curation page in R2
+            if name in ("curation.json", "embeddings.npz"):
+                continue  # curation is owned by the curation page in R2; embeddings stay local
             path = os.path.join(dirpath, name)
             jobs.append(("media/gallery/" + os.path.relpath(path, out), path))
     worker_dir = os.path.join(ROOT, "r2-worker")
@@ -339,6 +339,7 @@ def main():
     ap.add_argument("--limit-per-room", type=int, default=24)
     ap.add_argument("--upload", action="store_true")
     ap.add_argument("--only", help="sync one room slug")
+    ap.add_argument("--embed", action="store_true", help="embed photos with CLIP and write path.json (cloud path)")
     args = ap.parse_args()
 
     people = [p for p in load_people() if not args.only or p["slug"] == args.only]
@@ -369,6 +370,11 @@ def main():
     with open(os.path.join(args.out, "gallery.json"), "w") as f:
         json.dump({"generated": now, "people": public}, f)
     print("gallery.json: %d rooms, %d photos" % (len(public), sum(len(r["photos"]) for r in public)))
+
+    if args.embed:
+        import gallery_path
+
+        gallery_path.run(rooms, curation, args.out)
 
     if args.upload:
         upload(args.out)

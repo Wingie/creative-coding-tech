@@ -1,9 +1,10 @@
-// Walking: WASD + mouse look with pointer lock on desktop,
-// drag to look and tap the floor to walk on touch screens.
+// Walking: WASD to move, drag to look, arrow keys to turn, click the floor to walk there.
+// Movement eases in and out so it glides. No pointer lock anywhere.
 import { COLLIDE_T } from "./building.js";
 
 const EYE = 1.62;
-const SPEED = 2.6;
+const SPEED = 1.3;
+const EASE = 3.2; // how fast the walker reaches full speed
 const RADIUS = 0.35;
 const LOOK = 0.0022;
 const DRAG_LOOK = 0.005;
@@ -21,7 +22,9 @@ export class Controls {
     this.pitch = 0;
     this.keys = new Set();
     this.walkTarget = null;
-    this.locked = false;
+    this.locked = false; // kept false: pointer lock is not used
+    this.vx = 0;
+    this.vz = 0;
     this.onTap = null; // (ndcX, ndcY, centre) => void
     this.enabled = true;
 
@@ -33,20 +36,15 @@ export class Controls {
     addEventListener("keyup", (e) => this.keys.delete(e.code));
     addEventListener("blur", () => this.keys.clear());
 
-    document.addEventListener("pointerlockchange", () => {
-      this.locked = document.pointerLockElement === dom;
-      dom.classList.toggle("locked", this.locked);
-    });
-    dom.addEventListener("mousemove", (e) => {
-      if (!this.locked) return;
-      this.turn(e.movementX * LOOK, e.movementY * LOOK);
-    });
-
     let down = null;
     dom.addEventListener("pointerdown", (e) => {
       if (!this.enabled) return;
       down = { x: e.clientX, y: e.clientY, t: performance.now(), lx: e.clientX, ly: e.clientY, moved: false };
-      dom.setPointerCapture(e.pointerId);
+      try {
+        dom.setPointerCapture(e.pointerId);
+      } catch {
+        // some synthetic pointers cannot be captured; dragging still works
+      }
     });
     dom.addEventListener("pointermove", (e) => {
       if (!down || this.locked) return;
@@ -74,13 +72,9 @@ export class Controls {
     });
   }
 
-  lock() {
-    if (this.dom.requestPointerLock) this.dom.requestPointerLock();
-  }
+  lock() {}
 
-  unlock() {
-    if (document.pointerLockElement) document.exitPointerLock();
-  }
+  unlock() {}
 
   turn(dYaw, dPitch) {
     this.yaw -= dYaw;
@@ -88,6 +82,8 @@ export class Controls {
   }
 
   teleport(x, z, yaw) {
+    this.vx = 0;
+    this.vz = 0;
     this.x = x;
     this.z = z;
     this.yaw = yaw;
@@ -110,29 +106,38 @@ export class Controls {
     if (k.has("KeyD")) fx += 1;
     if (k.has("ArrowLeft")) this.yaw += 1.8 * dt;
     if (k.has("ArrowRight")) this.yaw -= 1.8 * dt;
-    const speed = SPEED * (k.has("ShiftLeft") || k.has("ShiftRight") ? 2 : 1);
+    const speed = SPEED * (k.has("ShiftLeft") || k.has("ShiftRight") ? 2.2 : 1);
 
     const sin = Math.sin(this.yaw);
     const cos = Math.cos(this.yaw);
-    let mx = 0;
-    let mz = 0;
+    let wx = 0;
+    let wz = 0;
     if (fx || fz) {
       this.walkTarget = null;
       const len = Math.hypot(fx, fz);
       // forward is (-sin, -cos), right is (cos, -sin)
-      mx = ((-sin * fz + cos * fx) / len) * speed * dt;
-      mz = ((-cos * fz - sin * fx) / len) * speed * dt;
+      wx = ((-sin * fz + cos * fx) / len) * speed;
+      wz = ((-cos * fz - sin * fx) / len) * speed;
     } else if (this.walkTarget) {
       const dx = this.walkTarget.x - this.x;
       const dz = this.walkTarget.z - this.z;
       const d = Math.hypot(dx, dz);
       if (d < 0.15) this.walkTarget = null;
       else {
-        const step = Math.min(d, speed * dt);
-        mx = (dx / d) * step;
-        mz = (dz / d) * step;
+        wx = (dx / d) * Math.min(speed, d * 1.6);
+        wz = (dz / d) * Math.min(speed, d * 1.6);
       }
     }
+    // ease towards the wanted velocity so starting and stopping glide
+    const ease = Math.min(1, EASE * dt);
+    this.vx += (wx - this.vx) * ease;
+    this.vz += (wz - this.vz) * ease;
+    if (Math.hypot(this.vx, this.vz) < 0.008) {
+      this.vx = 0;
+      this.vz = 0;
+    }
+    const mx = this.vx * dt;
+    const mz = this.vz * dt;
     if (mx || mz) {
       const bx = this.x;
       const bz = this.z;

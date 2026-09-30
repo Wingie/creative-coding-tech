@@ -2,9 +2,9 @@
 // Also handles the vector crossfade and cutout billboards.
 import * as THREE from "three";
 
-const NEAR_1280 = 3;
-const DROP_1280 = 6;
-const LOAD_640 = 22;
+const NEAR_1280 = 6;
+const DROP_1280 = 12;
+const LOAD_640 = 28;
 const DROP_ALL = 32;
 const VECTOR_FULL = 4; // vector fully shown beyond this distance
 const VECTOR_GONE = 1.6; // photo fully shown inside this distance

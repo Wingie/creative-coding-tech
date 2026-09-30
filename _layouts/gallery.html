@@ -60,6 +60,12 @@
       opacity: 0; transition: opacity 0.6s; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.8); }
     #room.show { opacity: 0.95; }
 
+    #world-toggle { font: inherit; font-size: 13px; color: #14120f; background: #e0b36a;
+      border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+    body[data-world="path"] #rooms-btn, body[data-world="path"] #minimap { display: none !important; }
+    body[data-world="rooms"] #snap-toggle { display: none; }
+    #snap-toggle { font: inherit; font-size: 13px; color: var(--ink); background: var(--chip);
+      border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
     #rooms-btn { font: inherit; font-size: 13px; color: var(--ink); background: var(--chip);
       border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
     #rooms-panel { position: fixed; z-index: 8; top: 100px; right: 16px; width: min(340px, calc(100vw - 32px));
@@ -79,9 +85,6 @@
       border-radius: 8px; display: none; pointer-events: none; }
     body[data-view="walk"] #minimap { display: block; }
     @media (max-width: 700px) { body[data-view="walk"] #minimap { display: none; } }
-    #crosshair { position: fixed; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px;
-      border-radius: 50%; background: rgba(233, 226, 214, 0.7); z-index: 4; display: none; pointer-events: none; }
-    body[data-view="walk"] #scene.locked ~ #crosshair { display: block; }
     body[data-view="grid"] #hint, body[data-view="grid"] #room { display: none; }
 
     #status { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); padding: 16px; text-align: center; pointer-events: none; }
@@ -124,13 +127,14 @@
     <span class="sep"></span>
     <div class="bar" id="treatments" aria-label="How prints are shown"></div>
     <span class="nav-right">
+      <button type="button" id="snap-toggle" title="Stop at each panel, or walk freely">Free walk</button>
+      <button type="button" id="world-toggle">Path</button>
       <button type="button" id="rooms-btn" aria-expanded="false" aria-controls="rooms-panel">Rooms</button>
       <button type="button" id="view-toggle">Grid</button>
     </span>
   </header>
 
   <canvas id="scene" aria-label="A walkable gallery. Use the Grid button for a flat list of the same photos."></canvas>
-  <div id="crosshair"></div>
   <canvas id="minimap" aria-hidden="true"></canvas>
   <div id="rooms-panel" hidden><ol></ol></div>
   <div id="room"></div>
