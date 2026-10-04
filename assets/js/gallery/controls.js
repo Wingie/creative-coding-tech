@@ -2,8 +2,8 @@
 // Movement eases in and out so it glides. No pointer lock anywhere.
 import { COLLIDE_T } from "./building.js";
 
-const EYE = 1.62;
-const SPEED = 2.4;
+export const EYE = 1.62;
+const SPEED = 6.5;
 const EASE = 3.2; // how fast the walker reaches full speed
 const RADIUS = 0.35;
 const LOOK = 0.0022;
@@ -25,6 +25,7 @@ export class Controls {
     this.locked = false; // kept false: pointer lock is not used
     this.vx = 0;
     this.vz = 0;
+    this.eye = EYE; // a print can lift the viewer to its own height
     this.onTap = null; // (ndcX, ndcY, centre) => void
     this.enabled = true;
 
@@ -84,6 +85,7 @@ export class Controls {
   teleport(x, z, yaw) {
     this.vx = 0;
     this.vz = 0;
+    this.eye = EYE;
     this.x = x;
     this.z = z;
     this.yaw = yaw;
@@ -148,7 +150,7 @@ export class Controls {
       if (this.walkTarget && Math.hypot(this.x - bx, this.z - bz) < Math.hypot(mx, mz) * 0.2) this.walkTarget = null;
     }
 
-    this.camera.position.set(this.x, EYE, this.z);
+    this.camera.position.set(this.x, this.eye, this.z);
     this.camera.rotation.set(this.pitch, this.yaw, 0, "YXZ");
   }
 

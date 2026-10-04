@@ -4,17 +4,17 @@
 // photo to the nearest one not seen yet, and when those run out it forks again
 // from the top of the tree. Segments behind the walker are recycled.
 import * as THREE from "three";
-import { Stone, Textures, textPlane } from "./stones.js";
+import { Stone, Textures, textPlane, photoSize } from "./stones.js";
 import { Sky } from "./sky.js";
 import { parallelCopies, Ghosts } from "./parallel.js";
-import { Controls } from "./controls.js";
+import { Controls, EYE } from "./controls.js";
 import { matches } from "./rehang.js";
 import { PALETTE, makeComposer } from "./look.js";
 
-const HALF_W = 3.2; // carpet half width
-const WALK_HALF = 2.9; // how far from the centre line the walker may go
-const STONE_OFF = 8.4; // prints stand this far from the centre line
-const STEP = 8; // spacing between prints along the carpet (alternating sides)
+const HALF_W = 5.0; // carpet half width
+const WALK_HALF = 4.6; // how far from the centre line the walker may go
+const STONE_OFF = 11; // prints stand this far from the centre line
+const GAP = 1.2; // the join between one print and the next on the same side
 const PER_NODE = 5;
 const DRIFT_LEN = 6;
 const AHEAD = 120;
@@ -65,7 +65,17 @@ class Segment {
     this.nodeKey = info.nodeKey || null;
     this.drift = !!info.drift;
     this.label = info.label || "";
-    this.length = Math.max(26, 8 + photos.length * STEP + 6);
+    // Pack each side edge to edge: pictures next to each other make a wall you
+    // move along, rather than islands with nothing in between.
+    this.places = [];
+    const cursor = { "-1": 5, "1": 5 };
+    photos.forEach((p, i) => {
+      const side = i % 2 === 0 ? -1 : 1;
+      const { w } = photoSize(p);
+      this.places.push({ side, s: cursor[side] + w / 2 });
+      cursor[side] += w + GAP;
+    });
+    this.length = Math.max(34, cursor["-1"], cursor["1"]) + 6;
     this.stones = [];
     this.copyStones = [];
     this.meshes = [];
@@ -100,16 +110,15 @@ class Segment {
     for (const c of w.copies) make(ghostCarpet, HALF_W * 2, 0, 0, c);
 
     this.photos.forEach((p, i) => {
-      const side = i % 2 === 0 ? -1 : 1;
-      const s = 3 + i * STEP;
+      const { side, s } = this.places[i];
       const at = this.point(s).add(rightOf(this.heading).multiplyScalar(side * STONE_OFF));
-      // face the carpet: local +z points toward the centre line
+      // face the carpet: local +z points toward the centre line. No jitter now
+      // that the prints touch — a crooked one would overlap its neighbour.
       const face = rightOf(this.heading).multiplyScalar(-side);
-      const yaw = Math.atan2(face.x, face.y) + (w.rand() - 0.5) * 0.25;
+      const yaw = Math.atan2(face.x, face.y);
       const place = (stone, copy) => {
         stone.group.position.set(at.x + (copy ? copy.offset.x : 0), copy ? copy.offset.y : 0, at.y + (copy ? copy.offset.z : 0));
         stone.group.rotation.y = yaw;
-        stone.group.rotation.z = (w.rand() - 0.5) * 0.06;
         w.scene.add(stone.group);
       };
       const main = new Stone(p, "photo", false);
@@ -121,8 +130,9 @@ class Segment {
         POOL_GEO,
         new THREE.MeshBasicMaterial({ map: glowTexture(), color: 0xff9a44, transparent: true, opacity: 0.5, depthWrite: false, blending: THREE.AdditiveBlending })
       );
-      const lampAt = at.clone().add(rightOf(this.heading).multiplyScalar(-side * 0.9));
-      brazier.scale.set(5, 5, 1);
+      const lampAt = at.clone().add(rightOf(this.heading).multiplyScalar(-side * 1.6));
+      const pool = photoSize(p).w * 0.8;
+      brazier.scale.set(pool, pool, 1);
       brazier.position.set(lampAt.x, 0.02, lampAt.y);
       w.scene.add(brazier);
       this.meshes.push(brazier);
@@ -441,10 +451,9 @@ export class PathWorld {
   }
 }
 
-// Standing back exactly as far as the print stands out puts you on the centre
-// line, so the carpet clamp never fights the snap and the framing is square.
-const VIEW_DIST = STONE_OFF;
-const SNAP_RANGE = 24;
+// How much of the view height a print should fill when you are standing at it.
+const FILL = 0.82;
+const SNAP_RANGE = 46;
 const GLIDE = 7.5; // how fast the camera travels between prints
 const SETTLE = 250; // after walking, how long before a print claims you again
 
@@ -458,6 +467,8 @@ class PanelSnap {
     this.released = 0;
     this.arrow = false;
     this.aim = 0;
+    this.vfov = Math.PI * 70 / 180; // set from the camera once it exists
+    this.dist = 10;
   }
 
   // The print you are nearest, so a step has somewhere to start from.
@@ -471,11 +482,14 @@ class PanelSnap {
   }
 
   standFor(st) {
-    // look up a little so the whole slab is in frame
-    this.aim = Math.atan2((st.picY || 2) - 1.62, VIEW_DIST) * 0.85;
+    // Back off by this print's own height, so a landscape and a portrait both
+    // fill the frame instead of one looking half the size of the other.
+    const d = (st.picH || 8) / 2 / Math.tan((this.vfov / 2) * FILL);
+    this.dist = d;
+    this.aim = 0; // the viewer rises to the picture, so the view stays level
     const yaw = st.group.rotation.y;
     const dir = new THREE.Vector2(Math.sin(yaw), Math.cos(yaw));
-    const at = new THREE.Vector2(st.group.position.x, st.group.position.z).add(dir.multiplyScalar(VIEW_DIST));
+    const at = new THREE.Vector2(st.group.position.x, st.group.position.z).add(dir.multiplyScalar(d));
     return { x: at.x, z: at.y, yaw: Math.atan2(dir.x, dir.y) };
   }
 
@@ -510,9 +524,13 @@ class PanelSnap {
       }
       if (best) this.target = best.st;
     }
-    if (!this.target) return false;
-    const want = this.standFor(this.target);
     const k = Math.min(1, dt * GLIDE);
+    if (!this.target) {
+      controls.eye += (EYE - controls.eye) * k;
+      return false;
+    }
+    const want = this.standFor(this.target);
+    controls.eye += (this.target.picY - controls.eye) * k;
     controls.x += (want.x - controls.x) * k;
     controls.z += (want.z - controls.z) * k;
     let d = want.yaw - controls.yaw;
@@ -552,6 +570,7 @@ export function startPath(canvas, data, base, lightbox, ui) {
   const ghosts = new Ghosts(scene, copies);
   const controls = new Controls(camera, canvas, [], world.start);
   const snap = new PanelSnap(world);
+  snap.vfov = (camera.fov * Math.PI) / 180;
   const ray = new THREE.Raycaster();
   // three pooled braziers light the steles nearest the walker
   const lamps = [0, 1, 2].map(() => {
@@ -623,11 +642,15 @@ export function startPath(canvas, data, base, lightbox, ui) {
       const bx = controls.x;
       const bz = controls.z;
       controls.update(dt);
-      snap.update(dt, controls, camera, now);
-      p2.set(controls.x, controls.z);
-      const q = world.clamp(p2);
-      controls.x = q.x;
-      controls.z = q.y;
+      const snapped = snap.update(dt, controls, camera, now);
+      if (!snapped) {
+        // only hold the walker to the carpet when they are actually walking;
+        // standing at a print is the print's business, not the carpet's
+        p2.set(controls.x, controls.z);
+        const q = world.clamp(p2);
+        controls.x = q.x;
+        controls.z = q.y;
+      }
       camera.position.set(controls.x, camera.position.y, controls.z);
       const moving = Math.hypot(controls.x - bx, controls.z - bz) > 1e-4;
       if (now - lastWorld > 120) {

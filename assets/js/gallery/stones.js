@@ -3,8 +3,10 @@
 // share (640 far, 1280 close, vector, cutout).
 import * as THREE from "three";
 
-const PHOTO_MAX_W = 6.6;
-const PHOTO_MAX_H = 8.2;
+// Prints are sized by their longest edge, so a landscape picture is as big as a
+// portrait one. Capping width instead made landscapes less than half the height
+// of portraits, and they framed quite differently as you stepped between them.
+const PHOTO_LONG = 18;
 const NEAR_1280 = 26;
 const LOAD_640 = 90;
 
@@ -19,8 +21,7 @@ const PLANE = new THREE.PlaneGeometry(1, 1);
 
 export function photoSize(photo) {
   const a = (photo.w || 2) / (photo.h || 3);
-  if (a < PHOTO_MAX_W / PHOTO_MAX_H) return { w: PHOTO_MAX_H * a, h: PHOTO_MAX_H };
-  return { w: PHOTO_MAX_W, h: PHOTO_MAX_W / a };
+  return a >= 1 ? { w: PHOTO_LONG, h: PHOTO_LONG / a } : { w: PHOTO_LONG * a, h: PHOTO_LONG };
 }
 
 // Grayscale variant of MeshBasicMaterial for the B&W parallel path.
@@ -156,6 +157,8 @@ export class Stone {
     this.group.add(this.pic);
     this.height = H;
     this.picY = picY;
+    this.picH = h;
+    this.picW = w;
     this.sharp = false;
     this.dim = false;
   }
