@@ -9,6 +9,7 @@ import { Sky } from "./sky.js";
 import { parallelCopies, Ghosts } from "./parallel.js";
 import { Controls } from "./controls.js";
 import { matches } from "./rehang.js";
+import { PALETTE, makeComposer } from "./look.js";
 
 const HALF_W = 3.2; // carpet half width
 const WALK_HALF = 2.9; // how far from the centre line the walker may go
@@ -21,11 +22,12 @@ const BEHIND = 170;
 const JOIN_R = 5;
 const FORK_TURN = 0.5;
 
-const carpetMat = new THREE.MeshStandardMaterial({ color: 0x5e1408, emissive: 0x220600, roughness: 0.9 });
-const edgeMat = new THREE.MeshBasicMaterial({ color: 0xffa23a });
-const rimMat = new THREE.MeshBasicMaterial({ color: 0x2ad4ff, transparent: true, opacity: 0.75 });
-const ghostCarpet = new THREE.MeshBasicMaterial({ color: 0x1b6f92, transparent: true, opacity: 0.35, depthWrite: false });
+const carpetMat = new THREE.MeshStandardMaterial({ color: PALETTE.carpet, roughness: 0.82, metalness: 0 });
+// one warm hairline so the carpet reads against the black sea; nothing else competes
+const edgeMat = new THREE.MeshBasicMaterial({ color: 0xffb066 });
+const ghostCarpet = new THREE.MeshBasicMaterial({ color: 0x0e3a4e, transparent: true, opacity: 0.22, depthWrite: false });
 const joinGeo = new THREE.CircleGeometry(JOIN_R, 32).rotateX(-Math.PI / 2);
+const POOL_GEO = new THREE.PlaneGeometry(1, 1).rotateX(-Math.PI / 2);
 const beaconMat = new THREE.MeshBasicMaterial({
   color: 0xffd9a0,
   transparent: true,
@@ -92,10 +94,9 @@ class Segment {
     };
     this.carpet = make(carpetMat, HALF_W * 2, 0, 0);
     this.carpet.userData.carpet = true;
-    make(edgeMat, 0.13, HALF_W, 0.004);
-    make(edgeMat, 0.13, -HALF_W, 0.004);
-    make(rimMat, 0.08, HALF_W + 0.35, 0.003);
-    make(rimMat, 0.08, -HALF_W - 0.35, 0.003);
+    this.carpet.receiveShadow = true;
+    make(edgeMat, 0.07, HALF_W, 0.004);
+    make(edgeMat, 0.07, -HALF_W, 0.004);
     for (const c of w.copies) make(ghostCarpet, HALF_W * 2, 0, 0, c);
 
     this.photos.forEach((p, i) => {
@@ -114,11 +115,15 @@ class Segment {
       const main = new Stone(p, "photo", false);
       main.segment = this;
       place(main);
-      const brazier = new THREE.Sprite(
-        new THREE.SpriteMaterial({ map: glowTexture(), color: 0xff9a44, transparent: true, opacity: 0.5, depthWrite: false, blending: THREE.AdditiveBlending })
+      // a pool of light lying on the ground in front of the print, not a sprite
+      // facing the camera: it stays put as you walk past, the way a floor lamp does
+      const brazier = new THREE.Mesh(
+        POOL_GEO,
+        new THREE.MeshBasicMaterial({ map: glowTexture(), color: 0xff9a44, transparent: true, opacity: 0.5, depthWrite: false, blending: THREE.AdditiveBlending })
       );
-      brazier.scale.set(8, 8, 1);
-      brazier.position.set(at.x, 1.1, at.y);
+      const lampAt = at.clone().add(rightOf(this.heading).multiplyScalar(-side * 2.2));
+      brazier.scale.set(7, 7, 1);
+      brazier.position.set(lampAt.x, 0.02, lampAt.y);
       w.scene.add(brazier);
       this.meshes.push(brazier);
       main.brazier = brazier;
@@ -147,7 +152,10 @@ class Segment {
     const w = this.world;
     for (const m of this.meshes) {
       w.scene.remove(m);
-      m.geometry.dispose();
+      // POOL_GEO is shared by every light pool, so only the per-segment carpet
+      // planes are disposed here; the pools own their materials instead.
+      if (m.geometry === POOL_GEO) m.material.dispose();
+      else m.geometry.dispose();
     }
     for (const st of this.stones) {
       w.scene.remove(st.group);
@@ -509,12 +517,21 @@ export function startPath(canvas, data, base, lightbox, ui) {
   const small = matchMedia("(max-width: 700px), (pointer: coarse)").matches;
   renderer.setPixelRatio(Math.min(devicePixelRatio, small ? 1.5 : 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.0;
+  // The prints are already graded. Tone mapping them again desaturates the work,
+  // so the renderer leaves them exactly as the photographer finished them.
+  renderer.toneMapping = THREE.NoToneMapping;
+  renderer.shadowMap.enabled = !small;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   const scene = new THREE.Scene();
-  const sky = new Sky(scene, { clouds: small ? 70 : 140 });
   const camera = new THREE.PerspectiveCamera(70, 1, 0.05, 700);
+  const sky = new Sky(scene, renderer, { clouds: small ? 14 : 26 });
+  const post = makeComposer(renderer, scene, camera, {
+    strength: small ? 0.2 : 0.3,
+    radius: 0.7,
+    threshold: 0.95,
+    grain: 0.05,
+  });
   const copies = parallelCopies(small);
   const world = new PathWorld(scene, data, base, renderer, { copies, onEnter: ui.toast });
   const ghosts = new Ghosts(scene, copies);
@@ -552,6 +569,7 @@ export function startPath(canvas, data, base, lightbox, ui) {
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
     renderer.setSize(w, h, false);
+    post.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
   }
@@ -593,7 +611,7 @@ export function startPath(canvas, data, base, lightbox, ui) {
         .slice(0, lamps.length);
       lamps.forEach((l, i) => {
         if (near[i]) {
-          l.position.set(near[i].st.group.position.x, 2.6, near[i].st.group.position.z);
+          l.position.set(near[i].st.group.position.x, 1.9, near[i].st.group.position.z);
           l.intensity = 90;
         } else {
           l.intensity = 0;
@@ -601,7 +619,7 @@ export function startPath(canvas, data, base, lightbox, ui) {
       });
       ghosts.update(dt, controls.x, controls.z, controls.yaw, moving);
       sky.update(dt, camera.position);
-      renderer.render(scene, camera);
+      post.render(now);
       fps.frames++;
       if (now - fps.since > 1000) {
         fps.value = (fps.frames * 1000) / (now - fps.since);

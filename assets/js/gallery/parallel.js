@@ -3,11 +3,12 @@
 import * as THREE from "three";
 
 // World offsets. The copies translate with the path, so they stay parallel to it.
+// They sit far out in the fog: other paths on the horizon, not debris overhead.
 const COPIES = [
-  { variant: "vector", offset: new THREE.Vector3(62, 20, -14) },
-  { variant: "gray", offset: new THREE.Vector3(-64, -18, 11) },
-  { variant: "cutout", offset: new THREE.Vector3(16, 50, 34) },
-  { variant: "gray", offset: new THREE.Vector3(-20, -46, -40) },
+  { variant: "vector", offset: new THREE.Vector3(185, 44, -40) },
+  { variant: "gray", offset: new THREE.Vector3(-205, -36, 30) },
+  { variant: "cutout", offset: new THREE.Vector3(58, 120, 150) },
+  { variant: "gray", offset: new THREE.Vector3(-70, -96, -165) },
 ];
 
 export function parallelCopies(small) {

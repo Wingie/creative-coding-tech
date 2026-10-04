@@ -7,13 +7,15 @@ import { Controls } from "./controls.js";
 import { Lightbox } from "./lightbox.js";
 import { renderGrid } from "./fallback.js";
 import { startPath } from "./path.js";
+import { environment, makeComposer } from "./look.js";
 
 const LOCAL = ["localhost", "127.0.0.1", ""].includes(location.hostname);
 const DATA_URL =
   new URLSearchParams(location.search).get("data") ||
   (LOCAL ? "/gallery-media/gallery.json" : "https://media.creativecodingtech.com/gallery/gallery.json");
 const BASE = DATA_URL.slice(0, DATA_URL.lastIndexOf("/") + 1);
-const WORLD = new URLSearchParams(location.search).get("world") === "path" ? "path" : "rooms";
+// The path is the way in. ?world=rooms walks the rooms instead.
+const WORLD = new URLSearchParams(location.search).get("world") === "rooms" ? "rooms" : "path";
 
 const THEMES = [
   ["all", "All"],
@@ -172,8 +174,8 @@ function setupWorldToggle(world) {
   b.title = world === "path" ? "Walk the rooms, one per sitter" : "Walk the cloud path, sorted by likeness";
   b.addEventListener("click", () => {
     const u = new URL(location.href);
-    if (world === "path") u.searchParams.delete("world");
-    else u.searchParams.set("world", "path");
+    if (world === "path") u.searchParams.set("world", "rooms");
+    else u.searchParams.delete("world");
     location.href = u.toString();
   });
 }
@@ -274,22 +276,24 @@ function startWalk(people, lightbox) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  // The prints are already graded; see path.js.
+  renderer.toneMapping = THREE.NoToneMapping;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x1d1b18);
-  scene.fog = new THREE.Fog(0x1d1b18, 18, 55);
-  scene.add(new THREE.HemisphereLight(0xfff4e6, 0x3a3128, 2.1));
-  scene.add(new THREE.AmbientLight(0xffffff, 0.35));
-  const key = new THREE.DirectionalLight(0xffe7cc, 0.9);
+  scene.background = new THREE.Color(0x100e0c);
+  scene.fog = new THREE.Fog(0x100e0c, 18, 55);
+  // the room's own light, pre-filtered: warm off the walls, cool from the skylights
+  environment(renderer, scene, [
+    [0, "#3b3226"],
+    [0.45, "#1a1713"],
+    [0.72, "#4a4335"],
+    [1, "#0b0a08"],
+  ]);
+  const key = new THREE.DirectionalLight(0xffe7cc, 1.1);
   key.position.set(4, 10, 3);
   scene.add(key);
-  const fill = new THREE.DirectionalLight(0xdfe6ff, 0.35);
-  fill.position.set(-6, 8, -5);
-  scene.add(fill);
 
-  const camera = new THREE.PerspectiveCamera(68, 1, 0.05, 80);
+  const camera = new THREE.PerspectiveCamera(60, 1, 0.05, 80);
   const built = buildGallery(scene, people, { anisotropy: renderer.capabilities.getMaxAnisotropy() });
   const framesByRoom = new Map();
   const frames = [];
@@ -300,6 +304,7 @@ function startWalk(people, lightbox) {
   }
   const pickables = () => frames.flatMap((f) => [f.pic, f.vec, f.billboard].filter(Boolean));
 
+  const post = makeComposer(renderer, scene, camera, { strength: 0.26, radius: 0.5, threshold: 0.9, grain: 0.035 });
   const loader = new Loader(BASE, renderer);
   const controls = new Controls(camera, canvas, built.walls, built.start);
   const ray = new THREE.Raycaster();
@@ -330,6 +335,7 @@ function startWalk(people, lightbox) {
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
     renderer.setSize(w, h, false);
+    post.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
   }
@@ -365,7 +371,7 @@ function startWalk(people, lightbox) {
         drawMinimap(minimap, built, camera, controls.yaw);
         lastMap = now;
       }
-      renderer.render(scene, camera);
+      post.render(now);
     }
     requestAnimationFrame(tick);
   }

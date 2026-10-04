@@ -1,50 +1,20 @@
-// Marble steles for the cloud path: a fluted shaft with a pediment, the photo set
-// into a carved border with a neon rim, and the textures they share
-// (640 far, 1280 close, vector, cutout).
+// Standing prints for the cloud path. The picture is the object: a frameless slab
+// on a low dark base, so nothing competes with it. Plus the textures the slabs
+// share (640 far, 1280 close, vector, cutout).
 import * as THREE from "three";
 
-const PHOTO_MAX_W = 6.0;
-const PHOTO_MAX_H = 7.5;
+const PHOTO_MAX_W = 6.6;
+const PHOTO_MAX_H = 8.2;
 const NEAR_1280 = 26;
 const LOAD_640 = 90;
 
-// Deterministic noise, so every stele weathers the same way each time.
+// Deterministic noise, so every slab stands the same way each time.
 function hash(x, y, z) {
   const s = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453;
   return s - Math.floor(s);
 }
 
-// Weathered marble: a box with the surface nudged about, front face left flat.
-function shaftGeometry() {
-  const g = new THREE.BoxGeometry(1, 1, 1, 3, 6, 2).toNonIndexed();
-  const p = g.attributes.position;
-  for (let i = 0; i < p.count; i++) {
-    const x = p.getX(i);
-    const y = p.getY(i);
-    const z = p.getZ(i);
-    const n = hash(Math.round(x * 8), Math.round(y * 8), Math.round(z * 8)) - 0.5;
-    const amp = z > 0.49 ? 0.006 : 0.025;
-    p.setXYZ(i, x + n * amp, y, z + n * amp);
-  }
-  g.computeVertexNormals();
-  return g;
-}
-
-// A low triangular pediment, like the top of a temple front.
-function pedimentGeometry() {
-  const sh = new THREE.Shape();
-  sh.moveTo(-0.5, 0);
-  sh.lineTo(0.5, 0);
-  sh.lineTo(0, 0.42);
-  sh.lineTo(-0.5, 0);
-  const g = new THREE.ExtrudeGeometry(sh, { depth: 1, bevelEnabled: false });
-  g.translate(0, 0, -0.5);
-  return g;
-}
-
-export const SHAFT_GEO = shaftGeometry();
-const PEDIMENT_GEO = pedimentGeometry();
-const FLUTE_GEO = new THREE.CylinderGeometry(0.5, 0.5, 1, 10, 1, false, 0, Math.PI);
+const BOX = new THREE.BoxGeometry(1, 1, 1);
 const PLANE = new THREE.PlaneGeometry(1, 1);
 
 export function photoSize(photo) {
@@ -143,23 +113,15 @@ export class Textures {
   }
 }
 
-const marble = {
-  main: new THREE.MeshStandardMaterial({ color: 0xe6e1d2, roughness: 0.6, metalness: 0.02, emissive: 0x0d1a22 }),
-  trim: new THREE.MeshStandardMaterial({ color: 0xd2ccba, roughness: 0.5, metalness: 0.05, emissive: 0x0c161d }),
-  ghost: new THREE.MeshStandardMaterial({
-    color: 0x9fc6d8,
-    roughness: 0.6,
-    transparent: true,
-    opacity: 0.5,
-  }),
-};
-// Neon rim where the grid light catches the marble.
-const neon = {
-  main: new THREE.MeshBasicMaterial({ color: 0x4fe3ff }),
-  ghost: new THREE.MeshBasicMaterial({ color: 0x3fc0ff, transparent: true, opacity: 0.4 }),
+// Dark stone: it reads only as an edge and a shadow, and lets the environment map
+// carry the sheen. Nothing here should draw the eye away from the picture.
+const slab = {
+  main: new THREE.MeshStandardMaterial({ color: 0x0a0d12, roughness: 0.35, metalness: 0.15 }),
+  base: new THREE.MeshStandardMaterial({ color: 0x141a20, roughness: 0.25, metalness: 0.3 }),
+  ghost: new THREE.MeshBasicMaterial({ color: 0x14384a, transparent: true, opacity: 0.35, depthWrite: false }),
 };
 
-// One stone with its photo. `variant` is "photo" | "vector" | "gray" | "cutout".
+// One standing print. `variant` is "photo" | "vector" | "gray" | "cutout".
 export class Stone {
   constructor(photo, variant, parallel) {
     this.photo = photo;
@@ -168,47 +130,28 @@ export class Stone {
     const { w, h } = photoSize(photo);
     this.group = new THREE.Group();
     const seed = hash(photo.id.length, photo.id.charCodeAt(0), photo.id.charCodeAt(3));
-    const bodyW = w + 1.8;
-    const H = h + 4.1 + seed * 0.8; // room for the plinth below and the border above
-    const stone = parallel ? marble.ghost : marble.main;
-    const trim = parallel ? marble.ghost : marble.trim;
-    const rim = parallel ? neon.ghost : neon.main;
-    const add = (geo, mat, sx, sy, sz, x, y, z) => {
-      const m = new THREE.Mesh(geo, mat);
+    const body = parallel ? slab.ghost : slab.main;
+    const foot = parallel ? slab.ghost : slab.base;
+    const add = (mat, sx, sy, sz, x, y, z) => {
+      const m = new THREE.Mesh(BOX, mat);
       m.scale.set(sx, sy, sz);
       m.position.set(x, y, z);
+      m.castShadow = !parallel;
       this.group.add(m);
       return m;
     };
 
-    this.rock = add(SHAFT_GEO, stone, bodyW, H, 1.2, 0, H / 2, 0);
-    add(SHAFT_GEO, trim, bodyW + 0.9, 0.5, 1.7, 0, 0.25, 0); // plinth
-    add(SHAFT_GEO, trim, bodyW + 0.66, 0.4, 1.6, 0, H + 0.2, 0); // capital
-    add(PEDIMENT_GEO, trim, bodyW + 0.66, 2.6, 1.6, 0, H + 0.4, 0); // pediment
-    // fluted edges
-    for (const side of [-1, 1]) {
-      add(FLUTE_GEO, trim, 0.42, H - 0.3, 0.42, side * (bodyW / 2 - 0.08), H / 2, 0.48);
-    }
-
-    const picY = 2.1 + h / 2 + seed * 0.3;
-    // carved border, then the neon rim just outside it
-    const bw = w + 0.75;
-    const bh = h + 0.75;
-    add(SHAFT_GEO, trim, bw + 0.4, bh + 0.4, 0.2, 0, picY, 0.6);
-    for (const [sx, sy, dx, dy] of [
-      [bw + 0.5, 0.09, 0, bh / 2 + 0.22],
-      [bw + 0.5, 0.09, 0, -bh / 2 - 0.22],
-      [0.09, bh + 0.5, bw / 2 + 0.22, 0],
-      [0.09, bh + 0.5, -bw / 2 - 0.22, 0],
-    ]) {
-      add(SHAFT_GEO, rim, sx, sy, 0.14, dx, picY + dy, 0.7);
-    }
+    // the print sits at standing-eye height, the slab is barely larger than it
+    const picY = 1.15 + h / 2 + seed * 0.25;
+    const H = picY + h / 2 + 0.22;
+    add(body, w + 0.18, H, 0.16, 0, H / 2, 0);
+    add(foot, w + 0.7, 0.22, 0.8, 0, 0.11, 0);
 
     const opts = { color: 0x14181c, transparent: parallel, opacity: parallel ? 0.85 : 1 };
     const mat = variant === "gray" ? grayMaterial(opts) : new THREE.MeshBasicMaterial(opts);
     this.pic = new THREE.Mesh(PLANE, mat);
     this.pic.scale.set(w, h, 1);
-    this.pic.position.set(0, picY, 0.72);
+    this.pic.position.set(0, picY, 0.085);
     this.pic.userData.stone = this;
     this.group.add(this.pic);
     this.height = H;
