@@ -3,7 +3,7 @@
 import { COLLIDE_T } from "./building.js";
 
 const EYE = 1.62;
-const SPEED = 1.3;
+const SPEED = 2.4;
 const EASE = 3.2; // how fast the walker reaches full speed
 const RADIUS = 0.35;
 const LOOK = 0.0022;

@@ -93,8 +93,8 @@ async function main() {
   setupWorldToggle(world);
   if (world === "path") {
     $("#hint").textContent = matchMedia("(pointer: coarse)").matches
-      ? "Drag to look. Tap the path to walk. You stop at each panel; arrows for the next one."
-      : "WASD to move. Drag to look. You stop at each panel; arrow keys for the next one.";
+      ? "Tap any picture to go and stand at it. Drag to look around."
+      : "Scroll or press space for the next picture. Click one to go to it. WASD to walk.";
   }
   $("#status").hidden = true;
 

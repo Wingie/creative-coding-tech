@@ -13,8 +13,8 @@ import { PALETTE, makeComposer } from "./look.js";
 
 const HALF_W = 3.2; // carpet half width
 const WALK_HALF = 2.9; // how far from the centre line the walker may go
-const STONE_OFF = 9.5; // steles stand this far from the centre line
-const STEP = 11; // spacing between steles along the carpet (alternating sides)
+const STONE_OFF = 8.4; // prints stand this far from the centre line
+const STEP = 8; // spacing between prints along the carpet (alternating sides)
 const PER_NODE = 5;
 const DRIFT_LEN = 6;
 const AHEAD = 120;
@@ -121,8 +121,8 @@ class Segment {
         POOL_GEO,
         new THREE.MeshBasicMaterial({ map: glowTexture(), color: 0xff9a44, transparent: true, opacity: 0.5, depthWrite: false, blending: THREE.AdditiveBlending })
       );
-      const lampAt = at.clone().add(rightOf(this.heading).multiplyScalar(-side * 2.2));
-      brazier.scale.set(7, 7, 1);
+      const lampAt = at.clone().add(rightOf(this.heading).multiplyScalar(-side * 0.9));
+      brazier.scale.set(5, 5, 1);
       brazier.position.set(lampAt.x, 0.02, lampAt.y);
       w.scene.add(brazier);
       this.meshes.push(brazier);
@@ -441,10 +441,15 @@ export class PathWorld {
   }
 }
 
-const VIEW_DIST = 12.5; // how far back the snap stands, so the whole panel is in view
+// Standing back exactly as far as the print stands out puts you on the centre
+// line, so the carpet clamp never fights the snap and the framing is square.
+const VIEW_DIST = STONE_OFF;
 const SNAP_RANGE = 24;
+const GLIDE = 7.5; // how fast the camera travels between prints
+const SETTLE = 250; // after walking, how long before a print claims you again
 
-// Stops you square on in front of a panel, and steps panel by panel with the arrows.
+// Stops you square on in front of a print, and steps print by print. Stepping is
+// how you get through the gallery; walking is there if you want it.
 class PanelSnap {
   constructor(world) {
     this.world = world;
@@ -453,6 +458,16 @@ class PanelSnap {
     this.released = 0;
     this.arrow = false;
     this.aim = 0;
+  }
+
+  // The print you are nearest, so a step has somewhere to start from.
+  nearest(x, z) {
+    let best = null;
+    for (const st of this.world.panels()) {
+      const d = Math.hypot(st.group.position.x - x, st.group.position.z - z);
+      if (!best || d < best.d) best = { st, d };
+    }
+    return best && best.st;
   }
 
   standFor(st) {
@@ -479,15 +494,15 @@ class PanelSnap {
       this.target = null;
       if (!this.enabled) return false;
     }
-    const left = keys.has("ArrowLeft");
-    const right = keys.has("ArrowRight");
+    const left = keys.has("ArrowLeft") || keys.has("ArrowUp");
+    const right = keys.has("ArrowRight") || keys.has("ArrowDown") || keys.has("Space");
     if (this.target && (left || right)) {
       if (!this.arrow) this.step(left ? -1 : 1);
       this.arrow = true;
     } else if (!left && !right) {
       this.arrow = false;
     }
-    if (!this.target && !moving && now - this.released > 700) {
+    if (!this.target && !moving && now - this.released > SETTLE) {
       let best = null;
       for (const st of this.world.panels()) {
         const d = Math.hypot(st.group.position.x - controls.x, st.group.position.z - controls.z);
@@ -497,7 +512,7 @@ class PanelSnap {
     }
     if (!this.target) return false;
     const want = this.standFor(this.target);
-    const k = Math.min(1, dt * 2.6);
+    const k = Math.min(1, dt * GLIDE);
     controls.x += (want.x - controls.x) * k;
     controls.z += (want.z - controls.z) * k;
     let d = want.yaw - controls.yaw;
@@ -548,14 +563,18 @@ export function startPath(canvas, data, base, lightbox, ui) {
   controls.onTap = (nx, ny, centre, pointerType) => {
     ray.setFromCamera(new THREE.Vector2(nx, ny), camera);
     const hit = ray.intersectObjects(world.pickables(), false)[0];
-    if (hit && hit.object.userData.stone && hit.distance < 10) {
+    if (hit && hit.object.userData.stone) {
       const st = hit.object.userData.stone;
-      const list = st.segment.photos;
-      controls.unlock();
+      // a print across the way: go and stand in front of it. The one you are
+      // already standing at: open it full size.
+      if (hit.distance > 15 || st !== snap.target) {
+        snap.target = st;
+        snap.released = 0;
+        ui.hint();
+        return;
+      }
       controls.enabled = false;
-      snap.target = st;
-      snap.released = 0;
-      lightbox.open({ name: st.photo.room, shoot_date: st.photo.captured }, list, st.photo);
+      lightbox.open({ name: st.photo.room, shoot_date: st.photo.captured }, st.segment.photos, st.photo);
       return;
     }
     if (centre) return;
@@ -564,6 +583,22 @@ export function startPath(canvas, data, base, lightbox, ui) {
       ui.hint();
     }
   };
+
+  let wheelAt = 0;
+  canvas.addEventListener(
+    "wheel",
+    (e) => {
+      if (!snap.enabled) return;
+      e.preventDefault();
+      const now = performance.now();
+      if (now - wheelAt < 240) return;
+      wheelAt = now;
+      if (!snap.target) snap.target = snap.nearest(controls.x, controls.z);
+      snap.step(e.deltaY > 0 ? 1 : -1);
+      ui.hint();
+    },
+    { passive: false }
+  );
 
   function resize() {
     const w = canvas.clientWidth;
