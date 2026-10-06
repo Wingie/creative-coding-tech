@@ -123,6 +123,7 @@ class Segment {
       };
       const main = new Stone(p, "photo", false);
       main.segment = this;
+      main.side = side; // which wall, so stepping can stay on one of them
       place(main);
       // a pool of light lying on the ground in front of the print, not a sprite
       // facing the camera: it stays put as you walk past, the way a floor lamp does
@@ -262,6 +263,27 @@ export class PathWorld {
     this.start = { x: 0, z: 1.2, yaw: 0 };
   }
 
+  // Start again from a node the map chose. Everything built so far goes back.
+  enterAt(key) {
+    if (!this.nodes[key]) return false;
+    for (const s of this.segments) s.dispose();
+    for (const j of this.joins) j.dispose();
+    this.segments = [];
+    this.joins = [];
+    this.line = [];
+    this.fork = null;
+    this.announced = null;
+    this.seen.clear();
+    const first = new Segment(this, new THREE.Vector2(0, 0), 0, this.pick(key), {
+      nodeKey: key,
+      label: this.nodes[key].name || "",
+    });
+    this.segments.push(first);
+    this.line.push(first);
+    this.joins.push(new Join(this, new THREE.Vector2(0, 0), false));
+    return true;
+  }
+
   rand() {
     this.seed = (this.seed * 16807) % 2147483647;
     return this.seed / 2147483647;
@@ -391,6 +413,8 @@ export class PathWorld {
   }
 
   update(p) {
+    this.lastX = p.x;
+    this.lastZ = p.y;
     this.checkFork(p);
     // keep path ahead of the walker until the next fork
     let guard = 0;
@@ -493,11 +517,26 @@ class PanelSnap {
     return { x: at.x, z: at.y, yaw: Math.atan2(dir.x, dir.y) };
   }
 
+  // Along the wall you are already facing. Alternating sides on every step swung
+  // the camera through 180 degrees each time, which is what made this unusable.
   step(dir) {
-    const list = this.world.panels();
+    const side = this.target ? this.target.side : -1;
+    const list = this.world.panels().filter((st) => st.side === side);
     const i = list.indexOf(this.target);
     const next = list[Math.max(0, Math.min(list.length - 1, (i < 0 ? 0 : i) + dir))];
     if (next) this.target = next;
+  }
+
+  // Across to the facing wall, to whichever print is nearest where you stand.
+  cross() {
+    const side = this.target ? -this.target.side : 1;
+    let best = null;
+    for (const st of this.world.panels()) {
+      if (st.side !== side) continue;
+      const d = Math.hypot(st.group.position.x - this.world.lastX, st.group.position.z - this.world.lastZ);
+      if (!best || d < best.d) best = { st, d };
+    }
+    if (best) this.target = best.st;
   }
 
   update(dt, controls, camera, now) {
@@ -508,12 +547,16 @@ class PanelSnap {
       this.target = null;
       if (!this.enabled) return false;
     }
-    const left = keys.has("ArrowLeft") || keys.has("ArrowUp");
-    const right = keys.has("ArrowRight") || keys.has("ArrowDown") || keys.has("Space");
-    if (this.target && (left || right)) {
-      if (!this.arrow) this.step(left ? -1 : 1);
+    const back = keys.has("ArrowUp");
+    const fwd = keys.has("ArrowDown") || keys.has("Space");
+    const over = keys.has("ArrowLeft") || keys.has("ArrowRight");
+    if (this.target && (back || fwd || over)) {
+      if (!this.arrow) {
+        if (over) this.cross();
+        else this.step(back ? -1 : 1);
+      }
       this.arrow = true;
-    } else if (!left && !right) {
+    } else if (!back && !fwd && !over) {
       this.arrow = false;
     }
     if (!this.target && !moving && now - this.released > SETTLE) {
@@ -700,6 +743,13 @@ export function startPath(canvas, data, base, lightbox, ui) {
     },
     teleport() {
       return false;
+    },
+    enterAt(key) {
+      if (!world.enterAt(key)) return false;
+      controls.teleport(0, 1.2, 0);
+      snap.target = null;
+      snap.released = 0;
+      return true;
     },
     setTheme: (t) => world.setTheme(t),
     setTreatment: (t) => world.setMode(t),

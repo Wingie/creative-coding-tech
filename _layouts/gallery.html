@@ -91,6 +91,36 @@
     #status { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); padding: 16px; text-align: center; pointer-events: none; }
     #status[hidden] { display: none; }
 
+    /* ---- the map: the category tree seen from above ---- */
+    #map { position: fixed; inset: 0; display: none; overflow: hidden; cursor: grab;
+      background: radial-gradient(ellipse at 50% 0%, #0d1a24 0%, var(--bg) 70%); touch-action: none; }
+    #map.grabbing { cursor: grabbing; }
+    body[data-view="map"] #map { display: block; }
+    body[data-view="map"] #scene, body[data-view="map"] #grid,
+    body[data-view="map"] #minimap, body[data-view="map"] #hint, body[data-view="map"] #room { display: none; }
+    .map-layer { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+    .map-lines { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+    .map-lines path { fill: none; stroke: rgba(127, 212, 240, 0.3); stroke-width: 1.5; }
+    .map-card { position: absolute; width: 210px; background: rgba(12, 18, 24, 0.94);
+      border: 1px solid var(--line); border-radius: 10px; padding: 9px 10px 8px; }
+    .map-card.open { border-color: rgba(127, 212, 240, 0.5); }
+    .map-card.flash { animation: flash 0.9s ease-out; }
+    @keyframes flash { from { border-color: #e0b36a; box-shadow: 0 0 0 4px rgba(224, 179, 106, 0.25); } }
+    .map-name { display: flex; justify-content: space-between; gap: 8px; align-items: baseline;
+      font-size: 13px; font-weight: 600; margin-bottom: 7px; }
+    .map-name span { color: var(--muted); font-weight: 400; font-size: 11px; }
+    .map-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+    .map-strip img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 3px; background: #1a1714; }
+    .map-foot { display: flex; gap: 6px; margin-top: 8px; }
+    .map-foot button { flex: 1; font: inherit; font-size: 11px; color: var(--ink); background: rgba(233, 226, 214, 0.08);
+      border: 1px solid var(--line); border-radius: 999px; padding: 4px 8px; cursor: pointer; }
+    .map-foot button.go { background: #e0b36a; color: #14120f; border-color: transparent; }
+    .map-foot button:hover { background: rgba(233, 226, 214, 0.18); }
+    .map-foot button.go:hover { background: #eecb92; }
+    .map-also { margin-top: 7px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .map-also button { font: inherit; font-size: 11px; color: #7fd4f0; background: none; border: 0;
+      padding: 0; cursor: pointer; text-decoration: underline dotted; }
+
     #grid { padding: 120px 16px 48px; max-width: 1400px; margin: 0 auto; }
     .grid-room { margin-bottom: 48px; }
     .grid-room h2 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
@@ -129,6 +159,7 @@
     <div class="bar" id="treatments" aria-label="How prints are shown"></div>
     <span class="nav-right">
       <button type="button" id="snap-toggle" title="Stop at each panel, or walk freely">Free walk</button>
+      <button type="button" id="map-toggle" title="See the whole gallery from above">Map</button>
       <button type="button" id="world-toggle">Path</button>
       <button type="button" id="rooms-btn" aria-expanded="false" aria-controls="rooms-panel">Rooms</button>
       <button type="button" id="view-toggle">Grid</button>
@@ -137,6 +168,7 @@
 
   <canvas id="scene" aria-label="A walkable gallery. Use the Grid button for a flat list of the same photos."></canvas>
   <canvas id="minimap" aria-hidden="true"></canvas>
+  <div id="map"></div>
   <div id="rooms-panel" hidden><ol></ol></div>
   <div id="room"></div>
   <div id="hint"></div>

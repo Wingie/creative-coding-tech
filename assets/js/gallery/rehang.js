@@ -183,7 +183,11 @@ export function layout(room, photos) {
 }
 
 export function matches(photo, theme) {
-  return theme === "all" || (photo.themes || []).includes(theme);
+  if (theme === "all") return true;
+  // generated tags first; the old hand-seeded themes still work for photos the
+  // tagger has not reached
+  if (photo.tags) return photo.tags.includes(theme);
+  return (photo.themes || []).includes(theme);
 }
 
 // Re-hang every room for a theme. Returns how many photos match per room.

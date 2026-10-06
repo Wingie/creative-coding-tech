@@ -57,3 +57,8 @@ r2-worker/node_modules/
 gallery-media/
 __pycache__/
 r2-worker/.wrangler/
+
+# YOLO/CLIP weights pulled by scripts/gallery_tags.py
+models/
+*.pt
+*.ts

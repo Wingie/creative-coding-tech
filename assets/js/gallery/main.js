@@ -8,6 +8,7 @@ import { Lightbox } from "./lightbox.js";
 import { renderGrid } from "./fallback.js";
 import { startPath } from "./path.js";
 import { environment, makeComposer } from "./look.js";
+import { MindMap } from "./map.js";
 
 const LOCAL = ["localhost", "127.0.0.1", ""].includes(location.hostname);
 const DATA_URL =
@@ -32,6 +33,36 @@ const TREATMENTS = [
 ];
 
 const state = { theme: "all", treatment: "photo", view: "walk" };
+
+// One flat list per photo out of the tag record, so a chip is just a string.
+function flatten(rec) {
+  const out = [];
+  for (const [axis, v] of Object.entries(rec)) {
+    if (axis === "people") continue;
+    if (Array.isArray(v)) out.push(...v);
+    else if (v) out.push(v);
+  }
+  return out;
+}
+
+// The chips are whatever the pictures turned out to be about. A tag on nearly
+// everything filters nothing, and one on a handful is not worth a chip, so both
+// ends are dropped and the rest ranked by how many photos they hold. New shoots
+// change the bar by themselves.
+function chipsFor(all) {
+  const tagged = all.filter((p) => p.tags && p.tags.length);
+  if (tagged.length < 20) return THEMES;
+  const count = new Map();
+  for (const p of tagged) for (const t of new Set(p.tags)) count.set(t, (count.get(t) || 0) + 1);
+  const lo = Math.max(10, Math.round(tagged.length * 0.03));
+  const hi = Math.round(tagged.length * 0.55);
+  const picked = [...count.entries()]
+    .filter(([, n]) => n >= lo && n <= hi)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
+    .map(([t]) => [t, t[0].toUpperCase() + t.slice(1)]);
+  return [["all", "All"], ...picked];
+}
 const $ = (s) => document.querySelector(s);
 
 function webglOK() {
@@ -80,6 +111,7 @@ async function main() {
     return;
   }
   let pathData = null;
+  let tagData = {};
   if (WORLD === "path") {
     try {
       const res = await fetch(BASE + "path.json", { cache: "no-cache" });
@@ -87,6 +119,13 @@ async function main() {
     } catch (e) {
       pathData = null;
     }
+  }
+  try {
+    // generated tags: the chips, and what the map suggests across branches
+    const res = await fetch(BASE + "tags.json", { cache: "no-cache" });
+    if (res.ok) tagData = await res.json();
+  } catch (e) {
+    tagData = {};
   }
   const world = pathData ? "path" : "rooms";
   document.body.dataset.world = world;
@@ -99,7 +138,17 @@ async function main() {
   $("#status").hidden = true;
 
   const all = pathData ? Object.values(pathData.photos) : people.flatMap((p) => p.photos);
-  const themeCounts = Object.fromEntries(THEMES.map(([id]) => [id, all.filter((p) => matches(p, id)).length]));
+  const tagsFor = (p) => {
+    const t = tagData[p.id];
+    if (t) p.tags = flatten(t);
+  };
+  // path.json keys its photos by id rather than storing one on the record
+  if (pathData) for (const [id, p] of Object.entries(pathData.photos)) p.id = id;
+  for (const p of all) tagsFor(p);
+  // the grid and the rooms world read these, which are separate objects
+  for (const person of people) for (const p of person.photos) tagsFor(p);
+  const themes = chipsFor(all);
+  const themeCounts = Object.fromEntries(themes.map(([id]) => [id, all.filter((p) => matches(p, id)).length]));
   const treatCounts = {
     photo: all.length,
     vector: all.filter((p) => p.vector).length,
@@ -117,11 +166,27 @@ async function main() {
     else document.getElementById("room-" + slug)?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
+  let map = null;
   const setView = (v) => {
     state.view = v;
     document.body.dataset.view = v;
     $("#view-toggle").textContent = v === "walk" ? "Grid" : "Walk";
-    if (v === "grid") {
+    const mapBtn = $("#map-toggle");
+    if (mapBtn) mapBtn.setAttribute("aria-pressed", String(v === "map"));
+    if (walk) walk.controls.enabled = v === "walk";
+    if (v === "map") {
+      if (!map && pathData) {
+        map = new MindMap($("#map"), pathData, BASE, {
+          tags: tagData,
+          onEnter: (key, name) => {
+            setView("walk");
+            if (walk && walk.enterAt) walk.enterAt(key);
+            toast(name || "everything", 2600);
+          },
+        });
+        map.home();
+      }
+    } else if (v === "grid") {
       renderGrid(grid, people, BASE, state.theme, lightbox);
       if (walk) walk.controls.unlock();
     } else if (!walk) {
@@ -136,7 +201,7 @@ async function main() {
     }
   };
 
-  chips($("#themes"), THEMES, state.theme, themeCounts, (id) => {
+  chips($("#themes"), themes, state.theme, themeCounts, (id) => {
     state.theme = id;
     if (state.view === "grid") renderGrid(grid, people, BASE, id, lightbox);
     if (walk) walk.setTheme(id);
@@ -147,9 +212,19 @@ async function main() {
   });
 
   setupSnapToggle(() => walk);
+  const mapBtn = $("#map-toggle");
+  if (mapBtn) {
+    if (!pathData) mapBtn.hidden = true;
+    mapBtn.addEventListener("click", () => setView(state.view === "map" ? "walk" : "map"));
+  }
+  addEventListener("keydown", (e) => {
+    if (e.key === "m" && pathData && !e.target.closest?.("input,textarea")) {
+      setView(state.view === "map" ? "walk" : "map");
+    }
+  });
   const toggle = $("#view-toggle");
   if (!canWalk) toggle.hidden = true;
-  toggle.addEventListener("click", () => setView(state.view === "walk" ? "grid" : "walk"));
+  toggle.addEventListener("click", () => setView(state.view === "grid" ? "walk" : "grid"));
   setView(canWalk && !reduced ? "walk" : "grid");
 }
 
