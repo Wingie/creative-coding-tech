@@ -105,8 +105,8 @@ class Segment {
     this.carpet = make(carpetMat, HALF_W * 2, 0, 0);
     this.carpet.userData.carpet = true;
     this.carpet.receiveShadow = true;
-    make(edgeMat, 0.07, HALF_W, 0.004);
-    make(edgeMat, 0.07, -HALF_W, 0.004);
+    make(edgeMat, 0.07, HALF_W, 0.03);
+    make(edgeMat, 0.07, -HALF_W, 0.03);
     for (const c of w.copies) make(ghostCarpet, HALF_W * 2, 0, 0, c);
 
     this.photos.forEach((p, i) => {
@@ -134,7 +134,7 @@ class Segment {
       const lampAt = at.clone().add(rightOf(this.heading).multiplyScalar(-side * 1.6));
       const pool = photoSize(p).w * 0.8;
       brazier.scale.set(pool, pool, 1);
-      brazier.position.set(lampAt.x, 0.02, lampAt.y);
+      brazier.position.set(lampAt.x, 0.08, lampAt.y);
       w.scene.add(brazier);
       this.meshes.push(brazier);
       main.brazier = brazier;
@@ -193,11 +193,11 @@ class Join {
       this.objs.push(o);
     };
     const disc = new THREE.Mesh(joinGeo, carpetMat);
-    disc.position.set(at.x, -0.002, at.y);
+    disc.position.set(at.x, -0.02, at.y);
     add(disc);
     for (const c of world.copies) {
       const d = new THREE.Mesh(joinGeo, ghostCarpet);
-      d.position.set(at.x + c.offset.x, c.offset.y - 0.002, at.y + c.offset.z);
+      d.position.set(at.x + c.offset.x, c.offset.y - 0.02, at.y + c.offset.z);
       add(d);
     }
     if (fork) {
@@ -566,6 +566,7 @@ class PanelSnap {
     this.released = 0;
     this.arrow = false;
     this.aim = 0;
+    this.cut = false; // next move lands in one frame rather than gliding
     this.vfov = Math.PI * 70 / 180; // set from the camera once it exists
     this.dist = 10;
   }
@@ -603,15 +604,29 @@ class PanelSnap {
   }
 
   // Across to the facing wall, to whichever print is nearest where you stand.
+  // Measured from the live camera: world.lastX only updates every 120ms and is
+  // unset before the first world update, which made the distance NaN and sent
+  // you to an arbitrary print instead of the one opposite.
   cross() {
-    const side = this.target ? -this.target.side : 1;
+    const here = this.target;
+    if (!here || !here.segment) return;
+    // Stay inside the hall you are standing in. `side` is relative to the
+    // segment's heading, so the nearest stone with the opposite side anywhere in
+    // the world could belong to another hall that the path has looped back past
+    // — which is how crossing used to land you on the wall you were already
+    // facing, having changed target but not moved.
+    const want = -here.side;
     let best = null;
-    for (const st of this.world.panels()) {
-      if (st.side !== side) continue;
-      const d = Math.hypot(st.group.position.x - this.world.lastX, st.group.position.z - this.world.lastZ);
+    for (const st of here.segment.stones) {
+      if (st.side !== want) continue;
+      const d = st.group.position.distanceTo(here.group.position);
       if (!best || d < best.d) best = { st, d };
     }
-    if (best) this.target = best.st;
+    if (!best) return;
+    this.target = best.st;
+    // Turning 180 degrees while sliding 38m across the hall is the glitch. Take
+    // the whole move in one frame instead: a cut, like looking over your shoulder.
+    this.cut = true;
   }
 
   update(dt, controls, camera, now) {
@@ -648,16 +663,20 @@ class PanelSnap {
       return false;
     }
     const want = this.standFor(this.target);
-    controls.eye += (this.target.picY - controls.eye) * k;
-    controls.x += (want.x - controls.x) * k;
-    controls.z += (want.z - controls.z) * k;
+    // a cross is a cut: position, height and heading all land together
+    const cut = this.cut;
+    this.cut = false;
+    const m = cut ? 1 : k;
+    controls.eye += (this.target.picY - controls.eye) * m;
+    controls.x += (want.x - controls.x) * m;
+    controls.z += (want.z - controls.z) * m;
     let d = want.yaw - controls.yaw;
     while (d > Math.PI) d -= Math.PI * 2;
     while (d < -Math.PI) d += Math.PI * 2;
     // A corner is taken in one step. Easing through 90 degrees is the swing that
     // made this unpleasant; small corrections still glide.
-    controls.yaw += Math.abs(d) > 0.78 ? d : d * k;
-    controls.pitch += (this.aim - controls.pitch) * k;
+    controls.yaw += cut || Math.abs(d) > 0.78 ? d : d * k;
+    controls.pitch += (this.aim - controls.pitch) * m;
     controls.vx = 0;
     controls.vz = 0;
     controls.walkTarget = null;
@@ -678,7 +697,7 @@ export function startPath(canvas, data, base, lightbox, ui) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(70, 1, 0.05, 700);
+  const camera = new THREE.PerspectiveCamera(70, 1, 0.5, 520);
   const sky = new Sky(scene, renderer, { clouds: small ? 14 : 26 });
   const post = makeComposer(renderer, scene, camera, {
     strength: small ? 0.2 : 0.3,

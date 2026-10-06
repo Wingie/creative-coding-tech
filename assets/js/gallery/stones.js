@@ -145,14 +145,14 @@ export class Stone {
     // the print sits at standing-eye height, the slab is barely larger than it
     const picY = 1.15 + h / 2 + seed * 0.25;
     const H = picY + h / 2 + 0.22;
-    add(body, w + 0.18, H, 0.16, 0, H / 2, 0);
+    add(body, w + 0.18, H, 0.34, 0, H / 2, 0);
     add(foot, w + 0.7, 0.22, 0.8, 0, 0.11, 0);
 
     const opts = { color: 0x14181c, transparent: parallel, opacity: parallel ? 0.85 : 1 };
     const mat = variant === "gray" ? grayMaterial(opts) : new THREE.MeshBasicMaterial(opts);
     this.pic = new THREE.Mesh(PLANE, mat);
     this.pic.scale.set(w, h, 1);
-    this.pic.position.set(0, picY, 0.085);
+    this.pic.position.set(0, picY, 0.2);
     this.pic.userData.stone = this;
     this.group.add(this.pic);
     this.height = H;
