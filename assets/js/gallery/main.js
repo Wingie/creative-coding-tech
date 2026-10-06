@@ -112,6 +112,7 @@ async function main() {
   }
   let pathData = null;
   let tagData = {};
+  let outfitData = { outfits: {}, of: {} };
   if (WORLD === "path") {
     try {
       const res = await fetch(BASE + "path.json", { cache: "no-cache" });
@@ -127,6 +128,13 @@ async function main() {
   } catch (e) {
     tagData = {};
   }
+  try {
+    // photos grouped by what the person is wearing
+    const res = await fetch(BASE + "outfits.json", { cache: "no-cache" });
+    if (res.ok) outfitData = await res.json();
+  } catch (e) {
+    outfitData = { outfits: {}, of: {} };
+  }
   const world = pathData ? "path" : "rooms";
   document.body.dataset.world = world;
   setupWorldToggle(world);
@@ -141,6 +149,11 @@ async function main() {
   const tagsFor = (p) => {
     const t = tagData[p.id];
     if (t) p.tags = flatten(t);
+    const o = outfitData.of[p.id];
+    if (o) {
+      p.outfit = o;
+      (p.tags || (p.tags = [])).push("outfit:" + o);
+    }
   };
   // path.json keys its photos by id rather than storing one on the record
   if (pathData) for (const [id, p] of Object.entries(pathData.photos)) p.id = id;
@@ -192,6 +205,7 @@ async function main() {
     } else if (!walk) {
       walk = pathData
         ? startPath($("#scene"), pathData, BASE, lightbox, {
+            outfits: outfitData,
             toast,
             hint: () => $("#hint").classList.add("fade"),
           })
@@ -210,6 +224,38 @@ async function main() {
     state.treatment = id;
     if (walk) walk.setTreatment(id);
   });
+
+  const outfitChips = Object.entries(outfitData.outfits || {})
+    .sort((a, b) => b[1].photos.length - a[1].photos.length)
+    .slice(0, 8)
+    .map(([id, o]) => ["outfit:" + id, o.name]);
+  if (outfitChips.length) {
+    const counts = Object.fromEntries(outfitChips.map(([id]) => [id, all.filter((p) => matches(p, id)).length]));
+    chips($("#outfits"), [["all", "Any outfit"], ...outfitChips], "all", counts, (id) => {
+      if (state.view === "grid") {
+        state.theme = id;
+        renderGrid(grid, people, BASE, id, lightbox);
+        return;
+      }
+      if (!walk) return;
+      if (id === "all") {
+        state.theme = "all";
+        walk.setTheme("all");
+        if (walk.enterAt) walk.enterAt(pathData.root);
+        toast("Everything", 2200);
+        return;
+      }
+      // walk you to the outfit rather than dimming the hall you are in
+      const group = outfitData.outfits[id.slice("outfit:".length)];
+      state.theme = "all";
+      walk.setTheme("all");
+      if (walk.enterPhotos && group) {
+        walk.enterPhotos(group.photos, group.name);
+        toast(group.name + " \u00b7 " + group.sitters.join(", "), 3000);
+      }
+      for (const b of $("#themes").children) b.setAttribute("aria-pressed", String(b.dataset.id === "all"));
+    });
+  }
 
   setupSnapToggle(() => walk);
   const mapBtn = $("#map-toggle");

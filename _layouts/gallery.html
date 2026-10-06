@@ -88,6 +88,13 @@
     @media (max-width: 700px) { body[data-view="walk"] #minimap { display: none; } }
     body[data-view="grid"] #hint, body[data-view="grid"] #room { display: none; }
 
+    #same-outfit { position: fixed; z-index: 4; left: 50%; transform: translateX(-50%);
+      bottom: calc(max(18px, env(safe-area-inset-bottom)) + 24px); font-size: 13px; color: var(--muted); }
+    #same-outfit[hidden] { display: none; }
+    body[data-view="grid"] #same-outfit, body[data-view="map"] #same-outfit { display: none; }
+    #same-outfit button { font: inherit; font-size: 13px; color: #7fd4f0; background: none; border: 0;
+      padding: 0 2px; cursor: pointer; text-decoration: underline dotted; }
+
     #status { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); padding: 16px; text-align: center; pointer-events: none; }
     #status[hidden] { display: none; }
 
@@ -157,6 +164,8 @@
     <div class="bar" id="themes" aria-label="Filter by theme"></div>
     <span class="sep"></span>
     <div class="bar" id="treatments" aria-label="How prints are shown"></div>
+    <span class="sep"></span>
+    <div class="bar" id="outfits" aria-label="Filter by outfit"></div>
     <span class="nav-right">
       <button type="button" id="snap-toggle" title="Stop at each panel, or walk freely">Free walk</button>
       <button type="button" id="map-toggle" title="See the whole gallery from above">Map</button>
@@ -172,6 +181,7 @@
   <div id="rooms-panel" hidden><ol></ol></div>
   <div id="room"></div>
   <div id="hint"></div>
+  <div id="same-outfit" hidden></div>
   <div id="status">Loading the gallery</div>
   <main id="grid"></main>
 

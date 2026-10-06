@@ -11,16 +11,16 @@ import { Controls, EYE } from "./controls.js";
 import { matches } from "./rehang.js";
 import { PALETTE, makeComposer } from "./look.js";
 
-const HALF_W = 5.0; // carpet half width
-const WALK_HALF = 4.6; // how far from the centre line the walker may go
-const STONE_OFF = 11; // prints stand this far from the centre line
+const HALF_W = 7.5; // carpet half width
+const WALK_HALF = 7.0; // how far from the centre line the walker may go
+const STONE_OFF = 19; // prints stand this far from the centre line
 const GAP = 1.2; // the join between one print and the next on the same side
-const PER_NODE = 5;
+const PER_NODE = 9; // a longer hall means fewer corners
 const DRIFT_LEN = 6;
 const AHEAD = 120;
 const BEHIND = 170;
-const JOIN_R = 5;
-const FORK_TURN = 0.5;
+const JOIN_R = 15; // the junction room, wide enough to be a room
+const FORK_TURN = Math.PI / 2; // a corner is a right angle or it is nothing
 
 const carpetMat = new THREE.MeshStandardMaterial({ color: PALETTE.carpet, roughness: 0.82, metalness: 0 });
 // one warm hairline so the carpet reads against the black sea; nothing else competes
@@ -214,6 +214,22 @@ class Join {
     }
   }
 
+  // The print that closes the hall: straight ahead past the junction, facing back
+  // the way you came. A corridor wants something at the end of it.
+  anchor(photo, heading) {
+    if (!photo) return;
+    const st = new Stone(photo, "photo", false);
+    const at = this.at.clone().add(fwd(heading).multiplyScalar(JOIN_R + 6));
+    st.group.position.set(at.x, 0, at.y);
+    st.group.rotation.y = heading + Math.PI;
+    st.side = 0;
+    st.isAnchor = true;
+    this.world.scene.add(st.group);
+    this.world.tex.use(photo.id);
+    this.world.anchors.push(st);
+    this.anchorStone = st;
+  }
+
   sign(text, at, heading, side) {
     const post = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.13, 5.4, 8), new THREE.MeshStandardMaterial({ color: 0x3a2a22 }));
     const base = at.clone().add(rightOf(heading).multiplyScalar(side * 4.6));
@@ -226,6 +242,15 @@ class Join {
   }
 
   dispose() {
+    if (this.anchorStone) {
+      const w = this.world;
+      w.scene.remove(this.anchorStone.group);
+      w.tex.release(this.anchorStone.photo.id);
+      this.anchorStone.dispose();
+      const i = w.anchors.indexOf(this.anchorStone);
+      if (i >= 0) w.anchors.splice(i, 1);
+      this.anchorStone = null;
+    }
     for (const o of this.objs) {
       this.world.scene.remove(o);
       if (o.userData.dispose) o.userData.dispose();
@@ -251,6 +276,7 @@ export class PathWorld {
     this.seen = new Set();
     this.segments = [];
     this.joins = [];
+    this.anchors = [];
     this.line = []; // segments on the chosen route, in order
     this.fork = null;
     this.seed = 7;
@@ -270,6 +296,7 @@ export class PathWorld {
     for (const j of this.joins) j.dispose();
     this.segments = [];
     this.joins = [];
+    this.anchors = [];
     this.line = [];
     this.fork = null;
     this.announced = null;
@@ -278,6 +305,28 @@ export class PathWorld {
       nodeKey: key,
       label: this.nodes[key].name || "",
     });
+    this.segments.push(first);
+    this.line.push(first);
+    this.joins.push(new Join(this, new THREE.Vector2(0, 0), false));
+    return true;
+  }
+
+  // Hang a given set of photos as a fresh hall. Choosing an outfit should take
+  // you to it, not dim the hall you happen to be standing in.
+  enterPhotos(ids, label) {
+    const photos = ids.map((i) => this.photos[i]).filter(Boolean);
+    if (!photos.length) return false;
+    for (const s of this.segments) s.dispose();
+    for (const j of this.joins) j.dispose();
+    this.segments = [];
+    this.joins = [];
+    this.anchors = [];
+    this.line = [];
+    this.fork = null;
+    this.announced = null;
+    for (const p of photos) this.seen.add(p.id);
+    this.lastPhoto = photos[photos.length - 1].id;
+    const first = new Segment(this, new THREE.Vector2(0, 0), 0, photos.slice(0, 14), { label: label || "", drift: true });
     this.segments.push(first);
     this.line.push(first);
     this.joins.push(new Join(this, new THREE.Vector2(0, 0), false));
@@ -347,7 +396,8 @@ export class PathWorld {
       photos = this.pick(this.data.root);
       info = { nodeKey: this.data.root, label: "Back to everything" };
     }
-    const h = tip.heading + (this.rand() - 0.5) * 0.5;
+    // carry straight on: a drift segment is the same hall continuing
+    const h = tip.heading;
     const start = endPt.clone().add(fwd(h).multiplyScalar(0.8));
     this.joins.push(new Join(this, endPt, false));
     const seg = new Segment(this, start, h, photos, info);
@@ -360,7 +410,9 @@ export class PathWorld {
     this.joins.push(join);
     const branches = node.children.map((key, i) => {
       const side = i === 0 ? -1 : 1; // first child to the left
-      const h = tip.heading - side * FORK_TURN;
+      let h = tip.heading - side * FORK_TURN;
+      // if that corner would run into a hall still standing, take the straight on
+      if (this.blocked(at, h)) h = this.blocked(at, tip.heading) ? tip.heading + Math.PI : tip.heading;
       const start = at.clone().add(fwd(h).multiplyScalar(JOIN_R - 0.3));
       const name = this.nodes[key].name || "";
       const seg = new Segment(this, start, h, this.pick(key), { nodeKey: key, label: name });
@@ -368,7 +420,26 @@ export class PathWorld {
       join.sign(name, start, h, side);
       return seg;
     });
+    const best = node.photos
+      .map((id) => this.photos[id])
+      .filter(Boolean)
+      .sort((a, b) => (b.score || 0) - (a.score || 0))[0];
+    join.anchor(best, tip.heading);
     this.fork = { at, branches, join };
+  }
+
+  // Would a hall leaving `at` on heading `h` cross one that is already there?
+  blocked(at, h) {
+    const f = fwd(h);
+    const reach = 90;
+    for (let d = JOIN_R + 8; d < reach; d += 14) {
+      const q = at.clone().add(f.clone().multiplyScalar(d));
+      for (const seg of this.segments) {
+        const pr = seg.project(q);
+        if (pr.raw > -STONE_OFF && pr.raw < seg.length + STONE_OFF && Math.abs(pr.lat) < STONE_OFF * 1.6) return true;
+      }
+    }
+    return false;
   }
 
   // Walking into a branch past its first stones commits to it.
@@ -450,6 +521,7 @@ export class PathWorld {
       for (const st of seg.stones) st.update(this.tex, st.group.position.distanceTo(cam), this.mode);
       for (const { st, main } of seg.copyStones) st.update(this.tex, main.group.position.distanceTo(cam), this.mode);
     }
+    for (const st of this.anchors) st.update(this.tex, st.group.position.distanceTo(cam), this.mode);
   }
 
   setTheme(t) {
@@ -471,7 +543,10 @@ export class PathWorld {
   }
 
   pickables() {
-    return this.segments.flatMap((s) => s.stones.map((st) => st.pic)).concat(this.segments.map((s) => s.carpet));
+    return this.segments
+      .flatMap((s) => s.stones.map((st) => st.pic))
+      .concat(this.anchors.map((st) => st.pic))
+      .concat(this.segments.map((s) => s.carpet));
   }
 }
 
@@ -579,7 +654,9 @@ class PanelSnap {
     let d = want.yaw - controls.yaw;
     while (d > Math.PI) d -= Math.PI * 2;
     while (d < -Math.PI) d += Math.PI * 2;
-    controls.yaw += d * k;
+    // A corner is taken in one step. Easing through 90 degrees is the swing that
+    // made this unpleasant; small corrections still glide.
+    controls.yaw += Math.abs(d) > 0.78 ? d : d * k;
     controls.pitch += (this.aim - controls.pitch) * k;
     controls.vx = 0;
     controls.vz = 0;
@@ -589,6 +666,7 @@ class PanelSnap {
 }
 
 export function startPath(canvas, data, base, lightbox, ui) {
+  const outfits = ui.outfits || { outfits: {}, of: {} };
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
   const small = matchMedia("(max-width: 700px), (pointer: coarse)").matches;
   renderer.setPixelRatio(Math.min(devicePixelRatio, small ? 1.5 : 2));
@@ -636,7 +714,8 @@ export function startPath(canvas, data, base, lightbox, ui) {
         return;
       }
       controls.enabled = false;
-      lightbox.open({ name: st.photo.room, shoot_date: st.photo.captured }, st.segment.photos, st.photo);
+      const list = st.segment ? st.segment.photos : [st.photo];
+      lightbox.open({ name: st.photo.room, shoot_date: st.photo.captured }, list, st.photo);
       return;
     }
     if (centre) return;
@@ -733,6 +812,51 @@ export function startPath(canvas, data, base, lightbox, ui) {
   requestAnimationFrame(tick);
   ui.toast("Everything", 2400);
 
+  // While you are standing at a print, offer the rest of that outfit. Another
+  // sitter in the same clothes is preferred where one exists, but within a shoot
+  // is the usual case and still worth having.
+  const sameEl = document.getElementById("same-outfit");
+  let shownFor = null;
+  function updateSameOutfit() {
+    if (!sameEl) return;
+    const st = snap.target;
+    if (!st || document.body.dataset.view !== "walk") {
+      sameEl.hidden = true;
+      shownFor = null;
+      return;
+    }
+    if (st.photo.id === shownFor) return;
+    shownFor = st.photo.id;
+    const key = outfits.of[st.photo.id];
+    const group = key && outfits.outfits[key];
+    if (!group || group.photos.length < 2) {
+      sameEl.hidden = true;
+      return;
+    }
+    const here = st.photo.room;
+    const others = group.photos.filter((id) => id !== st.photo.id);
+    const elsewhere = others.find((id) => (world.photos[id] || {}).room !== here);
+    const go = elsewhere || others[0];
+    const room = (world.photos[go] || {}).room;
+    sameEl.textContent = "";
+    sameEl.append(group.name + " \u00b7 ");
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = elsewhere ? "also on " + room : "more of this outfit";
+    b.addEventListener("click", () => {
+      const found = world.panels().find((q) => q.photo.id === go);
+      if (found) {
+        snap.target = found;
+        snap.released = 0;
+      } else {
+        lightbox.open({ name: room }, group.photos.map((id) => world.photos[id]).filter(Boolean), world.photos[go]);
+      }
+    });
+    sameEl.append(b);
+    sameEl.hidden = false;
+  }
+  setInterval(updateSameOutfit, 400);
+
   window.__gallery = { world: "path", controls, camera, renderer, path: world, fps, snap };
   return {
     controls,
@@ -743,6 +867,13 @@ export function startPath(canvas, data, base, lightbox, ui) {
     },
     teleport() {
       return false;
+    },
+    enterPhotos(ids, label) {
+      if (!world.enterPhotos(ids, label)) return false;
+      controls.teleport(0, 1.2, 0);
+      snap.target = null;
+      snap.released = 0;
+      return true;
     },
     enterAt(key) {
       if (!world.enterAt(key)) return false;
