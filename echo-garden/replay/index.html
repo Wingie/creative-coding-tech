@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Echo Garden Replay</title>
+<meta name="description" content="Listen back to a plant playing through Echo Garden, with a simulated robot arm.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <h1>Echo Garden replay</h1>
+  <p class="notice" id="notice">A minute of a plant, recorded in August and looped to five. The robot arm here is simulated, so its touches are made up.</p>
+</header>
+
+<section class="transport panel" aria-label="Transport">
+  <div class="row">
+    <button id="play" type="button" class="btn primary" disabled>Play</button>
+    <button id="sound" type="button" class="btn">Sound on</button>
+    <span class="time" id="time" aria-live="off">0:00.0 / 0:00</span>
+  </div>
+  <input id="scrub" type="range" min="0" max="1" step="0.1" value="0" aria-label="Position in the session">
+  <div class="row wrap">
+    <label class="ctl">Speed
+      <select id="speed">
+        <option value="0.5">0.5x</option>
+        <option value="1" selected>1x</option>
+        <option value="1.5">1.5x</option>
+        <option value="2">2x</option>
+        <option value="3">3x</option>
+        <option value="4">4x</option>
+      </select>
+    </label>
+    <label class="ctl check"><input id="rawmode" type="checkbox"> Hear the raw plant instead</label>
+  </div>
+  <p class="hint" id="soundhint">Press "Sound on" to hear it. Every note goes into a long echo.</p>
+</section>
+
+<main class="grid">
+  <section class="panel arm" aria-labelledby="h-arm">
+    <h2 id="h-arm">The arm</h2>
+    <p class="explain">From above, the plant sits in the middle with six spots the arm can touch. From the side, you can see the arm dip down. When it touches, the plant's circuit closes and it starts to play.</p>
+    <canvas id="armTop" class="cv" role="img" aria-label="Top-down view of the plant, the stations and the arm"></canvas>
+    <canvas id="armSide" class="cv side" role="img" aria-label="Side view of the arm and its height"></canvas>
+    <p class="status" id="armStatus">&nbsp;</p>
+  </section>
+
+  <section class="panel onsets" aria-labelledby="h-on" hidden>
+    <h2 id="h-on">When the notes happen</h2>
+    <p class="explain">Each mark is a note. Left alone, the plant sensor ticks like a hidden metronome, about eight times a second. Every played note is nudged off that tick. Turn on the grid and the raw notes line up with it while the played ones don't. There are fewer played notes on purpose, so the echo doesn't get muddy.</p>
+    <div class="row wrap">
+      <label class="ctl check"><input id="gridOn" type="checkbox" checked> Show the 127.9 ms grid</label>
+      <label class="ctl">Window
+        <select id="win">
+          <option value="4">4 s</option>
+          <option value="8" selected>8 s</option>
+          <option value="20">20 s</option>
+          <option value="60">60 s</option>
+        </select>
+      </label>
+    </div>
+    <div class="lane">
+      <h3>Plant (raw)</h3>
+      <canvas id="laneRaw" class="cv lanecv" role="img" aria-label="Raw plant note onsets around the playhead"></canvas>
+      <p class="verdict" id="vRaw"></p>
+    </div>
+    <div class="lane">
+      <h3>Played (re-timed)</h3>
+      <canvas id="lanePlayed" class="cv lanecv" role="img" aria-label="Played note onsets around the playhead"></canvas>
+      <p class="verdict" id="vPlayed"></p>
+    </div>
+    <p class="hint" id="gridNote">The grid lines up with the raw notes on screen.</p>
+  </section>
+
+  <section class="panel loop" aria-labelledby="h-loop">
+    <h2 id="h-loop">The loop</h2>
+    <p class="explain">How much of the echo keeps coming back, over the whole session. D briefly turns the echo down, C clears it and P stops everything. The brown bars are the moments the arm touched the plant. Tap anywhere to jump there.</p>
+    <canvas id="loopCv" class="cv loopcv" role="img" aria-label="Loop feedback over time with duck, clear and panic marks"></canvas>
+    <p class="status" id="loopStatus">&nbsp;</p>
+  </section>
+
+  <section class="panel stats" aria-labelledby="h-stats" hidden>
+    <h2 id="h-stats">Where the notes land</h2>
+    <p class="explain">Left, the gaps between notes. Right, where each note lands inside one tick of the plant's hidden metronome. A tall spike means the notes are stuck to the tick. A flat spread means they're free.</p>
+    <div class="hists">
+      <figure><figcaption>Raw: gaps between notes</figcaption><canvas id="hRawIoi" class="cv hcv"></canvas></figure>
+      <figure><figcaption>Raw: offset from the tick</figcaption><canvas id="hRawPh" class="cv hcv"></canvas></figure>
+      <figure><figcaption>Played: gaps between notes</figcaption><canvas id="hPlIoi" class="cv hcv"></canvas></figure>
+      <figure><figcaption>Played: offset from the tick</figcaption><canvas id="hPlPh" class="cv hcv"></canvas></figure>
+    </div>
+  </section>
+
+  <section class="panel load" aria-labelledby="h-load" hidden>
+    <h2 id="h-load">Play your own recording</h2>
+    <p class="explain">Drop a session file anywhere on the page. It never leaves your browser. Make one with <code>python -m gateway.export_web</code>.</p>
+    <input id="file" type="file" accept=".json,application/json" aria-label="Load a session JSON file">
+    <p class="status" id="loadStatus">&nbsp;</p>
+  </section>
+</main>
+
+<footer class="foot">
+  <p id="meta">&nbsp;</p>
+</footer>
+
+<script src="data/demo_session.js"></script>
+<script src="replay.js"></script>
+<script src="../nav.js"></script>
+</body>
+</html>

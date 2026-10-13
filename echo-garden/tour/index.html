@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Echo Garden Onboarding</title>
+<meta name="description" content="A playable tour of Echo Garden, a gridless instrument for live sets: touch the plant, set the density, loop over yourself, and pick a role.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 fill=%22%230b0221%22/%3E%3Ccircle cx=%2216%22 cy=%2218%22 r=%228%22 fill=%22%23ffb238%22/%3E%3Cpath d=%22M0 22h32v10H0z%22 fill=%22%23ff2bd6%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="deck.css">
+</head>
+<body>
+
+<main class="deck">
+  <div class="stage">
+    <canvas id="cv" width="320" height="180" role="img" aria-label="A pixel-art synthwave scene: a plant in a pot on a neon grid, with a robot arm beside it."></canvas>
+    <p class="act" id="act" aria-hidden="true"></p>
+  </div>
+
+  <section class="card" aria-live="polite">
+    <p class="kicker" id="kicker"></p>
+    <h1 id="title"></h1>
+    <p id="body"></p>
+    <div id="extra"></div>
+  </section>
+</main>
+
+<nav class="nav" aria-label="Slides">
+  <button type="button" id="prev" aria-label="Previous slide">&larr;</button>
+  <span id="count">1 / 8</span>
+  <button type="button" id="next" aria-label="Next slide">&rarr;</button>
+  <button type="button" id="snd" class="snd" aria-pressed="false">Sound off</button>
+</nav>
+
+<template id="tpl-roles">
+  <div class="roles" role="group" aria-label="Roles">
+    <button type="button" aria-pressed="false">Musician</button>
+    <button type="button" aria-pressed="false">Performer</button>
+    <button type="button" aria-pressed="false">Signal mover</button>
+    <button type="button" aria-pressed="false">Digital maker</button>
+    <button type="button" aria-pressed="false">Light orchestrator</button>
+    <button type="button" aria-pressed="false">Tech and music fan</button>
+  </div>
+  <form class="add">
+    <label for="addRole" class="sr">Your own role</label>
+    <input id="addRole" maxlength="28" placeholder="something else? add it">
+    <button type="submit">add</button>
+  </form>
+  <p class="small" id="picked">Nothing picked yet. Nothing here is required.</p>
+</template>
+
+<template id="tpl-join">
+  <div class="links">
+    <a class="btn hot" href="https://musichackspace.org/events/hackathon-amsterdam-october-2026/teams/1222">Join on the hackathon page</a>
+    <a class="btn" href="../replay/">Hear a recorded session</a>
+    <a class="btn" href="../ideas/">Wire up an idea</a>
+  </div>
+  <p class="small" id="joinRoles"></p>
+</template>
+
+<script src="../ideas/font.js"></script>
+<script src="../ideas/sound.js"></script>
+<script src="deck.js"></script>
+<script src="../nav.js"></script>
+</body>
+</html>

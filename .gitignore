@@ -62,3 +62,4 @@ r2-worker/.wrangler/
 models/
 *.pt
 *.ts
+_site_local/

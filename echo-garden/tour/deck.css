@@ -1,0 +1,59 @@
+/* Echo Garden onboarding: the synthwave look of the Ideas page, as a playable deck. */
+:root {
+  --bg: #0b0221; --panel: #1a0840ee; --edge: #3b1670; --ink: #f4e9ff; --muted: #a38cc8;
+  --mag: #ff2bd6; --cyan: #22e6ff; --sun: #ffb238; --green: #39ff9f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: radial-gradient(120% 80% at 50% 0%, #2a0a52 0%, var(--bg) 60%) fixed, var(--bg);
+  color: var(--ink); font: 15px/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  overflow-x: hidden;
+}
+a { color: var(--cyan); }
+.sr { position: absolute; left: -9999px; }
+.back { position: fixed; top: 10px; left: 16px; z-index: 5; font-size: 13px; text-decoration: none; color: var(--muted); }
+.back:hover { color: var(--ink); }
+
+.deck { min-height: calc(100svh - 48px); display: grid; justify-items: center; align-content: center; padding: 16px 16px 84px; }
+.stage { position: relative; width: min(100%, calc((100svh - 180px) * 16 / 9), 1280px); }
+#cv {
+  display: block; width: 100%; aspect-ratio: 16 / 9; image-rendering: pixelated;
+  border: 2px solid var(--edge); border-radius: 6px; box-shadow: 0 0 40px #ff2bd633; cursor: pointer; touch-action: manipulation;
+}
+.act { position: absolute; right: 12px; top: 10px; margin: 0; font-size: 12px; color: var(--sun); text-shadow: 0 0 6px #000; pointer-events: none; }
+
+.card {
+  width: min(100%, 1280px); margin-top: 14px; background: var(--panel); border: 1px solid var(--edge);
+  border-left: 4px solid var(--mag); border-radius: 6px; padding: 14px 18px; display: grid; gap: 8px;
+}
+.kicker { margin: 0; color: var(--cyan); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+.card h1 { margin: 0; font-size: clamp(20px, 3.2vw, 30px); color: var(--mag); text-shadow: 0 0 12px #ff2bd666; letter-spacing: 0.02em; }
+.card p { margin: 0; max-width: 72ch; }
+.small { font-size: 13px; color: var(--muted); }
+
+@media (min-width: 900px) and (min-height: 640px) {
+  .stage { width: min(100%, calc((100svh - 160px) * 16 / 9), 1280px); }
+  .deck { position: relative; }
+  .card { position: absolute; left: max(32px, calc(50% - 600px)); bottom: 100px; width: min(560px, 46vw); margin: 0; backdrop-filter: blur(3px); }
+}
+
+.roles { display: flex; flex-wrap: wrap; gap: 8px; }
+.roles button, .add button, .nav button, .btn {
+  font: inherit; font-size: 14px; color: var(--ink); background: #12052b; border: 1px solid var(--edge);
+  border-radius: 4px; padding: 8px 12px; min-height: 40px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center;
+}
+.roles button[aria-pressed="true"] { background: var(--mag); border-color: var(--mag); color: #12052b; font-weight: 700; }
+.add { display: flex; gap: 8px; flex-wrap: wrap; }
+.add input { flex: 1 1 200px; min-width: 0; font: inherit; color: var(--ink); background: #12052b; border: 1px solid var(--edge); border-radius: 4px; padding: 8px 10px; min-height: 40px; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn.hot { background: var(--sun); color: #12052b; border-color: var(--sun); font-weight: 700; }
+button:focus-visible, a:focus-visible, input:focus-visible, #cv:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+.nav { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); z-index: 5; display: flex; gap: 8px; align-items: center;
+  background: #0b0221cc; border: 1px solid var(--edge); border-radius: 6px; padding: 6px; }
+.nav button { white-space: nowrap; }
+@media (max-width: 640px) { .act { position: static; margin-top: 6px; text-shadow: none; } }
+.nav #count { min-width: 54px; text-align: center; color: var(--muted); font-size: 13px; }
+.nav .snd[aria-pressed="true"] { border-color: var(--green); color: var(--green); }

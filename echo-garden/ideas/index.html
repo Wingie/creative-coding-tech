@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Echo Garden Ideas</title>
+<meta name="description" content="Wire the Echo Garden rig's blocks together and see and hear what each idea would do.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+      <h1>Echo Garden ideas</h1>
+    <p class="sub">Wire a source, a time, a shape and a destination. Any wiring that can work is an idea.</p>
+  </div>
+  <div class="topctl">
+    <div class="seg" role="group" aria-label="Plant source">
+      <button type="button" data-plant="recorded" class="on" title="The 2026-08-27 Pocket Scion probe, 60 s, looped">recorded plant</button>
+      <button type="button" data-plant="simulated" title="A coin flip per 127.9 ms tick at about 1.9 a second, with CC wobble and drift">simulated plant</button>
+    </div>
+    <button type="button" id="sound" class="sound">Sound on</button>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="rail" id="rail">
+    <section class="blocks">
+      <h2>Sources <small>pick one or two</small></h2>
+      <div class="chips" id="chips-src"></div>
+      <h2>Time <small>when things happen</small></h2>
+      <div class="chips" id="chips-time"></div>
+      <h2>Shape <small>what it becomes</small></h2>
+      <div class="chips" id="chips-shape"></div>
+      <h2>Destination</h2>
+      <div class="chips" id="chips-dest"></div>
+    </section>
+    <section class="verdict" id="verdict" aria-live="polite"></section>
+    <section class="walk">
+      <button type="button" id="walk">Walk the space</button>
+      <button type="button" id="surprise">Surprise me</button>
+      <p class="count"><b id="nvalid">0</b> wirings can work <span id="walkpos"></span></p>
+    </section>
+    <section class="needs" id="needs"></section>
+    <p class="written" id="written"></p>
+  </aside>
+
+  <section class="stage" id="stagewrap">
+    <canvas id="scene" width="320" height="200" aria-label="The rig in space: the plant in its dome, six stations, the arm, the performer, and the neon floor grid"></canvas>
+    <div class="controls">
+      <label>distance <input type="range" id="c-close" min="0" max="1" step="0.01" value="0.35"><span class="hint">far / near</span></label>
+      <label>motion <input type="range" id="c-motion" min="0" max="1" step="0.01" value="0"></label>
+      <div class="ctlgroup"><span class="lbl">learned shape</span>
+        <div class="seg small" id="c-wcls">
+          <button type="button" data-cls="0" class="on">none</button><button type="button" data-cls="1">1</button><button type="button" data-cls="2">2</button><button type="button" data-cls="3">3</button>
+        </div>
+      </div>
+      <label>learned value <input type="range" id="c-wval" min="0" max="1" step="0.01" value="0.5"></label>
+      <div class="ctlgroup"><span class="lbl">pads</span>
+        <button type="button" class="pad" data-pad="duck">duck</button><button type="button" class="pad" data-pad="clear">clear</button><button type="button" class="pad panic" data-pad="panic" id="panic">panic</button>
+      </div>
+      <label>outside energy <input type="range" id="c-energy" min="0" max="1" step="0.01" value="0.4"><span class="hint">a slider: no DJ input exists yet</span></label>
+    </div>
+    <p class="note">Drag the performer up and down to come nearer, shake to move. Arm contact is simulated and untested on the rig.</p>
+  </section>
+
+  <section class="out" id="out">
+    <div class="lanes">
+      <div class="lanehead"><h3>Timing</h3><span class="legend"><i class="raw"></i>raw source <i class="played"></i>played</span></div>
+      <canvas id="lane-raw" class="lane"></canvas>
+      <canvas id="lane-played" class="lane"></canvas>
+      <div class="meter">
+        <div class="mrow"><span>tick match, played</span><div class="bar"><i id="m-played"></i><b id="m-p99"></b></div><span id="m-pv" class="mv"></span></div>
+        <div class="mrow"><span>tick match, raw</span><div class="bar"><i id="m-raw" class="raw"></i><b id="m-rp99"></b></div><span id="m-rv" class="mv"></span></div>
+        <p id="m-verdict" class="mverdict"></p>
+      </div>
+    </div>
+    <div class="loopbox">
+      <h3>Loop</h3>
+      <div class="mrow"><span>feedback</span><div class="bar"><i id="l-fb"></i></div><span id="l-fbv" class="mv"></span></div>
+      <div class="mrow"><span>send</span><div class="bar"><i id="l-send"></i></div><span id="l-sendv" class="mv"></span></div>
+      <div class="mrow"><span>loop time</span><div class="bar"><i id="l-time"></i></div><span id="l-timev" class="mv"></span></div>
+      <label class="chk"><input type="checkbox" id="hear-raw"> hear the raw plant too</label>
+      <p class="hint" id="soundhint">Sound starts on a click.</p>
+    </div>
+    <div class="readout">
+      <h3>Rig read-out <small>what this wiring would send right now</small></h3>
+      <ol id="msgs" class="msgs"></ol>
+      <div class="lands">
+        <label>Ableton set <select id="set"></select></label>
+        <label>TD file <select id="toe"></select></label>
+        <ul id="lands"></ul>
+      </div>
+    </div>
+    <div class="shortlist">
+      <h3>Shortlist</h3>
+      <button type="button" id="star">Star this wiring</button>
+      <textarea id="note" rows="2" placeholder="A note on this wiring, kept in this browser"></textarea>
+      <ul id="starred"></ul>
+    </div>
+  </section>
+</main>
+
+<script src="data/probe.js"></script>
+<script src="data/stations.js"></script>
+<script src="rigdata.js"></script>
+<script src="font.js"></script>
+<script src="sim.js"></script>
+<script src="sound.js"></script>
+<script src="scene.js"></script>
+<script src="app.js"></script>
+<script src="../nav.js"></script>
+</body>
+</html>

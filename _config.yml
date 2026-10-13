@@ -52,6 +52,7 @@ exclude:
   - package.json
   - package-lock.json
   - rollup.config.js
+  - echo-garden/replay/README.md
   - scripts
 
 # Chirpy theme settings

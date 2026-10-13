@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Echo Garden</title>
+  <meta name="description" content="A gridless instrument for live sets: a plant, a robot arm, a performer and a tape-style loop. Built at the ADE Lab Hackathon, Amsterdam 2026.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cpath d=%22M8 30h16l2-10H6z%22 fill=%22%23c0623b%22/%3E%3Cpath d=%22M16 20C10 18 6 12 7 4c6 1 10 6 9 16zm0 0c2-6 6-9 11-9-1 5-5 9-11 9z%22 fill=%22%234f8a3a%22/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <link rel="modulepreload" href="vendor/three.module.min.js">
+  <script type="module" src="hero.js"></script>
+</head>
+<body>
+  <header class="top wrap">
+    <h1>Echo Garden</h1>
+    <p class="subtitle">A gridless instrument for live sets, where the music moves when bodies and plants move.</p>
+  </header>
+
+  <main>
+    <section class="hero wrap" aria-label="Echo Garden in 3D">
+      <div id="hero-stage" class="stage">
+        <canvas id="hero-canvas" role="img"
+          aria-label="A potted plant on a wooden table. A small dark box, the Pocket Scion, sits beside it with one cable clipped to a leaf and one in the soil. A robot arm reaches over, rests its tool on a leaf, and musical notes rise from the plant while faint rings spread out from the pot. Then the arm lifts away and visits another leaf."></canvas>
+        <div id="hero-captions" class="captions" aria-hidden="true"></div>
+        <div id="hero-fallback" class="fallback">
+          <p>Picture a potted plant on a wooden table. A small dark box sits beside it, with one cable clipped to a leaf and one pushed into the soil. A desktop robot arm reaches over and rests its tool on a leaf. The box lights up, notes rise from the plant, and slow rings spread from the pot. The arm lifts, the notes stop, and the rings fade.</p>
+          <p class="small">The 3D view needs WebGL, which this browser does not offer.</p>
+        </div>
+        <button id="hero-toggle" class="toggle" type="button" hidden>Show the 3D scan</button>
+      </div>
+      <p class="hint">Drag to look around. The arm moves to a new leaf every 20 seconds.</p>
+    </section>
+
+    <section class="wrap prose">
+      <p class="pitch">A robot arm touches a living plant and closes its circuit. The plant's signal turns into MIDI notes that feed a live Ableton set as one more instrument, so the music gets a voice nobody fully controls. Lift the arm and the plant drops out. Whatever it played can keep circling in a long loop.</p>
+    </section>
+
+    <section class="wrap" aria-labelledby="how">
+      <h2 id="how">How it works</h2>
+      <ol class="steps">
+        <li>
+          <h3>The plant</h3>
+          <p>A small box called a Pocket Scion reads the plant's electrical signal and turns it into MIDI notes. A threshold sets how dense those notes are, and the same density setting drives other instruments in the set too, such as the sting.</p>
+        </li>
+        <li>
+          <h3>The arm</h3>
+          <p>When the arm touches a leaf, the circuit closes and the plant's notes come into the set. When it lifts, they stop. On the day of each show the arm has to learn where the leaves are, so it knows where to touch.</p>
+        </li>
+        <li>
+          <h3>The body, still experimental</h3>
+          <p>A Kinect reads how a performer moves. The idea is that when she comes near the plant, the arm moves to meet her there. Wekinator may sit in between to learn her poses.</p>
+        </li>
+        <li>
+          <h3>The loop</h3>
+          <p>Frippertronics means looping over yourself, the way Robert Fripp and Brian Eno did with two tape machines. Here the loop can take a live performer, the plant's own notes, or the performer's body read by the Kinect and played like a theremin.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="wrap" aria-labelledby="flow">
+      <h2 id="flow">How a touch becomes sound</h2>
+      <div class="flow">
+        <svg viewBox="0 0 940 345" role="img" aria-labelledby="flow-desc">
+          <desc id="flow-desc">The robot arm touches the plant, which closes its circuit. The Pocket Scion turns the plant's signal into MIDI notes, a threshold sets how dense they are, and the notes join the live Ableton set and its loop. Dashed and still experimental: a Kinect reads the performer's body, possibly through Wekinator, and moves the arm to where she comes near the plant; light is projected onto her body.</desc>
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="head" d="M0,0 L10,5 L0,10 z"/></marker>
+            <marker id="ahx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="head x" d="M0,0 L10,5 L0,10 z"/></marker>
+          </defs>
+          <rect class="box live" x="10" y="20" width="170" height="58" rx="10"/><text class="lab" x="24" y="44">Plant</text><text class="sub" x="24" y="64">alive, in a pot</text>
+          <rect class="box live" x="10" y="134" width="170" height="58" rx="10"/><text class="lab" x="24" y="158">Robot arm</text><text class="sub" x="24" y="178">rests on a leaf</text>
+          <rect class="box x" x="10" y="250" width="170" height="58" rx="10"/><text class="lab" x="24" y="274">The body</text><text class="sub" x="24" y="294">a Kinect reads motion</text>
+          <rect class="box hub" x="260" y="20" width="180" height="58" rx="10"/><text class="lab" x="274" y="44">Pocket Scion</text><text class="sub" x="274" y="64">turns the plant into MIDI</text>
+          <rect class="box x" x="260" y="250" width="180" height="58" rx="10"/><text class="lab" x="274" y="274">Wekinator</text><text class="sub" x="274" y="294">maybe, to learn poses</text>
+          <rect class="box hub" x="510" y="20" width="180" height="58" rx="10"/><text class="lab" x="524" y="44">Density</text><text class="sub" x="524" y="64">a threshold thins the notes</text>
+          <rect class="box hub" x="510" y="134" width="180" height="58" rx="10"/><text class="lab" x="524" y="158">Ableton Live</text><text class="sub" x="524" y="178">the live set and its loop</text>
+          <rect class="box live" x="760" y="134" width="170" height="58" rx="10"/><text class="lab" x="774" y="158">Sound</text><text class="sub" x="774" y="178">in the room</text>
+          <rect class="box x" x="760" y="250" width="170" height="58" rx="10"/><text class="lab" x="774" y="274">Light on the body</text><text class="sub" x="774" y="294">projection, testing</text>
+          <path class="ar" marker-end="url(#ah)" d="M95,132 L95,82"/><text class="sub strong" x="104" y="112">touch closes</text><text class="sub strong" x="104" y="125">the circuit</text>
+          <path class="ar" marker-end="url(#ah)" d="M180,49 L256,49"/>
+          <path class="ar" marker-end="url(#ah)" d="M440,49 L506,49"/>
+          <path class="ar" marker-end="url(#ah)" d="M600,78 L600,130"/>
+          <path class="ar" marker-end="url(#ah)" d="M690,163 L756,163"/>
+          <path class="ar x" marker-end="url(#ahx)" d="M180,279 L256,279"/>
+          <path class="ar x" marker-end="url(#ahx)" d="M350,250 C350,200 260,170 184,166"/><text class="sub" x="270" y="208">moves the arm to her</text>
+          <path class="ar x" marker-end="url(#ahx)" d="M150,308 C300,342 620,342 756,290"/>
+        </svg>
+      </div>
+      <p class="legend"><span><span class="key"></span>Solid: working now</span><span><span class="key x"></span>Dashed: still being tried</span></p>
+      <p class="open">Still open, and the work for the hackathon: teaching the arm where the leaves are on the day of a show, lining up the Kinect, the projector and the arm in a new room, and shaping how a set runs from the first touch to the last loop.</p>
+    </section>
+
+    <section class="wrap callout" aria-labelledby="grid">
+      <h2 id="grid">Escape the Grid</h2>
+      <p>A plant, a robot arm, a performer and a Frippertronics-style tape delay, played as one performance. Clocks exist, but the looping is timey-wimey. Echo Garden is being built at the ADE Lab Hackathon in Amsterdam, 21 to 23 October 2026, for Colin Benders' challenge, Escape the Grid.</p>
+      <p>Looking for genuine musicians, signal movers, digital makers and visual orchestrators of light. Technology and music aficionados are welcome too.</p>
+      <p><a class="button" href="https://musichackspace.org/events/hackathon-amsterdam-october-2026/teams/1222">Join the team</a></p>
+    </section>
+
+    <nav class="wrap links" aria-label="More">
+      <a class="card" href="tour/">
+        <span class="card-title">Take the tour</span>
+        <span class="card-text">A playable walk through the project, and a place to pick your role.</span>
+      </a>
+      <a class="card" href="replay/">
+        <span class="card-title">Watch a replay</span>
+        <span class="card-text">A recorded session of the plant, played back in your browser.</span>
+      </a>
+      <a class="card" href="ideas/">
+        <span class="card-title">Ideas</span>
+        <span class="card-text">Wire a plant source, a timing and a destination in a synthwave sim, then see and hear what it would do.</span>
+      </a>
+    </nav>
+  </main>
+
+
+  <footer class="wrap foot">
+    <h2 class="foot-title">Credits</h2>
+    <ul>
+      <li>Plant model: <a href="https://polyhaven.com/a/potted_plant_02">"Potted Plant 02"</a> by Rico Cilliers, Poly Haven, CC0.</li>
+      <li>3D: <a href="https://threejs.org/">three.js</a> r160, MIT licence, served from this site. Splat viewer: <a href="https://github.com/mkkellogg/GaussianSplats3D">GaussianSplats3D</a> by Mark Kellogg, MIT licence.</li>
+      <li>Robot arm (a Rotrics DexArm) and Pocket Scion: built for this page from simple three.js shapes, no outside models. Free to reuse under CC0.</li>
+    </ul>
+  </footer>
+<script src="nav.js"></script>
+</body>
+</html>
