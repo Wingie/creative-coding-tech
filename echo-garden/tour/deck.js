@@ -18,25 +18,25 @@
   // ------------------------------------------------------------------ slides
   var SLIDES = [
     { k: "Echo Garden", t: "A gridless instrument for live sets",
-      b: "A plant, a robot arm, a performer and a Frippertronics-style tape delay, played as one performance. The music moves when bodies and plants move. Click the plant or press Space to try each idea; the arrows move on.",
-      act: "click the plant", mode: "intro" },
-    { k: "Working today", t: "Touch a leaf, the plant joins the set",
-      b: "When the arm rests on a leaf it closes the plant's circuit. A Pocket Scion turns the plant's signal into MIDI, which feeds the live Ableton set as one more instrument. Lift the arm and the plant drops out.",
+      b: "A plant, a robot arm, a performer and a Frippertronics-style tape delay, played as one performance. Click the plant and the arm closes its circuit. The plant's signal turns into MIDI, which goes into the Ableton set and triggers instruments. Space works too. The arrows move to the next slide.",
+      act: "click and hold the plant", mode: "intro" },
+    { k: "Working today", t: "Touch a leaf and the plant joins the set",
+      b: "When the arm rests on a leaf, it closes the plant's circuit. A Pocket Scion turns the plant's signal into MIDI. The MIDI runs into the live Ableton set and triggers instruments. Lift the arm and the plant drops out.",
       act: "hold: keep the arm on the leaf", mode: "touch" },
     { k: "Working today", t: "How many notes get through",
-      b: "A threshold sets how dense the plant's notes are. Turn it up and the plant whispers, turn it down and it chatters. The same density setting also drives other instruments in the set, such as the sting.",
+      b: "A density threshold sets how many of the plant's notes get through. Raise it and fewer notes play. Lower it and more do. Other instruments in the set share the same threshold, such as the sting.",
       act: "click: raise / lower the threshold", mode: "tick" },
     { k: "Working today", t: "Frippertronics",
-      b: "Looping over yourself, the way Robert Fripp and Brian Eno did with two tape machines. The loop can take a live performer, the plant's own notes, or the performer's body read by a Kinect and played like a theremin.",
+      b: "Frippertronics is looping over yourself through a long tape delay. Robert Fripp and Brian Eno did it with two tape machines. The loop takes a live performer, the plant's notes or a performer's body. A Kinect reads the body, and it's played like a theremin.",
       act: "click: drop notes into the loop", mode: "echo" },
     { k: "Still being tried", t: "The arm meets the performer",
-      b: "A Kinect reads how a performer moves. The idea is that when she comes near the plant, the arm moves to meet her there and brings the plant in. Wekinator may sit in between to learn her poses.",
+      b: "A Kinect reads how a performer moves. The idea is that when she comes near the plant, the arm moves to meet her there and brings the plant in. Wekinator may sit in between to learn her poses. Light may also be projected onto her body.",
       act: "move across the scene: come near the plant", mode: "body" },
     { k: "The hackathon work", t: "What gets built at the hackathon",
-      b: "Teaching the arm where the leaves are on the day of a show. Lining up the Kinect, the projector and the arm in a new room. Shaping how a set runs from the first touch to the last loop. Clocks exist, but the looping is timey-wimey.",
+      b: "The arm has to find the leaves on show day. The Kinect, the projector and the arm have to line up in a new room. And how a set runs, from first touch to last loop, isn't decided yet.",
       act: "", mode: "open", tpl: "tpl-ideas" },
     { k: "Where you fit", t: "Pick a role, or add your own",
-      b: "Looking for genuine musicians, signal movers, digital makers and visual orchestrators of light. Technology and music aficionados are welcome too. Click whatever sounds like you, or add your own.",
+      b: "Looking for genuine musicians, signal movers, digital makers and visual orchestrators of light. Technology and music aficionados are welcome too. Click any that fit.",
       act: "", mode: "roles", tpl: "tpl-roles" },
     { k: "ADE Lab Hackathon, Amsterdam, 21 to 23 October 2026", t: "Come and build it",
       b: "Echo Garden is an entry for Colin Benders' challenge, Escape the Grid. Sign up on the hackathon page and mention the roles you picked.",
@@ -257,7 +257,7 @@
 
     if (m === "intro") {
       textC("ECHO GARDEN", 160, 12, C.mag, "#2b0040");
-      textC(VERB + " the plant to touch it", 160, 26, C.cyan);
+      textC(VERB + " the plant to close its circuit", 160, 26, C.cyan);
     }
     if (m === "tick") {
       rect(20, 8, 280, 22, "#0d0322cc"); line(20, 8, 300, 8, "#3b1670"); line(20, 30, 300, 30, "#3b1670");

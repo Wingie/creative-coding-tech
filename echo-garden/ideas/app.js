@@ -118,8 +118,8 @@
     var risks = [];
     if (wiring.src.indexOf("touch") >= 0) risks.push("arm contact is predicted from the Scion manual and untested; here it is simulated");
     if (wiring.src.indexOf("energy") >= 0) risks.push("no DJ input module exists; the slider stands in");
-    if (wiring.time === "tick" || wiring.time === "gate" || wiring.time === "ornament") risks.push("timing stays on the plant's 127.9 ms tick: the grid is still there");
-    if (wiring.dest === "notes") risks.push("the gateway caps notes at 12 per 30 s");
+    if (wiring.time === "tick" || wiring.time === "gate" || wiring.time === "ornament") risks.push("timing stays on the plant's 127.9 ms grid");
+    if (wiring.dest === "notes") risks.push("notes are capped at 12 per 30 s");
     if (risks.length) row("watch", risks.join("; "), "warn");
     n.appendChild(dl);
   }
@@ -274,8 +274,8 @@
     if (!meter) { s.textContent = "Too few played events in the last 30 s to tell."; }
     else {
       s.className = meter.stuck ? "stuck" : "free";
-      s.textContent = meter.stuck ? "Played: stuck to the tick (R " + meter.R.toFixed(2) + ", chance p99 " + meter.p99.toFixed(2) + ")."
-        : "Played: free of the tick (R " + meter.R.toFixed(2) + ", chance p99 " + meter.p99.toFixed(2) + ").";
+      s.textContent = meter.stuck ? "Played: stuck to the grid (R " + meter.R.toFixed(2) + ", chance p99 " + meter.p99.toFixed(2) + ")."
+        : "Played: free of the grid (R " + meter.R.toFixed(2) + ", chance p99 " + meter.p99.toFixed(2) + ").";
     }
     v.appendChild(s);
   }
@@ -394,6 +394,13 @@
     });
     $("walk").addEventListener("click", function () { walking = !walking; if (walking) { walkStep(); nextWalk = simT + 4.5; } renderWalk(); });
     $("surprise").addEventListener("click", function () { setWiring(all[Math.floor(Math.random() * all.length)]); });
+    // the "Some wirings to try" buttons in the panel above the sim
+    document.querySelectorAll("[data-wiring]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        setWiring(JSON.parse(b.getAttribute("data-wiring")));
+        $("rail").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
     $("c-close").addEventListener("input", function (e) { world.ctl.close = +e.target.value; });
     $("c-motion").addEventListener("input", function (e) { sliderMotion = +e.target.value; });
     $("c-wval").addEventListener("input", function (e) { world.ctl.wval = +e.target.value; });

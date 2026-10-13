@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Echo Garden</title>
-  <meta name="description" content="A gridless instrument for live sets: a plant, a robot arm, a performer and a tape-style loop. Built at the ADE Lab Hackathon, Amsterdam 2026.">
+  <meta name="description" content="A plant, a robot arm, a performer and a tape-style loop, played as one instrument in a live set. Being built at the ADE Lab Hackathon, Amsterdam, October 2026.">
   <meta name="color-scheme" content="light dark">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cpath d=%22M8 30h16l2-10H6z%22 fill=%22%23c0623b%22/%3E%3Cpath d=%22M16 20C10 18 6 12 7 4c6 1 10 6 9 16zm0 0c2-6 6-9 11-9-1 5-5 9-11 9z%22 fill=%22%234f8a3a%22/%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css">
@@ -33,7 +33,7 @@
     </section>
 
     <section class="wrap prose">
-      <p class="pitch">A robot arm touches a living plant and closes its circuit. The plant's signal turns into MIDI notes that feed a live Ableton set as one more instrument, so the music gets a voice nobody fully controls. Lift the arm and the plant drops out. Whatever it played can keep circling in a long loop.</p>
+      <p class="pitch">A robot arm touches a living plant and closes its circuit. A Pocket Scion turns the plant's signal into MIDI. That MIDI runs into a live Ableton set and triggers instruments. Lift the arm and the plant drops out. Whatever it played can keep going round in a tape-style loop.</p>
     </section>
 
     <section class="wrap" aria-labelledby="how">
@@ -41,19 +41,19 @@
       <ol class="steps">
         <li>
           <h3>The plant</h3>
-          <p>A small box called a Pocket Scion reads the plant's electrical signal and turns it into MIDI notes. A threshold sets how dense those notes are, and the same density setting drives other instruments in the set too, such as the sting.</p>
+          <p>A small box called a Pocket Scion reads the plant's electrical signal. It turns that signal into MIDI notes. A density threshold sets how many notes get through. Other instruments in the set share the same threshold, such as the sting.</p>
         </li>
         <li>
           <h3>The arm</h3>
-          <p>When the arm touches a leaf, the circuit closes and the plant's notes come into the set. When it lifts, they stop. On the day of each show the arm has to learn where the leaves are, so it knows where to touch.</p>
+          <p>When the arm touches a leaf, the circuit closes and the plant's notes come into the set. When the arm lifts, they stop. On show day, the arm first has to find where the leaves are.</p>
         </li>
         <li>
           <h3>The body, still experimental</h3>
-          <p>A Kinect reads how a performer moves. The idea is that when she comes near the plant, the arm moves to meet her there. Wekinator may sit in between to learn her poses.</p>
+          <p>A Kinect reads how a performer moves. The idea is that when she comes near the plant, the arm moves to meet her there. Wekinator may sit in between to learn her poses. Light may also be projected onto her body.</p>
         </li>
         <li>
           <h3>The loop</h3>
-          <p>Frippertronics means looping over yourself, the way Robert Fripp and Brian Eno did with two tape machines. Here the loop can take a live performer, the plant's own notes, or the performer's body read by the Kinect and played like a theremin.</p>
+          <p>Frippertronics is looping over yourself through a long tape delay. Robert Fripp and Brian Eno did it with two tape machines. Here the loop takes 3 inputs: a live performer, the plant's notes and a performer's body. The Kinect reads the body, and it's played like a theremin.</p>
         </li>
       </ol>
     </section>
@@ -62,7 +62,7 @@
       <h2 id="flow">How a touch becomes sound</h2>
       <div class="flow">
         <svg viewBox="0 0 940 345" role="img" aria-labelledby="flow-desc">
-          <desc id="flow-desc">The robot arm touches the plant, which closes its circuit. The Pocket Scion turns the plant's signal into MIDI notes, a threshold sets how dense they are, and the notes join the live Ableton set and its loop. Dashed and still experimental: a Kinect reads the performer's body, possibly through Wekinator, and moves the arm to where she comes near the plant; light is projected onto her body.</desc>
+          <desc id="flow-desc">The robot arm touches the plant, which closes its circuit. The Pocket Scion turns the plant's signal into MIDI notes. A threshold sets how many get through. The notes go into the live Ableton set and its loop, and come out as sound. Dashed lines are still experimental. A Kinect reads the performer's body, maybe through Wekinator. It moves the arm to where she comes near the plant. Light is projected onto her body.</desc>
           <defs>
             <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="head" d="M0,0 L10,5 L0,10 z"/></marker>
             <marker id="ahx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="head x" d="M0,0 L10,5 L0,10 z"/></marker>
@@ -87,7 +87,7 @@
         </svg>
       </div>
       <p class="legend"><span><a href="replay/">See it play out in the replay</a></span><span><span class="key"></span>Solid: working now</span><span><span class="key x"></span>Dashed: still being tried</span></p>
-      <p class="open">Still open, and the work for the hackathon: teaching the arm where the leaves are on the day of a show, lining up the Kinect, the projector and the arm in a new room, and shaping how a set runs from the first touch to the last loop.</p>
+      <p class="open">Three things are still open, and they're the work for the hackathon. The arm has to find the leaves on show day. The Kinect, the projector and the arm have to line up in a new room. And how a set runs, from first touch to last loop, isn't decided yet.</p>
     </section>
 
     <section class="wrap callout" aria-labelledby="grid">
@@ -104,7 +104,7 @@
       </a>
       <a class="card" href="replay/">
         <span class="card-title">Watch a replay</span>
-        <span class="card-text">A recorded session of the plant, played back in your browser.</span>
+        <span class="card-text">A real recording of the plant's signal, played back with what the system did with it.</span>
       </a>
       <a class="card" href="ideas/">
         <span class="card-title">Ideas</span>

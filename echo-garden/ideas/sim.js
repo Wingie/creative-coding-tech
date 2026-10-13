@@ -234,7 +234,7 @@
   // ------------------------------------------------------------------ the blocks
   // kinds: ev = makes events, val = a level to follow, held = can be held
   var SOURCES = [
-    { id: "pulse", name: "plant pulse", ev: 1, hw: "Pocket Scion", m: "measured", what: "the plant's note-ons, about 1.9 a second, on its 127.9 ms tick" },
+    { id: "pulse", name: "plant pulse", ev: 1, hw: "Pocket Scion", m: "measured", what: "the plant's note-ons, about 1.9 a second, on its 127.9 ms grid" },
     { id: "level", name: "plant level", val: 1, hw: "Pocket Scion", m: "measured", what: "CC0-2, one signal wobbling over 1-2 s" },
     { id: "agit", name: "plant agitation", val: 1, hw: "Pocket Scion", m: "measured", what: "CC3, faster than the level" },
     { id: "drift", name: "plant drift", val: 1, hw: "Pocket Scion", m: "measured", what: "CC4, a slow drift" },
@@ -248,8 +248,8 @@
     { id: "energy", name: "outside energy", val: 1, hw: "none yet (a slider)", m: "no input", what: "the DJ set's level; no input module exists, so it is a slider" }
   ];
   var TIMES = [
-    { id: "tick", name: "on the tick", st: "built", what: "as the plant plays it, on its 127.9 ms tick" },
-    { id: "bend", name: "bent off the tick", st: "planned", what: "each event waits 0-400 ms, an amount taken from the plant's own signals" },
+    { id: "tick", name: "on the grid", st: "built", what: "as the plant plays it, on its 127.9 ms grid" },
+    { id: "bend", name: "bent off the grid", st: "planned", what: "each event waits 0-400 ms, an amount taken from the plant's own signals" },
     { id: "density", name: "as density", st: "sketch", what: "a chance per moment, on a free clock, following a level" },
     { id: "gate", name: "as a gate", st: "sketch", what: "events pass only while something is held" },
     { id: "stretch", name: "stretched playhead", st: "sketch", what: "events step a written phrase; a slow level stretches its beat" },
@@ -307,7 +307,7 @@
     var hasPulse = w.src.indexOf("pulse") >= 0;
     switch (w.time) {
       case "tick":
-        if (!hasPulse) return "only the plant's own pulse sits on its tick: add plant pulse";
+        if (!hasPulse) return "only the plant's own pulse sits on its grid: add plant pulse";
         break;
       case "bend": case "ornament": case "stretch":
         if (!r.trig) return (w.time === "stretch" ? "a playhead needs events to step it" : w.time === "bend" ? "bending needs events to move" : "an ornament needs events to decorate") + ": add plant pulse, touch, motion, a learned shape or a pad";
@@ -618,7 +618,7 @@
       nulls.push(combStat(j, per));
     }
     var p99 = pct(nulls, 0.99), p50 = median(nulls);
-    return { R: real, p50: p50, p99: p99, stuck: real > p99, verdict: real > p99 ? "stuck to the tick" : "free of the tick" };
+    return { R: real, p50: p50, p99: p99, stuck: real > p99, verdict: real > p99 ? "stuck to the grid" : "free of the grid" };
   }
   // the live meter: one window (the last 30 s), coarser periods, fewer nulls
   function tickMatch(ts, r) {

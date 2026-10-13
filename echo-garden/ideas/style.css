@@ -154,3 +154,16 @@ button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-
 }
 
 .back { display: inline-block; font-size: 13px; margin-bottom: 4px; color: inherit; opacity: 0.8; }
+
+/* "What can Echo Garden do" panel above the sim */
+.about { margin: 0 24px 4px; padding: 10px 14px; background: var(--panel); border: 1px solid var(--edge); border-radius: 8px; }
+.about summary { cursor: pointer; color: var(--magenta); font-weight: 700; }
+.about p { margin: 8px 0; max-width: 70ch; }
+.about-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 4px 18px; }
+.about h3 { margin: 10px 0 4px; }
+.about ul { margin: 0; padding-left: 18px; color: var(--ink); }
+.about li { margin: 2px 0; }
+.tries { display: flex; flex-wrap: wrap; gap: 6px; }
+.tries button { background: var(--bg2); border: 1px solid var(--edge); border-radius: 6px; padding: 6px 10px; cursor: pointer; text-align: left; }
+.tries button:hover, .tries button:focus-visible { border-color: var(--cyan); outline: none; }
+@media (max-width: 720px) { .about { margin: 0 16px 4px; } }

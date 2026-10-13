@@ -16,12 +16,65 @@
   </div>
   <div class="topctl">
     <div class="seg" role="group" aria-label="Plant source">
-      <button type="button" data-plant="recorded" class="on" title="The 2026-08-27 Pocket Scion probe, 60 s, looped">recorded plant</button>
-      <button type="button" data-plant="simulated" title="A coin flip per 127.9 ms tick at about 1.9 a second, with CC wobble and drift">simulated plant</button>
+      <button type="button" data-plant="recorded" class="on" title="A real Pocket Scion recording from 27 August 2026, 60 s, looped">recorded plant</button>
+      <button type="button" data-plant="simulated" title="A coin flip every 127.9 ms, about 1.9 notes a second, with CC wobble and drift">simulated plant</button>
     </div>
     <button type="button" id="sound" class="sound">Sound on</button>
   </div>
 </header>
+
+<details class="about" id="about" open>
+  <summary>What can Echo Garden do in a set?</summary>
+  <p>Echo Garden is a set of parts that can be wired together in umptillion ways. This page lets you try those wirings before they're built on stage. Every idea has 4 parts.</p>
+  <div class="about-cols">
+    <div>
+      <h3>1. Source: what starts it</h3>
+      <ul>
+        <li>The plant's notes, about 2 a second.</li>
+        <li>How busy the plant's signal is, fast or slow.</li>
+        <li>The arm touching the plant, or which leaf it's on.</li>
+        <li>How close a performer stands, and how much they move.</li>
+        <li>A pose the computer learned during the show.</li>
+        <li>A pad on the mixer: duck, clear or stop.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>2. Time: when it happens</h3>
+      <ul>
+        <li>As the plant plays it.</li>
+        <li>As a chance that rises and falls.</li>
+        <li>Only while something is held, like a touch.</li>
+        <li>Stepping through a written phrase.</li>
+        <li>As a burst of 2 to 4 hits.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>3. Shape: what it changes</h3>
+      <ul>
+        <li>Which note from a set, how loud, how long a phrase runs.</li>
+        <li>How much echo comes back, how much goes in, how long the loop is.</li>
+        <li>Where the light falls, and how much effect.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>4. Destination: where it ends up</h3>
+      <ul>
+        <li>Notes in the Ableton set.</li>
+        <li>The tape loop.</li>
+        <li>Light projected on the plant and the performer.</li>
+        <li>Effect controls in the set.</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Some wirings to try</h3>
+  <div class="tries">
+    <button type="button" data-wiring='{"src":["distance"],"time":"density","shape":"len","dest":"loop"}'>A performer steps closer and the loop gets longer.</button>
+    <button type="button" data-wiring='{"src":["touch","pulse"],"time":"gate","shape":"pitch","dest":"notes"}'>The arm touches the plant, and notes play only while it's touching.</button>
+    <button type="button" data-wiring='{"src":["wcls","pulse"],"time":"ornament","shape":"pitch","dest":"notes"}'>A learned pose turns each plant note into a burst of 3 hits.</button>
+    <button type="button" data-wiring='{"src":["drift","place"],"time":"density","shape":"light","dest":"projection"}'>The plant's slow drift moves the light from leaf to leaf.</button>
+  </div>
+  <p class="sub">Each part is marked built, planned or sketch. "Surprise me" picks a wiring that can work. "Walk the space" steps through all of them.</p>
+</details>
 
 <main class="layout">
   <aside class="rail" id="rail">
@@ -70,8 +123,8 @@
       <canvas id="lane-raw" class="lane"></canvas>
       <canvas id="lane-played" class="lane"></canvas>
       <div class="meter">
-        <div class="mrow"><span>tick match, played</span><div class="bar"><i id="m-played"></i><b id="m-p99"></b></div><span id="m-pv" class="mv"></span></div>
-        <div class="mrow"><span>tick match, raw</span><div class="bar"><i id="m-raw" class="raw"></i><b id="m-rp99"></b></div><span id="m-rv" class="mv"></span></div>
+        <div class="mrow"><span>on the grid, played</span><div class="bar"><i id="m-played"></i><b id="m-p99"></b></div><span id="m-pv" class="mv"></span></div>
+        <div class="mrow"><span>on the grid, raw</span><div class="bar"><i id="m-raw" class="raw"></i><b id="m-rp99"></b></div><span id="m-rv" class="mv"></span></div>
         <p id="m-verdict" class="mverdict"></p>
       </div>
     </div>
@@ -88,7 +141,7 @@
       <ol id="msgs" class="msgs"></ol>
       <div class="lands">
         <label>Ableton set <select id="set"></select></label>
-        <label>TD file <select id="toe"></select></label>
+        <label>TouchDesigner file <select id="toe"></select></label>
         <ul id="lands"></ul>
       </div>
     </div>

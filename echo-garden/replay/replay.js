@@ -428,15 +428,15 @@
     return s.n + " notes. " + (stuck
       ? '<span class="bad">Stuck to a grid.</span>'
       : '<span class="good">No grid in sight.</span>') +
-      ' <span class="nums">(tick match ' + s.comb.R.toFixed(2) + ", chance up to " + s.comb.null_p99.toFixed(2) + ")</span>";
+      ' <span class="nums">(grid match ' + s.comb.R.toFixed(2) + ", chance up to " + s.comb.null_p99.toFixed(2) + ")</span>";
   }
   function updateText() {
     ui.time.textContent = fmtTime(T) + " / " + fmtShort(S.meta.duration_s || 0);
     if (!ui.scrubbing) ui.scrub.value = T.toFixed(1);
     var arm = armAt(T), con = arm.contact, step = stepAt(T);
     var s;
-    if (con.on) s = "Touching " + stationName(con.station) + ". The plant is playing.";
-    else if (step && step[2] === "travel") s = "Moving to " + stationName(step[1]) + ".";
+    if (con.on) s = "Touching the " + stationName(con.station) + " spot. The plant is playing.";
+    else if (step && step[2] === "travel") s = "Moving to the " + stationName(step[1]) + " spot.";
     else if (step && step[2] === "panic") s = "Panic stop. Everything goes quiet and the arm heads home.";
     else s = "Arm lifted. The plant is quiet.";
     ui.armStatus.textContent = s;
@@ -597,11 +597,8 @@
     ui.play.disabled = false;
     seek(0); setPlaying(false);
     var demo = /probe/.test(S.meta.source || "") || /probe/.test(S.meta.label || "");
-    ui.notice.textContent = demo
-      ? "A minute of a plant, recorded in August and looped to five. The robot arm here is " +
-        "simulated, so its touches are made up. A few test moves are thrown in too: a duck, a " +
-        "clear, someone walking up to the plant, and a panic stop."
-      : "A recorded session. If the arm wasn't plugged in, it's simulated and its touches are made up.";
+    // The demo's intro (with its "How it works" link) is in the HTML; only other sessions replace it.
+    if (!demo) ui.notice.textContent = "A recorded session of the plant. If the arm wasn't connected, its moves here are simulated.";
     ui.vRaw.innerHTML = verdictHtml(S.stats && S.stats.raw);
     ui.vPlayed.innerHTML = verdictHtml(S.stats && S.stats.played);
     ui.meta.textContent = S.plant_notes.length + " notes came in from the plant and " +
