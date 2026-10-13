@@ -7,12 +7,9 @@ order: 7
 
 <div class="consulting-contact">
 
-# Get in touch
+<p class="contact-lead">I work on two things. One is measuring what AI systems actually do. The other is music and technology on stage, made to entertain people.</p>
 
-Tell me what you're working on and what's in the way. If I'm not the right person I'll say so, and I'll usually know someone who is.
-
-
----
+<p>Tell me what you're working on and what's in the way. If I'm not the right person, I'll say so. I usually know someone who is.</p>
 
 <div class="contact-links">
   <a href="mailto:creativecodingtech@proton.me" class="contact-link-item">
@@ -29,56 +26,64 @@ Tell me what you're working on and what's in the way. If I'm not the right perso
   </a>
 </div>
 
----
+<h2 class="contact-form-title">Send a message</h2>
 
-## Send an Inquiry
+<p id="contact-sent" class="contact-sent" hidden>Thanks, your message reached me. I'll reply by email.</p>
 
-<form action="https://formsubmit.co/creativecodingtech@proton.me" method="POST" class="oracle-form">
-  <input type="hidden" name="_subject" value="Consulting Inquiry — creativecodingtech.com">
+<form id="contact-form" action="https://formsubmit.co/creativecodingtech@proton.me" method="POST" class="oracle-form">
+  <input type="hidden" name="_subject" value="Message from creativecodingtech.com">
   <input type="hidden" name="_captcha" value="false">
   <input type="hidden" name="_next" value="https://creativecodingtech.com/contact/?submitted=true">
 
   <div class="form-group">
-    <label for="name">Your Name</label>
-    <input type="text" id="name" name="name" required placeholder="Jane Smith">
+    <label for="name">Your name</label>
+    <input type="text" id="name" name="name" required autocomplete="name">
   </div>
 
   <div class="form-group">
-    <label for="email">Email Address</label>
-    <input type="email" id="email" name="email" required placeholder="jane@company.com">
+    <label for="email">Your email</label>
+    <input type="email" id="email" name="email" required autocomplete="email">
   </div>
 
   <div class="form-group">
-    <label for="company">Company / Organisation</label>
-    <input type="text" id="company" name="company" placeholder="Optional">
+    <label for="company">Company or organisation (optional)</label>
+    <input type="text" id="company" name="company" autocomplete="organization">
   </div>
 
   <div class="form-group">
-    <label for="service">What are you looking for?</label>
+    <label for="service">What is it about?</label>
     <select id="service" name="service">
-      <option value="">— Select one —</option>
-      <option value="ai-ml">AI/ML engineering</option>
-      <option value="sovereign-ai">Sovereign AI infrastructure</option>
-      <option value="governance">AI evaluation &amp; governance</option>
-      <option value="creative-tech">Creative installations &amp; live AV</option>
-      <option value="workshops">Workshops &amp; facilitation</option>
-      <option value="compute">Lending GPUs to the climate work</option>
-      <option value="role">A role</option>
+      <option value="">Pick one</option>
+      <option value="ai-ml">AI and machine learning engineering</option>
+      <option value="sovereign-ai">Running AI on your own hardware</option>
+      <option value="governance">Testing what an AI system actually does</option>
+      <option value="creative-tech">Music, installations and live AV</option>
+      <option value="echo-garden">Echo Garden or the ADE Lab Hackathon</option>
+      <option value="workshops">Workshops and facilitation</option>
+      <option value="compute">Lending GPUs or compute</option>
+      <option value="role">A job</option>
       <option value="other">Something else</option>
     </select>
   </div>
 
   <div class="form-group">
-    <label for="context">Tell me about your project</label>
+    <label for="context">What are you working on?</label>
     <textarea id="context" name="context" rows="5" required placeholder="What are you building, and what's stuck?"></textarea>
   </div>
 
   <div class="form-group">
-    <label for="timeline">Timeline / Urgency</label>
-    <input type="text" id="timeline" name="timeline" placeholder="e.g. Starting next quarter, ASAP, exploratory">
+    <label for="timeline">When do you need it? (optional)</label>
+    <input type="text" id="timeline" name="timeline" placeholder="This month, next quarter, just looking">
   </div>
 
-  <button type="submit" class="submit-button">Send Inquiry</button>
+  <button type="submit" class="submit-button">Send</button>
 </form>
+
+<script>
+  if (new URLSearchParams(location.search).get("submitted") === "true") {
+    document.getElementById("contact-sent").hidden = false;
+    document.getElementById("contact-form").hidden = true;
+  }
+</script>
 
 </div>
