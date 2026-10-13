@@ -24,6 +24,18 @@ Before Booking.com: Industry Networks in Dubai, Premiere Digital in Bangalore an
 
 Since 2022 I've chaired Taste Before You Waste, a food-waste charity in Amsterdam. Its books went from €20,334 below zero to a €106,573 reserve. The thing I'm proudest of is winning an appeal against a €2,625 hygiene fine. I live-code music at algoraves. I got a Kinect v2 working on macOS, which Microsoft never shipped a driver for.
 
+## What I've studied this year
+
+These are Coursera courses, each tied to something I'm building.
+
+- **GPU Programming**, a 4-course specialisation from Johns Hopkins, finished October 2026. CUDA from threads up to multi-GPU libraries. I use it for the [LOGOS training runs](/research/) on a single 3090.
+- **The Fundamentals of RDMA Programming**, from NVIDIA, October 2026. Moving data between GPUs on different machines. That's the step after one 3090, if donated compute comes through.
+- **AWS Cloud Solutions Architect**, a 4-course certificate from AWS, September 2026. I haven't taken the AWS exam. It feeds the [infrastructure side](/consulting/) of what I offer.
+- **AI Governance (IAPP AIGP training)**, from Packt, August 2026. This is the training course. I haven't taken the IAPP exam. It sits under the [testing and governance work](/consulting/).
+- **Project Management**, a 6-course certificate from Google, July 2026.
+
+The full list with credential links is on [LinkedIn](https://www.linkedin.com/in/wingstonsharon/details/certifications/).
+
 Looking for my next role. Happy to talk about any of the above.
 
 [Get in touch](/contact/) · [What I can help with](/consulting/) · [Things I got wrong](/corrections/)

@@ -34,7 +34,31 @@ refactor: true
   <!-- Main content + sidebar -->
   <div class="project-layout">
     <div class="project-main">
+      {% if page.videos %}
+      <div class="project-videos">
+        {% for v in page.videos %}
+        <figure class="project-video">
+          <video src="{{ v.src }}"{% if v.poster %} poster="{{ v.poster }}"{% endif %} autoplay muted loop playsinline preload="metadata" aria-label="{{ v.caption | escape }}"></video>
+          {% if v.caption %}<figcaption>{{ v.caption }}</figcaption>{% endif %}
+        </figure>
+        {% endfor %}
+      </div>
+      {% endif %}
+
       {{ content }}
+
+      {% if page.talks %}
+      <div class="project-talks">
+        {% for t in page.talks %}
+        <figure class="project-talk">
+          <div class="project-talk__frame">
+            <iframe src="https://www.youtube-nocookie.com/embed/{{ t.youtube }}" title="{{ t.title | escape }}" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <figcaption>{{ t.title }}</figcaption>
+        </figure>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
 
     <aside class="project-sidebar">
