@@ -31,7 +31,7 @@ So a concept artist who needed a dwarf warrior in heavy plate carrying a two-han
 
 [Blender MCP](https://github.com/ahujasid/blender-mcp) is Siddharth Ahuja's project. It lets an AI assistant drive Blender. I added two things this studio needed.
 
-**Mesh search from a description.** The text is embedded and matched against CSM.ai's asset library, and the closest mesh comes into Blender as a starting point. Not a final asset. Something to block a scene out with.
+**Mesh search from a description.** The text is embedded and matched against CSM.ai's asset library, and the closest mesh comes into Blender. It's a starting point for blocking out a scene.
 
 **Rigging in one call.** A single tool call rigs the mesh, sends it to Mixamo, pulls an animation back and applies it in the scene.
 

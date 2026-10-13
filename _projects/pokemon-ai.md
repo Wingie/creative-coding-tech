@@ -31,7 +31,7 @@ So: can a vision model play it?
 
 The agent runs on PyBoy with a vision model in the loop. Two parts made the difference.
 
-**Upscaling the frame.** The Game Boy renders 160x144. Sent straight to a vision model, that's close to useless. Upscaling to 480x432 and pushing the contrast first is the single change that moved it from flailing to playing. The model isn't bad at seeing. It was being handed a thumbnail.
+**Upscaling the frame.** The Game Boy renders 160x144. Sent straight to a vision model, that's close to useless. Upscaling to 480x432 and pushing the contrast first is the single change that moved it from flailing to playing. At 160x144 it was looking at a thumbnail.
 
 **A notepad it writes itself.** The model keeps a markdown file of where it's been, what it's carrying, which paths are blocked, and which plans have already failed. Each turn it gets the current frame and its own notes. Without that it walks into the same wall for an hour, because nothing on screen tells it that it already tried this.
 

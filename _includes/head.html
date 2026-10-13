@@ -21,7 +21,7 @@
 <meta property="twitter:image" content="{{ page.og_image }}" />
     {%- endcapture -%}
     {%- capture project_og_title -%}
-<meta property="og:title" content="{{ page.title }} — {{ page.tagline }}" />
+<meta property="og:title" content="{{ page.title }}: {{ page.tagline }}" />
     {%- endcapture -%}
     {%- capture old_twitter_card -%}<meta name="twitter:card" content="summary" />{%- endcapture -%}
     {%- capture old_og_title -%}<meta property="og:title" content="{{ page.title }}" />{%- endcapture -%}
@@ -66,7 +66,7 @@
   <!-- Single canonical title per page type -->
   <title>
     {%- if page.layout == 'project-detail' -%}
-      {{ page.title }} — {{ page.tagline }} | Wingston Sharon Wilson
+      {{ page.title }}: {{ page.tagline }} | Wingston Sharon Wilson
     {%- elsif page.layout == 'home' -%}
       {{ site.title }}
     {%- elsif page.title -%}

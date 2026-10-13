@@ -64,7 +64,7 @@ The site said "100+ open source repositories". I have 169 public, of which 37 ar
 
 **Client results come from the clients, mostly under NDA.**
 
-**Booking.com figures and team sizes are confidential**, which is why some pages describe what I did without saying how big it was.
+**Most Booking.com figures and team sizes are confidential**, which is why some pages describe what I did without saying how big it was.
 
 ---
 

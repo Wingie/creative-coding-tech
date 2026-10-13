@@ -26,7 +26,7 @@ I also wrote that the exposure was about seven minutes. My own timestamps say th
 
 The view had no decorator. That's it.
 
-Every other admin view in the project has one. This one was newer, and I'd built it in a rush of enthusiasm about the thing it controlled rather than the thing it was. The generated scaffolding didn't add one and I didn't notice it missing, because a missing decorator looks like nothing.
+Every other admin view in the project has one. This one was newer, and I'd built it in a rush of enthusiasm about the thing it controlled rather than the thing it was. The generated code didn't add one and I didn't notice it missing, because a missing decorator looks like nothing.
 
 The fix is four lines. The interesting question is why four lines were absent for thirteen minutes on the highest-privilege page in the system, and the answer is that nothing checked. There was no test asserting that an anonymous request to an admin URL gets a redirect. There is now, and it runs over the whole admin URL namespace rather than a list I have to remember to extend.
 

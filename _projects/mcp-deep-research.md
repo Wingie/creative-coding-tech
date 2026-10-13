@@ -24,7 +24,7 @@ upstream_repo: mcp-DEEPwebresearch
 og_image: https://opengraph.githubassets.com/1/qpd-v/mcp-DEEPwebresearch
 ---
 
-Three hours of every brief went on finding sources. Not reading them. Finding them.
+Three hours of every brief went on finding sources, before anyone read one.
 
 The think tank writes briefings for government clients, and each one needs fifteen to twenty-five citations. The work is telling a primary source from commentary, working out what's paywalled, discarding things that only look relevant.
 

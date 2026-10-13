@@ -18,7 +18,7 @@ A cron job wakes a supervisor. It reads the pull requests from the last run, alo
 
 Builder agents take a ticket each, work in their own git worktree, and open a pull request. That PR is what the next supervisor reads. The agents never talk to each other directly. Everything goes through code review, which is durable, ordered, and already the thing a human would look at.
 
-Tasks are scoped to a few minutes. That wasn't a design principle, it was a consequence: long-running agents kept hitting a twelve-minute timeout, and breaking the work up was the fix. It turned out to solve three other things at once. Tasks survive a crash. They can be prioritised. You can count them.
+Tasks are scoped to a few minutes. Long-running agents kept hitting a twelve-minute timeout, and smaller tasks fixed it. It turned out to solve three other things at once. Tasks survive a crash. They can be prioritised. You can count them.
 
 ## The gate that never ran
 
@@ -35,11 +35,11 @@ if [ $TEST_EXIT -ne 0 ]; then
 fi
 ```
 
-The original had `|| true` inside the command substitution. That forces an exit status of zero regardless of what the tests did, so `TEST_EXIT` was always 0 and the check never fired once. Not rarely. Never.
+The original had `|| true` inside the command substitution. That forces an exit status of zero regardless of what the tests did, so `TEST_EXIT` was always 0 and the check never fired once.
 
 I called this the most important part of the system while shipping a version of it that couldn't fail. It went unnoticed for weeks, because a gate that always passes and a gate that works look identical from the outside. The only signal is that nothing ever gets blocked, and "nothing ever gets blocked" reads as good news.
 
-If you build one of these, test the gate by feeding it something that should fail. Watch it stop. Otherwise you don't have a gate, you have a log line.
+If you build one of these, test the gate by feeding it something that should fail. Watch it stop.
 
 ## What else was worth doing
 
@@ -47,6 +47,6 @@ If you build one of these, test the gate by feeding it something that should fai
 
 **Never commit what a crashed agent left behind.** It's half-finished and it poisons the PR. Throw it away, but write down what you threw away. I discarded silently once and lost six runs of real work.
 
-**The queue is human-shaped at the far end.** Agents produce at machine speed into a review process that moves at my speed. At one point fifteen PRs were open and none had merged in four days. That's the real ceiling.
+**I am the bottleneck.** At one point fifteen PRs were open and none had merged in four days.
 
-**Measured later.** The numbers I quoted for this system when I first wrote it up were my impressions. The measured figures are on the [Agentosaurus page](/projects/agentosaurus/), including the part where three months of logs read 100% success and that turned out to be false.
+**Measured later.** The numbers I quoted for this system when I first wrote it up were my impressions. The measured figures are on the [Agentosaurus page](/projects/agentosaurus/), including 64 runs logged as success that did nothing.

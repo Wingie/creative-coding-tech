@@ -5,8 +5,8 @@ redirect_from:
   - /projects/flowstate/
 tagline: AI agents write most of this platform. These are the things that broke.
 description: >-
-  A climate research platform where AI agents write most of the code and hand work
-  to each other through pull requests. Over a thousand merged in 2026. The failures
+  A build system where AI agents write most of the code for a climate site. I use
+  it to learn how agents fail. The agents hand work to each other through pull requests. Over a thousand merged in 2026. The failures
   are the useful part, so those are what this page covers.
 language: Python
 role: Built
@@ -36,13 +36,11 @@ I only found it because the queue wasn't shrinking.
 
 AI agents write most of its code. They merged over a thousand pull requests in 2026. It still runs, six times a day on weekdays.
 
-I built it to find out how agents behave when you stop watching each step. Then I stopped watching.
+I built it to find out how agents behave when you stop watching each step.
 
 ## Agents that talk through pull requests
 
 My agents never message each other. One agent reads the pull requests from the last run, looks at the reviews and the failures, and files a ticket for each problem it finds. Another agent picks up a ticket, works it in its own copy of the repo, and opens a pull request. That pull request is what the first agent reads next time.
-
-The pull request is the message.
 
 I didn't design it this way. My first version had three agents passing turns to each other, holding context the whole time. They kept hitting a twelve minute timeout. Breaking the work into three-minute tasks fixed the timeouts, and it turned out to fix four other things I hadn't been trying to fix. Tasks survive a crash. They can be ordered by priority. You can count how many are done. And every decision an agent made is sitting in a diff that someone can read.
 

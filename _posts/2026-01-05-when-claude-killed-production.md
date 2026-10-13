@@ -28,4 +28,4 @@ Two things I changed.
 
 **The agent's shell runs read-only unless I turn writes on for that job.** Not a permission list of forbidden commands, because I'd never finish writing it. Off by default, on when I'm watching.
 
-The uncomfortable part isn't that it ran a destructive command. It's that `terminate-user` isn't destructive. It's a normal command with a blast radius that depends on how you deployed, and that context lives in your head.
+`terminate-user` is a normal command. How much it breaks depends on how you deployed, and only you know that.

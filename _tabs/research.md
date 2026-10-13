@@ -37,11 +37,11 @@ Most benchmarks score the answer. This one scores the working: did the agent pic
 
 Twenty-two models have been through it on 44 tasks.
 
-The useful finding was about the test, not the models. I ran one fine-tuned model through three different agent frameworks. Same weights, same GPU. It scored 47.8%, 46.6% and 44.2%. The third failed a check the other two passed, because the model had been trained to call `read_file.path` and that framework passes `Read.file_path`. Change the wrapper, get a different agent.
+The useful finding was about the test. I ran one fine-tuned model through three different agent frameworks. Same weights, same GPU. It scored 47.8%, 46.6% and 44.2%. The third failed a check the other two passed, because the model had been trained to call `read_file.path` and that framework passes `Read.file_path`.
 
 It also found two bugs in itself. It was scoring a rival framework zero on real shell commands, because that framework names its tools differently and my scorer only knew mine. And it was rewarding runs that did nothing: a one-turn timeout with no tool calls scored 0.95 for efficiency, which quietly inflated every failure. Both fixed.
 
-My suite, my scorer.
+I wrote both the suite and the scorer, so read the numbers with that in mind.
 
 ---
 

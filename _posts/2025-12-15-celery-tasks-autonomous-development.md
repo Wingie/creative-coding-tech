@@ -16,8 +16,8 @@ That part works. It's maybe forty lines of glue.
 
 What it gets right is the boring class of bug: a missing None check, an unhandled key, an off-by-one in a slice. Small, local, and fully described by the stack trace. Those are also the bugs I least want to spend an evening on, so the trade is good.
 
-What it gets wrong is more interesting. The common failure isn't a bad patch, it's a confident patch for a problem it has misread. It imports a module that doesn't exist. It fixes the symptom at the throw site when the real fault is two frames up. Both look fine until the tests run, which is why the tests are in the loop and why nothing merges without them.
+What it gets wrong is more interesting. The common failure is a confident patch for a problem it misread. It imports a module that doesn't exist. It fixes the symptom at the throw site when the real fault is two frames up. Both look fine until the tests run, which is why the tests are in the loop and why nothing merges without them.
 
-The thing I'd tell anyone building this: the value is in the gate, not the generation. Generating a plausible patch is easy now. Knowing whether to keep it is the whole job, and if your gate has a hole in it you'll find out weeks later.
+Generating a plausible patch is easy now. The tests decide whether to keep it, and a hole in them shows up weeks later.
 
 **Measured later.** These were my impressions at the time. The real figures are on the [Agentosaurus page](/projects/agentosaurus/).

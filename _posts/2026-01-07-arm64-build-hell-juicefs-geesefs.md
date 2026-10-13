@@ -20,8 +20,8 @@ Three failures, three different causes, all reporting as the same thing.
 
 Two things that made the rest of it easier.
 
-Pin your base images by digest, not by tag. Bitnami in particular moves tags around, and a pinned tag that 404s a month later is not a pin.
+Pin your base images by digest, not by tag. Bitnami moves tags around, and one of my pinned tags 404'd a month later.
 
 And do the platform check in CI rather than on the box. `docker buildx` will tell you what you actually produced. Finding out on the target is finding out at the worst time.
 
-ARM saved me real money. It cost a day, once.
+The ARM box is on Oracle's free tier. Moving to it cost me a day.

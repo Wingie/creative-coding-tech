@@ -16,7 +16,7 @@ Running the model is the easy bit. `ollama run` and you're done. The hard bit is
 
 ## Cold starts
 
-The number that matters isn't tokens per second, it's how long until the first one.
+The number that matters is time to the first token.
 
 A warm worker with the weights already in VRAM answers in a few seconds. A worker that has the weights on local disk needs to load them, which takes tens of seconds for a small model. A worker that has to pull the weights first takes minutes.
 
@@ -32,6 +32,6 @@ What I got instead: I can run models nobody serves, I can fine-tune on my own da
 
 ## Would I recommend it
 
-If you want to summarise documents, use an API. It's cheaper, it's faster, and you won't spend a night on container networking.
+If you want to summarise documents, use an API. It's faster, and you'll save the 40 hours this took me to build.
 
 If you want to understand the machinery, or you have data that can't leave your building, this is what it takes.

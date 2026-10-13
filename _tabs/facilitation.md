@@ -21,7 +21,7 @@ redirect_from:
 
 I run workshops and I guide people through practice. Some of it is code, some of it isn't, and debugging and sitting still turn out to be the same attention.
 
-No lineage, no authorisation. A householder practitioner with several long Mahasi retreats behind him.
+I'm not ordained and no teacher has authorised me. I've done several long silent retreats in the Mahasi tradition, a Burmese style of insight meditation.
 
 ---
 
@@ -59,7 +59,7 @@ Each has a written curriculum with a duration, an audience, and what you should 
 
 **Insight meditation.** Weekly sits in Amsterdam, Thursday evenings 7–9pm, guided sit plus a talk, all levels, donation based. Individual instruction €100 an hour, or €300 a month for four sessions.
 
-**Shadow work.** Reclaiming the parts of yourself you've pushed away. Not fixing them. Individual sessions €200, a three-session series €500, ongoing at €750 a month, group intensives €400, quarterly in Amsterdam.
+**Shadow work.** Working with the parts of yourself you've pushed away. Individual sessions €200, a three-session series €500, ongoing at €750 a month, group intensives €400, quarterly in Amsterdam.
 
 You may recognise yourself in one of these:
 

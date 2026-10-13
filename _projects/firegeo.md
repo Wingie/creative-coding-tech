@@ -33,7 +33,7 @@ Two things made this awkward. Their analysis took 30 to 90 seconds per query, an
 
 [FireGEO](https://github.com/mendableai/firegeo) is Mendable's project. I built the product layer on it.
 
-**Results stream as they arrive.** The page shows something within about two seconds and fills in from there. The analysis still takes 90 seconds. It stops feeling like it.
+**Results stream as they arrive.** The page shows something within about two seconds and fills in from there. The analysis still takes 90 seconds, but you're reading results from second two.
 
 **Credits are reserved, then committed or refunded.** Charge at the start, settle at the end, refund if it fails. Stripe webhooks reconcile the balance so the two systems can't drift apart.
 
