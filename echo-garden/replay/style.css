@@ -1,64 +1,17 @@
+/* Echo Garden replay: the shared synthwave palette (same tokens as the main, Tour and Ideas pages). */
 :root {
-  --bg: #f3e7c9;
-  --panel: #fbf4e1;
-  --panel-edge: #d8c194;
-  --ink: #3a2816;
-  --muted: #6a5236;
-  --line: #e2d1aa;
-  --grid: rgba(122, 86, 45, 0.22);
-  --leaf: #4c7d2c;
-  --leaf-2: #79a744;
-  --soil: #7a4c27;
-  --bed: #c79a62;
-  --wood: #8b5a2b;
-  --sun: #d99a1e;
-  --raw: #b4442c;
-  --played: #2f6f99;
-  --glow: rgba(240, 190, 60, 0.55);
-  --btn: #e9d6a8;
-  --btn-ink: #3a2816;
-  --primary: #4c7d2c;
-  --primary-ink: #fffbea;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #1c1712;
-    --panel: #29211a;
-    --panel-edge: #4a3b29;
-    --ink: #f2e6cb;
-    --muted: #cdb68e;
-    --line: #42362a;
-    --grid: rgba(240, 210, 160, 0.20);
-    --leaf: #8cc35a;
-    --leaf-2: #b2d77e;
-    --soil: #b07a45;
-    --bed: #5b4128;
-    --wood: #c08a52;
-    --sun: #f2c14e;
-    --raw: #ee8a6c;
-    --played: #7fc0e6;
-    --glow: rgba(242, 193, 78, 0.45);
-    --btn: #3b2f22;
-    --btn-ink: #f2e6cb;
-    --primary: #8cc35a;
-    --primary-ink: #1c1712;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #1c1712; --panel: #29211a; --panel-edge: #4a3b29; --ink: #f2e6cb; --muted: #cdb68e;
-  --line: #42362a; --grid: rgba(240, 210, 160, 0.20); --leaf: #8cc35a; --leaf-2: #b2d77e;
-  --soil: #b07a45; --bed: #5b4128; --wood: #c08a52; --sun: #f2c14e; --raw: #ee8a6c;
-  --played: #7fc0e6; --glow: rgba(242, 193, 78, 0.45); --btn: #3b2f22; --btn-ink: #f2e6cb;
-  --primary: #8cc35a; --primary-ink: #1c1712; color-scheme: dark;
+  --bg: #0b0221; --panel: #1a0840; --panel-edge: #3b1670; --ink: #f4e9ff; --muted: #b9a6dc;
+  --line: #3b1670; --grid: rgba(255, 43, 214, 0.28); --leaf: #39ff9f; --leaf-2: #9dffcf;
+  --soil: #5a2a7a; --bed: #2a0f55; --wood: #ff7a3d; --sun: #ffb238; --raw: #ff5c7a;
+  --played: #22e6ff; --glow: rgba(255, 178, 56, 0.45); --btn: #12052b; --btn-ink: #f4e9ff;
+  --primary: #ff2bd6; --primary-ink: #12052b; color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  background: var(--bg);
+  background: radial-gradient(120% 60% at 50% 0%, #2a0a52 0%, var(--bg) 55%) fixed, var(--bg);
   color: var(--ink);
   font: 17px/1.5 ui-rounded, "SF Pro Rounded", "Segoe UI", system-ui, -apple-system, sans-serif;
   padding: 12px 16px 32px;
@@ -127,3 +80,8 @@ p { margin: 0 0 8px; }
 code { font-size: 16px; background: var(--bg); padding: 1px 4px; border-radius: 4px; overflow-wrap: anywhere; }
 input[type="file"] { font: inherit; font-size: 16px; max-width: 100%; }
 .foot { color: var(--muted); font-size: 16px; margin-top: 18px; }
+
+/* Neon headings in the shared monospace. */
+h1, h2 { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+h1 { color: #ff2bd6; text-shadow: 0 0 16px #ff2bd666; }
+h2 { color: #22e6ff; }

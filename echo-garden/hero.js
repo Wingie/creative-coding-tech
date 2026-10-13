@@ -453,29 +453,70 @@ async function main() {
   controls.target.copy(lookAt);
   if (coarse) canvas.style.touchAction = 'pan-y'; // let phones scroll past the hero
 
-  // Light: warm sun, cream sky, a soft fill from the front.
-  scene.add(new THREE.HemisphereLight(0xfff3dc, 0x7a5a3a, 1.6));
-  const sun = new THREE.DirectionalLight(0xffe0b0, 2.6);
-  sun.position.set(-30, 90, 50);
+  // Light: a synthwave night. Violet sky light, a low orange sun behind the plant as a rim,
+  // a cyan fill from the front left and a magenta kicker from the right.
+  scene.add(new THREE.HemisphereLight(0xc8a8ff, 0x2a0a40, 1.25));
+  const sun = new THREE.DirectionalLight(0xffb070, 2.4);
+  sun.position.set(-20, 70, -80);
   sun.target.position.copy(lookAt);
   scene.add(sun, sun.target);
+  const key = new THREE.DirectionalLight(0xfff0ff, 1.5);
+  key.position.set(-30, 90, 60);
+  key.target.position.copy(lookAt);
+  scene.add(key, key.target);
   if (renderer.shadowMap.enabled) {
-    sun.castShadow = true;
-    sun.shadow.mapSize.set(1024, 1024);
-    Object.assign(sun.shadow.camera, { left: -60, right: 70, top: 60, bottom: -50, near: 10, far: 220 });
-    sun.shadow.bias = -0.0008;
-    sun.shadow.radius = 4;
+    key.castShadow = true;
+    key.shadow.mapSize.set(1024, 1024);
+    Object.assign(key.shadow.camera, { left: -60, right: 70, top: 60, bottom: -50, near: 10, far: 220 });
+    key.shadow.bias = -0.0008;
+    key.shadow.radius = 4;
   }
-  const fill = new THREE.DirectionalLight(0xffeedd, 0.6);
-  fill.position.set(60, 30, 90);
-  scene.add(fill);
+  const cyanFill = new THREE.DirectionalLight(0x22e6ff, 0.9);
+  cyanFill.position.set(-70, 25, 80);
+  scene.add(cyanFill);
+  const magKick = new THREE.DirectionalLight(0xff2bd6, 1.1);
+  magKick.position.set(90, 20, 10);
+  scene.add(magKick);
+  scene.fog = new THREE.Fog(0x2a0a52, 160, 420);
 
-  // Table: a round wooden top.
+  // Floor: a dark disc the rig stands on, rimmed in neon, on an endless magenta grid.
   const table = new THREE.Mesh(new THREE.CylinderGeometry(52, 52, 3, small ? 40 : 72),
-    new THREE.MeshStandardMaterial({ map: woodTexture(), roughness: 0.75 }));
+    new THREE.MeshStandardMaterial({ color: 0x1b0a3c, roughness: 0.7, metalness: 0.1 }));
   table.position.set(12, -1.5, 2);
   table.receiveShadow = true;
   scene.add(table);
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(52, 0.45, 8, small ? 64 : 128),
+    new THREE.MeshBasicMaterial({ color: 0xff2bd6 }));
+  rim.rotation.x = Math.PI / 2;
+  rim.position.set(12, 0, 2);
+  scene.add(rim);
+  const grid = new THREE.GridHelper(900, 60, 0xff2bd6, 0xb0179a);
+  grid.position.set(12, -3.1, 2);
+  grid.material.transparent = true;
+  grid.material.opacity = 0.75;
+  scene.add(grid);
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(900, 900), new THREE.MeshBasicMaterial({ color: 0x12052b }));
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.set(12, -3.2, 2);
+  scene.add(ground);
+
+  // The striped synthwave sun, far behind the plant, always facing the camera.
+  const sunCv = document.createElement('canvas');
+  sunCv.width = sunCv.height = 256;
+  const sg = sunCv.getContext('2d');
+  const grad = sg.createLinearGradient(0, 0, 0, 256);
+  grad.addColorStop(0, '#ffd84a'); grad.addColorStop(0.5, '#ffb238'); grad.addColorStop(1, '#ff4f8a');
+  sg.fillStyle = grad;
+  sg.beginPath(); sg.arc(128, 128, 126, 0, Math.PI * 2); sg.fill();
+  sg.globalCompositeOperation = 'destination-out';
+  for (let k = 0; k < 7; k++) { const y = 150 + k * 16, h = 3 + k * 1.6; sg.fillRect(0, y, 256, h); }
+  const sunTex = new THREE.CanvasTexture(sunCv);
+  sunTex.colorSpace = THREE.SRGBColorSpace;
+  const sunSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: sunTex, fog: false, depthWrite: false }));
+  sunSprite.scale.set(150, 150, 1);
+  sunSprite.position.set(120, 22, -330);
+  sunSprite.renderOrder = -1;
+  scene.add(sunSprite);
 
   const mats = {
     body: new THREE.MeshStandardMaterial({ color: 0x34363b, roughness: 0.55, metalness: 0.2 }),
@@ -708,7 +749,7 @@ async function main() {
   function frame() {
     const aspect = camera.aspect || 1.6;
     const dist = 100 * Math.max(1, 1.45 / aspect) ** 0.85;
-    const dir = new THREE.Vector3(-0.32, 0.5, 1).normalize();
+    const dir = new THREE.Vector3(-0.32, 0.26, 1).normalize();
     camera.position.copy(lookAt).addScaledVector(dir, dist);
     controls.maxDistance = Math.max(230, dist * 1.6);
     controls.update();

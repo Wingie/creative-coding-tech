@@ -1,66 +1,27 @@
-/* Echo Garden: warm farm palette, light and dark. */
+/* Echo Garden: one synthwave look shared with the Tour and Ideas pages (night sky, neon grid). */
 :root {
-  --bg: #f7efdc;
-  --bg-2: #efe2c4;
-  --surface: #fffaf0;
-  --ink: #2f2a22;
-  --ink-soft: #5d5446;
-  --leaf: #4f8a3a;
-  --leaf-deep: #2f6b2a;
-  --leaf-pale: #dcebc6;
-  --terracotta: #c0623b;
-  --terracotta-deep: #9a4527;
-  --line: #dccaa4;
-  --focus: #2f6b2a;
-  --stage-top: #fbf4e4;
-  --stage-bottom: #eadbb8;
-  --note-3d: #b4521f;
-  --ring-3d: #3f7a2e;
-  --radius: 14px;
+  --bg: #0b0221;
+  --bg-2: #150536;
+  --surface: #1a0840;
+  --ink: #f4e9ff;
+  --ink-soft: #b9a6dc;
+  --leaf: #39ff9f;
+  --leaf-deep: #22e6ff;
+  --leaf-pale: #10291f;
+  --terracotta: #ff2bd6;
+  --terracotta-deep: #ff5ce0;
+  --sun: #ffb238;
+  --line: #3b1670;
+  --focus: #22e6ff;
+  --stage-top: #0b0221;
+  --stage-bottom: #5a0f6a;
+  --note-3d: #ffb238;
+  --ring-3d: #22e6ff;
+  --radius: 10px;
   --gutter: 16px;
   --max: 980px;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #1d1a15;
-    --bg-2: #26221b;
-    --surface: #2b261e;
-    --ink: #f1e8d6;
-    --ink-soft: #c6b9a0;
-    --leaf: #8cc46a;
-    --leaf-deep: #a7d987;
-    --leaf-pale: #2f3d25;
-    --terracotta: #e08a5f;
-    --terracotta-deep: #f0a47c;
-    --line: #463d30;
-    --focus: #a7d987;
-    --stage-top: #2e2a22;
-    --stage-bottom: #1f1c16;
-    --note-3d: #f2c14e;
-    --ring-3d: #9ccc78;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #1d1a15;
-  --bg-2: #26221b;
-  --surface: #2b261e;
-  --ink: #f1e8d6;
-  --ink-soft: #c6b9a0;
-  --leaf: #8cc46a;
-  --leaf-deep: #a7d987;
-  --leaf-pale: #2f3d25;
-  --terracotta: #e08a5f;
-  --terracotta-deep: #f0a47c;
-  --line: #463d30;
-  --focus: #a7d987;
-  --stage-top: #2e2a22;
-  --stage-bottom: #1f1c16;
-  --note-3d: #f2c14e;
-  --ring-3d: #9ccc78;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   color-scheme: dark;
 }
 
@@ -68,7 +29,7 @@
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  background: var(--bg);
+  background: radial-gradient(120% 60% at 50% 0%, #2a0a52 0%, var(--bg) 55%) fixed, var(--bg);
   color: var(--ink);
   font-family: var(--font);
   font-size: 17px;
@@ -205,10 +166,7 @@ h3 { font-size: 1.05rem; margin: 0 0 4px; color: var(--leaf-deep); }
   text-decoration: none;
 }
 .button:hover { background: var(--terracotta-deep); }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .button { color: #1d1a15; }
-}
-:root[data-theme="dark"] .button { color: #1d1a15; }
+
 
 .links {
   margin-top: 32px;
@@ -272,3 +230,11 @@ h3 { font-size: 1.05rem; margin: 0 0 4px; color: var(--leaf-deep); }
 .legend .key { display: inline-block; width: 28px; margin-right: 8px; vertical-align: middle; border-top: 2px solid var(--leaf-deep); }
 .legend .key.x { border-top: 2px dashed var(--ink-soft); }
 .open { max-width: 62ch; margin-top: 14px; }
+
+/* Synthwave type: neon headings in the same monospace as the Tour and Ideas pages. */
+h1, h2, h3, .card-title, .kicker { font-family: var(--mono); letter-spacing: 0.01em; }
+h1 { color: var(--terracotta); text-shadow: 0 0 18px #ff2bd666; }
+h2 { color: var(--leaf-deep); text-shadow: 0 0 12px #22e6ff44; }
+.steps h3 { color: var(--sun); }
+.button { color: #12052b; }
+.stage { border-color: var(--line); box-shadow: 0 0 40px #ff2bd622; }

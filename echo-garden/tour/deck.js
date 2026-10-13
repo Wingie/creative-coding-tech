@@ -34,7 +34,7 @@
       act: "move across the scene: come near the plant", mode: "body" },
     { k: "The hackathon work", t: "What gets built at the hackathon",
       b: "Teaching the arm where the leaves are on the day of a show. Lining up the Kinect, the projector and the arm in a new room. Shaping how a set runs from the first touch to the last loop. Clocks exist, but the looping is timey-wimey.",
-      act: "", mode: "open" },
+      act: "", mode: "open", tpl: "tpl-ideas" },
     { k: "Where you fit", t: "Pick a role, or add your own",
       b: "Looking for genuine musicians, signal movers, digital makers and visual orchestrators of light. Technology and music aficionados are welcome too. Click whatever sounds like you, or add your own.",
       act: "", mode: "roles", tpl: "tpl-roles" },
