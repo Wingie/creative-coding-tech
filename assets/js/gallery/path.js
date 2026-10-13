@@ -396,9 +396,13 @@ export class PathWorld {
       photos = this.pick(this.data.root);
       info = { nodeKey: this.data.root, label: "Back to everything" };
     }
-    // carry straight on: a drift segment is the same hall continuing
-    const h = tip.heading;
-    const start = endPt.clone().add(fwd(h).multiplyScalar(0.8));
+    // carry straight on: a drift segment is the same hall continuing, unless that
+    // would run into a hall still standing, in which case it takes a corner
+    const ways = [tip.heading, tip.heading - FORK_TURN, tip.heading + FORK_TURN];
+    const runs = ways.map((w) => this.clearRun(endPt, w, tip));
+    const h = ways[runs.findIndex((r) => r === Infinity)] ?? ways[runs.indexOf(Math.max(...runs))];
+    // a corner leaves from the far side of the junction room, as a fork does
+    const start = endPt.clone().add(fwd(h).multiplyScalar(h === tip.heading ? 0.8 : JOIN_R - 0.3));
     this.joins.push(new Join(this, endPt, false));
     const seg = new Segment(this, start, h, photos, info);
     this.segments.push(seg);
@@ -408,11 +412,19 @@ export class PathWorld {
   makeFork(tip, at, node) {
     const join = new Join(this, at, true);
     this.joins.push(join);
+    const taken = [];
     const branches = node.children.map((key, i) => {
       const side = i === 0 ? -1 : 1; // first child to the left
-      let h = tip.heading - side * FORK_TURN;
-      // if that corner would run into a hall still standing, take the straight on
-      if (this.blocked(at, h)) h = this.blocked(at, tip.heading) ? tip.heading + Math.PI : tip.heading;
+      // The corner first, then straight on, then the other corner: whichever runs
+      // clear of the halls still standing. Never back the way you came: that
+      // fallback laid every hall on top of the last, so five halls' prints stood
+      // inside each other on the same two walls.
+      const ways = [tip.heading - side * FORK_TURN, tip.heading, tip.heading + side * FORK_TURN].filter(
+        (h) => !taken.some((t) => Math.abs(Math.sin((h - t) / 2)) < 0.1)
+      );
+      const runs = ways.map((h) => this.clearRun(at, h, tip));
+      const h = ways[runs.findIndex((r) => r === Infinity)] ?? ways[runs.indexOf(Math.max(...runs))];
+      taken.push(h);
       const start = at.clone().add(fwd(h).multiplyScalar(JOIN_R - 0.3));
       const name = this.nodes[key].name || "";
       const seg = new Segment(this, start, h, this.pick(key), { nodeKey: key, label: name });
@@ -424,22 +436,27 @@ export class PathWorld {
       .map((id) => this.photos[id])
       .filter(Boolean)
       .sort((a, b) => (b.score || 0) - (a.score || 0))[0];
-    join.anchor(best, tip.heading);
+    // the anchor closes the hall straight ahead, so not when a branch goes that way
+    if (!taken.includes(tip.heading)) join.anchor(best, tip.heading);
     this.fork = { at, branches, join };
   }
 
-  // Would a hall leaving `at` on heading `h` cross one that is already there?
-  blocked(at, h) {
+  // How far a hall leaving `at` on heading `h` runs before it meets one that is
+  // already there (Infinity if it never does within reach). The hall the fork
+  // leaves from is skipped: its prints reach past its own end, so it used to
+  // block every corner taken from it.
+  clearRun(at, h, from) {
     const f = fwd(h);
     const reach = 90;
     for (let d = JOIN_R + 8; d < reach; d += 14) {
       const q = at.clone().add(f.clone().multiplyScalar(d));
       for (const seg of this.segments) {
+        if (seg === from) continue;
         const pr = seg.project(q);
-        if (pr.raw > -STONE_OFF && pr.raw < seg.length + STONE_OFF && Math.abs(pr.lat) < STONE_OFF * 1.6) return true;
+        if (pr.raw > -STONE_OFF && pr.raw < seg.length + STONE_OFF && Math.abs(pr.lat) < STONE_OFF * 1.6) return d;
       }
     }
-    return false;
+    return Infinity;
   }
 
   // Walking into a branch past its first stones commits to it.
@@ -566,7 +583,6 @@ class PanelSnap {
     this.released = 0;
     this.arrow = false;
     this.aim = 0;
-    this.cut = false; // next move lands in one frame rather than gliding
     this.vfov = Math.PI * 70 / 180; // set from the camera once it exists
     this.dist = 10;
   }
@@ -603,30 +619,26 @@ class PanelSnap {
     if (next) this.target = next;
   }
 
-  // Across to the facing wall, to whichever print is nearest where you stand.
-  // Measured from the live camera: world.lastX only updates every 120ms and is
-  // unset before the first world update, which made the distance NaN and sent
-  // you to an arbitrary print instead of the one opposite.
-  cross() {
+  // Left and right go to the next print on that side of the screen, along the
+  // same wall, without turning. They used to cross the hall: a 180-degree cut to
+  // the facing wall on every press, which spun the screen. A print across the
+  // way is still a click away.
+  sideways(dir, camera) {
     const here = this.target;
-    if (!here || !here.segment) return;
-    // Stay inside the hall you are standing in. `side` is relative to the
-    // segment's heading, so the nearest stone with the opposite side anywhere in
-    // the world could belong to another hall that the path has looped back past
-    // — which is how crossing used to land you on the wall you were already
-    // facing, having changed target but not moved.
-    const want = -here.side;
-    let best = null;
-    for (const st of here.segment.stones) {
-      if (st.side !== want) continue;
-      const d = st.group.position.distanceTo(here.group.position);
-      if (!best || d < best.d) best = { st, d };
+    const list = this.world.panels().filter((st) => st.side === here.side);
+    const i = list.indexOf(here);
+    if (i < 0) return;
+    const f = camera.getWorldDirection(new THREE.Vector3());
+    const rx = -f.z;
+    const rz = f.x;
+    for (const n of [list[i - 1], list[i + 1]]) {
+      if (!n) continue;
+      const along = (n.group.position.x - here.group.position.x) * rx + (n.group.position.z - here.group.position.z) * rz;
+      if (Math.sign(along) === dir) {
+        this.target = n;
+        return;
+      }
     }
-    if (!best) return;
-    this.target = best.st;
-    // Turning 180 degrees while sliding 38m across the hall is the glitch. Take
-    // the whole move in one frame instead: a cut, like looking over your shoulder.
-    this.cut = true;
   }
 
   update(dt, controls, camera, now) {
@@ -642,7 +654,7 @@ class PanelSnap {
     const over = keys.has("ArrowLeft") || keys.has("ArrowRight");
     if (this.target && (back || fwd || over)) {
       if (!this.arrow) {
-        if (over) this.cross();
+        if (over) this.sideways(keys.has("ArrowRight") ? 1 : -1, camera);
         else this.step(back ? -1 : 1);
       }
       this.arrow = true;
@@ -663,10 +675,7 @@ class PanelSnap {
       return false;
     }
     const want = this.standFor(this.target);
-    // a cross is a cut: position, height and heading all land together
-    const cut = this.cut;
-    this.cut = false;
-    const m = cut ? 1 : k;
+    const m = k;
     controls.eye += (this.target.picY - controls.eye) * m;
     controls.x += (want.x - controls.x) * m;
     controls.z += (want.z - controls.z) * m;
@@ -675,7 +684,7 @@ class PanelSnap {
     while (d < -Math.PI) d += Math.PI * 2;
     // A corner is taken in one step. Easing through 90 degrees is the swing that
     // made this unpleasant; small corrections still glide.
-    controls.yaw += cut || Math.abs(d) > 0.78 ? d : d * k;
+    controls.yaw += Math.abs(d) > 0.78 ? d : d * k;
     controls.pitch += (this.aim - controls.pitch) * m;
     controls.vx = 0;
     controls.vz = 0;
@@ -703,7 +712,6 @@ export function startPath(canvas, data, base, lightbox, ui) {
     strength: small ? 0.2 : 0.3,
     radius: 0.7,
     threshold: 0.95,
-    grain: 0.05,
   });
   const copies = parallelCopies(small);
   const world = new PathWorld(scene, data, base, renderer, { copies, onEnter: ui.toast });
@@ -782,6 +790,7 @@ export function startPath(canvas, data, base, lightbox, ui) {
     if (document.body.dataset.view === "walk") {
       const bx = controls.x;
       const bz = controls.z;
+      controls.arrowsTaken = snap.enabled && !!snap.target;
       controls.update(dt);
       const snapped = snap.update(dt, controls, camera, now);
       if (!snapped) {
@@ -818,7 +827,7 @@ export function startPath(canvas, data, base, lightbox, ui) {
       });
       ghosts.update(dt, controls.x, controls.z, controls.yaw, moving);
       sky.update(dt, camera.position);
-      post.render(now);
+      post.render();
       fps.frames++;
       if (now - fps.since > 1000) {
         fps.value = (fps.frames * 1000) / (now - fps.since);

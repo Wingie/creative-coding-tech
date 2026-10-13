@@ -102,12 +102,15 @@ export class Controls {
     let fx = 0;
     let fz = 0;
     const k = this.keys;
-    if (k.has("KeyW") || k.has("ArrowUp")) fz += 1;
-    if (k.has("KeyS") || k.has("ArrowDown")) fz -= 1;
+    // While the path holds you at a print, the arrows step between prints there;
+    // walking and turning on them as well made the two fight every frame.
+    const arrows = !this.arrowsTaken;
+    if (k.has("KeyW") || (arrows && k.has("ArrowUp"))) fz += 1;
+    if (k.has("KeyS") || (arrows && k.has("ArrowDown"))) fz -= 1;
     if (k.has("KeyA")) fx -= 1;
     if (k.has("KeyD")) fx += 1;
-    if (k.has("ArrowLeft")) this.yaw += 1.8 * dt;
-    if (k.has("ArrowRight")) this.yaw -= 1.8 * dt;
+    if (arrows && k.has("ArrowLeft")) this.yaw += 1.8 * dt;
+    if (arrows && k.has("ArrowRight")) this.yaw -= 1.8 * dt;
     const speed = SPEED * (k.has("ShiftLeft") || k.has("ShiftRight") ? 2.2 : 1);
 
     const sin = Math.sin(this.yaw);

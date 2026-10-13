@@ -141,7 +141,7 @@ async function main() {
   if (world === "path") {
     $("#hint").textContent = matchMedia("(pointer: coarse)").matches
       ? "Tap any picture to go and stand at it. Drag to look around."
-      : "Scroll or press space for the next picture. Click one to go to it. WASD to walk.";
+      : "Scroll or press space for the next picture. Left and right step along the wall. Click one to go to it. WASD to walk.";
   }
   $("#status").hidden = true;
 
@@ -425,7 +425,7 @@ function startWalk(people, lightbox) {
   }
   const pickables = () => frames.flatMap((f) => [f.pic, f.vec, f.billboard].filter(Boolean));
 
-  const post = makeComposer(renderer, scene, camera, { strength: 0.26, radius: 0.5, threshold: 0.9, grain: 0.035 });
+  const post = makeComposer(renderer, scene, camera, { strength: 0.26, radius: 0.5, threshold: 0.9 });
   const loader = new Loader(BASE, renderer);
   const controls = new Controls(camera, canvas, built.walls, built.start);
   const ray = new THREE.Raycaster();
@@ -492,7 +492,7 @@ function startWalk(people, lightbox) {
         drawMinimap(minimap, built, camera, controls.yaw);
         lastMap = now;
       }
-      post.render(now);
+      post.render();
     }
     requestAnimationFrame(tick);
   }

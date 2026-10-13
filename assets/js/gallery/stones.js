@@ -58,22 +58,30 @@ export class Textures {
     return e;
   }
 
-  want(photo, kind, rel, done) {
+  // `d` is how far away the asker is. The queue serves the nearest first: in
+  // arrival order, the print you were facing waited behind every slab within 90m
+  // and stood there as a blank grey block for seconds.
+  // Stones ask every 120ms while they wait, so callbacks are kept one per stone.
+  want(photo, kind, rel, done, d = Infinity, who = done) {
     const e = this.entry(photo.id);
     if (e[kind]) return done(e[kind]);
     if (!rel) return;
     if (e.waiting[kind]) {
-      e.waiting[kind].push(done);
+      e.waiting[kind].set(who, done);
+      const job = this.queue.find((j) => j.e === e && j.kind === kind);
+      if (job) job.d = Math.min(job.d, d);
       return;
     }
-    e.waiting[kind] = [done];
-    this.queue.push({ e, kind, rel });
+    e.waiting[kind] = new Map([[who, done]]);
+    this.queue.push({ e, kind, rel, d });
     this.pump();
   }
 
   pump() {
     while (this.inflight < 6 && this.queue.length) {
-      const { e, kind, rel } = this.queue.shift();
+      let next = 0;
+      for (let i = 1; i < this.queue.length; i++) if (this.queue[i].d < this.queue[next].d) next = i;
+      const { e, kind, rel } = this.queue.splice(next, 1)[0];
       this.inflight++;
       const finish = (tex) => {
         this.inflight--;
@@ -82,9 +90,9 @@ export class Textures {
           tex.anisotropy = this.aniso;
           e[kind] = tex;
         }
-        const cbs = e.waiting[kind] || [];
+        const cbs = e.waiting[kind] || new Map();
         delete e.waiting[kind];
-        if (tex) for (const cb of cbs) cb(tex);
+        if (tex) for (const cb of cbs.values()) cb(tex);
         this.pump();
       };
       this.tl.load(this.base + rel, finish, undefined, () => finish(null));
@@ -186,26 +194,35 @@ export class Stone {
     if (kind === "vector" && !p.vector) kind = "photo";
     if (kind === "cutout" && !p.cutout) kind = "photo";
     if (d > LOAD_640) return;
+    // the far-off parallel copies wait until the path you walk is filled in
+    const pri = this.parallel ? d + LOAD_640 : d;
     if (kind === "vector") {
-      if (this.shown !== "vec") tex.want(p, "vec", p.vector, (t) => ((this.shown = "vec"), this.setMap(t)));
+      if (this.shown !== "vec") tex.want(p, "vec", p.vector, (t) => ((this.shown = "vec"), this.setMap(t)), pri, this);
       return;
     }
     if (kind === "cutout") {
-      if (this.shown !== "cut") tex.want(p, "cut", p.cutout, (t) => ((this.shown = "cut"), this.setMap(t)));
+      if (this.shown !== "cut") tex.want(p, "cut", p.cutout, (t) => ((this.shown = "cut"), this.setMap(t)), pri, this);
       return;
     }
     if (!this.shown || this.shown === "vec" || this.shown === "cut") {
-      tex.want(p, "t640", p.src640, (t) => {
-        if (this.shown !== "t1280") {
-          this.shown = "t640";
-          this.setMap(t);
-        }
-      });
+      tex.want(
+        p,
+        "t640",
+        p.src640,
+        (t) => {
+          if (this.shown !== "t1280") {
+            this.shown = "t640";
+            this.setMap(t);
+          }
+        },
+        pri,
+        this
+      );
     }
     if (!this.parallel && d < NEAR_1280 && this.shown !== "t1280") {
-      tex.want(p, "t1280", p.src1280, (t) => ((this.shown = "t1280"), this.setMap(t)));
+      tex.want(p, "t1280", p.src1280, (t) => ((this.shown = "t1280"), this.setMap(t)), pri, this);
     } else if (this.shown === "t1280" && d > NEAR_1280 * 2.5) {
-      tex.want(p, "t640", p.src640, (t) => ((this.shown = "t640"), this.setMap(t)));
+      tex.want(p, "t640", p.src640, (t) => ((this.shown = "t640"), this.setMap(t)), pri, this);
     }
   }
 

@@ -38,24 +38,28 @@ export function environment(renderer, scene, stops) {
   return scene.environment;
 }
 
-// Vignette and grain, applied last so they sit in display space like a print does.
+// Vignette, plus a dither applied last in display space. The dither is about one
+// 8-bit step, fixed to the screen pixel and the same every frame: enough to break
+// banding in the dark sky gradients, too small and too still to read as noise.
+// A per-frame sin() hash on uv at several times that strength used to sit here; it
+// crawled over the prints in a visible repeating pattern.
 const GradeShader = {
   uniforms: {
     tDiffuse: { value: null },
-    grain: { value: 0.045 },
-    seed: { value: 0 },
+    grain: { value: 1.5 / 255 },
     falloff: { value: 1.0 },
   },
   vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
   fragmentShader: `
-    uniform sampler2D tDiffuse; uniform float grain; uniform float seed; uniform float falloff;
+    uniform sampler2D tDiffuse; uniform float grain; uniform float falloff;
     varying vec2 vUv;
     void main(){
       vec4 c = texture2D(tDiffuse, vUv);
       vec2 d = vUv - 0.5;
       float v = 1.0 - smoothstep(0.16, 0.62, dot(d, d) * falloff);
       c.rgb *= mix(0.58, 1.0, v);
-      float n = fract(sin(dot(vUv + seed, vec2(12.9898, 78.233))) * 43758.5453);
+      // interleaved gradient noise: no sin(), so no precision patterns on any GPU
+      float n = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))));
       c.rgb += (n - 0.5) * grain;
       gl_FragColor = c;
     }`,
@@ -63,7 +67,7 @@ const GradeShader = {
 
 // Bloom makes neon read as light rather than paint; the threshold is kept high so
 // only genuinely bright things glow, and the prints stay crisp.
-export function makeComposer(renderer, scene, camera, { strength = 0.5, radius = 0.55, threshold = 0.82, grain = 0.045 } = {}) {
+export function makeComposer(renderer, scene, camera, { strength = 0.5, radius = 0.55, threshold = 0.82 } = {}) {
   const size = renderer.getSize(new THREE.Vector2());
   const target = new THREE.WebGLRenderTarget(size.x, size.y, { type: THREE.HalfFloatType, samples: 4 });
   const composer = new EffectComposer(renderer, target);
@@ -71,12 +75,9 @@ export function makeComposer(renderer, scene, camera, { strength = 0.5, radius =
   const bloom = new UnrealBloomPass(size, strength, radius, threshold);
   composer.addPass(bloom);
   composer.addPass(new OutputPass());
-  const grade = new ShaderPass(GradeShader);
-  grade.uniforms.grain.value = grain;
-  composer.addPass(grade);
+  composer.addPass(new ShaderPass(GradeShader));
   return {
-    render(now) {
-      grade.uniforms.seed.value = (now % 1000) / 1000;
+    render() {
       composer.render();
     },
     setSize(w, h) {
