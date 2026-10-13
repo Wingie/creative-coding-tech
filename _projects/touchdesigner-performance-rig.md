@@ -21,6 +21,28 @@ tech:
   - MIDI
   - Syphon
 client: Live performance / personal creative project
+videos:
+  - src: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-09.mp4
+    poster: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-09.jpg
+    caption: "A hand in the infrared feed leaves a light trail."
+  - src: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-11.mp4
+    poster: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-11.jpg
+    caption: "The rig with Ableton's mixer on top and an RGB-split effect on the body."
+  - src: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-13.mp4
+    poster: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-13.jpg
+    caption: "The TouchDesigner network, with infrared previews in the nodes."
+  - src: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-08.mp4
+    poster: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-08.jpg
+    caption: "The network the rig runs on."
+  - src: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-17.mp4
+    poster: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-17.jpg
+    caption: "A performer by the cloth screen, with hand tracking on."
+  - src: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-20.mp4
+    poster: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-20.jpg
+    caption: "A performer in infrared, with hand points and bones over her arms."
+  - src: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-21.mp4
+    poster: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-21.jpg
+    caption: "Arm and hand tracking while Ableton runs."
 ---
 
 This is the setup I play live sets on. [Echo Garden](/projects/echo-garden/) runs on top of it.

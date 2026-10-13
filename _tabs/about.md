@@ -34,6 +34,11 @@ These are Coursera courses, each tied to something I'm building.
 - **AI Governance (IAPP AIGP training)**, from Packt, August 2026. This is the training course. I haven't taken the IAPP exam. It sits under the [testing and governance work](/consulting/).
 - **Project Management**, a 6-course certificate from Google, July 2026.
 
+<figure class="project-video" style="max-width: 560px">
+  <video src="https://media.creativecodingtech.com/videos/about-22.mp4" poster="https://media.creativecodingtech.com/videos/about-22.jpg" autoplay muted loop playsinline preload="metadata" aria-label="CUDA coursework in the editor"></video>
+  <figcaption>CUDA coursework from the GPU Programming specialisation.</figcaption>
+</figure>
+
 The full list with credential links is on [LinkedIn](https://www.linkedin.com/in/wingstonsharon/details/certifications/).
 
 Looking for my next role. Happy to talk about any of the above.

@@ -20,6 +20,19 @@ tech:
   - three.js
 client: ADE Lab Hackathon, Amsterdam, October 2026
 live_url: https://creativecodingtech.com/echo-garden/
+videos:
+  - src: https://media.creativecodingtech.com/videos/echo-garden-28.mp4
+    poster: https://media.creativecodingtech.com/videos/echo-garden-28.jpg
+    caption: "The arm on the studio desk next to the plant station."
+  - src: https://media.creativecodingtech.com/videos/echo-garden-14.mp4
+    poster: https://media.creativecodingtech.com/videos/echo-garden-14.jpg
+    caption: "The arm and the plant against the green curtain."
+  - src: https://media.creativecodingtech.com/videos/echo-garden-15.mp4
+    poster: https://media.creativecodingtech.com/videos/echo-garden-15.jpg
+    caption: "The arm's camera view over the plant's live signal."
+  - src: https://media.creativecodingtech.com/videos/echo-garden-16.mp4
+    poster: https://media.creativecodingtech.com/videos/echo-garden-16.jpg
+    caption: "A longer take of the arm panel and the plant's signal."
 ---
 
 A robot arm touches a living plant and closes its circuit. A Pocket Scion turns the plant's signal into MIDI. That MIDI runs into my live Ableton set and triggers instruments. Lift the arm and the plant drops out.

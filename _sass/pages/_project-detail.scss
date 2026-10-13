@@ -519,7 +519,7 @@
 /* Short muted loops above the write-up, talk embeds below it */
 .project-videos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
   margin: 0 0 1.5rem;
 }

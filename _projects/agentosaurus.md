@@ -22,6 +22,16 @@ tech:
 client: Independent research into agentic build systems
 repo_private: true
 live_url: https://agentosaurus.com
+videos:
+  - src: https://media.creativecodingtech.com/videos/agentosaurus-03.mp4
+    poster: https://media.creativecodingtech.com/videos/agentosaurus-03.jpg
+    caption: "The ESG agent's sources and free reports."
+  - src: https://media.creativecodingtech.com/videos/agentosaurus-05.mp4
+    poster: https://media.creativecodingtech.com/videos/agentosaurus-05.jpg
+    caption: "Starting an ESG due-diligence run."
+  - src: https://media.creativecodingtech.com/videos/agentosaurus-06.mp4
+    poster: https://media.creativecodingtech.com/videos/agentosaurus-06.jpg
+    caption: "An investigation running, with its report next to it."
 ---
 
 For three days in August, my build system ran 64 jobs and reported every one as a success.

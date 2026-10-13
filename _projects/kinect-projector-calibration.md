@@ -19,6 +19,19 @@ tech:
   - TouchDesigner
 client: Live performance / personal creative project
 github_url: https://github.com/Wingie/libfreenect2
+videos:
+  - src: https://media.creativecodingtech.com/videos/kinect-projector-calibration-07.mp4
+    poster: https://media.creativecodingtech.com/videos/kinect-projector-calibration-07.jpg
+    caption: "The Kinect's point cloud, coloured by height."
+  - src: https://media.creativecodingtech.com/videos/kinect-projector-calibration-23.mp4
+    poster: https://media.creativecodingtech.com/videos/kinect-projector-calibration-23.jpg
+    caption: "The calibration page masks the cloth the projector hits."
+  - src: https://media.creativecodingtech.com/videos/kinect-projector-calibration-24.mp4
+    poster: https://media.creativecodingtech.com/videos/kinect-projector-calibration-24.jpg
+    caption: "Depth from above, coloured by distance."
+  - src: https://media.creativecodingtech.com/videos/kinect-projector-calibration-25.mp4
+    poster: https://media.creativecodingtech.com/videos/kinect-projector-calibration-25.jpg
+    caption: "A body steps into the depth map and shows up as its own shape."
 ---
 
 Microsoft never released Kinect v2 drivers for macOS. TouchDesigner's Kinect operators only run on Windows, and there's no skeleton tracking on a Mac.

@@ -18,6 +18,13 @@ tech:
   - Ableton Link
   - reveal.js
 client: Creative coding workshops
+videos:
+  - src: https://media.creativecodingtech.com/videos/sonic-pi-workshops-01.mp4
+    poster: https://media.creativecodingtech.com/videos/sonic-pi-workshops-01.jpg
+    caption: "From the intro workshop: first sounds in Sonic Pi."
+  - src: https://media.creativecodingtech.com/videos/sonic-pi-workshops-02.mp4
+    poster: https://media.creativecodingtech.com/videos/sonic-pi-workshops-02.jpg
+    caption: "From the Ableton workshop: setting up Live to take Sonic Pi's MIDI."
 ---
 
 Sonic Pi is a free live-coding synth. You type a few lines of Ruby, press run, and it plays. Change the code while it runs and the music changes with it.
