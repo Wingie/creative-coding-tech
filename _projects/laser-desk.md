@@ -19,10 +19,10 @@ tech:
 client: Personal project, part of the Echo Garden rig
 videos:
   - src: https://media.creativecodingtech.com/videos/laser-desk-18.mp4
-    poster: https://media.creativecodingtech.com/videos/laser-desk-18.jpg
+    poster: https://media.creativecodingtech.com/videos/hotlink-ok/laser-desk-18.jpg
     caption: "The desk finds the card, fits a portrait inside it and keeps clear of the printed text."
   - src: https://media.creativecodingtech.com/videos/laser-desk-19.mp4
-    poster: https://media.creativecodingtech.com/videos/laser-desk-19.jpg
+    poster: https://media.creativecodingtech.com/videos/hotlink-ok/laser-desk-19.jpg
     caption: "Calibrating the surface. The arm camera sees the desk in the corner."
 demos:
   - src: https://media.creativecodingtech.com/videos/demos/laser-desk.mp4

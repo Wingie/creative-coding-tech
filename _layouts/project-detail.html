@@ -43,7 +43,7 @@ refactor: true
       <section class="project-demos" id="demo" aria-label="1-minute demo">
         {% for d in page.demos %}
         <figure class="project-demo">
-          <video src="{{ d.src }}" poster="{{ d.src | replace: '.mp4', '.jpg' }}" controls playsinline preload="none" aria-label="{{ d.title | escape }}"></video>
+          <video src="{{ d.src }}" poster="{{ d.src | replace: '/videos/demos/', '/videos/hotlink-ok/demos/' | replace: '.mp4', '.jpg' }}" controls playsinline preload="none" aria-label="{{ d.title | escape }}"></video>
           <figcaption><strong>1-minute demo{% if d.title %}:</strong> {{ d.title }}{% else %}</strong>{% endif %}</figcaption>
         </figure>
         {% endfor %}

@@ -24,13 +24,13 @@ repo_private: true
 live_url: https://agentosaurus.com
 videos:
   - src: https://media.creativecodingtech.com/videos/agentosaurus-03.mp4
-    poster: https://media.creativecodingtech.com/videos/agentosaurus-03.jpg
+    poster: https://media.creativecodingtech.com/videos/hotlink-ok/agentosaurus-03.jpg
     caption: "The ESG agent's sources and free reports."
   - src: https://media.creativecodingtech.com/videos/agentosaurus-05.mp4
-    poster: https://media.creativecodingtech.com/videos/agentosaurus-05.jpg
+    poster: https://media.creativecodingtech.com/videos/hotlink-ok/agentosaurus-05.jpg
     caption: "Starting an ESG due-diligence run."
   - src: https://media.creativecodingtech.com/videos/agentosaurus-06.mp4
-    poster: https://media.creativecodingtech.com/videos/agentosaurus-06.jpg
+    poster: https://media.creativecodingtech.com/videos/hotlink-ok/agentosaurus-06.jpg
     caption: "An investigation running, with its report next to it."
 demos:
   - src: https://media.creativecodingtech.com/videos/demos/agentosaurus.mp4

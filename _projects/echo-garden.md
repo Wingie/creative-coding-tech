@@ -22,16 +22,16 @@ client: ADE Lab Hackathon, Amsterdam, October 2026
 live_url: https://creativecodingtech.com/echo-garden/
 videos:
   - src: https://media.creativecodingtech.com/videos/echo-garden-28.mp4
-    poster: https://media.creativecodingtech.com/videos/echo-garden-28.jpg
+    poster: https://media.creativecodingtech.com/videos/hotlink-ok/echo-garden-28.jpg
     caption: "The arm on the studio desk next to the plant station."
   - src: https://media.creativecodingtech.com/videos/echo-garden-14.mp4
-    poster: https://media.creativecodingtech.com/videos/echo-garden-14.jpg
+    poster: https://media.creativecodingtech.com/videos/hotlink-ok/echo-garden-14.jpg
     caption: "The arm and the plant against the green curtain."
   - src: https://media.creativecodingtech.com/videos/echo-garden-15.mp4
-    poster: https://media.creativecodingtech.com/videos/echo-garden-15.jpg
+    poster: https://media.creativecodingtech.com/videos/hotlink-ok/echo-garden-15.jpg
     caption: "The arm's camera view over the plant's live signal."
   - src: https://media.creativecodingtech.com/videos/echo-garden-16.mp4
-    poster: https://media.creativecodingtech.com/videos/echo-garden-16.jpg
+    poster: https://media.creativecodingtech.com/videos/hotlink-ok/echo-garden-16.jpg
     caption: "A longer take of the arm panel and the plant's signal."
 demos:
   - src: https://media.creativecodingtech.com/videos/demos/echo-garden.mp4

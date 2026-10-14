@@ -20,10 +20,10 @@ tech:
 client: Creative coding workshops
 videos:
   - src: https://media.creativecodingtech.com/videos/sonic-pi-workshops-01.mp4
-    poster: https://media.creativecodingtech.com/videos/sonic-pi-workshops-01.jpg
+    poster: https://media.creativecodingtech.com/videos/hotlink-ok/sonic-pi-workshops-01.jpg
     caption: "From the intro workshop: first sounds in Sonic Pi."
   - src: https://media.creativecodingtech.com/videos/sonic-pi-workshops-02.mp4
-    poster: https://media.creativecodingtech.com/videos/sonic-pi-workshops-02.jpg
+    poster: https://media.creativecodingtech.com/videos/hotlink-ok/sonic-pi-workshops-02.jpg
     caption: "From the Ableton workshop: setting up Live to take Sonic Pi's MIDI."
 demos:
   - src: https://media.creativecodingtech.com/videos/demos/sonic-pi-intro.mp4

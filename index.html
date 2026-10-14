@@ -5,6 +5,7 @@ description: I build ML systems, do live coding improv shows, and audio visual a
 ---
 
 {% assign v = "https://media.creativecodingtech.com/videos/" %}
+{% assign p = v | append: "hotlink-ok/" %}
 
 <!-- Import Three.js via CDN importmap -->
 <script type="importmap">
@@ -109,7 +110,7 @@ description: I build ML systems, do live coding improv shows, and audio visual a
 
       <article class="watch-tile">
         <a class="watch-media" href="/projects/echo-garden/" aria-label="Echo Garden">
-          <video src="{{ v }}echo-garden-15.mp4" poster="{{ v }}echo-garden-15.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <video src="{{ v }}echo-garden-15.mp4" poster="{{ p }}echo-garden-15.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
         </a>
         <div class="watch-body">
           <h3><a href="/projects/echo-garden/">Echo Garden</a></h3>
@@ -120,7 +121,7 @@ description: I build ML systems, do live coding improv shows, and audio visual a
 
       <article class="watch-tile">
         <a class="watch-media" href="/projects/touchdesigner-performance-rig/" aria-label="TouchDesigner Performance Rig">
-          <video src="{{ v }}touchdesigner-performance-rig-09.mp4" poster="{{ v }}touchdesigner-performance-rig-09.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <video src="{{ v }}touchdesigner-performance-rig-09.mp4" poster="{{ p }}touchdesigner-performance-rig-09.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
         </a>
         <div class="watch-body">
           <h3><a href="/projects/touchdesigner-performance-rig/">TouchDesigner rig</a></h3>
@@ -131,7 +132,7 @@ description: I build ML systems, do live coding improv shows, and audio visual a
 
       <article class="watch-tile">
         <a class="watch-media" href="/projects/kinect-projector-calibration/" aria-label="Kinect v2 into TouchDesigner on macOS">
-          <video src="{{ v }}kinect-projector-calibration-25.mp4" poster="{{ v }}kinect-projector-calibration-25.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <video src="{{ v }}kinect-projector-calibration-25.mp4" poster="{{ p }}kinect-projector-calibration-25.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
         </a>
         <div class="watch-body">
           <h3><a href="/projects/kinect-projector-calibration/">Kinect v2 on macOS</a></h3>
@@ -142,7 +143,7 @@ description: I build ML systems, do live coding improv shows, and audio visual a
 
       <article class="watch-tile">
         <a class="watch-media" href="/projects/laser-desk/" aria-label="Laser Desk">
-          <video src="{{ v }}laser-desk-18.mp4" poster="{{ v }}laser-desk-18.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <video src="{{ v }}laser-desk-18.mp4" poster="{{ p }}laser-desk-18.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
         </a>
         <div class="watch-body">
           <h3><a href="/projects/laser-desk/">Laser Desk</a></h3>
@@ -153,7 +154,7 @@ description: I build ML systems, do live coding improv shows, and audio visual a
 
       <article class="watch-tile">
         <a class="watch-media" href="/projects/agentosaurus/" aria-label="Agentosaurus">
-          <video src="{{ v }}agentosaurus-06.mp4" poster="{{ v }}agentosaurus-06.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <video src="{{ v }}agentosaurus-06.mp4" poster="{{ p }}agentosaurus-06.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
         </a>
         <div class="watch-body">
           <h3><a href="/projects/agentosaurus/">Agentosaurus</a></h3>
@@ -164,7 +165,7 @@ description: I build ML systems, do live coding improv shows, and audio visual a
 
       <article class="watch-tile">
         <a class="watch-media" href="/projects/sonic-pi-workshops/" aria-label="Sonic Pi workshops">
-          <video src="{{ v }}sonic-pi-workshops-01.mp4" poster="{{ v }}sonic-pi-workshops-01.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <video src="{{ v }}sonic-pi-workshops-01.mp4" poster="{{ p }}sonic-pi-workshops-01.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
         </a>
         <div class="watch-body">
           <h3><a href="/projects/sonic-pi-workshops/">Sonic Pi workshops</a></h3>
@@ -244,17 +245,22 @@ description: I build ML systems, do live coding improv shows, and audio visual a
 
 <script>
   (function () {
-    // Loops play only while on screen, and not at all for reduced motion or data saver.
+    /* The layout compresses this page onto one line, so use block comments only:
+       a line comment here would swallow the rest of the script.
+       Tiles autoplay like the project pages and show their first frame or poster.
+       Off screen they pause. Reduced motion and data saver: first frame, no autoplay. */
     var loops = document.querySelectorAll('.watch-media video');
     var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      (navigator.connection && navigator.connection.saveData);
-    if (!still && 'IntersectionObserver' in window) {
+      !!(navigator.connection && navigator.connection.saveData);
+    if (still) {
+      loops.forEach(function (el) { el.autoplay = false; el.removeAttribute('autoplay'); el.pause(); });
+    } else if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           if (e.isIntersecting) { e.target.play().catch(function () {}); }
           else { e.target.pause(); }
         });
-      }, { threshold: 0.4 });
+      }, { threshold: 0.25 });
       loops.forEach(function (el) { io.observe(el); });
     }
 
@@ -267,7 +273,7 @@ description: I build ML systems, do live coding improv shows, and audio visual a
       link.addEventListener('click', function (ev) {
         ev.preventDefault();
         var src = link.getAttribute('data-demo');
-        player.poster = src.replace(/\.mp4$/, '.jpg');
+        player.poster = src.replace('/videos/demos/', '/videos/hotlink-ok/demos/').replace(/\.mp4$/, '.jpg');
         player.src = src;
         title.textContent = '1-minute demo: ' + link.getAttribute('data-title');
         dlg.showModal();

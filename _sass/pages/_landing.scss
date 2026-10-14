@@ -519,6 +519,8 @@
 .watch-media {
   display: block;
   aspect-ratio: 16 / 9;
+  /* Without this, the video's 150px intrinsic height stretches the 16:9 box. */
+  overflow: hidden;
   background: #05060a;
 
   video {

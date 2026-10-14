@@ -35,7 +35,7 @@ These are Coursera courses, each tied to something I'm building.
 - **Project Management**, a 6-course certificate from Google, July 2026.
 
 <figure class="project-video" style="max-width: 560px">
-  <video src="https://media.creativecodingtech.com/videos/about-22.mp4" poster="https://media.creativecodingtech.com/videos/about-22.jpg" autoplay muted loop playsinline preload="metadata" aria-label="CUDA coursework in the editor"></video>
+  <video src="https://media.creativecodingtech.com/videos/about-22.mp4" poster="https://media.creativecodingtech.com/videos/hotlink-ok/about-22.jpg" autoplay muted loop playsinline preload="metadata" aria-label="CUDA coursework in the editor"></video>
   <figcaption>CUDA coursework from the GPU Programming specialisation.</figcaption>
 </figure>
 

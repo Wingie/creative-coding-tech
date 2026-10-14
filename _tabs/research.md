@@ -142,7 +142,7 @@ The design paper is public: [*Ten Trillion Parameters, and the Limit That Scale 
 I build instruments for my own live sets. They're also where most of my signal processing happens: plant signals, Kinect depth, hand tracking and audio, all feeding Ableton Live.
 
 <figure class="project-demo research-demo">
-  <video src="https://media.creativecodingtech.com/videos/demos/echo-garden.mp4" poster="https://media.creativecodingtech.com/videos/demos/echo-garden.jpg" controls playsinline preload="none" aria-label="Echo Garden, 1-minute demo"></video>
+  <video src="https://media.creativecodingtech.com/videos/demos/echo-garden.mp4" poster="https://media.creativecodingtech.com/videos/hotlink-ok/demos/echo-garden.jpg" controls playsinline preload="none" aria-label="Echo Garden, 1-minute demo"></video>
   <figcaption>Echo Garden, 1-minute demo.</figcaption>
 </figure>
 
