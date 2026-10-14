@@ -13,10 +13,20 @@ share API, and writes a media folder the gallery page reads:
 
 Only Showcases albums belong in the yml. Full shoots stay private.
 
+After a sync, files for photos no longer in an album are deleted from <slug>/, and
+folders for slugs no longer in the yml are deleted, so an upload cannot put them back.
+
+--upload pushes an allow-list only: the top-level .json files (not curation.json) and
+the renditions above. Dotfiles and dot-folders (.wrangler holds the Cloudflare
+account) and *.npz embeddings never leave the machine.
+
 Usage:
-    python3 scripts/sync_gallery.py                 # sync into gallery-media/
+    python3 scripts/sync_gallery.py                 # sync into gallery-media/, then prune
+    python3 scripts/sync_gallery.py --only natalia  # sync and prune one room
     python3 scripts/sync_gallery.py --dry-run       # print counts, write nothing
-    python3 scripts/sync_gallery.py --upload        # also push the folder to R2
+    python3 scripts/sync_gallery.py --prune-only    # prune against the existing gallery_all.json
+    python3 scripts/sync_gallery.py --prune-only --dry-run   # print what prune would delete
+    python3 scripts/sync_gallery.py --upload        # also push the allow-listed files to R2
 """
 
 import argparse
@@ -25,6 +35,7 @@ import concurrent.futures
 import datetime
 import json
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -39,6 +50,7 @@ LR = "https://lightroom.adobe.com/v2/spaces/"
 UA = {"User-Agent": "creativecodingtech-gallery-sync/1.0"}
 THEMES = ["light", "studio-dark", "studio-white", "outdoor", "bw"]
 TREATMENTS = ["photo", "vector", "cutout"]
+RENDITIONS = ("_640.jpg", "_1280.jpg", "_vec.svg", "_cutout.png")  # what the gallery JS loads
 
 
 # ---------------------------------------------------------------- Lightroom
@@ -305,14 +317,67 @@ def curate(rooms, curation, limit):
     return public
 
 
-def upload(out, workers=8):
+def prune(out, rooms, slugs, dry_run, only=None):
+    """Delete local files for photos gone from their album, and folders for slugs gone from the yml.
+
+    rooms: gallery_all.json people. slugs: every slug in the yml. With only, prune that room alone.
+    """
+    keep = {r["slug"]: {p["id"] for p in r["photos"]} for r in rooms}
+    verb = "would remove" if dry_run else "removed"
+    removed = 0
+    for slug in sorted(keep):
+        if only and slug != only:
+            continue
+        room_dir = os.path.join(out, slug)
+        if not os.path.isdir(room_dir):
+            continue
+        for name in sorted(os.listdir(room_dir)):
+            path = os.path.join(room_dir, name)
+            if name.startswith(".") or not os.path.isfile(path):
+                continue
+            if name.split("_", 1)[0] in keep[slug]:
+                continue
+            print("  %s %s/%s" % (verb, slug, name))
+            if not dry_run:
+                os.remove(path)
+            removed += 1
+    if not only and slugs:
+        for name in sorted(os.listdir(out)):
+            path = os.path.join(out, name)
+            if name.startswith(".") or not os.path.isdir(path) or name in slugs:
+                continue
+            print("  %s %s/ (%d files)" % (verb, name, sum(len(f) for _, _, f in os.walk(path))))
+            if not dry_run:
+                shutil.rmtree(path)
+            removed += 1
+    print("prune: %s %d" % (verb, removed))
+
+
+def uploadable(rel):
+    """True if a path relative to gallery-media/ belongs on R2."""
+    parts = rel.split(os.sep)
+    if any(p.startswith(".") for p in parts):
+        return False  # .wrangler/ holds the Cloudflare account id and email; .DS_Store etc.
+    if len(parts) == 1:
+        # curation.json is owned by the curation page in R2; gallery_all.json feeds /admin
+        return parts[0].endswith(".json") and parts[0] != "curation.json"
+    return len(parts) == 2 and parts[1].endswith(RENDITIONS)
+
+
+def upload_jobs(out):
     jobs = []
-    for dirpath, _, files in os.walk(out):
-        for name in files:
-            if name in ("curation.json", "embeddings.npz"):
-                continue  # curation is owned by the curation page in R2; embeddings stay local
+    for dirpath, dirnames, files in os.walk(out):
+        dirnames[:] = sorted(d for d in dirnames if not d.startswith("."))
+        for name in sorted(files):
             path = os.path.join(dirpath, name)
-            jobs.append(("media/gallery/" + os.path.relpath(path, out), path))
+            rel = os.path.relpath(path, out)
+            if uploadable(rel):
+                jobs.append(("media/gallery/" + rel.replace(os.sep, "/"), path))
+    return jobs
+
+
+def upload(out, workers=8):
+    jobs = upload_jobs(out)
     worker_dir = os.path.join(ROOT, "r2-worker")
 
     def put(job):
@@ -338,11 +403,22 @@ def main():
     ap.add_argument("--no-vector", action="store_true")
     ap.add_argument("--limit-per-room", type=int, default=24)
     ap.add_argument("--upload", action="store_true")
-    ap.add_argument("--only", help="sync one room slug")
+    ap.add_argument("--only", help="sync (and prune) one room slug")
+    ap.add_argument("--prune-only", action="store_true", help="skip Lightroom; prune against the existing gallery_all.json")
     ap.add_argument("--embed", action="store_true", help="embed photos with CLIP and write path.json (cloud path)")
     args = ap.parse_args()
 
-    people = [p for p in load_people() if not args.only or p["slug"] == args.only]
+    all_people = load_people()
+    slugs = {p["slug"] for p in all_people}
+    people = [p for p in all_people if not args.only or p["slug"] == args.only]
+
+    if args.prune_only:
+        rooms = load_json(os.path.join(args.out, "gallery_all.json"), {"people": []})["people"]
+        if not rooms:
+            raise SystemExit("no gallery_all.json in %s; run a sync first" % args.out)
+        prune(args.out, rooms, slugs, args.dry_run, args.only)
+        return
+
     search_themes = load_json(os.path.join(ROOT, "_data", "gallery_themes.json"), {})
     if not args.dry_run:
         os.makedirs(args.out, exist_ok=True)
@@ -356,6 +432,7 @@ def main():
         rooms.append(room)
 
     if args.dry_run:
+        prune(args.out, rooms, slugs, True, args.only)
         return
 
     if args.only:
@@ -370,6 +447,7 @@ def main():
     with open(os.path.join(args.out, "gallery.json"), "w") as f:
         json.dump({"generated": now, "people": public}, f)
     print("gallery.json: %d rooms, %d photos" % (len(public), sum(len(r["photos"]) for r in public)))
+    prune(args.out, rooms, slugs, False, args.only)
 
     if args.embed:
         import gallery_path
