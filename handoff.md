@@ -141,7 +141,7 @@ All claims confirmed real. Merge `/practice/`, `/work/`, `/oracle/` and the 6 `/
 
 **Keep and rewrite (7):** SELinux volume mounts · pgvector in Django · ARM64 build failures · the Beta9 GPU pipeline · the auth incident (**confirm it happened first**) · the two agent-infrastructure posts merged into one.
 
-**Fix the premise or cut (4):** three posts are built on `claude-run --allow-write`, which is not a real command or flag. `when-claude-killed-production` claims a Replit incident the body never mentions.
+**Fix the premise or cut (1):** `when-claude-killed-production` claims a Replit incident the body never mentions. The three posts built on `claude-run --allow-write` are fine on that point: the flag is real (the `--allow-write|--unsafe)` case in `FlowState/claude-scripts/claude-run`, line 39 of the installed `/usr/local/bin/claude-run`, added in FlowState commit 867127c9 on 2026-01-10, and used in the `#!/usr/bin/env -S claude-run --allow-write` shebang of FlowState's `.ai` scripts). Without it the script runs read-only via `--allowedTools`.
 
 **Delete (13):** everything under ~140 words.
 
