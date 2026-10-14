@@ -8,7 +8,7 @@ description: >-
   Cron-driven agents that plan, write, test and open pull requests without me. Including the test gate that never actually ran.
 ---
 
-An agent has been shipping code to my platform every two hours for a month. It plans, writes, tests and opens pull requests. I merge them in the morning.
+An agent has been shipping code to my platform on a schedule for a month. It plans, writes, tests and opens pull requests. I merge them in the morning.
 
 This is what the loop looks like and where it was quietly broken.
 

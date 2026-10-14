@@ -36,7 +36,7 @@ videos:
 
 For three days in August, my build system ran 64 jobs and reported every one as a success.
 
-None of them did anything. They were hitting a weekly rate limit and dying after four seconds. The log said `COMPLETED: success` each time, because the process exited cleanly. It exited cleanly because it never started.
+None of them did anything. They were hitting a weekly rate limit and dying within seconds. The log said `COMPLETED: success` each time, because the process exited cleanly. It exited cleanly because it never started.
 
 I only found it because the queue wasn't shrinking.
 
@@ -44,7 +44,7 @@ I only found it because the queue wasn't shrinking.
 
 [Agentosaurus](https://agentosaurus.com) finds and checks organisations working on climate. It crawls their sources, compares what they claim against what it can verify, and keeps every raw result so you can trace a conclusion back to where it came from.
 
-AI agents write most of its code. They merged over a thousand pull requests in 2026. It still runs, six times a day on weekdays.
+AI agents write most of its code. They merged over a thousand pull requests in 2026. It still runs on a schedule.
 
 I built it to find out how agents behave when you stop watching each step.
 
@@ -60,7 +60,7 @@ I didn't design it this way. My first version had three agents passing turns to 
 
 **`set -e` without `set -o pipefail` deleted my error handling.** I piped the agent through `tee` to save a log. `tee` succeeds even when the agent fails, so every failure took the success branch. My rate-limit handler and my timeout handler were both unreachable. They had never once run.
 
-**My quota check returned zero when it broke.** Zero percent used and could-not-check looked identical. Six runs logged "could not fetch usage data, proceeding anyway" and then started 45 jobs each. Now a failed check returns nothing and stops the run, and it says so in a log line that doesn't look like a healthy one.
+**My quota check returned zero when it broke.** Zero percent used and could-not-check looked identical. Runs logged "could not fetch usage data, proceeding anyway" and then started a full batch of jobs. Now a failed check returns nothing and stops the run, and it says so in a log line that doesn't look like a healthy one.
 
 **One threshold, two different rate limits.** The weekly budget sat at 84 to 100 percent for six days while the five-hour budget sat near zero. I was checking both against one number, so it skipped every expensive job for six days while having plenty of room to run.
 
