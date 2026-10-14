@@ -34,6 +34,7 @@ import colorsys
 import concurrent.futures
 import datetime
 import json
+import mimetypes
 import os
 import shutil
 import subprocess
@@ -376,13 +377,28 @@ def upload_jobs(out):
     return jobs
 
 
+# R2 serves whatever Content-Type the object was stored with; without one, gallery.json goes out blank
+CONTENT_TYPES = {
+    ".json": "application/json",
+    ".jpg": "image/jpeg",
+    ".svg": "image/svg+xml",
+    ".png": "image/png",
+}
+
+
+def content_type(path):
+    ext = os.path.splitext(path)[1].lower()
+    return CONTENT_TYPES.get(ext) or mimetypes.guess_type(path)[0] or "application/octet-stream"
+
+
 def upload(out, workers=8):
     jobs = upload_jobs(out)
     worker_dir = os.path.join(ROOT, "r2-worker")
 
     def put(job):
         key, path = job
-        cmd = ["npx", "wrangler", "r2", "object", "put", key, "--file", path, "--remote"]
+        cmd = ["npx", "wrangler", "r2", "object", "put", key, "--file", path,
+               "--content-type", content_type(path), "--remote"]
         return key, subprocess.run(cmd, cwd=worker_dir, capture_output=True).returncode
 
     from concurrent.futures import ThreadPoolExecutor
