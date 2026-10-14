@@ -129,6 +129,13 @@
       padding: 0; cursor: pointer; text-decoration: underline dotted; }
 
     #grid { padding: 120px 16px 48px; max-width: 1400px; margin: 0 auto; }
+    .grid-wing { margin-bottom: 72px; }
+    .grid-wing > h2 { font-size: 28px; font-weight: 600; margin: 0 0 20px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .grid-wing > h2 span { color: var(--muted); font-weight: 400; font-size: 15px; }
+    .grid-wing.empty > h2 { opacity: 0.45; }
+    .grid-wing .grid-room { margin-bottom: 36px; }
+    .grid-room h3 { font-size: 19px; font-weight: 600; margin: 0 0 4px; }
+    .grid-room h3 span { color: var(--muted); font-weight: 400; font-size: 14px; }
     .grid-room { margin-bottom: 48px; }
     .grid-room h2 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
     .grid-room h2 span { color: var(--muted); font-weight: 400; font-size: 15px; }
@@ -169,7 +176,7 @@
     <span class="nav-right">
       <button type="button" id="snap-toggle" title="Stop at each panel, or walk freely">Free walk</button>
       <button type="button" id="map-toggle" title="See the whole gallery from above">Map</button>
-      <button type="button" id="world-toggle">Path</button>
+      <button type="button" id="world-toggle">Rooms</button>
       <button type="button" id="rooms-btn" aria-expanded="false" aria-controls="rooms-panel">Rooms</button>
       <button type="button" id="view-toggle">Grid</button>
     </span>

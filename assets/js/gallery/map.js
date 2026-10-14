@@ -1,4 +1,6 @@
 // The gallery seen from above: the generated category tree as a mind map.
+// For the default walk the tree is the wings (wings.js): everything, then one
+// card per theme in walking order, then one per person in it, newest first.
 //
 // path.json is already a binary tree of look-alike photos, one fork per split.
 // Walking it from inside means you only meet a fork once you are standing at it.
@@ -121,7 +123,10 @@ export class MindMap {
     const byName = new Set();
     const picked = [];
     for (const s of out.sort((a, b) => b.score - a.score)) {
-      const name = this.nodes[s.key].name || "more";
+      const node = this.nodes[s.key];
+      // in the wings tree a person appears once per wing, so say which wing
+      const wing = this.data.ordered && node.wing && !node.children ? this.nodes["wing-" + node.wing] : null;
+      const name = (node.name || "more") + (wing ? " (" + wing.name + ")" : "");
       if (byName.has(name)) continue;
       byName.add(name);
       picked.push({ key: s.key, name, shared: s.shared });
@@ -203,7 +208,8 @@ export class MindMap {
     head.className = "map-name";
     head.textContent = node.name || "everything";
     const count = document.createElement("span");
-    count.textContent = node.photos.length;
+    // a person's hall in a wing carries its shoot date
+    count.textContent = (node.dateLabel ? node.dateLabel + " \u00b7 " : "") + node.photos.length;
     head.append(count);
     el.append(head);
 
@@ -225,7 +231,7 @@ export class MindMap {
     if (kids.length) {
       const b = document.createElement("button");
       b.type = "button";
-      b.textContent = this.open.has(key) ? "Close" : "Open fork";
+      b.textContent = this.open.has(key) ? "Close" : this.data.ordered ? "Open" : "Open fork";
       b.addEventListener("click", (e) => {
         e.stopPropagation();
         if (this.open.has(key)) for (const k of this.descendants(key)) this.open.delete(k);

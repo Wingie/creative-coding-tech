@@ -1,11 +1,15 @@
-// Walkable gallery: one room per sitter, newest shoot at the entrance.
+// Walkable gallery. The default walk is theme first, then person: one wing per
+// theme, one hall per person inside it, newest shoot first (wings.js). The
+// grid and the map follow the same order. ?world=rooms walks one room per
+// sitter instead, and ?world=likeness the older walk sorted by likeness.
 import * as THREE from "three";
 import { buildGallery, roomAt } from "./building.js";
 import { Frame, rehang, matches } from "./rehang.js";
 import { Loader, placeBillboards } from "./loader.js";
 import { Controls } from "./controls.js";
 import { Lightbox } from "./lightbox.js";
-import { renderGrid } from "./fallback.js";
+import { renderWings } from "./fallback.js";
+import { arrangeWings, wingTree } from "./wings.js";
 import { startPath } from "./path.js";
 import { environment, makeComposer } from "./look.js";
 import { MindMap } from "./map.js";
@@ -15,8 +19,10 @@ const DATA_URL =
   new URLSearchParams(location.search).get("data") ||
   (LOCAL ? "/gallery-media/gallery.json" : "https://media.creativecodingtech.com/gallery/gallery.json");
 const BASE = DATA_URL.slice(0, DATA_URL.lastIndexOf("/") + 1);
-// The path is the way in. ?world=rooms walks the rooms instead.
-const WORLD = new URLSearchParams(location.search).get("world") === "rooms" ? "rooms" : "path";
+// The wings are the way in. ?world=rooms walks the rooms, ?world=likeness the
+// look-alike path from path.json.
+const ASKED = new URLSearchParams(location.search).get("world");
+const WORLD = ASKED === "rooms" || ASKED === "likeness" ? ASKED : "wings";
 
 const THEMES = [
   ["all", "All"],
@@ -105,7 +111,7 @@ async function main() {
     $("#status").textContent = "The gallery could not load. Try again in a minute.";
     return;
   }
-  const people = data.people || [];
+  const people = (data.people || []).filter((p) => p && Array.isArray(p.photos));
   if (!people.length) {
     $("#status").textContent = "No rooms are open yet.";
     return;
@@ -113,7 +119,8 @@ async function main() {
   let pathData = null;
   let tagData = {};
   let outfitData = { outfits: {}, of: {} };
-  if (WORLD === "path") {
+  if (WORLD !== "rooms") {
+    // the likeness walk is built from it; the wings borrow its neighbours
     try {
       const res = await fetch(BASE + "path.json", { cache: "no-cache" });
       if (res.ok) pathData = await res.json();
@@ -135,17 +142,26 @@ async function main() {
   } catch (e) {
     outfitData = { outfits: {}, of: {} };
   }
-  const world = pathData ? "path" : "rooms";
-  document.body.dataset.world = world;
+  // Every photo gets one primary theme, so it hangs in exactly one wing.
+  // gallery.json is the list of what exists; tags.json and path.json may name
+  // photos that have gone, or miss new ones, and both are read around that.
+  const arrangement = arrangeWings(people, tagData);
+  const wings = arrangement.wings;
+  const tree = wingTree(arrangement, pathData);
+  // the walk (and the map) read this: the wings, or path.json for the likeness walk
+  const walkData = WORLD === "wings" ? tree : WORLD === "likeness" ? pathData : null;
+  const world = walkData ? WORLD : "rooms";
+  // CSS keys on "path" for the carpet walks, wings and likeness both
+  document.body.dataset.world = walkData ? "path" : "rooms";
   setupWorldToggle(world);
-  if (world === "path") {
+  if (walkData) {
     $("#hint").textContent = matchMedia("(pointer: coarse)").matches
       ? "Tap any picture to go and stand at it. Drag to look around."
       : "Scroll or press space for the next picture. Left and right step along the wall. Click one to go to it. WASD to walk.";
   }
   $("#status").hidden = true;
 
-  const all = pathData ? Object.values(pathData.photos) : people.flatMap((p) => p.photos);
+  const all = walkData ? Object.values(walkData.photos) : people.flatMap((p) => p.photos);
   const tagsFor = (p) => {
     const t = tagData[p.id];
     if (t) p.tags = flatten(t);
@@ -156,7 +172,7 @@ async function main() {
     }
   };
   // path.json keys its photos by id rather than storing one on the record
-  if (pathData) for (const [id, p] of Object.entries(pathData.photos)) p.id = id;
+  if (walkData) for (const [id, p] of Object.entries(walkData.photos)) p.id = id;
   for (const p of all) tagsFor(p);
   // the grid and the rooms world read these, which are separate objects
   for (const person of people) for (const p of person.photos) tagsFor(p);
@@ -176,7 +192,8 @@ async function main() {
   const grid = $("#grid");
   buildRoomList(people, (slug) => {
     if (state.view === "walk" && walk) walk.teleport(slug);
-    else document.getElementById("room-" + slug)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    // the grid is in wing order, so a person's first hall is in their first wing
+    else document.querySelector(`.grid-room[data-person="${slug}"]`)?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
   let map = null;
@@ -188,8 +205,8 @@ async function main() {
     if (mapBtn) mapBtn.setAttribute("aria-pressed", String(v === "map"));
     if (walk) walk.controls.enabled = v === "walk";
     if (v === "map") {
-      if (!map && pathData) {
-        map = new MindMap($("#map"), pathData, BASE, {
+      if (!map && walkData) {
+        map = new MindMap($("#map"), walkData, BASE, {
           tags: tagData,
           onEnter: (key, name) => {
             setView("walk");
@@ -200,11 +217,11 @@ async function main() {
         map.home();
       }
     } else if (v === "grid") {
-      renderGrid(grid, people, BASE, state.theme, lightbox);
+      renderWings(grid, wings, BASE, state.theme, lightbox);
       if (walk) walk.controls.unlock();
     } else if (!walk) {
-      walk = pathData
-        ? startPath($("#scene"), pathData, BASE, lightbox, {
+      walk = walkData
+        ? startPath($("#scene"), walkData, BASE, lightbox, {
             outfits: outfitData,
             toast,
             hint: () => $("#hint").classList.add("fade"),
@@ -217,7 +234,7 @@ async function main() {
 
   chips($("#themes"), themes, state.theme, themeCounts, (id) => {
     state.theme = id;
-    if (state.view === "grid") renderGrid(grid, people, BASE, id, lightbox);
+    if (state.view === "grid") renderWings(grid, wings, BASE, id, lightbox);
     if (walk) walk.setTheme(id);
   });
   chips($("#treatments"), TREATMENTS, state.treatment, treatCounts, (id) => {
@@ -225,23 +242,26 @@ async function main() {
     if (walk) walk.setTreatment(id);
   });
 
+  // outfits.json can name photos gallery.json no longer has; a chip for none of them goes
+  const outfitCount = (id) => all.filter((p) => matches(p, id)).length;
   const outfitChips = Object.entries(outfitData.outfits || {})
     .sort((a, b) => b[1].photos.length - a[1].photos.length)
-    .slice(0, 8)
-    .map(([id, o]) => ["outfit:" + id, o.name]);
+    .map(([id, o]) => ["outfit:" + id, o.name])
+    .filter(([id]) => outfitCount(id) > 0)
+    .slice(0, 8);
   if (outfitChips.length) {
-    const counts = Object.fromEntries(outfitChips.map(([id]) => [id, all.filter((p) => matches(p, id)).length]));
+    const counts = Object.fromEntries(outfitChips.map(([id]) => [id, outfitCount(id)]));
     chips($("#outfits"), [["all", "Any outfit"], ...outfitChips], "all", counts, (id) => {
       if (state.view === "grid") {
         state.theme = id;
-        renderGrid(grid, people, BASE, id, lightbox);
+        renderWings(grid, wings, BASE, id, lightbox);
         return;
       }
       if (!walk) return;
       if (id === "all") {
         state.theme = "all";
         walk.setTheme("all");
-        if (walk.enterAt) walk.enterAt(pathData.root);
+        if (walk.enterAt && walkData) walk.enterAt(walkData.root);
         toast("Everything", 2200);
         return;
       }
@@ -260,11 +280,11 @@ async function main() {
   setupSnapToggle(() => walk);
   const mapBtn = $("#map-toggle");
   if (mapBtn) {
-    if (!pathData) mapBtn.hidden = true;
+    if (!walkData) mapBtn.hidden = true;
     mapBtn.addEventListener("click", () => setView(state.view === "map" ? "walk" : "map"));
   }
   addEventListener("keydown", (e) => {
-    if (e.key === "m" && pathData && !e.target.closest?.("input,textarea")) {
+    if (e.key === "m" && walkData && !e.target.closest?.("input,textarea")) {
       setView(state.view === "map" ? "walk" : "map");
     }
   });
@@ -291,12 +311,12 @@ function setupSnapToggle(getWalk) {
 function setupWorldToggle(world) {
   const b = $("#world-toggle");
   if (!b) return;
-  b.textContent = world === "path" ? "Rooms" : "Path";
-  b.title = world === "path" ? "Walk the rooms, one per sitter" : "Walk the cloud path, sorted by likeness";
+  b.textContent = world === "rooms" ? "Wings" : "Rooms";
+  b.title = world === "rooms" ? "Walk the wings: theme first, then person" : "Walk the rooms, one per sitter";
   b.addEventListener("click", () => {
     const u = new URL(location.href);
-    if (world === "path") u.searchParams.set("world", "rooms");
-    else u.searchParams.delete("world");
+    if (world === "rooms") u.searchParams.delete("world");
+    else u.searchParams.set("world", "rooms");
     location.href = u.toString();
   });
 }

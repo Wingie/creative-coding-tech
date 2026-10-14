@@ -1,5 +1,13 @@
-// The cloud path: a red carpet through the clouds that forks along the generated
-// category tree in path.json. Each fork splits the photos into two families of
+// The cloud path: a red carpet through the clouds.
+//
+// By default it walks the wings (wings.js): theme first, then person. From the
+// entrance the carpet runs through one wing per theme in a fixed order, and
+// inside a wing one hall per person, newest shoot first, each with a plaque.
+// A new wing turns a corner under its own title; a new person carries straight
+// on. After the last wing it comes back round to the first.
+//
+// With ?world=likeness it is the older walk instead: a carpet that forks along
+// the generated category tree in path.json. Each fork splits the photos into two families of
 // look-alike pictures. At the end of a branch the carpet keeps going photo by
 // photo to the nearest one not seen yet, and when those run out it forks again
 // from the top of the tree. Segments behind the walker are recycled.
@@ -56,6 +64,74 @@ function glowTexture() {
 const fwd = (h) => new THREE.Vector2(-Math.sin(h), -Math.cos(h));
 const rightOf = (h) => new THREE.Vector2(Math.cos(h), -Math.sin(h));
 
+const POST_GEO = new THREE.CylinderGeometry(0.08, 0.1, 3.1, 8);
+const POST_MAT = new THREE.MeshStandardMaterial({ color: 0x3a2a22 });
+
+// The wings route: every person-in-a-wing node, in walking order.
+function buildRoute(data) {
+  const out = [];
+  for (const wk of data.nodes[data.root].children || []) {
+    const wing = data.nodes[wk];
+    (wing.children || []).forEach((pk, j) => {
+      const n = data.nodes[pk];
+      out.push({ key: pk, wingKey: wk, wingName: wing.name, name: n.name, date: n.dateLabel || "", photos: n.photos, first: j === 0 });
+    });
+  }
+  return out;
+}
+
+function entranceLines(route) {
+  const lines = [{ text: "The gallery", size: 96, weight: 600 }];
+  const seen = new Map();
+  for (const r of route) seen.set(r.wingName, (seen.get(r.wingName) || 0) + r.photos.length);
+  let k = 1;
+  for (const [name, n] of seen) lines.push({ text: k++ + "  " + name + "  \u00b7  " + n, size: 64, color: "#e0c79c" });
+  lines.push({ text: "Each wing: one hall per person, newest first", size: 44, color: "#8fb8c8", before: 18 });
+  return lines;
+}
+
+// A plate of several lines of text, for plaques and the entrance directory.
+function boardPlane(lines, { w, h, bg = "rgba(6,12,16,0.9)", fg = "#f1ebe0" }) {
+  const c = document.createElement("canvas");
+  c.width = 1024;
+  c.height = Math.round((1024 * h) / w);
+  const g = c.getContext("2d");
+  g.fillStyle = bg;
+  g.fillRect(0, 0, c.width, c.height);
+  g.textAlign = "center";
+  g.textBaseline = "middle";
+  const fit = (l) => {
+    let s = l.size;
+    g.font = `${l.weight || 400} ${s}px "Helvetica Neue", Arial, sans-serif`;
+    while (g.measureText(l.text).width > c.width - 70 && s > 20) {
+      s -= 4;
+      g.font = `${l.weight || 400} ${s}px "Helvetica Neue", Arial, sans-serif`;
+    }
+    return s;
+  };
+  const shown = lines.filter((l) => l.text);
+  const sizes = shown.map(fit);
+  const total = sizes.reduce((a, s, i) => a + s * 1.25 + (shown[i].before || 0), 0);
+  let y = (c.height - total) / 2;
+  shown.forEach((l, i) => {
+    y += l.before || 0;
+    g.font = `${l.weight || 400} ${sizes[i]}px "Helvetica Neue", Arial, sans-serif`;
+    g.fillStyle = l.color || fg;
+    g.fillText(l.text, c.width / 2, y + (sizes[i] * 1.25) / 2);
+    y += sizes[i] * 1.25;
+  });
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.anisotropy = 8;
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: t, transparent: true }));
+  m.userData.dispose = () => {
+    t.dispose();
+    m.material.dispose();
+    m.geometry.dispose();
+  };
+  return m;
+}
+
 class Segment {
   constructor(world, start, heading, photos, info) {
     this.world = world;
@@ -65,6 +141,7 @@ class Segment {
     this.nodeKey = info.nodeKey || null;
     this.drift = !!info.drift;
     this.label = info.label || "";
+    this.route = info.route; // index into the wings route, when walking the wings
     // Pack each side edge to edge: pictures next to each other make a wall you
     // move along, rather than islands with nothing in between.
     this.places = [];
@@ -163,6 +240,10 @@ class Segment {
     const w = this.world;
     for (const m of this.meshes) {
       w.scene.remove(m);
+      if (m.userData.dispose) {
+        m.userData.dispose(); // plaques and wing titles own their canvas
+        continue;
+      }
       // POOL_GEO is shared by every light pool, so only the per-segment carpet
       // planes are disposed here; the pools own their materials instead.
       if (m.geometry === POOL_GEO) m.material.dispose();
@@ -230,6 +311,21 @@ class Join {
     this.anchorStone = st;
   }
 
+  // The entrance directory: the wings in the order you will walk them.
+  // It stands at the right edge of the carpet, opposite the first plaque, so the
+  // way ahead stays clear.
+  board(lines, at, heading) {
+    const b = boardPlane(lines, { w: 9, h: 5.8 });
+    const p = at.clone().add(rightOf(heading).multiplyScalar(5.6)).add(fwd(heading).multiplyScalar(3));
+    b.position.set(p.x, 4.4, p.y);
+    b.rotation.y = heading;
+    const post = new THREE.Mesh(POST_GEO, POST_MAT);
+    post.position.set(p.x, 1.55, p.y);
+    post.userData.dispose = () => {};
+    this.world.scene.add(b, post);
+    this.objs.push(b, post);
+  }
+
   sign(text, at, heading, side) {
     const post = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.13, 5.4, 8), new THREE.MeshStandardMaterial({ color: 0x3a2a22 }));
     const base = at.clone().add(rightOf(heading).multiplyScalar(side * 4.6));
@@ -280,6 +376,16 @@ export class PathWorld {
     this.line = []; // segments on the chosen route, in order
     this.fork = null;
     this.seed = 7;
+    // walking the wings: one section per person per theme, in order
+    this.ordered = !!data.ordered;
+    this.turnSide = 1;
+    this.here = null;
+    if (this.ordered) {
+      this.route = buildRoute(data);
+      this.start = { x: 0, z: 1.2, yaw: 0 };
+      this.begin(0);
+      return;
+    }
 
     const rootPhotos = this.pick(data.root);
     const first = new Segment(this, new THREE.Vector2(0, 0), 0, rootPhotos, { nodeKey: data.root, label: "Everything" });
@@ -289,8 +395,104 @@ export class PathWorld {
     this.start = { x: 0, z: 1.2, yaw: 0 };
   }
 
+  // Clear everything and start the wings walk at route[i], from the origin.
+  begin(i) {
+    this.clear();
+    if (!this.route.length) return; // nothing to hang
+    const join = new Join(this, new THREE.Vector2(0, 0), false);
+    this.joins.push(join);
+    if (i === 0) join.board(entranceLines(this.route), new THREE.Vector2(0, 0), 0);
+    const first = this.section(i, new THREE.Vector2(0, 0), 0, true);
+    this.segments.push(first);
+    this.line.push(first);
+  }
+
+  clear() {
+    for (const s of this.segments) s.dispose();
+    for (const j of this.joins) j.dispose();
+    this.segments = [];
+    this.joins = [];
+    this.anchors = [];
+    this.line = [];
+    this.fork = null;
+    this.announced = null;
+    this.here = null;
+    this.seen.clear();
+  }
+
+  // One person's hall within a wing: the photos, a plaque naming them, and at
+  // the first hall of a wing the wing's title across the carpet.
+  section(i, start, heading, entering) {
+    const n = this.route.length;
+    const r = this.route[((i % n) + n) % n];
+    const photos = r.photos.map((id) => this.photos[id]).filter(Boolean);
+    // names can carry commas ("Natalia, lights"), so the parts are split by dots
+    const label = (r.first || entering ? r.wingName + " \u2014 " : "") + r.name + (r.date ? " \u00b7 " + r.date : "");
+    const seg = new Segment(this, start, heading, photos, { nodeKey: r.key, label, route: i });
+    seg.wing = r.wingKey;
+    const left = rightOf(heading).multiplyScalar(-4.8);
+    const at = seg.point(2.5).add(left);
+    const plaque = boardPlane(
+      [
+        { text: r.name, size: 120, weight: 600 },
+        { text: [r.date, photos.length + (photos.length === 1 ? " photo" : " photos")].filter(Boolean).join(" \u00b7 "), size: 66, color: "#e0c79c" },
+        { text: r.wingName, size: 56, color: "#8fb8c8" },
+      ],
+      { w: 6.4, h: 2.6 }
+    );
+    plaque.position.set(at.x, 4.4, at.y);
+    plaque.rotation.y = heading;
+    const post = new THREE.Mesh(POST_GEO, POST_MAT);
+    post.position.set(at.x, 1.55, at.y);
+    post.userData.dispose = () => {}; // shared geometry and material
+    this.scene.add(plaque, post);
+    seg.meshes.push(plaque, post);
+    if (r.first || entering) {
+      const mid = seg.point(4);
+      const title = textPlane(r.wingName, { w: 13, h: 2.4, size: 150, fg: "#ffd9a0" });
+      title.position.set(mid.x, 9.2, mid.y);
+      title.rotation.y = heading;
+      this.scene.add(title);
+      seg.meshes.push(title);
+    }
+    return seg;
+  }
+
+  // The next hall on the wings route. A person after a person carries straight
+  // on; a new wing takes a corner, alternating left and right so the carpet
+  // zigzags away rather than spiralling back into itself. Either way the hall
+  // must run clear of the halls still standing (clearRun), and is never laid
+  // back the way you came.
+  extendOrdered() {
+    const tip = this.tip();
+    const endPt = tip.end();
+    const i = (tip.route ?? -1) + 1;
+    const r = this.route[i % this.route.length];
+    let ways;
+    if (r.first) {
+      this.turnSide = -this.turnSide;
+      ways = [tip.heading + this.turnSide * FORK_TURN, tip.heading, tip.heading - this.turnSide * FORK_TURN];
+    } else {
+      ways = [tip.heading, tip.heading - FORK_TURN, tip.heading + FORK_TURN];
+    }
+    const runs = ways.map((w) => this.clearRun(endPt, w, tip));
+    const h = ways[runs.findIndex((x) => x === Infinity)] ?? ways[runs.indexOf(Math.max(...runs))];
+    const start = endPt.clone().add(fwd(h).multiplyScalar(h === tip.heading ? 0.8 : JOIN_R - 0.3));
+    // a beacon over the junction where a wing begins
+    this.joins.push(new Join(this, endPt, !!r.first));
+    const seg = this.section(i, start, h, false);
+    this.segments.push(seg);
+    this.line.push(seg);
+  }
+
   // Start again from a node the map chose. Everything built so far goes back.
   enterAt(key) {
+    if (this.ordered) {
+      const i = key === this.data.root ? 0 : this.route.findIndex((r) => r.key === key || r.wingKey === key);
+      if (i < 0) return false;
+      this.begin(i);
+      return true;
+    }
     if (!this.nodes[key]) return false;
     for (const s of this.segments) s.dispose();
     for (const j of this.joins) j.dispose();
@@ -370,6 +572,7 @@ export class PathWorld {
   }
 
   extend() {
+    if (this.ordered) return this.line.length ? this.extendOrdered() : undefined;
     const tip = this.tip();
     const node = tip.nodeKey && !tip.drift ? this.nodes[tip.nodeKey] : null;
     const endPt = tip.end();
@@ -503,13 +706,25 @@ export class PathWorld {
   update(p) {
     this.lastX = p.x;
     this.lastZ = p.y;
+    if (!this.line.length) return;
     this.checkFork(p);
     // keep path ahead of the walker until the next fork
     let guard = 0;
     while (!this.fork && this.tip().end().distanceTo(p) < AHEAD && guard++ < 4) this.extend();
+    if (this.ordered) {
+      // name the hall you are in, wing and person, as you come into it
+      const seg = this.line.find((q) => {
+        const pr = q.project(p);
+        return pr.raw >= 0 && pr.raw <= q.length && Math.abs(pr.lat) < STONE_OFF;
+      });
+      if (seg && seg !== this.here) {
+        this.here = seg;
+        if (seg.label) this.onEnter(seg.label);
+      }
+    }
     // entering a drift or restart segment announces itself
     const tip = this.tip();
-    if (tip !== this.announced && tip.project(p).raw > 1 && Math.abs(tip.project(p).lat) < 2) {
+    if (!this.ordered && tip !== this.announced && tip.project(p).raw > 1 && Math.abs(tip.project(p).lat) < 2) {
       if (this.announced && (tip.drift || tip.label === "Back to everything")) this.onEnter(tip.label);
       this.announced = tip;
     }
@@ -742,7 +957,7 @@ export function startPath(canvas, data, base, lightbox, ui) {
       }
       controls.enabled = false;
       const list = st.segment ? st.segment.photos : [st.photo];
-      lightbox.open({ name: st.photo.room, shoot_date: st.photo.captured }, list, st.photo);
+      lightbox.open({ name: st.photo.room, shoot_date: st.photo.shoot || st.photo.captured }, list, st.photo);
       return;
     }
     if (centre) return;
@@ -838,7 +1053,7 @@ export function startPath(canvas, data, base, lightbox, ui) {
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
-  ui.toast("Everything", 2400);
+  if (!world.ordered) ui.toast("Everything", 2400);
 
   // While you are standing at a print, offer the rest of that outfit. Another
   // sitter in the same clothes is preferred where one exists, but within a shoot
