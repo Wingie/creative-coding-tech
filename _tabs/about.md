@@ -43,4 +43,4 @@ The full list with credential links is on [LinkedIn](https://www.linkedin.com/in
 
 Looking for my next role. Happy to talk about any of the above.
 
-[Get in touch](/contact/) · [What I can help with](/consulting/) · [Things I got wrong](/corrections/)
+[Get in touch](/contact/) · [What I can help with](/consulting/)
