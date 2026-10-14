@@ -1,4 +1,6 @@
 name = "creative-coding-media"
+# Set so wrangler skips the /memberships lookup, which the CI API token can't read
+account_id = "3193b45b8df174e31c980128d53ef218"
 main = "src/index.js"
 compatibility_date = "2024-12-01"
 
@@ -10,20 +12,22 @@ fallthrough = true
 
 # The /admin page needs a password: `npx wrangler secret put ADMIN_PASSWORD --env production`
 
-# Custom domain: media.creativecodingtech.com
-# This is configured via Cloudflare Dashboard > R2 > Bucket Settings > Custom Domains
-# OR via this worker's routes below
+# Media is NOT served by this worker. media.creativecodingtech.com is the R2 bucket's
+# own custom domain (R2 > media > Settings > Custom Domains; `wrangler r2 bucket domain list media`),
+# with CORS from r2-cors.json. That keeps gallery and video traffic off the Workers Free
+# 100k requests/day limit. Do not add a route for media.creativecodingtech.com here.
+#
+# This worker only serves the /admin curation page, at its workers.dev address:
+#   https://creative-coding-media-production.moridin-ams-319.workers.dev/admin/
 
 # R2 bucket binding
 [[r2_buckets]]
 binding = "MEDIA_BUCKET"
 bucket_name = "media"
 
-# Route: serve media from custom subdomain
+# Production: no routes, only the workers.dev URL (for /admin)
 [env.production]
-routes = [
-  { pattern = "media.creativecodingtech.com/*", zone_name = "creativecodingtech.com" }
-]
+workers_dev = true
 
 [env.production.vars]
 ALLOWED_ORIGINS = "https://creativecodingtech.com,https://www.creativecodingtech.com"
