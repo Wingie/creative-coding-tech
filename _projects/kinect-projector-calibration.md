@@ -1,11 +1,11 @@
 ---
-title: Kinect v2 Projector Calibration on macOS
+title: Kinect v2 into TouchDesigner on macOS
 slug: kinect-projector-calibration
-tagline: Getting projected light onto a moving body when the camera and the projector stand in different places
+tagline: A Kinect v2 feeding TouchDesigner on a Mac, calibrated to the projector so the light lands on the performer
 description: >-
-  Calibration tools on my fork of libfreenect2 that work out where a projector
-  sits relative to a Kinect v2 on a Mac, so the light lands on a performer at
-  any depth.
+  Getting a Kinect v2 into TouchDesigner on a Mac, where Microsoft never shipped
+  a driver, then calibrating it to the projector so the light lands on a
+  performer at any depth.
 language: Python / OpenCV
 role: Built
 year: 2026

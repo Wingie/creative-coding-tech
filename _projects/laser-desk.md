@@ -46,4 +46,4 @@ The arm's own app moves the art on every load, and its pause leaves the laser on
 
 A review found 4 ways the beam could stay on or the arm could go somewhere unplanned. Each one now has a test that reproduces it. STOP works even if a settings file is broken, and a burn refuses to run if the card was swapped after the fit.
 
-It's part of the same rig as [Echo Garden](/projects/echo-garden/) and uses the [Kinect calibration](/projects/kinect-projector-calibration/) work.
+It's part of the same rig as [Echo Garden](/projects/echo-garden/) and uses the same [Kinect setup](/projects/kinect-projector-calibration/) work.
