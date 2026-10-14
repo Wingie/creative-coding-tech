@@ -8,7 +8,8 @@
     ["", "Echo Garden"],
     ["tour/", "Tour"],
     ["replay/", "Replay"],
-    ["ideas/", "Ideas"]
+    ["ideas/", "Ideas"],
+    ["talk/", "Talk"]
   ];
   var here = location.href.split("#")[0].split("?")[0].replace(/index\.html$/, "");
 
