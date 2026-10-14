@@ -22,9 +22,9 @@ That question turned into [Agentosaurus](/projects/agentosaurus/), a build syste
 
 Before Booking.com: Industry Networks in Dubai, Premiere Digital in Bangalore and Los Angeles, and WingzTV, a company I started young, where I taught a lot of juniors to write software and made almost no money doing it.
 
-Since 2022 I've chaired Taste Before You Waste, a food-waste charity in Amsterdam. Its books went from €20,334 below zero to a €106,573 reserve. The thing I'm proudest of is winning an appeal against a €2,625 hygiene fine. I live-code music at algoraves. I got a Kinect v2 working on macOS, which Microsoft never shipped a driver for.
+Since 2022 I've chaired Taste Before You Waste, a food-waste charity in Amsterdam. Its books went from €20,334 below zero to a €106,573 reserve. I live-code music at algoraves. I got a Kinect v2 working on macOS, which Microsoft never shipped a driver for.
 
-## What I've studied this year
+## What I'm researching on this year
 
 These are Coursera courses, each tied to something I'm building.
 
