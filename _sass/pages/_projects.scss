@@ -212,3 +212,54 @@
   opacity: 0.6;
   font-family: var(--bs-font-monospace, monospace);
 }
+
+/* Research cards: not whole-card links, because the creative card holds several */
+.research-cards {
+  .project-card__name a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: #00d4ff;
+    }
+  }
+
+  .project-card__detail-link {
+    text-decoration: none;
+  }
+}
+
+.research-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.25rem 0.75rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--main-border-color, rgba(127, 127, 127, 0.15));
+  }
+}
+
+.research-card__demo {
+  font-size: 0.8rem;
+  white-space: nowrap;
+
+  i {
+    font-size: 0.65rem;
+  }
+}
+
+.research-card--wide {
+  grid-column: 1 / -1;
+
+  .research-card__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    column-gap: 2rem;
+  }
+}

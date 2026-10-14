@@ -32,6 +32,8 @@ videos:
   - src: https://media.creativecodingtech.com/videos/agentosaurus-06.mp4
     poster: https://media.creativecodingtech.com/videos/agentosaurus-06.jpg
     caption: "An investigation running, with its report next to it."
+demos:
+  - src: https://media.creativecodingtech.com/videos/demos/agentosaurus.mp4
 ---
 
 For three days in August, my build system ran 64 jobs and reported every one as a success.

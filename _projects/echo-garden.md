@@ -33,6 +33,8 @@ videos:
   - src: https://media.creativecodingtech.com/videos/echo-garden-16.mp4
     poster: https://media.creativecodingtech.com/videos/echo-garden-16.jpg
     caption: "A longer take of the arm panel and the plant's signal."
+demos:
+  - src: https://media.creativecodingtech.com/videos/demos/echo-garden.mp4
 ---
 
 A robot arm touches a living plant and closes its circuit. A Pocket Scion turns the plant's signal into MIDI. That MIDI runs into my live Ableton set and triggers instruments. Lift the arm and the plant drops out.

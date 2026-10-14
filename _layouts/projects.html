@@ -21,10 +21,71 @@ refactor: true
   <header class="projects-header">
     <h1 class="projects-title">Projects</h1>
     <p class="projects-subtitle">
-      My own projects, and the client work. Each page says which it is, and where
-      the code came from.
+      My research, my own projects, and the client work. Each page says which it
+      is, and where the code came from.
     </p>
   </header>
+
+  <!-- Research: the three threads on /research/. The creative cards read their
+       titles from the _projects collection, so they can't drift from the pages. -->
+  {% assign creative_slugs = "echo-garden,touchdesigner-performance-rig,kinect-projector-calibration,laser-desk,sonic-pi-workshops" | split: "," %}
+  <section class="projects-section" id="research">
+    <h2 class="section-label">Research</h2>
+    <p class="section-note">
+      Unpaid work in three threads. Each has its own section on the
+      <a href="{{ '/research/' | relative_url }}">research page</a>.
+    </p>
+    <div class="projects-grid projects-grid--featured research-cards">
+
+      <article class="project-card project-card--featured">
+        <div class="project-card__inner">
+          <h3 class="project-card__name"><a href="{{ '/research/#ai-safety-and-governance' | relative_url }}">AI safety and governance</a></h3>
+          <p class="project-card__desc">
+            A book on AI that improves itself, from 1925 to 2026. A way to prove what
+            data a model was trained on. And psychohistory, on whether crowds can be forecast.
+          </p>
+          <div class="project-card__tags">
+            <span class="tag">Book draft</span><span class="tag">Evaluation</span><span class="tag">Governance</span>
+          </div>
+          <a class="project-card__detail-link" href="{{ '/research/#ai-safety-and-governance' | relative_url }}">Read more →</a>
+        </div>
+      </article>
+
+      <article class="project-card project-card--featured">
+        <div class="project-card__inner">
+          <h3 class="project-card__name"><a href="{{ '/research/#logos' | relative_url }}">LOGOS</a></h3>
+          <p class="project-card__desc">
+            A mixture-of-towers model, designed to scale to 10T+ parameters. For now it's
+            continued pretraining on one RTX 3090. It's stuck until I find compute or funding.
+          </p>
+          <div class="project-card__tags">
+            <span class="tag">Work in progress</span><span class="tag">PyTorch</span><span class="tag">RTX 3090</span>
+          </div>
+          <a class="project-card__detail-link" href="{{ '/research/#logos' | relative_url }}">Read more →</a>
+        </div>
+      </article>
+
+      <article class="project-card project-card--featured research-card--wide">
+        <div class="project-card__inner">
+          <h3 class="project-card__name"><a href="{{ '/research/#creative-research' | relative_url }}">Creative research</a></h3>
+          <p class="project-card__desc">Instruments for my live sets, played by plants, bodies and a robot arm.</p>
+          <ul class="research-card__list">
+            {% for s in creative_slugs %}
+            {% assign p = site.projects | where: 'slug', s | first %}
+            {% if p %}
+            <li>
+              <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+              {% if p.demos %}<a class="research-card__demo" href="{{ p.url | relative_url }}#demo"><i class="fas fa-play" aria-hidden="true"></i> demo</a>{% endif %}
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+          <a class="project-card__detail-link" href="{{ '/research/#creative-research' | relative_url }}">Read more →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
 
   <!-- Mine -->
   <section class="projects-section">

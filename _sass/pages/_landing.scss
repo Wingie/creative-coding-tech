@@ -376,3 +376,266 @@
     font-size: 1.1rem;
   }
 }
+
+/* ============================================
+   HIRE / WATCH / RESEARCH (homepage, Oct 2026)
+   ============================================ */
+
+.hero-availability {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
+
+  a {
+    color: #00d4ff;
+  }
+}
+
+.section-intro {
+  color: #94a3b8;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 640px;
+  margin: -1.25rem 0 2rem;
+}
+
+.hire-section,
+.watch-section,
+.research-strip {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  scroll-margin-top: 3rem;
+
+  @media (max-width: 600px) {
+    padding: 3rem 1rem;
+  }
+}
+
+.hire-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+
+  @media (max-width: 760px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.hire-card {
+  background: rgba(17, 24, 39, 0.85);
+  border: 1px solid rgba(0, 212, 255, 0.14);
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+
+  > i {
+    font-size: 1.4rem;
+    color: #00d4ff;
+    margin-bottom: 0.75rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.5rem;
+    line-height: 1.3;
+  }
+
+  .hire-lede {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  ul {
+    color: #94a3b8;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    padding-left: 1.1rem;
+    margin-bottom: 1rem;
+
+    li {
+      margin-bottom: 0.35rem;
+    }
+  }
+
+  .hire-evidence {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+
+    a {
+      color: #00d4ff;
+    }
+  }
+
+  .hire-links {
+    margin: auto 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    a {
+      color: #00d4ff !important;
+    }
+  }
+}
+
+.watch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 520px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.watch-tile {
+  background: rgba(17, 24, 39, 0.85);
+  border: 1px solid rgba(0, 212, 255, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.watch-media {
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: #05060a;
+
+  video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.watch-body {
+  padding: 0.9rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 0.3rem;
+
+    a {
+      color: #ffffff !important;
+      text-decoration: none;
+    }
+  }
+
+  p {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.watch-demos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.watch-demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid rgba(0, 212, 255, 0.5);
+  border-radius: 100px;
+  color: #00d4ff !important;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  background: rgba(0, 212, 255, 0.06);
+
+  &:hover {
+    background: rgba(0, 212, 255, 0.15);
+  }
+
+  i {
+    font-size: 0.7rem;
+  }
+}
+
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.landing-cta-section .hero-ctas {
+  margin-top: 0.5rem;
+}
+
+.demo-dialog {
+  width: min(960px, calc(100vw - 2rem));
+  max-width: none;
+  padding: 0;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 10px;
+  background: #0a0a0f;
+  color: #e2e8f0;
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+}
+
+.demo-dialog__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+}
+
+.demo-dialog__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.demo-dialog__close {
+  background: none;
+  border: 0;
+  color: #e2e8f0;
+  font-size: 1.6rem;
+  line-height: 1;
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+}

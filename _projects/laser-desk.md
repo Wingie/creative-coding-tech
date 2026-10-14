@@ -24,6 +24,8 @@ videos:
   - src: https://media.creativecodingtech.com/videos/laser-desk-19.mp4
     poster: https://media.creativecodingtech.com/videos/laser-desk-19.jpg
     caption: "Calibrating the surface. The arm camera sees the desk in the corner."
+demos:
+  - src: https://media.creativecodingtech.com/videos/demos/laser-desk.mp4
 ---
 
 I wanted to put any small object on the desk and have the arm's laser draw on it. The hard part is knowing where the object is in the arm's own millimetres.

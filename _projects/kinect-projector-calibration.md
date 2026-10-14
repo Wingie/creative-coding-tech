@@ -32,6 +32,8 @@ videos:
   - src: https://media.creativecodingtech.com/videos/kinect-projector-calibration-25.mp4
     poster: https://media.creativecodingtech.com/videos/kinect-projector-calibration-25.jpg
     caption: "A body steps into the depth map and shows up as its own shape."
+demos:
+  - src: https://media.creativecodingtech.com/videos/demos/kinect-projector-calibration.mp4
 ---
 
 Microsoft never released Kinect v2 drivers for macOS. TouchDesigner's Kinect operators only run on Windows, and there's no skeleton tracking on a Mac.

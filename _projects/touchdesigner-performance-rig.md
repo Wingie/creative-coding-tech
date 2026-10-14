@@ -43,6 +43,8 @@ videos:
   - src: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-21.mp4
     poster: https://media.creativecodingtech.com/videos/touchdesigner-performance-rig-21.jpg
     caption: "Arm and hand tracking while Ableton runs."
+demos:
+  - src: https://media.creativecodingtech.com/videos/demos/touchdesigner-performance-rig.mp4
 ---
 
 This is the setup I play live sets on. [Echo Garden](/projects/echo-garden/) runs on top of it.

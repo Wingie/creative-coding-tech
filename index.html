@@ -1,8 +1,10 @@
 ---
 layout: landing
-title: "Wingston Sharon Wilson: AI evaluation, ML infrastructure, creative technology"
-description: Wingston Sharon Wilson. Nine years at Booking.com, leading teams since 2018. I build test harnesses for AI systems, run a build system where AI agents write most of the code, and research whether crowd behaviour can be forecast. Amsterdam.
+title: "Wingston Sharon Wilson: ML systems, live-show rigs, signal processing"
+description: I build and test ML systems, and wire Kinects, plants and hands into Ableton for live shows. Nine years at Booking.com. Consulting and workshops, Amsterdam.
 ---
+
+{% assign v = "https://media.creativecodingtech.com/videos/" %}
 
 <!-- Import Three.js via CDN importmap -->
 <script type="importmap">
@@ -22,70 +24,186 @@ description: Wingston Sharon Wilson. Nine years at Booking.com, leading teams si
   <section class="hero-section">
     <div class="hero-content">
       <h1 class="hero-name">Wingston Sharon Wilson</h1>
-      <p class="hero-role">Can we measure what these systems actually do?</p>
+      <p class="hero-role">I build ML systems, and I wire sensors into Ableton for live shows.</p>
       <p class="hero-subline">
-        Nine years at Booking.com, from engineer to engineering manager. The rest of my time goes on testing AI
-        systems and training small models on my own hardware.
+        I've been at Booking.com for nine years and have led teams since 2018.
+        Some of that work was production ML. Outside work I train models on one GPU,
+        and I play live sets from a Kinect, a plant and a robot arm.
       </p>
       <div class="hero-ctas">
-        <a href="/research/" class="hero-cta-primary">Research</a>
-        <a href="/projects/" class="hero-cta-secondary">Projects</a>
+        <a href="#hire" class="hero-cta-primary">What you can hire me for</a>
+        <a href="#watch" class="hero-cta-secondary">Watch the work</a>
       </div>
-      <p class="hero-availability">Amsterdam &middot; <a href="/contact/">open to conversations &rarr;</a></p>
+      <p class="hero-availability">Amsterdam &middot; taking consulting work and workshops &middot; <a href="/contact/">get in touch &rarr;</a></p>
     </div>
   </section>
 
-  <!-- ============ EXPERTISE STRIP ============ -->
-  <section class="expertise-strip">
-    <div class="expertise-grid">
-      <div class="expertise-item">
-        <i class="fas fa-flask"></i>
-        <h3>Testing AI systems</h3>
-      </div>
-      <div class="expertise-item">
-        <i class="fas fa-server"></i>
-        <h3>Running AI on your own hardware</h3>
-      </div>
-      <div class="expertise-item">
-        <i class="fas fa-brain"></i>
-        <h3>Machine learning in production</h3>
-      </div>
-      <div class="expertise-item">
-        <i class="fas fa-music"></i>
-        <h3>Creative technology</h3>
-      </div>
+  <!-- ============ HIRE ============ -->
+  <section class="hire-section" id="hire">
+    <p class="section-heading">Hire me for</p>
+    <h2 class="section-title">What you can hire me for</h2>
+
+    <div class="hire-grid">
+
+      <article class="hire-card">
+        <i class="fas fa-brain" aria-hidden="true"></i>
+        <h3>ML systems and evaluation</h3>
+        <p class="hire-lede">I take a model from a demo to something that runs every day. Then I test whether it does what it says.</p>
+        <ul>
+          <li>Production ML at Booking.com: promo targeting, booking-failure prediction, and ML pipelines in Flights.</li>
+          <li>A 44-task test suite for agents. 22 models have been through it.</li>
+          <li>A build system where agents write the code, so I can see how they fail.</li>
+        </ul>
+        <p class="hire-evidence">See it: <a href="/projects/agentosaurus/">Agentosaurus</a> &middot; <a href="/research/#a-test-suite-for-agents">agent test suite</a> &middot; <a href="/projects/briefgpt/">BriefGPT</a></p>
+        <p class="hire-links"><a href="/consulting/#ai-ml">How I'd work on it</a><a href="/contact/">Get in touch &rarr;</a></p>
+      </article>
+
+      <article class="hire-card">
+        <i class="fas fa-sliders-h" aria-hidden="true"></i>
+        <h3>Ableton, MIDI and TouchDesigner for live shows</h3>
+        <p class="hire-lede">I connect hands, bodies and sensors to Ableton Live, and make the rig last a whole set.</p>
+        <ul>
+          <li>Hand tracking maps onto 7 device racks in Ableton.</li>
+          <li>Notes skip TouchDesigner's 60 fps clock, so they don't snap to a 16.7 ms grid.</li>
+          <li>Client work: Ableton MCP for a conservatory, and UE5 visuals cut on MIDI notes for an AV company in Berlin.</li>
+        </ul>
+        <p class="hire-evidence">See it: <a href="/projects/touchdesigner-performance-rig/">TouchDesigner rig</a> &middot; <a href="/projects/ableton-mcp/">Ableton MCP</a> &middot; <a href="/projects/ue5-visualizer/">UE5 Visualizer</a></p>
+        <p class="hire-links"><a href="/consulting/#creative-tech">How I'd work on it</a><a href="/contact/">Get in touch &rarr;</a></p>
+      </article>
+
+      <article class="hire-card">
+        <i class="fas fa-wave-square" aria-hidden="true"></i>
+        <h3>Signal processing</h3>
+        <p class="hire-lede">Plant bio-signals, Kinect depth and audio. Raw sensor data jitters and drifts. I clean it up until it's safe to play live.</p>
+        <ul>
+          <li>A plant's electrical signal becomes MIDI notes in a live set.</li>
+          <li>A Kinect v2 on macOS, lined up with the projector so light lands on the performer.</li>
+          <li>A laser arm aimed by a Kinect, calibrated to 0.33 mm on a flat desk.</li>
+        </ul>
+        <p class="hire-evidence">See it: <a href="/projects/echo-garden/">Echo Garden</a> &middot; <a href="/projects/kinect-projector-calibration/">Kinect v2 on macOS</a> &middot; <a href="/projects/laser-desk/">Laser Desk</a></p>
+        <p class="hire-links"><a href="/consulting/#creative-tech">How I'd work on it</a><a href="/contact/">Get in touch &rarr;</a></p>
+      </article>
+
+      <article class="hire-card">
+        <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
+        <h3>Workshops</h3>
+        <p class="hire-lede">Making music with code in Sonic Pi, from one note to your own track. You don't need to have coded before.</p>
+        <ul>
+          <li>3 stages over 23 short files, then you build a track.</li>
+          <li>Sonic Pi with Ableton over MIDI, OSC and Link, planned as 8 sessions.</li>
+          <li>7 decks I wrote in reveal.js.</li>
+        </ul>
+        <p class="hire-evidence">See it: <a href="/projects/sonic-pi-workshops/">Sonic Pi workshops</a> &middot; <a href="/assets/workshops/ableton-sonic-pi/">Ableton deck</a> &middot; <a href="/facilitation/">all workshops</a></p>
+        <p class="hire-links"><a href="/consulting/#workshops">How I'd work on it</a><a href="/contact/">Get in touch &rarr;</a></p>
+      </article>
+
     </div>
   </section>
 
-  <!-- ============ FEATURED PROJECTS ============ -->
-  <section class="featured-section">
-    <p class="section-heading">Selected work</p>
-    <h2 class="section-title">What I&rsquo;m building</h2>
+  <!-- ============ WATCH ============ -->
+  <section class="watch-section" id="watch">
+    <p class="section-heading">Watch the work</p>
+    <h2 class="section-title">Work you can watch</h2>
+    <p class="section-intro">Short loops from my studio. Each one links to the write-up. Press the demo button for one minute with sound.</p>
 
-    <div class="featured-grid">
+    <div class="watch-grid">
 
-      <a href="/projects/agentosaurus/" class="featured-card">
-        <p class="card-name">Agentosaurus</p>
-        <p class="card-desc">A build system where AI agents write most of the code for a climate site. I use it to learn how agents fail. In 2026 they opened and merged over a thousand pull requests. They never message each other. They read each other&rsquo;s code reviews instead.</p>
-        <p class="card-tech">Django &middot; Claude Code &middot; k3s &middot; Own GPUs</p>
-      </a>
+      <article class="watch-tile">
+        <a class="watch-media" href="/projects/echo-garden/" aria-label="Echo Garden">
+          <video src="{{ v }}echo-garden-15.mp4" poster="{{ v }}echo-garden-15.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+        </a>
+        <div class="watch-body">
+          <h3><a href="/projects/echo-garden/">Echo Garden</a></h3>
+          <p>A robot arm touches a plant, and the plant plays my Ableton set.</p>
+          <a class="watch-demo" href="{{ v }}demos/echo-garden.mp4" data-demo="{{ v }}demos/echo-garden.mp4" data-title="Echo Garden"><i class="fas fa-play" aria-hidden="true"></i> 1-minute demo</a>
+        </div>
+      </article>
 
-      <a href="/research/" class="featured-card">
-        <p class="card-name">Proving what a model learned from</p>
-        <p class="card-desc">If someone fine-tunes a model on your data, can you prove it afterwards? I plant keyed markers in the training set. Later you can test any model and prove whether it learned from your data.</p>
-        <p class="card-tech">Training data &middot; Fine-tuning &middot; Evaluation</p>
-      </a>
+      <article class="watch-tile">
+        <a class="watch-media" href="/projects/touchdesigner-performance-rig/" aria-label="TouchDesigner Performance Rig">
+          <video src="{{ v }}touchdesigner-performance-rig-09.mp4" poster="{{ v }}touchdesigner-performance-rig-09.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+        </a>
+        <div class="watch-body">
+          <h3><a href="/projects/touchdesigner-performance-rig/">TouchDesigner rig</a></h3>
+          <p>Hands and a Kinect play Ableton Live from a Mac.</p>
+          <a class="watch-demo" href="{{ v }}demos/touchdesigner-performance-rig.mp4" data-demo="{{ v }}demos/touchdesigner-performance-rig.mp4" data-title="TouchDesigner Performance Rig"><i class="fas fa-play" aria-hidden="true"></i> 1-minute demo</a>
+        </div>
+      </article>
 
-      <a href="https://wingie.github.io/psychohistory/" target="_blank" rel="noopener" class="featured-card">
-        <p class="card-name">Psychohistory</p>
-        <p class="card-desc">Three years asking whether you can forecast crowd behaviour like weather. Ongoing. The results are public, including what hasn't worked.</p>
-        <p class="card-tech">Research &middot; Open &middot; Testable</p>
-      </a>
+      <article class="watch-tile">
+        <a class="watch-media" href="/projects/kinect-projector-calibration/" aria-label="Kinect v2 into TouchDesigner on macOS">
+          <video src="{{ v }}kinect-projector-calibration-25.mp4" poster="{{ v }}kinect-projector-calibration-25.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+        </a>
+        <div class="watch-body">
+          <h3><a href="/projects/kinect-projector-calibration/">Kinect v2 on macOS</a></h3>
+          <p>Kinect depth on a Mac, lined up with the projector.</p>
+          <a class="watch-demo" href="{{ v }}demos/kinect-projector-calibration.mp4" data-demo="{{ v }}demos/kinect-projector-calibration.mp4" data-title="Kinect v2 into TouchDesigner on macOS"><i class="fas fa-play" aria-hidden="true"></i> 1-minute demo</a>
+        </div>
+      </article>
+
+      <article class="watch-tile">
+        <a class="watch-media" href="/projects/laser-desk/" aria-label="Laser Desk">
+          <video src="{{ v }}laser-desk-18.mp4" poster="{{ v }}laser-desk-18.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+        </a>
+        <div class="watch-body">
+          <h3><a href="/projects/laser-desk/">Laser Desk</a></h3>
+          <p>A Kinect finds the card. The arm's laser draws inside it.</p>
+          <a class="watch-demo" href="{{ v }}demos/laser-desk.mp4" data-demo="{{ v }}demos/laser-desk.mp4" data-title="Laser Desk"><i class="fas fa-play" aria-hidden="true"></i> 1-minute demo</a>
+        </div>
+      </article>
+
+      <article class="watch-tile">
+        <a class="watch-media" href="/projects/agentosaurus/" aria-label="Agentosaurus">
+          <video src="{{ v }}agentosaurus-06.mp4" poster="{{ v }}agentosaurus-06.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+        </a>
+        <div class="watch-body">
+          <h3><a href="/projects/agentosaurus/">Agentosaurus</a></h3>
+          <p>A build system where agents write the code.</p>
+          <a class="watch-demo" href="{{ v }}demos/agentosaurus.mp4" data-demo="{{ v }}demos/agentosaurus.mp4" data-title="Agentosaurus"><i class="fas fa-play" aria-hidden="true"></i> 1-minute demo</a>
+        </div>
+      </article>
+
+      <article class="watch-tile">
+        <a class="watch-media" href="/projects/sonic-pi-workshops/" aria-label="Sonic Pi workshops">
+          <video src="{{ v }}sonic-pi-workshops-01.mp4" poster="{{ v }}sonic-pi-workshops-01.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+        </a>
+        <div class="watch-body">
+          <h3><a href="/projects/sonic-pi-workshops/">Sonic Pi workshops</a></h3>
+          <p>Making music with code, starting from one note.</p>
+          <span class="watch-demos">
+            <a class="watch-demo" href="{{ v }}demos/sonic-pi-intro.mp4" data-demo="{{ v }}demos/sonic-pi-intro.mp4" data-title="Sonic Pi: the intro workshop"><i class="fas fa-play" aria-hidden="true"></i> Intro demo</a>
+            <a class="watch-demo" href="{{ v }}demos/sonic-pi-ableton.mp4" data-demo="{{ v }}demos/sonic-pi-ableton.mp4" data-title="Sonic Pi with Ableton"><i class="fas fa-play" aria-hidden="true"></i> With Ableton</a>
+          </span>
+        </div>
+      </article>
 
     </div>
+  </section>
 
-    <div style="text-align:center; margin-top: 2.5rem;">
-      <a href="/projects/" class="hero-cta-secondary">See all projects →</a>
+  <!-- ============ RESEARCH ============ -->
+  <section class="research-strip">
+    <p class="section-heading">Research</p>
+    <h2 class="section-title">What I research</h2>
+    <p class="section-intro">Three threads. None of it is paid, and most of it runs on one RTX 3090 in Amsterdam.</p>
+
+    <div class="research-grid">
+      <a href="/research/#ai-safety-and-governance" class="featured-card">
+        <p class="card-name">AI safety and governance</p>
+        <p class="card-desc">A book on AI that improves itself, from 1925 to 2026. Every system that worked was checked by something it couldn't edit. Also: proving what data a model was trained on.</p>
+        <p class="card-tech">Book draft &middot; Psychohistory &middot; Training-data markers</p>
+      </a>
+
+      <a href="/research/#logos" class="featured-card">
+        <p class="card-name">LOGOS</p>
+        <p class="card-desc">A mixture-of-towers model, designed to scale to 10T+ parameters. Today it's continued pretraining on one RTX 3090. It's stuck until I find compute or funding.</p>
+        <p class="card-tech">Work in progress &middot; Looking for compute</p>
+      </a>
+
+      <a href="/research/#creative-research" class="featured-card">
+        <p class="card-name">Creative research</p>
+        <p class="card-desc">Instruments for live sets, played by plants, bodies and a robot arm. Echo Garden is my project for the ADE Lab Hackathon, 21 to 23 October 2026.</p>
+        <p class="card-tech">Ableton &middot; TouchDesigner &middot; Kinect &middot; Sonic Pi</p>
+      </a>
     </div>
   </section>
 
@@ -100,17 +218,73 @@ description: Wingston Sharon Wilson. Nine years at Booking.com, leading teams si
       Anywhere about 6 months after kickoff. Now I run a front-end platform team. We own
       delivery metrics for more than 2,000 developers.
     </p>
-    <a href="/about/" class="hero-cta-secondary">Full story →</a>
+    <a href="/about/" class="hero-cta-secondary">Full story &rarr;</a>
   </section>
 
   <!-- ============ CTA ============ -->
   <section class="landing-cta-section">
-    <h2>Any of this useful to you?</h2>
-    <p>I&rsquo;m happy to talk about running AI on your own hardware, testing AI systems, installations, and workshops. I&rsquo;m also looking for a new role.</p>
-    <a href="/contact/" class="cta-btn">Get in touch →</a>
+    <h2>Tell me what you're building</h2>
+    <p>I take consulting work in ML, Ableton and TouchDesigner rigs, and signal processing. I also run workshops, and I'm open to a full-time role.</p>
+    <div class="hero-ctas">
+      <a href="/contact/" class="cta-btn">Get in touch &rarr;</a>
+      <a href="/consulting/" class="hero-cta-secondary">How I work</a>
+    </div>
   </section>
 
 </div>
+
+<!-- One player for every 1-minute demo. Without JS the demo links open the mp4. -->
+<dialog class="demo-dialog" id="demo-dialog" aria-label="1-minute demo">
+  <div class="demo-dialog__bar">
+    <p class="demo-dialog__title" id="demo-dialog-title">1-minute demo</p>
+    <button type="button" class="demo-dialog__close" aria-label="Close">&times;</button>
+  </div>
+  <video controls playsinline preload="none"></video>
+</dialog>
+
+<script>
+  (function () {
+    // Loops play only while on screen, and not at all for reduced motion or data saver.
+    var loops = document.querySelectorAll('.watch-media video');
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      (navigator.connection && navigator.connection.saveData);
+    if (!still && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.play().catch(function () {}); }
+          else { e.target.pause(); }
+        });
+      }, { threshold: 0.4 });
+      loops.forEach(function (el) { io.observe(el); });
+    }
+
+    var dlg = document.getElementById('demo-dialog');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var player = dlg.querySelector('video');
+    var title = document.getElementById('demo-dialog-title');
+
+    document.querySelectorAll('[data-demo]').forEach(function (link) {
+      link.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        var src = link.getAttribute('data-demo');
+        player.poster = src.replace(/\.mp4$/, '.jpg');
+        player.src = src;
+        title.textContent = '1-minute demo: ' + link.getAttribute('data-title');
+        dlg.showModal();
+        player.play().catch(function () {});
+      });
+    });
+
+    function close() { dlg.close(); }
+    dlg.querySelector('.demo-dialog__close').addEventListener('click', close);
+    dlg.addEventListener('click', function (ev) { if (ev.target === dlg) close(); });
+    dlg.addEventListener('close', function () {
+      player.pause();
+      player.removeAttribute('src');
+      player.load();
+    });
+  })();
+</script>
 
 <!-- Load Three.js neural network -->
 <script type="module">

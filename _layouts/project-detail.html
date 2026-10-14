@@ -24,6 +24,11 @@ refactor: true
           {% if page.upstream_owner %}View Upstream{% else %}View Code{% endif %}
         </a>
         {% endif %}
+        {% if page.demos %}
+        <a href="#demo" class="btn-hero btn-hero--secondary">
+          <i class="fas fa-play"></i> 1-minute demo
+        </a>
+        {% endif %}
         <a href="/projects/" class="btn-hero btn-hero--secondary">
           ← All Projects
         </a>
@@ -34,6 +39,17 @@ refactor: true
   <!-- Main content + sidebar -->
   <div class="project-layout">
     <div class="project-main">
+      {% if page.demos %}
+      <section class="project-demos" id="demo" aria-label="1-minute demo">
+        {% for d in page.demos %}
+        <figure class="project-demo">
+          <video src="{{ d.src }}" poster="{{ d.src | replace: '.mp4', '.jpg' }}" controls playsinline preload="none" aria-label="{{ d.title | escape }}"></video>
+          <figcaption><strong>1-minute demo{% if d.title %}:</strong> {{ d.title }}{% else %}</strong>{% endif %}</figcaption>
+        </figure>
+        {% endfor %}
+      </section>
+      {% endif %}
+
       {% if page.videos %}
       <div class="project-videos">
         {% for v in page.videos %}
