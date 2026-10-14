@@ -49,7 +49,7 @@ I wrote both the suite and the scorer, so read the numbers with that in mind.
 
 I'm running continued pretraining on one RTX 3090, with a new mixture-of-towers architecture.
 
-**Where it stands: training on agentic trajectories does increase capability.** Recordings of agents doing real work, fed back in as training data, make the model better at that work. The multi-tower training improves it further.
+**Where it stands: work in progress.** In my runs so far, training on agentic trajectories makes the model better at agent work. These are recordings of agents doing real work, fed back in as training data. The multi-tower training improves it further. I'll publish the numbers when the runs are done.
 
 I want to take this to Chinchilla scale, which means training on about twenty tokens for every parameter in the model. That's the ratio where the compute is spent well. One consumer GPU won't get near it.
 
