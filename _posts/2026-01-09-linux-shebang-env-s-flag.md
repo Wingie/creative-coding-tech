@@ -6,8 +6,7 @@ categories: [devops, linux]
 tags: [bash, linux, macos, shebang]
 description: >-
   A shebang with arguments works on macOS and fails on Linux. The error says the
-  file doesn't exist. The file exists. Here's what's actually happening and the
-  one flag that fixes it.
+  file doesn't exist. The file exists. The fix is one flag, -S.
 ---
 
 I write my agent prompts as executable files. They start like this:
@@ -28,30 +27,28 @@ The file was there. It was on PATH. I could run it by hand. I spent 45 minutes o
 
 ## What's happening
 
-Linux reads everything after `#!/usr/bin/env` as **one argument**. So it goes looking for a program called `claude-run --allow-write`, space included. There is no such program, so it tells you there's no such file.
+Linux reads everything after `#!/usr/bin/env` as **one argument**. So `env` goes looking for a program called `claude-run --allow-write`, space included. There is no such program, so it tells you there's no such file.
 
-The error is true. It's just not about the file you think.
-
-BSD `env`, which is what macOS ships, splits on spaces. Same script, two behaviours.
+BSD `env`, which is what macOS ships, splits on spaces. So the same script works on the Mac and fails on Linux.
 
 ## The fix
 
-GNU added a flag for this. `-S`, for split:
+GNU `env` has a flag for this. It's `-S`, for split:
 
 ```bash
 #!/usr/bin/env -S claude-run --allow-write
 ```
 
-That's it. I updated ten scripts:
+I updated ten scripts with one `sed`:
 
 ```bash
 sed -i 's|#!/usr/bin/env |#!/usr/bin/env -S |g' claude-scripts/*.ai
 ```
 
-macOS has supported `-S` since Big Sur, so the same line now works both places. If you need to support older macOS, you can't use `-S` there, and the usual workaround is a two-line wrapper script instead of a shebang.
+macOS has supported `-S` since Big Sur, so the same line now works in both places. Older macOS can't use `-S`. There, the usual workaround is a two-line wrapper script instead of a shebang.
 
 ## Why it took 45 minutes
 
-Because "No such file or directory" sent me to check the filesystem. I checked permissions. I reinstalled the thing. I did not think to look at the space.
+"No such file or directory" sent me to check the filesystem. I checked permissions. I reinstalled the thing. I did not think to look at the space.
 
 If a script that definitely exists tells you it doesn't, check whether your shebang has arguments in it.

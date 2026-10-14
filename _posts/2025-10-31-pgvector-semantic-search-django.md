@@ -12,12 +12,10 @@ I wanted a search that finds "psychological support" when someone types "mental 
 
 Getting it working in Django took longer than the search itself.
 
-**Alpine.** I started there because the image is small. pgvector needs a compiler and the usual build packages, and by the time I had them the image wasn't small any more. I went to the Debian-based Postgres image and stopped fighting it.
+I started on Alpine because the image is small. pgvector needs a compiler and the usual build packages. By the time I'd added them, the image wasn't small any more. I moved to the Debian-based Postgres image and stopped fighting it.
 
-**The migration needs an index too.** You're adding a `vector(384)` field. Without an index, every query scans the table.
+The migration adds a `vector(384)` field, and it needs an index too. Without one, every query scans the table.
 
-**Use HNSW, and check its memory use.** It builds a graph that is fast to search. The whole graph has to sit in memory. Measure how much on your own data before the table grows.
+I used HNSW. It builds a graph that's fast to search, and the whole graph has to sit in memory. Measure how much memory it takes on your own data before the table grows.
 
-Once it ran, it did the thing. Type "I am sad" and it returns the crisis support line, which nowhere in its text says "sad".
-
-The model has seen enough text to know those two live near each other. It has no idea what either one means.
+Once it ran, it did the thing. Type "I am sad" and you get the crisis support line. Its text never says "sad". The model has seen enough text to place those two near each other.
