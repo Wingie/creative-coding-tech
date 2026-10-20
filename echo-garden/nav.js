@@ -48,7 +48,7 @@
   var join = document.createElement("a");
   join.className = "eg-join";
   join.href = "https://musichackspace.org/events/hackathon-amsterdam-october-2026/teams/1222";
-  join.textContent = "Join";
+  join.textContent = "ADE Lab, 21-23 Oct";
   nav.appendChild(join);
   document.body.insertBefore(nav, document.body.firstChild);
 })();

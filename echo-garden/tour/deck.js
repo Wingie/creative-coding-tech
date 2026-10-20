@@ -35,11 +35,8 @@
     { k: "The hackathon work", t: "What gets built at the hackathon",
       b: "The plant's notes land on three rings that loop at 3.1, 5.3 and 8.6 seconds. They drift apart and never line up, and each note fades a little every time round. Wekinator conducts the rings from the plant and the performer's body. She steers by gesture, or by voice and buttons on a Pebble watch.",
       act: "", mode: "open", tpl: "tpl-ideas" },
-    { k: "Where you fit", t: "Pick a role, or add your own",
-      b: "Looking for genuine musicians, signal movers, digital makers and visual orchestrators of light. Technology and music aficionados are welcome too. Click any that fit.",
-      act: "", mode: "roles", tpl: "tpl-roles" },
-    { k: "ADE Lab Hackathon, Amsterdam, 21 to 23 October 2026", t: "Come and build it",
-      b: "Echo Garden is an entry for Colin Benders' challenge, Escape the Grid. Sign up on the hackathon page and mention the roles you picked.",
+    { k: "ADE Lab Hackathon, Amsterdam, 21 to 23 October 2026", t: "Come and see it",
+      b: "Echo Garden is an entry for Colin Benders' challenge, Escape the Grid. Find Wingston at ADE Lab in Amsterdam, 21 to 23 October 2026. The jury presentations are on Thursday 22 October at 16:00.",
       act: "", mode: "join", tpl: "tpl-join" }
   ];
   var cur = 0;
@@ -290,10 +287,10 @@
         rect(x + j, y, 104, 38, "#0d0322dd"); line(x, y, x + 104, y, C.mag); line(x, y + 38, x + 104, y + 38, C.mag);
         textC("?", x + 8 + j, y + 6, C.sun); text(a, x + 18, y + 6, C.ink); text(b, x + 18, y + 20, C.muted);
       };
-      q(6, 12, "find leaves", "on show day"); q(108, 12, "line it up", "in a new room"); q(210, 12, "shape a set", "touch to loop");
+      q(6, 12, "three rings", "3.1 5.3 8.6 s"); q(108, 12, "a conductor", "plant and body"); q(210, 12, "a watch", "voice, buttons");
     }
     if (m === "roles" || m === "join") {
-      var picks = S.roles.length ? S.roles : (m === "join" ? ["you?"] : []);
+      var picks = m === "join" ? ["ADE Lab", "Amsterdam", "21-23 Oct"] : S.roles;
       picks.forEach(function (r, i) {
         var a = S.t * 0.5 + i / picks.length * Math.PI * 2, x = 200 + Math.cos(a) * 86, y = 70 + Math.sin(a) * 26;
         var w = window.Font ? window.Font.width(r, 1) : r.length * 6;
@@ -313,7 +310,6 @@
     var ex = $("extra"); ex.innerHTML = "";
     if (s.tpl) ex.appendChild($(s.tpl).content.cloneNode(true));
     if (s.mode === "roles") wireRoles();
-    if (s.mode === "join") $("joinRoles").textContent = S.roles.length ? "Your roles: " + S.roles.join(", ") + "." : "";
     S.holding = false; S.armK = s.mode === "tick" ? 1 : 0; S.notes = []; S.rings = []; S.echoes = []; S.tickMarks = [];
     S.nextTick = Math.ceil(S.t / TICK) * TICK;
     loopFor(s.mode);

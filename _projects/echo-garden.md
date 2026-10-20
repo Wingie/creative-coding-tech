@@ -46,6 +46,6 @@ Everything can loop through a Frippertronics-style tape delay. The loop takes a 
 
 Still being tried: the Kinect follows the performer, and the arm moves to where she comes near the plant. Light is projected onto her body.
 
-I'm building the conductor at the ADE Lab Hackathon in Amsterdam, 21 to 23 October 2026, for Colin Benders' Escape the Grid challenge. The plant's notes land on three rings. Each one loops at its own length, 3.1, 5.3 and 8.6 seconds, so they drift apart and never line up. Every time round, each note gets a little quieter until it's gone. Wekinator listens to the plant and the performer's body, and decides how full each ring plays and how long its notes last. She steers it by gesture, or by voice and buttons on a Pebble watch. The jury sees it on 22 October.
+I'm building the conductor at the ADE Lab Hackathon in Amsterdam, 21 to 23 October 2026, for Colin Benders' Escape the Grid challenge. The plant's notes land on three rings. Each one loops at its own length, 3.1, 5.3 and 8.6 seconds, so they drift apart and never line up. Every time round, each note gets a little quieter until it's gone. Wekinator listens to the plant and the performer's body, and decides how full each ring plays and how long its notes last. She steers it by gesture, or by voice and buttons on a Pebble watch. The jury presentations are on Thursday 22 October at 16:00.
 
 [Open Echo Garden](/echo-garden/), [take the tour](/echo-garden/tour/), or [walk through the talk](/echo-garden/talk/).

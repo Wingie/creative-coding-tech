@@ -1,4 +1,4 @@
-// levels.js — the deck. Edit this file to change the talk; no engine code needed.
+// levels.js: the deck. Edit this file to change the talk; no engine code needed.
 //
 // Why a .js file and not .json: browsers refuse to fetch() a local JSON file
 // from file://, and the game must open by double-click at the venue. Keep the
@@ -10,25 +10,19 @@
 // Every room has something to do: a knob, a lever, pads or spots that drive a
 // lane of live notes above them.
 //
-// Sources: experiments/scion/docs/GATEWAY.md, SCENE_FLOW.md, POSSIBILITIES.md,
-// scenes/stations_plantarm.json, and the Set_ArtNotDead_v3 track list
-// (tools/als_index.py). Copy: plain voice, no we/our/us, no em dashes. Channel,
-// CC and port numbers are fine here: this is for the people running the rig.
-// ../talk_script.md is the walk-through script, written from these lines.
+// Every fact here was checked against the rig's own notes on 2026-10-13.
+// The talk is public, so the copy is public too: plain words, short sentences,
+// no first person plural, no em dashes. No program, file or track names, and
+// no port, channel or controller numbers. Say what a part does instead.
 
 window.FIGURES = {
-  // verified 2026-10-13: experiments/scion/docs/POSSIBILITIES.md (measured, plant/sessions/2026-08-27-probe)
-  tick:     { value: '127.9 MS', sub: 'the Scion\'s own pulse, about eight times a second', src: 'measured · POSSIBILITIES.md' },
-  // verified 2026-10-13: experiments/scion/docs/GATEWAY.md and POSSIBILITIES.md card 1
-  nudge:    { value: '0-400 MS', sub: 'how far the rig moves a station note off the pulse', src: 'POSSIBILITIES.md card 1' },
-  // verified 2026-10-13: experiments/scion/docs/GATEWAY.md section 7 (loop CC map)
-  loop_cc:  { value: 'CC30-33', sub: 'channel 16: feedback, send, clear, loop time', src: 'GATEWAY.md' },
-  // verified 2026-10-13: experiments/scion/docs/GATEWAY.md ("The gateway clamps feedback at 0.98")
-  fb_cap:   { value: '0.98', sub: 'the feedback cap · the usual ride is 20-100 %', src: 'GATEWAY.md' },
-  // verified 2026-10-13: the set's TD smoothing (SCENE_FLOW.md, Lag CHOPs per control)
-  lags:     { value: '0.5 S AND 2 S', sub: 'the two smoothing lags on pinch and hand height', src: 'TD Lag CHOPs' },
-  // verified 2026-10-13: experiments/scion/docs/GATEWAY.md ports table
-  wek:      { value: '12020 → 12000', sub: 'Wekinator to the rig, then the rig relays to TouchDesigner', src: 'GATEWAY.md' },
+  // measured on a recorded session, 2026-08-27
+  tick:     { value: '8 A SECOND', sub: 'the Scion\'s own pulse, a little under eight times a second', src: 'measured' },
+  nudge:    { value: '0-400 MS', sub: 'how far a station note can move off the pulse', src: 'built, tested in simulation' },
+  loop_cc:  { value: 'FOUR CONTROLS', sub: 'feedback, send, clear and loop time', src: 'ridden live' },
+  fb_cap:   { value: '0.98', sub: 'the feedback cap · the usual ride is 20-100 %', src: 'built' },
+  lags:     { value: '0.5 S AND 2 S', sub: 'the two smoothing lags on pinch and hand height', src: 'in the set' },
+  wek:      { value: 'LEARNED POSES', sub: 'Wekinator learns poses from the body and passes them to the set', src: 'being tried' },
 };
 
 // Audience participation (../crowd/): the game connects to the crowd server
@@ -42,7 +36,7 @@ window.LEVELS = [
     id: 'plant',
     title: 'The plant and the Scion',
     capability: 'KNOB · PULSE LANE',
-    // The lane above is the Scion's pulse: a line every 127.9 ms. A note can
+    // The lane above is the Scion's pulse: a line a little under eight times a second. A note can
     // only land on a line. The knob is the threshold.
     map: [
       '********************',
@@ -103,7 +97,7 @@ window.LEVELS = [
     id: 'ableton',
     title: 'Two ways into Ableton',
     capability: 'LEVER · TWO LANES',
-    // Left lane: track Chord 4 takes the Scion in raw, so its notes sit on the
+    // Left lane: one track takes the Scion in raw, so its notes sit on the
     // pulse. Right lane: the same notes through the rig, nudged off it.
     map: [
       '********************',
@@ -130,11 +124,11 @@ window.LEVELS = [
     },
     things: [
       { type: 'billboard', id: 'board', x: 1, y: 1, w: 18, h: 4, idle: 'TWO WAYS INTO ABLETON' },
-      { type: 'lane', mode: 'raw', route: 'route', label: 'CHORD 4 · RAW', caption: 'ON THE PULSE', x: 1, y: 5, w: 9, h: 3 },
-      { type: 'lane', mode: 'rig', route: 'route', label: 'IAC CH 2-4', caption: 'NUDGED OFF IT', x: 10, y: 5, w: 9, h: 3 },
+      { type: 'lane', mode: 'raw', route: 'route', label: 'STRAIGHT IN', caption: 'ON THE PULSE', x: 1, y: 5, w: 9, h: 3 },
+      { type: 'lane', mode: 'rig', route: 'route', label: 'STATION TRACKS', caption: 'NUDGED OFF IT', x: 10, y: 5, w: 9, h: 3 },
       { type: 'object', sprite: 'laptop', x: 3, y: 9, name: 'THE RAW LAYER',
-        action: { do: 'show', board: 'board', item: { text: 'THE RAW LAYER', sub: 'track Chord Four takes the Scion straight in' } }, lines: [
-        'Track Chord 4 takes the Scion straight in, so its notes stay on the pulse.',
+        action: { do: 'show', board: 'board', item: { text: 'THE RAW LAYER', sub: 'one track takes the Scion straight in' } }, lines: [
+        'One track takes the Scion straight in, so its notes stay on the pulse.',
         'This is how the last show was played.',
       ] },
       { type: 'object', sprite: 'scion', x: 6, y: 9, name: 'SAME NOTES', lines: [
@@ -142,7 +136,7 @@ window.LEVELS = [
       ] },
       { type: 'control', sprite: 'lever', key: 'route', x: 9, y: 9, name: 'HEAR' },
       { type: 'object', sprite: 'laptop', x: 12, y: 9, name: 'THE STATION TRACKS', action: { do: 'bignum', board: 'board', fig: 'nudge' }, lines: [
-        'The station tracks listen on IAC channels 2 to 4, and their notes come through the rig.',
+        'Three station tracks get the same notes, but through the rig first.',
         'The rig nudges each note 0 to 400 ms off the pulse, using the plant\'s own slow signals.',
       ] },
       { type: 'npc', sprite: 'tech', x: 15, y: 9, dir: 'down', name: 'IS IT TESTED?',
@@ -160,8 +154,8 @@ window.LEVELS = [
     id: 'arm',
     title: 'The arm',
     capability: 'SIX SPOTS · LIFT LEVER · NOTE LANE',
-    // Six touch spots in a ring round the plant (seed values from
-    // scenes/stations_plantarm.json). A on a spot = the arm touches there.
+    // Six touch spots in a ring round the plant (starting values, taught
+    // again in each room). A on a spot = the arm touches there.
     map: [
       '********************',
       '*MMMMMMMMMMMMMMMMMM*',
@@ -181,12 +175,12 @@ window.LEVELS = [
     controls: {
       arm: { start: 0, states: [
         { label: 'LIFTED · NO NOTES', on: 0 },
-        { label: 'EAST · CH 2 · NOTES 50-62', on: 1, ch: 2, send: 0.8 },
-        { label: 'NORTH-EAST · CH 3 · NOTES 55-67', on: 1, ch: 3, send: 0.7 },
-        { label: 'NORTH-WEST · CH 4 · NOTES 57-69', on: 1, ch: 4, send: 0.9 },
-        { label: 'WEST · CH 2 · NOTES 62-72', on: 1, ch: 2, send: 0.6 },
-        { label: 'SOUTH-WEST · CH 3 · NOTES 45-57', on: 1, ch: 3, send: 1 },
-        { label: 'SOUTH-EAST · CH 4 · NOTES 60-72', on: 1, ch: 4, send: 0.5 },
+        { label: 'EAST · VOICE 1 · LOW', on: 1, ch: 2, send: 0.8 },
+        { label: 'NORTH-EAST · VOICE 2 · MIDDLE', on: 1, ch: 3, send: 0.7 },
+        { label: 'NORTH-WEST · VOICE 3 · MIDDLE', on: 1, ch: 4, send: 0.9 },
+        { label: 'WEST · VOICE 1 · HIGH', on: 1, ch: 2, send: 0.6 },
+        { label: 'SOUTH-WEST · VOICE 2 · LOWEST', on: 1, ch: 3, send: 1 },
+        { label: 'SOUTH-EAST · VOICE 3 · HIGH', on: 1, ch: 4, send: 0.5 },
       ] },
     },
     things: [
@@ -194,9 +188,9 @@ window.LEVELS = [
       { type: 'lane', mode: 'arm', key: 'arm', label: 'NOTES · LOOP SEND', x: 1, y: 5, w: 14, h: 3 },
       { type: 'object', sprite: 'sun', x: 16, y: 5, w: 3, h: 3 },
       { type: 'sign', sprite: 'sign', x: 3, y: 9, name: 'SIX SPOTS',
-        action: { do: 'show', board: 'board', item: { text: 'SIX SPOTS ROUND THE PLANT', sub: 'each spot sets pitch set, channel and loop send' } }, lines: [
+        action: { do: 'show', board: 'board', item: { text: 'SIX SPOTS ROUND THE PLANT', sub: 'each spot picks the notes, the voice and the loop send' } }, lines: [
         'The arm has six spots round the plant. Walk to one and press A to touch it.',
-        'Each spot sets the notes\' pitch set, their channel, and how much goes into the loop.',
+        'Each spot picks which notes play, which voice plays them, and how much goes into the loop.',
         'The green bar on the right is that loop send.',
       ] },
       { type: 'object', sprite: 'plant', x: 9, y: 9, name: 'THE PLANT', lines: [
@@ -210,7 +204,7 @@ window.LEVELS = [
       { type: 'control', sprite: 'spot', key: 'arm', to: 5, x: 8, y: 10, name: 'SOUTH-WEST' },
       { type: 'control', sprite: 'spot', key: 'arm', to: 6, x: 10, y: 10, name: 'SOUTH-EAST' },
       { type: 'object', sprite: 'arm', x: 13, y: 9, name: 'THE ARM', lines: [
-        'A Rotrics arm. These spots are seed values, taught again for each room.',
+        'A Rotrics arm. These spots are a starting point, taught again in each room.',
       ] },
       { type: 'control', sprite: 'lever', key: 'arm', to: 0, x: 15, y: 9, name: 'LIFT' },
       { type: 'door', x: 0, y: 10, to: 'prev' },
@@ -256,16 +250,16 @@ window.LEVELS = [
       { type: 'lane', mode: 'loop', key: 'fb', loop: 6, label: 'TAPE LOOP', x: 1, y: 5, w: 14, h: 3 },
       { type: 'object', sprite: 'sun', x: 16, y: 5, w: 3, h: 3 },
       { type: 'object', sprite: 'tape', x: 2, y: 9, name: 'THE LOOP',
-        action: { do: 'show', board: 'board', item: { text: 'FRIPPERTRONICS', sub: 'a tape delay into ValhallaSupermassive on return G' } }, lines: [
-        'A Frippertronics-style tape delay, into ValhallaSupermassive on return G.',
+        action: { do: 'show', board: 'board', item: { text: 'FRIPPERTRONICS', sub: 'a tape delay that feeds a long reverb' } }, lines: [
+        'A Frippertronics-style tape delay that feeds a long reverb.',
         'Each pass, the old notes come round again at the feedback level.',
       ] },
       { type: 'control', sprite: 'knob', key: 'fb', cycle: [1, 2, 3, 4], x: 5, y: 9, name: 'FEEDBACK' },
       { type: 'control', sprite: 'pad', fire: 'duck', x: 8, y: 9, name: 'DUCK' },
       { type: 'control', sprite: 'pad', fire: 'clear', x: 11, y: 9, name: 'CLEAR' },
       { type: 'control', sprite: 'pad_red', key: 'fb', to: 0, x: 14, y: 9, name: 'PANIC' },
-      { type: 'sign', sprite: 'sign', x: 16, y: 9, name: 'CHANNEL 16', action: { do: 'bignum', board: 'board', fig: 'loop_cc' }, cards: [null, 'fb_cap'], lines: [
-        'Feedback, send, clear and loop time come in on channel 16, CC30 to CC33, and are ridden live.',
+      { type: 'sign', sprite: 'sign', x: 16, y: 9, name: 'LOOP CONTROLS', action: { do: 'bignum', board: 'board', fig: 'loop_cc' }, cards: [null, 'fb_cap'], lines: [
+        'Feedback, send, clear and loop time are four controls, ridden live during the set.',
         'Feedback is capped at 0.98. The usual ride is 20 to 100 %.',
         'The pads duck the loop or clear it. Panic sends all notes off and sets feedback to 0.',
       ] },
@@ -310,7 +304,7 @@ window.LEVELS = [
       { type: 'object', sprite: 'sun', x: 16, y: 5, w: 3, h: 3 },
       { type: 'object', sprite: 'camera', x: 3, y: 9, name: 'MEDIAPIPE', action: { do: 'bignum', board: 'board', fig: 'lags' }, lines: [
         'MediaPipe reads the hands: pinch distance and hand height.',
-        'Both are smoothed, with a 0.5 s lag and a 2 s lag, and drive rack macros through TDAbleton.',
+        'Both are smoothed, with a 0.5 s lag and a 2 s lag, and drive effects in the Ableton set.',
       ] },
       { type: 'control', sprite: 'hand', key: 'pinch', x: 6, y: 9, name: 'PINCH' },
       { type: 'object', sprite: 'kinect', x: 9, y: 9, name: 'KINECT',
@@ -318,7 +312,8 @@ window.LEVELS = [
         'The Kinect reads how far away the body is, and that distance rides the loop feedback.',
       ] },
       { type: 'object', sprite: 'wek', x: 12, y: 9, name: 'WEKINATOR', action: { do: 'bignum', board: 'board', fig: 'wek' }, lines: [
-        'Wekinator sends to port 12020, and the rig relays it to TouchDesigner on 12000.',
+        'Wekinator learns poses from the body and passes them on to the music and the light.',
+        'At the ADE Lab hackathon it learns to conduct the loops.',
       ] },
       { type: 'npc', sprite: 'dancer', x: 15, y: 9, dir: 'down', name: 'THE DANCER', lines: [
         'The body steering the arm is still being tried.',
@@ -333,7 +328,7 @@ window.LEVELS = [
   {
     id: 'light',
     title: 'Light',
-    capability: 'SIX PADS · LIMN AREAS',
+    capability: 'SIX PADS · LIGHT AREAS',
     // A on a numbered spot plays it; the projection lights that spot's area,
     // black and white.
     map: [
@@ -365,11 +360,11 @@ window.LEVELS = [
     },
     things: [
       { type: 'billboard', id: 'board', x: 1, y: 1, w: 18, h: 4, idle: 'LIGHT' },
-      { type: 'lane', mode: 'light', key: 'spot', label: 'LIMN AREAS', x: 1, y: 5, w: 14, h: 3 },
+      { type: 'lane', mode: 'light', key: 'spot', label: 'LIGHT AREAS', x: 1, y: 5, w: 14, h: 3 },
       { type: 'object', sprite: 'sun', x: 16, y: 5, w: 3, h: 3 },
       { type: 'object', sprite: 'projector', x: 2, y: 9, name: 'PROJECTOR',
         action: { do: 'show', board: 'board', item: { text: 'LIGHT FOLLOWS THE PLAY', sub: 'the spot being played is lit · black and white' } }, lines: [
-        'The projection lights the spot being played, through Limn areas.',
+        'The projection lights the spot being played.',
         'The set\'s look is black and white.',
       ] },
       { type: 'control', sprite: 'spot', key: 'spot', to: 1, x: 5, y: 9, name: 'SPOT 1' },
@@ -390,7 +385,7 @@ window.LEVELS = [
     title: 'Show day',
     capability: 'STATUS LAMPS · ONE PER CALIBRATION',
     // What has to be calibrated in each new room. Lamps: green = solved,
-    // yellow = partial, red = not solved (SCENE_FLOW.md, 2026-10-13).
+    // yellow = partial, red = not solved (as of 2026-10-13).
     map: [
       '********************',
       '*MMMMMMMMMMMMMMMMMM*',
@@ -410,17 +405,17 @@ window.LEVELS = [
     things: [
       { type: 'billboard', id: 'board', x: 1, y: 1, w: 18, h: 4, idle: 'SHOW DAY' },
       { type: 'object', sprite: 'sun', x: 16, y: 5, w: 3, h: 3 },
-      { type: 'object', sprite: 'lamp_ok', x: 2, y: 9, name: 'PROMAP SCAN',
-        action: { do: 'show', board: 'board', item: { text: 'PROMAP SCAN · SOLVED', sub: 'projector pixels to camera pixels' } }, lines: [
+      { type: 'object', sprite: 'lamp_ok', x: 2, y: 9, name: 'THE SCAN',
+        action: { do: 'show', board: 'board', item: { text: 'THE SCAN · SOLVED', sub: 'projector pixels to camera pixels' } }, lines: [
         'The structured-light scan: solved.',
       ] },
-      { type: 'object', sprite: 'lamp_part', x: 4, y: 9, name: 'PROCAM',
-        action: { do: 'show', board: 'board', item: { text: 'PROCAM · PARTIAL', sub: 'the projector solved as a camera' } }, lines: [
-        'Procam: partial. Proven on hardware, but it still refuses on flat sets.',
+      { type: 'object', sprite: 'lamp_part', x: 4, y: 9, name: 'PROJECTOR FIT',
+        action: { do: 'show', board: 'board', item: { text: 'PROJECTOR FIT · PARTIAL', sub: 'the projector solved as a camera' } }, lines: [
+        'The projector fit: partial. It works on the real hardware, but a flat set still throws it off.',
       ] },
-      { type: 'object', sprite: 'lamp_part', x: 6, y: 9, name: 'LIMN',
-        action: { do: 'show', board: 'board', item: { text: 'LIMN · PARTIAL', sub: 'the light areas lined up on the room' } }, lines: [
-        'Limn alignment: partial.',
+      { type: 'object', sprite: 'lamp_part', x: 6, y: 9, name: 'LIGHT AREAS',
+        action: { do: 'show', board: 'board', item: { text: 'LIGHT AREAS · PARTIAL', sub: 'the light areas lined up on the room' } }, lines: [
+        'Lining the light areas up on the room: partial.',
       ] },
       { type: 'object', sprite: 'lamp_part', x: 8, y: 9, name: 'ARM TOUCH POINTS',
         action: { do: 'show', board: 'board', item: { text: 'ARM TOUCH POINTS · PARTIAL', sub: 'the six spots, taught again per room' } }, lines: [
@@ -431,8 +426,8 @@ window.LEVELS = [
         'MediaPipe numbers: not solved. Today they are tuned by hand.',
       ] },
       { type: 'object', sprite: 'lamp_no', x: 12, y: 9, name: 'RACKS TO EFFECTS',
-        action: { do: 'show', board: 'board', item: { text: 'RACKS TO TD EFFECTS · NOT SOLVED', sub: 'Ableton macros to TouchDesigner ranges' } }, lines: [
-        'Ableton racks to TD effects: not solved. The ranges are typed into TD by hand.',
+        action: { do: 'show', board: 'board', item: { text: 'RACKS TO EFFECTS · NOT SOLVED', sub: 'Ableton controls to TouchDesigner ranges' } }, lines: [
+        'Ableton racks to TouchDesigner effects: not solved. The ranges are typed in by hand.',
       ] },
       { type: 'object', sprite: 'lamp_no', x: 14, y: 9, name: 'SMOOTHING',
         action: { do: 'show', board: 'board', item: { text: 'SMOOTHING · NOT SOLVED', sub: 'how each control eases in and out' } }, lines: [
@@ -478,10 +473,10 @@ window.LEVELS = [
       { type: 'sign', sprite: 'sign', x: 3, y: 9, name: 'THE CHAIN',
         action: { do: 'sequence', board: 'board', join: ' → ', steps: [
           { item: { text: 'PLANT', sub: 'the Scion reads it, notes on its pulse' }, lines: ['The plant, through the Scion. Notes only on its pulse.'] },
-          { item: { text: 'ABLETON', sub: 'raw on Chord Four, or nudged through the rig' }, lines: ['Into Ableton, raw on Chord 4 or nudged through the stations.'] },
-          { item: { text: 'ARM', sub: 'a touched spot picks notes, channel and send' }, lines: ['The arm picks the spot, and the spot picks the notes.'] },
-          { item: { text: 'LOOP', sub: 'tape delay into Valhalla, ridden on channel sixteen' }, lines: ['The loop holds it, ridden live.'] },
-          { item: { text: 'BODY', sub: 'hands drive macros, distance rides feedback' }, lines: ['Hands and body ride the macros and the feedback.'] },
+          { item: { text: 'ABLETON', sub: 'straight in, or nudged off the pulse' }, lines: ['Into Ableton, straight in or nudged off the pulse.'] },
+          { item: { text: 'ARM', sub: 'a touched spot picks notes, voice and send' }, lines: ['The arm picks the spot, and the spot picks the notes.'] },
+          { item: { text: 'LOOP', sub: 'a tape delay into a long reverb, ridden live' }, lines: ['The loop holds it, ridden live.'] },
+          { item: { text: 'BODY', sub: 'hands drive effects, distance rides feedback' }, lines: ['Hands and body ride the effects and the feedback.'] },
           { item: { text: 'LIGHT', sub: 'the spot being played is lit' }, lines: ['And the light follows the spot.'] },
         ] } },
       // Crowd mode only: A puts the room's vote on the board, live.
@@ -532,9 +527,9 @@ window.LEVELS = [
     things: [
       { type: 'billboard', id: 'board', x: 1, y: 1, w: 18, h: 4, start: { text: 'QUESTIONS', sub: 'scan the code to ask one from your phone' } },
       { type: 'object', sprite: 'sun', x: 6, y: 5, w: 3, h: 3 },
-      { type: 'npc', sprite: 'tech', x: 2, y: 8, dir: 'down', name: 'WHERE THE DOCS ARE',
-        action: { do: 'show', board: 'board', item: { text: 'THE RIG DOCS', sub: 'in the docs folder next to this game' } }, lines: [
-        'The rig is written up in GATEWAY.md, SCENE_FLOW.md and POSSIBILITIES.md.',
+      { type: 'npc', sprite: 'tech', x: 2, y: 8, dir: 'down', name: 'THE RIG NOTES',
+        action: { do: 'show', board: 'board', item: { text: 'THE RIG NOTES', sub: 'ask after the talk' } }, lines: [
+        'Every part of the rig is written up. Ask after the talk to see the notes.',
       ] },
       { type: 'sign', sprite: 'sign', x: 12, y: 8, name: 'ART CREDITS', lines: [
         'Everything on screen is drawn in code. The phone characters are the Cozy Farm Lite farmer by Bramble & Byte (CC-BY 4.0).',
