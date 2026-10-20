@@ -118,7 +118,7 @@
     var risks = [];
     if (wiring.src.indexOf("touch") >= 0) risks.push("arm contact is predicted from the Scion manual and untested; here it is simulated");
     if (wiring.src.indexOf("energy") >= 0) risks.push("no DJ input module exists; the slider stands in");
-    if (wiring.time === "tick" || wiring.time === "gate" || wiring.time === "ornament") risks.push("timing stays on the plant's 127.9 ms grid");
+    if (wiring.time === "tick" || wiring.time === "gate" || wiring.time === "ornament") risks.push("timing stays on the plant's pulse, about eight ticks a second");
     if (wiring.dest === "notes") risks.push("notes are capped at 12 per 30 s");
     if (risks.length) row("watch", risks.join("; "), "warn");
     n.appendChild(dl);

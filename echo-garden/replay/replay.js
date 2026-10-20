@@ -340,7 +340,7 @@
     drawLane(ui.lanePlayed, S.seq_notes, colors.played, false, ph, win);
     var note = "";
     if (ui.gridOn.checked) {
-      if (pxPer < 3) note = "Zoom in (a shorter window) to see the 127.9 ms grid.";
+      if (pxPer < 3) note = "Zoom in (a shorter window) to see the plant's pulse.";
       else if (ph == null) note = "No raw notes in view to fit the grid's phase.";
       else note = "The grid's phase is fitted to the raw notes in view.";
     }

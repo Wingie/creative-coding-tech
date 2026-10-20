@@ -4,8 +4,8 @@ slug: echo-garden
 tagline: A gridless instrument for live sets, where the music moves when bodies and plants move
 description: >-
   A robot arm touches a living plant and closes its circuit. The plant's notes
-  run into my live Ableton set and trigger instruments. A tape-delay loop and a
-  Kinect let a performer join in.
+  run into my live Ableton set and loop on three rings that drift apart. At the
+  hackathon, a performer conducts them with her body, or by voice from a Pebble watch.
 language: TouchDesigner / Ableton Live
 role: Built
 year: 2026
@@ -17,6 +17,7 @@ tech:
   - TouchDesigner
   - Kinect
   - Wekinator
+  - Pebble
   - three.js
 client: ADE Lab Hackathon, Amsterdam, October 2026
 live_url: https://creativecodingtech.com/echo-garden/
@@ -43,10 +44,8 @@ A density threshold sets how many notes get through. My other instruments share 
 
 Everything can loop through a Frippertronics-style tape delay. The loop takes a live performer or the plant's notes. It can also take a performer's body. A Kinect reads it, and it's played like a theremin.
 
-Still being tried: the Kinect follows the performer, and the arm moves to where she comes near the plant. Wekinator may sit in between. Light may be projected onto her body.
+Still being tried: the Kinect follows the performer, and the arm moves to where she comes near the plant. Light is projected onto her body.
 
-I'm building it at the ADE Lab Hackathon in Amsterdam, 21 to 23 October 2026, for Colin Benders' Escape the Grid challenge.
+I'm building the conductor at the ADE Lab Hackathon in Amsterdam, 21 to 23 October 2026, for Colin Benders' Escape the Grid challenge. The plant's notes land on three rings. Each one loops at its own length, 3.1, 5.3 and 8.6 seconds, so they drift apart and never line up. Every time round, each note gets a little quieter until it's gone. Wekinator listens to the plant and the performer's body, and decides how full each ring plays and how long its notes last. She steers it by gesture, or by voice and buttons on a Pebble watch. The jury sees it on 22 October.
 
-Still open: finding the leaves on show day, lining up the Kinect, projector and arm in a new room, and how a set runs.
-
-[Open Echo Garden](/echo-garden/), or [take the tour](/echo-garden/tour/).
+[Open Echo Garden](/echo-garden/), [take the tour](/echo-garden/tour/), or [walk through the talk](/echo-garden/talk/).

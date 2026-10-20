@@ -51,7 +51,7 @@
     <h2 id="h-on">When the notes happen</h2>
     <p class="explain">Each mark is a note. The top lane shows the notes as they came from the plant. The bottom lane shows the notes that were played. A density threshold lets fewer notes through, so the echo stays clear.</p>
     <div class="row wrap">
-      <label class="ctl check"><input id="gridOn" type="checkbox" checked> Show the 127.9 ms grid</label>
+      <label class="ctl check"><input id="gridOn" type="checkbox" checked> Show the plant's pulse</label>
       <label class="ctl">Window
         <select id="win">
           <option value="4">4 s</option>
@@ -83,7 +83,7 @@
 
   <section class="panel stats" aria-labelledby="h-stats" hidden>
     <h2 id="h-stats">Where the notes land</h2>
-    <p class="explain">Left, the gaps between notes. Right, where each note lands inside one step of the plant's 127.9 ms grid. A tall spike means the notes are stuck to the grid. A flat spread means they're free.</p>
+    <p class="explain">Left, the gaps between notes. Right, where each note lands inside one step of the plant's pulse, which ticks about eight times a second. A tall spike means the notes are stuck to the grid. A flat spread means they're free.</p>
     <div class="hists">
       <figure><figcaption>Raw: gaps between notes</figcaption><canvas id="hRawIoi" class="cv hcv"></canvas></figure>
       <figure><figcaption>Raw: offset from the grid</figcaption><canvas id="hRawPh" class="cv hcv"></canvas></figure>
