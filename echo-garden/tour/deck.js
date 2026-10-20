@@ -33,7 +33,7 @@
       b: "A Kinect watches the performer. When she walks up to the plant, the arm should come and meet her at the nearest leaf and bring the plant in. Wekinator learns her poses, and the projector lights her body as she moves.",
       act: "move across the scene: come near the plant", mode: "body" },
     { k: "The hackathon work", t: "What gets built at the hackathon",
-      b: "Three rings, looping every 3.1, 5.3 and 8.6 seconds. The plant's notes land on them and drift out of step, and each note gets a little quieter every lap. Wekinator listens to the plant and the performer and conducts the rings. She steers with gestures, or talks to a Pebble watch on her wrist.",
+      b: "Three rings, looping every 3.1, 5.3 and 8.6 seconds. The plant's notes land on them and drift out of step, and each note gets a little quieter every lap. Wekinator listens to the plant and the performer and conducts the rings. She steers with gestures and with her voice.",
       act: "", mode: "open", tpl: "tpl-ideas" },
     { k: "ADE Lab Hackathon, Amsterdam, 21 to 23 October 2026", t: "Come and see it",
       b: "Echo Garden is an entry for Colin Benders' challenge, Escape the Grid. Come and find Wingston at ADE Lab to hear it. The jury presentations are on Thursday 22 October at 16:00.",
@@ -287,7 +287,7 @@
         rect(x + j, y, 104, 38, "#0d0322dd"); line(x, y, x + 104, y, C.mag); line(x, y + 38, x + 104, y + 38, C.mag);
         textC("?", x + 8 + j, y + 6, C.sun); text(a, x + 18, y + 6, C.ink); text(b, x + 18, y + 20, C.muted);
       };
-      q(6, 12, "three rings", "3.1 5.3 8.6 s"); q(108, 12, "a conductor", "plant and body"); q(210, 12, "a watch", "voice, buttons");
+      q(6, 12, "three rings", "3.1 5.3 8.6 s"); q(108, 12, "a conductor", "plant and body"); q(210, 12, "her voice", "spoken cues");
     }
     if (m === "roles" || m === "join") {
       var picks = m === "join" ? ["ADE Lab", "Amsterdam", "21-23 Oct"] : S.roles;
