@@ -36,16 +36,17 @@ videos:
     caption: "A longer take of the arm panel and the plant's signal."
 demos:
   - src: https://media.creativecodingtech.com/videos/demos/echo-garden.mp4
+    title: Echo Garden
 ---
 
-A robot arm touches a living plant and closes its circuit. A Pocket Scion turns the plant's signal into MIDI. That MIDI runs into my live Ableton set and triggers instruments. Lift the arm and the plant drops out.
+A robot arm rests its tip on a leaf, and the plant joins the band. A Pocket Scion listens to the plant's electrical signal and turns it into MIDI, which plays instruments in my live Ableton set. When the arm lifts, the plant goes quiet.
 
-A density threshold sets how many notes get through. My other instruments share the same threshold.
+A threshold decides how many of the plant's notes get through, and a few of my other instruments follow the same threshold.
 
-Everything can loop through a Frippertronics-style tape delay. The loop takes a live performer or the plant's notes. It can also take a performer's body. A Kinect reads it, and it's played like a theremin.
+Everything can go round a Frippertronics-style tape loop: the plant's notes, a singer's voice, or a performer playing it with her hands like a theremin while a Kinect watches.
 
-Still being tried: the Kinect follows the performer, and the arm moves to where she comes near the plant. Light is projected onto her body.
+Still being tried: when the performer walks up to the plant, the arm comes to meet her at the nearest leaf, and the projector lights her body as she moves.
 
-I'm building the conductor at the ADE Lab Hackathon in Amsterdam, 21 to 23 October 2026, for Colin Benders' Escape the Grid challenge. The plant's notes land on three rings. Each one loops at its own length, 3.1, 5.3 and 8.6 seconds, so they drift apart and never line up. Every time round, each note gets a little quieter until it's gone. Wekinator listens to the plant and the performer's body, and decides how full each ring plays and how long its notes last. She steers it by gesture, or by voice and buttons on a Pebble watch. The jury presentations are on Thursday 22 October at 16:00.
+At the ADE Lab Hackathon in Amsterdam, 21 to 23 October 2026, I'm building the conductor for Colin Benders' Escape the Grid challenge. The plant's notes land on three rings that loop every 3.1, 5.3 and 8.6 seconds, so they drift apart and never line up again. Each note gets a little quieter every lap until it's gone. Wekinator listens to the plant and the performer and decides how full each ring plays and how long its notes hang on. She steers it with gestures, or by talking to a Pebble watch on her wrist. Come and hear it: the jury presentations are on Thursday 22 October at 16:00.
 
 [Open Echo Garden](/echo-garden/), [take the tour](/echo-garden/tour/), or [walk through the talk](/echo-garden/talk/).

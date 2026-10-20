@@ -25,7 +25,7 @@
     ".eg-nav .eg-join{margin-left:auto;background:#ff2bd6;color:#12052b}" +
     ".eg-nav .eg-join:hover{background:#ff5ce0}" +
     ".eg-nav a:focus-visible{outline:2px solid #22e6ff;outline-offset:2px}" +
-    "@media (max-width:520px){.eg-nav{padding:4px 8px;gap:0}.eg-nav a{padding:8px 7px;font-size:13px}.eg-nav .eg-join{margin-left:0}}";
+    "@media (max-width:520px){.eg-nav{padding:4px 8px;gap:0}.eg-nav a{padding:8px 7px;font-size:13px}.eg-nav .eg-join{margin-left:0}.eg-nav .eg-when{display:none}}";
   document.head.appendChild(css);
 
   var nav = document.createElement("nav");
@@ -48,7 +48,8 @@
   var join = document.createElement("a");
   join.className = "eg-join";
   join.href = "https://musichackspace.org/events/hackathon-amsterdam-october-2026/teams/1222";
-  join.textContent = "ADE Lab, 21-23 Oct";
+  join.innerHTML = "ADE Lab<span class=\"eg-when\">, 21-23 Oct</span>";
+  join.setAttribute("aria-label", "Echo Garden at ADE Lab, 21 to 23 October 2026");
   nav.appendChild(join);
   document.body.insertBefore(nav, document.body.firstChild);
 })();

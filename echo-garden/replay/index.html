@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Echo Garden Replay</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cpath d=%22M8 30h16l2-10H6z%22 fill=%22%23c0623b%22/%3E%3Cpath d=%22M16 20C10 18 6 12 7 4c6 1 10 6 9 16zm0 0c2-6 6-9 11-9-1 5-5 9-11 9z%22 fill=%22%234f8a3a%22/%3E%3C/svg%3E">
 <meta name="description" content="Hear a real recording of a plant's signal, played back through Echo Garden. The robot arm in the replay is simulated.">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -11,7 +12,7 @@
 
 <header class="top">
   <h1>What a plant sounds like</h1>
-  <p class="notice" id="notice">This is a real plant's signal, recorded through a Pocket Scion in August 2026. One minute of it is looped to five. Press Play to watch it, and Sound on to hear it. The plant's notes are real. The arm in this replay is simulated. <a href="../#how">How it works</a>.</p>
+  <p class="notice" id="notice">A real plant, recorded through a Pocket Scion in August 2026. One minute of it repeats for five. Press Play to watch and Sound on to hear it. The plant's notes are real, and the arm is simulated. <a href="../#how">How it works</a>.</p>
   <p class="notice ask">Look at how the signal moves. What would you do with it?</p>
 </header>
 
@@ -41,7 +42,7 @@
 <main class="grid">
   <section class="panel arm" aria-labelledby="h-arm">
     <h2 id="h-arm">Where the arm touches</h2>
-    <p class="explain">The top view shows the plant in the middle and 6 spots the arm can touch. The side view shows the arm dipping down. When it touches a leaf, the plant's circuit closes and its notes come in. Each spot plays from a different set of notes.</p>
+    <p class="explain">From above, the plant sits in the middle with six spots around it that the arm can touch. From the side you can see the arm dip down to a leaf. Each spot plays a different set of notes.</p>
     <canvas id="armTop" class="cv" role="img" aria-label="Top-down view of the plant, the stations and the arm"></canvas>
     <canvas id="armSide" class="cv side" role="img" aria-label="Side view of the arm and its height"></canvas>
     <p class="status" id="armStatus">&nbsp;</p>
@@ -49,7 +50,7 @@
 
   <section class="panel onsets" aria-labelledby="h-on">
     <h2 id="h-on">When the notes happen</h2>
-    <p class="explain">Each mark is a note. The top lane shows the notes as they came from the plant. The bottom lane shows the notes that were played. A density threshold lets fewer notes through, so the echo stays clear.</p>
+    <p class="explain">Each mark is a note. The top lane is what the plant sent, and the bottom lane is what actually played. The threshold holds some notes back so the echo doesn't turn to mush.</p>
     <div class="row wrap">
       <label class="ctl check"><input id="gridOn" type="checkbox" checked> Show the plant's pulse</label>
       <label class="ctl">Window
@@ -76,7 +77,7 @@
 
   <section class="panel loop" aria-labelledby="h-loop">
     <h2 id="h-loop">How much echo comes back</h2>
-    <p class="explain">The line shows how much of the echo keeps coming back, across the whole session. Bars under the chart mark when the arm touched the plant. Letters mark the loop controls: D turns the echo down for a moment, C clears it, P stops everything. Click or tap the chart to jump to that moment.</p>
+    <p class="explain">The line is how much echo keeps coming back over the whole session. Bars under the chart show when the arm was touching the plant. The letters are the loop pads: D turns the echo down for a moment, C clears it, P stops everything. Click or tap the chart to jump there.</p>
     <canvas id="loopCv" class="cv loopcv" role="img" aria-label="Loop feedback over time with duck, clear and panic marks"></canvas>
     <p class="status" id="loopStatus">&nbsp;</p>
   </section>

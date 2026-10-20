@@ -18,25 +18,25 @@
   // ------------------------------------------------------------------ slides
   var SLIDES = [
     { k: "Echo Garden", t: "A gridless instrument for live sets",
-      b: "A plant, a robot arm, a performer and a Frippertronics-style tape delay, played as one performance. Click the plant and the arm closes its circuit. The plant's signal turns into MIDI, which goes into the Ableton set and triggers instruments. Space works too. The arrows move to the next slide.",
+      b: "A plant, a robot arm, a performer and a tape loop, all playing one piece. Click and hold the plant and the arm touches a leaf, which closes the plant's circuit and lets its notes into the set. Space does the same. The arrow keys, or a swipe on this card, move between slides.",
       act: "click and hold the plant", mode: "intro" },
     { k: "Working today", t: "Touch a leaf and the plant joins the set",
-      b: "When the arm rests on a leaf, it closes the plant's circuit. A Pocket Scion turns the plant's signal into MIDI. The MIDI runs into the live Ableton set and triggers instruments. Lift the arm and the plant drops out.",
+      b: "A Pocket Scion sits next to the pot and turns the plant's electrical signal into MIDI notes. They only flow while the arm rests on a leaf. Let go and the plant drops out of the set.",
       act: "hold: keep the arm on the leaf", mode: "touch" },
     { k: "Working today", t: "How many notes get through",
-      b: "A density threshold sets how many of the plant's notes get through. Raise it and fewer notes play. Lower it and more do. Other instruments in the set share the same threshold, such as the sting.",
+      b: "A threshold decides how many of the plant's notes get through. Push it up and the plant gets sparse. Pull it down and it gets busy. The sting and a few other instruments in the set follow the same threshold.",
       act: "click: raise / lower the threshold", mode: "tick" },
     { k: "Working today", t: "Frippertronics",
-      b: "Frippertronics is looping over yourself through a long tape delay. Robert Fripp and Brian Eno did it with two tape machines. The loop takes a live performer, the plant's notes or a performer's body. A Kinect reads the body, and it's played like a theremin.",
+      b: "Frippertronics is looping over yourself through a long tape delay. Robert Fripp and Brian Eno did it with two tape machines. Here the loop takes the plant's notes and a singer's voice, and a performer can play it with her hands like a theremin while a Kinect watches.",
       act: "click: drop notes into the loop", mode: "echo" },
     { k: "Still being tried", t: "The arm meets the performer",
-      b: "A Kinect reads how a performer moves. The idea is that when she comes near the plant, the arm moves to meet her there and brings the plant in. Wekinator learns her poses and passes them on. Light is projected onto her body too.",
+      b: "A Kinect watches the performer. When she walks up to the plant, the arm should come and meet her at the nearest leaf and bring the plant in. Wekinator learns her poses, and the projector lights her body as she moves.",
       act: "move across the scene: come near the plant", mode: "body" },
     { k: "The hackathon work", t: "What gets built at the hackathon",
-      b: "The plant's notes land on three rings that loop at 3.1, 5.3 and 8.6 seconds. They drift apart and never line up, and each note fades a little every time round. Wekinator conducts the rings from the plant and the performer's body. She steers by gesture, or by voice and buttons on a Pebble watch.",
+      b: "Three rings, looping every 3.1, 5.3 and 8.6 seconds. The plant's notes land on them and drift out of step, and each note gets a little quieter every lap. Wekinator listens to the plant and the performer and conducts the rings. She steers with gestures, or talks to a Pebble watch on her wrist.",
       act: "", mode: "open", tpl: "tpl-ideas" },
     { k: "ADE Lab Hackathon, Amsterdam, 21 to 23 October 2026", t: "Come and see it",
-      b: "Echo Garden is an entry for Colin Benders' challenge, Escape the Grid. Find Wingston at ADE Lab in Amsterdam, 21 to 23 October 2026. The jury presentations are on Thursday 22 October at 16:00.",
+      b: "Echo Garden is an entry for Colin Benders' challenge, Escape the Grid. Come and find Wingston at ADE Lab to hear it. The jury presentations are on Thursday 22 October at 16:00.",
       act: "", mode: "join", tpl: "tpl-join" }
   ];
   var cur = 0;
@@ -301,6 +301,17 @@
   }
 
   // ------------------------------------------------------------------ slide UI
+  // Swipe the text card left or right to change slide (the stage keeps its own touches).
+  (function () {
+    var card = document.querySelector(".card"), x0 = null, y0 = 0;
+    if (!card) return;
+    card.addEventListener("touchstart", function (e) { var t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; }, { passive: true });
+    card.addEventListener("touchend", function (e) {
+      if (x0 === null) return;
+      var t = e.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0; x0 = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > 1.5 * Math.abs(dy)) show(cur + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  })();
   function show(i) {
     cur = Math.max(0, Math.min(SLIDES.length - 1, i));
     var s = SLIDES[cur];
