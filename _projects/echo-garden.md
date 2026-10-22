@@ -45,7 +45,7 @@ A threshold decides how many of the plant's notes get through, and a few of my o
 
 Everything can go round a Frippertronics-style tape loop: the plant's notes, a singer's voice, or a performer playing it by hand like a theremin.
 
-The performer plays a theremin in the air, in four ways, always in the key of the set. Hand signs switch between the drums, the bass and the lead, and on the bass or the drums the hands shape the dub instead of playing notes. The lead rings on in two long reverb loops. A small mic replaces the foot pedals: saying "make a sample of dusty dub chords" makes a new loop on the spot, in tempo and key, and two thumbs up mixes it in.
+The performer plays a theremin in the air, in four ways, always in the key of the set. Hand signs switch between the drums, the bass and the lead, and on the bass or the drums the hands shape the dub instead of playing notes. There is no grid: the lead is sequenced through several tape-style delays and loops, Frippertronics style, each pass a little quieter than the last. A small mic replaces the foot pedals: saying "make a sample of dusty dub chords" makes a new loop on the spot, in tempo and key, and two thumbs up mixes it in.
 
 Still being tried: bringing the arm to the performer at the nearest leaf, lighting the body with the projector, and spoken words that change the visuals.
 
